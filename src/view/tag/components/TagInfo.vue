@@ -3,7 +3,7 @@
     <template v-if="bookmark.type === 'normal'">
       <div class="category-title">{{ bookmark.tagData?.name || 'BMS' }}</div>
       <div class="category-content">
-        {{ bookmark.tagList.length }} 个相关书签，{{ bookmark.tagData?.associatedTagList?.length }}
+        {{ bookmark.tagData.associatedTagList.length }} 个相关书签，{{ bookmark.tagData?.associatedTagList?.length }}
         个关联标签
       </div>
       <div class="category-tag">
