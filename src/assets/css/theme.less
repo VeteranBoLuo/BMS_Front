@@ -1,0 +1,89 @@
+[data-theme='day'] {
+  --bg-image: linear-gradient(
+    150deg,
+    #ffecf9,
+    #ffffff,
+    #ffffff,
+    #ffffff,
+    #ffffff,
+    #ffffff,
+    #ffecf9
+  );
+  --background-color: #ffffff;
+  --text-color: #000000;
+  --icon-color: #bfbfbf;
+  --bl-input-border-h-color: #5c5a56; // 输入框边框hover颜色
+  --category-item-ba-color: #ededed;
+  --desc-color: rgb(113, 113, 122); //描述类文字，比如卡片描述、标签文字、弹框文字等
+  --common-tag-bg-color: #f0f0f0; // 标签背景颜色
+  --common-tag-h-color: #213547; // 标签文字颜色
+  --right-menu-bg-color: #ffffff; // 右侧菜单背景颜色
+  --btn-h-bg-color: #eeeeef; // 可点击或者有hover状态的功能按钮
+  --card-border-color: #ccc; // 卡片边框颜色
+  --modal-bg-color: #ffffff; // 弹框背景颜色
+  --scrollbar-color: rgb(144 147 153 / 30%); // 滚动条颜色
+  --ant-select-dropdown-bg-color: #ffffff; // 下拉框背景颜色
+  --ant-select-selection-item-bg-color: #f0f0f0; // 下拉框选中标签背景颜色
+  --ant-select-item-option-selected-bg-colot: #919191; // 下拉框选中项背景颜色
+  --require-tip-color: #5c5a56;
+  --userCenter-left-bg-color: #fafafa; // 用户中心左侧背景颜色
+  --userCenter-right-bg-color: var(--background-color); // 用户中心右侧背景颜色
+  --menu-item-bg-color: #f2f2f4;
+  --menu-item-h-bg-color: #e4e4e6;
+}
+
+[data-theme='night'] {
+  --background-color: #020617;
+  --text-color: #ffffff;
+  --icon-color: #ffffff;
+  --category-item-ba-color: #232029;
+  --desc-color: rgb(161, 161, 170); // 夜间主题偏白
+  --bl-input-bg-color: #141620;
+  --bl-input-color: #ffffff;
+  --bl-input-border-h-color: #ccc;
+  --common-tag-bg-color: #1a1d2a;
+  --common-tag-h-color: #f0f0f0;
+  --right-menu-bg-color: black;
+  --btn-h-bg-color: #1a1d2a;
+  --card-border-color: rgba(63, 63, 70, 0.6);
+  --modal-bg-color: #3c3f41;
+  --ant-select-selector-bg-color: #141620;
+  --ant-select-selection-item-bg-color: #3c3f41;
+  --ant-select-selection-item-anticon-close-color: #ffffff;
+  --ant-select-dropdown-bg-color: #919191;
+  --ant-select-item-option-selected-bg-colot: #5f5f5f; // 下拉框选中项背景颜色
+  --scrollbar-color: #ccc;
+  --require-tip-color: wheat;
+  --userCenter-left-bg-color: #2b2b2b;
+  --userCenter-right-bg-color: #2b2b2b;
+  --menu-body-bg-color: #252632;
+  --menu-item-bg-color: #33343f;
+  --menu-item-h-bg-color: #41424c;
+}
+
+/*--------------------------a-select下拉框配置----------------------*/
+.ant-select-selector {
+  background-color: var(--ant-select-selector-bg-color) !important;
+  color: var(--text-color) !important;
+  .ant-select-selection-item {
+    background-color: var(--ant-select-selection-item-bg-color) !important;
+  }
+  .anticon-close {
+    color: var(--ant-select-selection-item-anticon-close-color) !important;
+  }
+}
+
+// 选择器下拉菜单背景颜色
+.ant-select-dropdown {
+  background-color: var(--ant-select-dropdown-bg-color) !important;
+  color: white !important;
+}
+.ant-select-item-option-selected {
+  background-color: var(--ant-select-item-option-selected-bg-colot) !important;
+  color: #ffffff !important;
+}
+.anticon-close-circle {
+  background-color: var(--bl-input-bg-color) !important;
+  color: var(--text-color);
+}
+/*------------------------------------------------------------------*/

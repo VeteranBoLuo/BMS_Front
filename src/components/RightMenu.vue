@@ -1,0 +1,126 @@
+<template>
+  <div ref="containerRef" style="width: 100%">
+    <!-- 定义插槽，传递的内容就要显示在插槽之中 -->
+    <slot></slot>
+    <!-- 设置一个 div 用来显示菜单 -->
+    <Teleport to="body">
+      <Transition @beforeEnter="handleBeforeEnter" @enter="handleEnter">
+        <div
+          v-if="showMenu"
+          class="context-menu-wrapper"
+          :style="{
+            left: mouseX + 'px',
+            top: mouseY + 'px',
+          }"
+        >
+          <div class="context-menu">
+            <!-- 循环遍历菜单项，显示出来 -->
+            <div
+              @click="handleClick(label)"
+              class="menu-item"
+              v-for="(label, i) in menu"
+              :key="label"
+            >
+              {{ label }}
+            </div>
+          </div>
+        </div>
+      </Transition>
+    </Teleport>
+  </div>
+</template>
+
+<script setup>
+  import { ref, onMounted, onUnmounted } from 'vue';
+  const showMenu = ref(false);
+  const props = defineProps({
+    // 接收传递进来的菜单项
+    menu: {
+      type: Array,
+      default: () => [],
+    },
+  });
+  // 声明一个事件，选中菜单项的时候返回数据
+  const emit = defineEmits(['select']);
+
+  function handleClick(e) {
+    showMenu.value = false;
+    emit('select', e);
+  }
+  function handleClose() {
+    showMenu.value = false;
+  }
+
+  function handleBeforeEnter(el) {
+    el.style.height = 0;
+  }
+
+  function handleEnter(el) {
+    el.style.height = 'auto';
+    const h = el.clientHeight;
+    el.style.height = 0;
+    requestAnimationFrame(() => {
+      el.style.height = h + 'px';
+      el.style.transition = '.2s';
+    });
+  }
+
+  function clickListener(e) {
+    if (e.target?.className !== 'context-menu') {
+      showMenu.value = false;
+    }
+  }
+
+  const containerRef = ref();
+  const mouseX = ref(0);
+  const mouseY = ref(0);
+  onMounted(() => {
+    containerRef.value.addEventListener('contextmenu', (e) => {
+      e.preventDefault(); // 阻止浏览器的默认行为
+      mouseX.value = e.x;
+      mouseY.value = e.y;
+      showMenu.value = true;
+    });
+    window.addEventListener('click', clickListener, true);
+    window.addEventListener('contextmenu', handleClose, true);
+  });
+  onUnmounted(() => {
+    window.removeEventListener('click', clickListener, true);
+    window.removeEventListener('contextmenu', handleClose, true);
+  });
+</script>
+<style lang="less">
+  .context-menu-wrapper {
+    position: fixed;
+    z-index: 9999;
+  }
+  .context-menu {
+    padding: 5px 0;
+    background-color: var(--right-menu-bg-color);
+    width: 150px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    box-shadow: 0 0 3px #ccc;
+    overflow: hidden;
+    .menu-item {
+      padding-left: 10px;
+      font-size: 12px;
+      height: 26px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      &:hover {
+        background-color:  var(--btn-h-bg-color);
+      }
+    }
+  }
+
+  .v-enter-active,
+  .v-leave-active {
+    transition: opacity 0.5s ease;
+  }
+  .v-enter-from,
+  .v-leave-to {
+    opacity: 0;
+  }
+</style>

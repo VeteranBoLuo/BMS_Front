@@ -1,0 +1,208 @@
+<template>
+  <div style="overflow: auto; height: 100%; box-sizing: border-box">
+    <a-table
+      :data-source="userList"
+      :columns="userColumns"
+      row-key="id"
+      :scroll="{ y: bookmark.screenHeight - 350 }"
+      :pagination="false"
+    >
+      <template #bodyCell="{ column, text, record }">
+        <template v-if="column.dataIndex === 'operation'">
+          <b-space>
+            <svg-icon
+              title="编辑"
+              :src="icon.table_edit"
+              size="16"
+              @click="editUser(record)"
+              class="icon-hover"
+            />
+            <svg-icon
+              title="编辑"
+              :src="icon.table_delete"
+              size="16"
+              @click="delUser(record)"
+              class="icon-hover"
+            />
+          </b-space>
+        </template>
+      </template>
+    </a-table>
+    <b-modal
+      v-if="editVisible"
+      title="编辑用户信息"
+      v-model:visible="editVisible"
+      @close="editVisible = false"
+      @ok="saveUserInfo"
+    >
+      <div>
+        <b-form form-id="userEditForm" :form-data="editData" :fields="formFields" />
+      </div>
+    </b-modal>
+  </div>
+</template>
+
+<script lang="ts" setup>
+  import { computed, onMounted, ref } from 'vue';
+  import { bookmarkStore } from '@/store';
+  import { apiBaseGet, apiQueryPost } from '@/http/request.ts';
+  import icon from '@/config/icon.ts';
+  import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
+  import BModal from '@/components/BasicComponents/BModal/BModal.vue';
+  import BForm from '@/components/BasicComponents/BForm/BForm.vue';
+  import { BaseFormItem } from '@/config/formConfig.ts';
+  import formRenders from '@/components/BasicComponents/BForm/FormRenders.vue';
+  import { message } from 'ant-design-vue';
+  import userApi from '@/api/userApi.ts';
+  import BSpace from '@/components/BasicComponents/BSpace/BSpace.vue';
+  import Alert from '@/components/BasicComponents/BModal/Alert.ts';
+  const bookmark = bookmarkStore();
+  const userList = ref([]);
+  const userColumns = computed(() => {
+    if (bookmark.isPhone) {
+      return [
+        {
+          title: '昵称',
+          dataIndex: 'alias',
+          ellipsis: true,
+        },
+        {
+          title: '账号',
+          dataIndex: 'userName',
+          ellipsis: true,
+        },
+        {
+          title: '权限',
+          dataIndex: 'role',
+          ellipsis: true,
+        },
+        {
+          title: '操作',
+          dataIndex: 'operation',
+          ellipsis: true,
+        },
+      ];
+    }
+    return [
+      {
+        title: '昵称',
+        dataIndex: 'alias',
+        ellipsis: true,
+      },
+      {
+        title: '账号',
+        dataIndex: 'userName',
+        ellipsis: true,
+      },
+      {
+        title: '权限',
+        dataIndex: 'role',
+        ellipsis: true,
+      },
+      {
+        title: '密码',
+        dataIndex: 'password',
+        ellipsis: true,
+      },
+      {
+        title: '邮箱',
+        dataIndex: 'email',
+        ellipsis: true,
+      },
+      {
+        title: '操作',
+        dataIndex: 'operation',
+        ellipsis: true,
+      },
+    ];
+  });
+  const editData = ref();
+  const editVisible = ref(false);
+  const editUser = (record) => {
+    editData.value = record;
+    editVisible.value = true;
+  };
+
+  const delUser = (record) => {
+    Alert.alert({
+      title: '提示',
+      content: `请确认是否要删除此用户？`,
+      onOk() {
+        userApi.deleteUserById(record.id).then((res) => {
+          if (res.status === 200) {
+            message.success('删除成功');
+            init();
+          }
+        });
+      },
+    });
+  };
+
+  const formFields: BaseFormItem[] = [
+    {
+      label: '昵称',
+      name: 'alias',
+    },
+    {
+      label: '账号',
+      name: 'userName',
+    },
+    {
+      label: '密码',
+      name: 'password',
+    },
+    {
+      label: '权限',
+      name: 'role',
+      render: formRenders.roleSelector(),
+    },
+  ];
+
+  function saveUserInfo() {
+    userApi.updateUserInfo(editData.value).then((res) => {
+      if (res.status) {
+        message.success('保存成功');
+        editVisible.value = false;
+        init();
+      }
+    });
+  }
+  function init() {
+    apiQueryPost('/api/user/getUserList').then((res) => {
+      if (res.status) {
+        userList.value = res.data;
+      }
+    });
+  }
+
+  onMounted(() => {
+    init();
+  });
+</script>
+
+<style lang="less" scoped>
+  :deep(.ant-select-selector .ant-select-selection-item) {
+    background-color: unset !important;
+  }
+  :deep(.ant-table-container) {
+    border: 1px solid var(--icon-color);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  :deep(.ant-table-wrapper .ant-table) {
+    background-color: var(--background-color);
+    color: var(--text-color);
+  }
+  :deep(.ant-table-cell-ellipsis) {
+    background-color: var(--background-color) !important;
+    color: var(--text-color) !important;
+  }
+  :deep(.ant-table-cell-scrollbar) {
+    background-color: unset !important;
+    display: none;
+  }
+  :deep(.ant-table-cell) {
+    background-color: var(--background-color) !important;
+    color: black;
+  }
+</style>
