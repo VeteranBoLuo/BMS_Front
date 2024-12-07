@@ -180,7 +180,7 @@
   </p>
     </div>
     <p>1、标签图标支持手动填写和文件上传</p>
-    <p>2、手动填写时，图标网站强烈推荐 <a target="_blank" href="https://icon-sets.iconify.design/"><b>Iconify</b></a>，gif演示中获取图标的网站就是Iconify。
+    <p>2、手动填写时，图标网站强烈推荐 <a target="_blank" href="https://icon-sets.iconify.design/"><b>Iconify</b></a>，视频演示中获取图标的网站就是Iconify。
     Iconify提供了大量的开源图标集，适用于各种项目。这些图标集涵盖了多种风格和主题，如Material Design、UI设计、编程标志、表情符号等。<br/>
     网站支持筛选功能，便于快速找到所需图标。此外，Iconify提供的图标具有多种尺寸和格式，灵活适应不同的设计需求。最重要的是，这些图标都是开源的，
     使用起来非常方便。</p>
