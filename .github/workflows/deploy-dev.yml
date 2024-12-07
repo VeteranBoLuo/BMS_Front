@@ -22,9 +22,9 @@ jobs:
       - name: 复制dist文件with scp
         uses: appleboy/scp-action@v0.0.1
         with:
-          host:${{ secrets.HOST}}
-          username:${{ secrets.USERNAME}}
-          password:${{ secrets.PASSWORD}}
-          port:${{ secrets.PORT}}
-          source:'dist'
-          target:'root/test'
+          host: ${{ secrets.HOST}}
+          username: ${{ secrets.USERNAME}}
+          password: ${{ secrets.PASSWORD}}
+          port: ${{ secrets.PORT}}
+          source: 'dist'
+          target: 'root/test'
