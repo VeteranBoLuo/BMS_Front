@@ -27,4 +27,4 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           source: "dist/"
-          target: "/root/test"
+          target: "/www/wwwroot"
