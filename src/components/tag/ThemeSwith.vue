@@ -34,15 +34,13 @@
       .updateUserInfo({
         id: localStorage.getItem('userId'),
         theme: bookmark.theme,
-      })
+      }).then(()=>{
+      localStorage.setItem('theme', bookmark.theme)
+    })
       .catch((err) => {
         console.error('后台错误：' + err);
       });
   }
-
-  onMounted(() => {
-    console.log(bookmark.theme);
-  });
 </script>
 
 <style>

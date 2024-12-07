@@ -29,7 +29,9 @@
           .then((res) => {
             if (res.status === 200) {
               user.setUserInfo(res.data);
-              bookmark.theme = res.data.theme || 'day';
+              bookmark.theme = res.data.theme;
+              getThemeStyle(res.data.theme)
+              localStorage.setItem('theme', res.data.theme)
             } else {
               router.push('/login');
             }
@@ -50,9 +52,6 @@
     router.push('/login');
   }
 
-  onMounted(() => {
-    getThemeStyle(bookmark.theme);
-  });
 
   watch(
     () => bookmark.theme,
@@ -60,6 +59,11 @@
       getThemeStyle(val);
     },
   );
+  // 页面加载前需要设置主题，否则如果后台查询是黑夜主题，但是页面默认是白色的，页面会从白到黑闪一下，这种情况就需要提前设置为黑色
+  const theme=localStorage.getItem('theme')
+  if(theme){
+    bookmark.theme=theme
+  }
   function getThemeStyle(theme) {
     document.documentElement.setAttribute('data-theme', theme);
   }

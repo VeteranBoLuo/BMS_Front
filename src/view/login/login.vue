@@ -174,6 +174,7 @@
           .then((res: any) => {
             if (res.status === 200) {
               localStorage.setItem('userId', res.data.id);
+              localStorage.setItem('theme', res.data.theme)
               bookmark.theme = res.data?.theme || 'day';
               user.setUserInfo(res.data);
               router.push('/');
@@ -201,7 +202,6 @@
   };
 
   const bookmark = bookmarkStore();
-  bookmark.theme = 'day';
 
   function enterFunc(e) {
     if (e.key === 'Enter') {
