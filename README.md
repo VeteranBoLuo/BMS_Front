@@ -118,6 +118,10 @@
 **网站地址：[bl-admin](http://boluo66.top/)**
 
 
-**前端主要技术框架：**Vue+Typescript
+**前端主要技术框架：** Vue+Typescript
 ###
-**后端主要技术框架：**NodeJS+Mysql+Express
+**后端主要技术框架：** NodeJS+Mysql+Express
+
+前端仓库地址：
+后端仓库地址：
+
