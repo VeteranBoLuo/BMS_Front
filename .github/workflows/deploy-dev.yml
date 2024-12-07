@@ -24,8 +24,7 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
-#          password: ${{ secrets.PASSWORD }}
-          key: ${{ secrets.KEY }} # 添加这一行如果你使用密钥认证
+          password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           source: "dist/"
           target: "/root/test"
