@@ -16,9 +16,9 @@ jobs:
         uses: actions/setup-node@master
 
       - name: 安装依赖
-        run: pnpm install
+        run: npm install
       - name: 打包
-        run: pnpm run build
+        run: npm run build
       - name: 复制dist文件with scp
         uses: appleboy/scp-action@v0.0.1
         with:
