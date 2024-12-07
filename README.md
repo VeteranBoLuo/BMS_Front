@@ -122,6 +122,9 @@
 ###
 **后端主要技术框架：** NodeJS+Mysql+Express
 
-前端仓库地址：
-后端仓库地址：
+[**前端代码下载**](https://github.com/VeteranBoLuo/BMS_Front)
+###
+[**后端代码下载**](https://github.com/VeteranBoLuo/BMS_Back)
+###
+[**数据库sql文件下载**](https://github.com/VeteranBoLuo/BMS_Back)
 
