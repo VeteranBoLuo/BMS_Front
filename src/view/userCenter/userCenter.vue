@@ -20,7 +20,7 @@
       <div class="right-content-body">
         <b-button
           style="position: absolute; right: 20px; top: 30px; z-index: 2"
-          @click="$router.back()"
+          @click="$router.push('/home')"
           v-click-log="{ module: '用户中心', operation: `返回` }"
           >返回</b-button
         >

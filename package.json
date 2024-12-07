@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit --skipLibCheck && rimraf C:/Users/boluo/Desktop/dist && vite build",
+    "build": "tsc --noEmit --skipLibCheck && rimraf dist && vite build",
     "preview": "vite preview",
     "prettier:comment": "自动格式化当前目录下的所有文件",
     "prettier": "prettier --write",
