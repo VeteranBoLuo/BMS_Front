@@ -5,7 +5,7 @@
 
 ### <div align="center">BMS</div>
 <div align="center">收纳、分享、探索优质网站</div>
-<div align="center">BMM / bookmark site / 你的专属书签管家</div>
+<div align="center">BMS / bookmark site / 你的专属书签管家</div>
 
 
 
