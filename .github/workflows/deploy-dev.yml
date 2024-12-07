@@ -19,12 +19,12 @@ jobs:
         run: npm install
       - name: 打包
         run: npm run build
-      - name: 复制dist文件with scp
+      - name: 将dist文件复制到服务器
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
-          source: "dist/"
+          source: "dist"
           target: "/www/wwwroot"
