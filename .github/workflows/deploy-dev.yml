@@ -27,5 +27,5 @@ jobs:
 #          password: ${{ secrets.PASSWORD }}
           key: ${{ secrets.KEY }} # 添加这一行如果你使用密钥认证
           port: ${{ secrets.PORT }}
-          source: "dist"
+          source: "dist/"
           target: "/root/test"
