@@ -29,6 +29,10 @@
   - [快捷操作](#快捷操作)
   - [移动端适配](#移动端适配)
 - [细节介绍](#细节介绍)
+  - [标签图标](#标签图标)
+  - [书签图标](#书签图标)
+  - [关联跳转](#关联跳转)
+  - [快捷体验](#快捷体验)   
 
 ### 关于【菠萝书签网】
 
@@ -98,14 +102,14 @@
 
 ### 细节介绍
 
-#### 1、标签图标
+#### 标签图标
 ![image](https://github.com/user-attachments/assets/09f83965-822b-4822-a55d-bd10f1bf2def)
 
 
 
 标签的图标支持svg、base64、图片网址和vue组件的形式传入，推荐一个超级好用的图标网站**IconFy：** [https://icon-sets.iconify.design/](https://icon-sets.iconify.design/ "https://icon-sets.iconify.design/")，可以在其中中选择自己想要的图标，详细使用方法可在网站的帮助中心中了解。
 
-#### 2、书签图标
+#### 书签图标
 
 
 ![image](https://github.com/user-attachments/assets/8067e3df-33f8-4193-b24b-3a715095d341)
@@ -114,14 +118,14 @@
 
 系统将会根据网址自动获取网站图标来作为书签的展示图标。
 
-#### 3、关联跳转
+#### 关联跳转
 
 ![image](https://github.com/user-attachments/assets/94ee35a6-3e42-44c6-bac2-ebf7b01c16cc)
 
 
 点击标签上的小标签即可快捷跳转到对应小标签展示页面。
 
-#### 4、快捷体验
+#### 快捷体验
 
 
 
