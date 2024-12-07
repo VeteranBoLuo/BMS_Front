@@ -52,4 +52,9 @@ SSH_PEM_KEY
 git config --global https.proxy 127.0.0.1:**1**2335
 git config --global http.proxy 127.0.0.1:12335
 
-![image-20241207172207254](C:\Users\Administrator\AppData\Roaming\Typora\typora-user-images\image-20241207172207254.png)
+
+
+
+
+
+最关键的是需要在一定要先在本地电脑上生成密钥而不是服务器上，将生成的公钥放入服务器的.ssh/authorized_kes中，然后在gthub对应项目的secerts中新建一个secret，名子最好为KEY，值为生成的私钥
