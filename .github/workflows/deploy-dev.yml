@@ -1,4 +1,4 @@
-name: 打包后台并部署到服务器
+name: 打包前端并部署到服务器
 on:
   push:
     branches:
