@@ -12,7 +12,7 @@ export default defineConfig({
     // drop: ['debugger'], // 删除 debugger
   },
   build: {
-    outDir: 'C:/Users/boluo/Desktop/dist',
+    outDir: 'dist',
     sourcemap: false, // 默认就是false
   },
 
