@@ -140,21 +140,17 @@
 -   **扩展性**：随着您的需求增长，我们的网站可以轻松扩展，适应您的使用习惯。
 -   **无广告干扰**：我承诺，网站完全免费且无广告，为您提供一个干净的使用环境。
 
-### 结语
 
-所以，如果你也厌倦了混乱的书签栏，想要一个更智能、更高效的方式来管理你的网页资源，那就快来试试【菠萝书签网】吧！我相信，一旦你用上了，就会爱上这种轻松整理书签的感觉。而且，别忘了，这只是一个开始，更多精彩功能还在后面等着你呢！快来注册体验，让我们一起让书签管理变得简单又有趣！🍍🔖✨
 
 **网站地址：[BMS](http://boluo66.top/)**
 
 ### 项目下载
 
-**前端主要技术框架：** Vue+Typescript
-####
-**后端主要技术框架：** NodeJS+Mysql+Express
+****前端主要技术框架：** Vue+Typescript [**前端代码下载**](https://github.com/VeteranBoLuo/BMS_Front)**
 
-[**前端代码下载**](https://github.com/VeteranBoLuo/BMS_Front)
 ####
-[**后端代码下载**](https://github.com/VeteranBoLuo/BMS_Back)
+****后端主要技术框架：** NodeJS+Mysql+Express [**后端代码下载**](https://github.com/VeteranBoLuo/BMS_Back)**
+
 ####
-[**数据库sql文件下载**](https://github.com/VeteranBoLuo/BMS_Back)
+**[**数据库sql文件下载**](https://github.com/VeteranBoLuo/BMS_Back)**
 
