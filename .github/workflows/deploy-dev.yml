@@ -20,11 +20,11 @@ jobs:
       - name: 打包
         run: npm run build
       - name: 复制dist文件with scp
-        uses: appleboy/scp-action@v0.0.1
+        uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
-          source: "dist/"
+          source: "dist"
           target: ${{ secrets.TARGET }}
