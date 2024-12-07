@@ -20,7 +20,7 @@ jobs:
       - name: 打包
         run: npm run build
       - name: 复制dist文件with scp
-        uses: c0c1/scp-action@v1.0
+        uses: nogsantos/ssh-scp-deploy@v1.3.0
         with:
           src: "dist/"
           host: ${{ secrets.HOST }}
