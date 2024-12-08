@@ -1,20 +1,21 @@
 <template>
   <div class="help-container">
+    <b-button
+      style="position: absolute; right: 20px"
+      :style="{ left: bookmark.isPhone ? '' : '187px' }"
+      type="danger"
+      @click="$router.push('/manage')"
+      v-click-log="{ module: '帮助中心', operation: `返回` }"
+      >返回</b-button
+    >
     <b-space style="width: 100%">
       <b-input
         v-model:value="searchValue"
-        :style="{ width: bookmark.isPhone ? '100%' : '150px' }"
+        :style="{ width: bookmark.isPhone ? 'calc(100% - 80px)' : '145px' }"
         placeholder="目录名..."
       />
-      <b-button
-        style="margin-left: 5px"
-        type="danger"
-        @click="$router.push('/manage')"
-        v-click-log="{ module: '帮助中心', operation: `返回` }"
-        >返回</b-button
-      >
     </b-space>
-    <div class="help-body" >
+    <div class="help-body">
       <div
         v-if="bookmark.isPhone"
         class="help-title"
@@ -56,7 +57,7 @@
         </div>
       </div>
       <div
-              id="view-body"
+        id="view-body"
         :style="{ width: bookmark.isPhone ? 'calc(100% - 40px)' : 'calc(100% - 150px)' }"
         style="
           height: 100%;
@@ -128,12 +129,12 @@
     </div>
     <div class="bookmark-definition">
       <h3>什么是书签？</h3>
-      <p>书签是保存网站链接以便快速访问的一种方式。它就像是一个虚拟的书签，你可以将喜欢的网页或资源添加到书签中，以便日后快速检索。</p>
+      <p>书签是保存网站链接以便快速访问的一种方式。你可以将喜欢的网页或资源添加到书签中，以便日后快速检索。</p>
     </div>
 
     <h3>标签与书签的关系</h3>
     <p>一个标签下可以有多个书签。例如，"文档"标签可能包含各种文档网站的书签，菜鸟教程、Vue官方网站等。</p>
-    <p>同样，一个书签也可以属于多个标签。例如，Vue的官方网站可能同时属于"Vue"和"文档"两个标签，因为它既与Vue相关，又是一个文档网站。</p>
+    <p>同样，一个书签也可以属于多个标签。例如，Vue的官方网站可能同时属于"Vue"和"文档"这两个标签，因为它既与Vue相关，又是一个文档网站。</p>
 
     <div class="bookmark-example">
       <h3>关系示例</h3>
@@ -229,13 +230,13 @@
 
   const helpInfo = `<div class="help-document-intro">
     <h2>欢迎来到帮助中心</h2>
-    <p>您好！感谢您使用我们的服务。本帮助文档旨在为您提供详细的使用指南和解答常见问题，帮助您更高效地使用我们的平台。在这里，您可以找到关于以下方面的详细介绍：</p>
+    <p>您好！感谢您使用【菠萝标签网】。本帮助文档旨在为您提供详细的使用指南和解答常见问题，帮助您更高效地使用此平台。在这里，您可以找到关于以下方面的详细介绍：</p>
     <ul>
       <li><strong>账号管理</strong>：如何注册、登录、找回密码及修改个人信息。</li>
       <li><strong>功能操作</strong>：平台各项功能的操作步骤和注意事项。</li>
       <li><strong>常见问题解答</strong>：针对用户在使用过程中遇到的问题提供解决方案。</li>
     </ul>
-    <p>为了更好地帮助您，请根据左侧目录或搜索框查找您需要了解的内容。如果您在使用过程中遇到任何问题，也可以通过以下方式联系我：</p>
+    <p>为了更好地帮助您，请根据左侧目录或搜索框查找您需要了解的内容。如果您在使用过程中遇到任何问题，请通过意见反馈，提出您宝贵的的建议。也可以通过以下方式联系我：</p>
     <ul>
       <li>邮箱：1902013368@qq.com</li>
     </ul>
