@@ -55,11 +55,11 @@
       @close="opinionsVisible = false"
     >
       <div :style="{ width: bookmark.isPhone ? '95%' : '450px' }">
-        <div class="opinionType">
+        <div class="type">
           <div style="font-size: 14px">反馈类型</div>
           <b-radio
             style="margin-top: 10px"
-            v-model:value="opinionData.opinionType"
+            v-model:value="opinionData.type"
             :options="[
               { label: '产品建议', value: '产品建议' },
               { label: '功能故障', value: '功能故障' },
@@ -85,9 +85,24 @@
                 <svg-icon size="30" :src="icon.file_upload" />
               </div>
             </b-upload>
-            <div v-for="(item,index) in opinionData.imgArray" style="position: relative;width: 80px; height: 80px;box-sizing: border-box">
-              <img :src="item" style="width: 80px; height: 80px;box-sizing: border-box" alt="" />
-              <span style="position: absolute;right: 10px;top:0;z-index: 9;font-size: 14px;color: red" @click="opinionData.imgArray.splice(index,1)" class="icon-hover">x</span>
+            <div
+              v-for="(item, index) in opinionData.imgArray"
+              style="position: relative; width: 80px; height: 80px; box-sizing: border-box"
+            >
+              <img :src="item" style="width: 80px; height: 80px; box-sizing: border-box" alt="" />
+              <span
+                style="
+                  position: absolute;
+                  right: 10px;
+                  top: 0;
+                  z-index: 9;
+                  font-size: 14px;
+                  color: red;
+                "
+                @click="opinionData.imgArray.splice(index, 1)"
+                class="icon-hover"
+                >x</span
+              >
             </div>
           </div>
           <div style="margin-top: 10px">
@@ -105,7 +120,7 @@
           type="danger"
           style="width: 100%; margin-top: 20px"
           @click="submit"
-          v-click-log="{ module: '意见反馈', operation: JSON.stringify(opinionData) }"
+          v-click-log="{ module: '意见反馈', operation: '提交反馈' }"
           >提交</b-button
         >
       </template>
@@ -126,6 +141,8 @@
   import BButton from '@/components/BasicComponents/BButton/BButton.vue';
   import BUpload from '@/components/BasicComponents/BUpload/BUpload.vue';
   import { message } from 'ant-design-vue';
+  import { apiBaseGet, apiBasePost } from '@/http/request.ts';
+  import { cloneDeep } from 'lodash-es';
 
   const bookmark = bookmarkStore();
   const getPopupContainer = (trigger: HTMLElement) => {
@@ -152,15 +169,25 @@
     Alert.alert({
       title: '提示',
       content: '此操作将退出登录, 是否继续?',
-      onOk() {
-        router.push('/login');
-        bookmark.reset();
-      },
+      footer: [
+        {
+          label: '取消',
+          type: 'primary',
+        },
+        {
+          label: '确认',
+          type: 'danger',
+          function: () => {
+            bookmark.reset();
+            router.push('/login');
+          },
+        },
+      ],
     });
   }
 
   const opinionData = reactive({
-    opinionType: '产品建议',
+    type: '产品建议',
     content: '',
     imgArray: [],
     phone: '',
@@ -189,8 +216,17 @@
       message.warning('请输入不少于6字的问题描述');
       return;
     }
-    message.success('感谢您的反馈');
-    opinionsVisible.value = false;
+    const params = cloneDeep(opinionData);
+    params.imgArray = JSON.stringify(params.imgArray);
+    apiBasePost('/api/common/addOpinion', params)
+      .then((res) => {
+        if (res.status === 200) {
+          message.success('感谢您的反馈');
+        }
+      })
+      .finally(() => {
+        opinionsVisible.value = false;
+      });
   }
 </script>
 

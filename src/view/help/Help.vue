@@ -8,6 +8,7 @@
       />
       <b-button
         style="margin-left: 5px"
+        type="danger"
         @click="$router.push('/manage')"
         v-click-log="{ module: '帮助中心', operation: `返回` }"
         >返回</b-button

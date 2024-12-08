@@ -37,13 +37,11 @@ export default {
     cancelText?: string;
     content: string;
     onOk?: any;
-    footer?: [
-      {
-        label: string;
-        type: 'primary' | 'dashed' | 'success' | 'danger';
-        function: any;
-      },
-    ];
+    footer?: {
+      label: string;
+      type?: 'primary' | 'dashed' | 'success' | 'danger';
+      function?: any;
+    }[];
   }) {
     sendInfo(params);
   },

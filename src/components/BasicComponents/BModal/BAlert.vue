@@ -68,12 +68,12 @@
     },
   });
   const isExit = ref(false);
-  function obClose() {
+  function obClose(time = 200) {
     isExit.value = true;
     const timer = setTimeout(() => {
       bAlert.destroy();
       clearTimeout(timer);
-    }, 200);
+    }, time);
   }
 
   function onOk() {
@@ -81,8 +81,8 @@
   }
 
   function btnFunc(func) {
+    obClose(0);
     func();
-    obClose();
   }
 </script>
 
