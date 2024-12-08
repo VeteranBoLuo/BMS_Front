@@ -35,7 +35,7 @@
           <svg-icon size="16" :src="icon.user_manage" />
           配置中心
         </li>
-        <li class="flex-center" @click="opinionsVisible = true">
+        <li class="flex-center" @click="(opinionsVisible = true), (userVisible = false)">
           <svg-icon size="16" :src="icon.user_manage" />
           意见反馈
         </li>
@@ -188,7 +188,7 @@
       message.warning('请输入不少于6字的问题描述');
       return;
     }
-    message.success('感谢您的反馈')
+    message.success('感谢您的反馈');
     opinionsVisible.value = false;
   }
 </script>

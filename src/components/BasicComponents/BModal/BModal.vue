@@ -2,6 +2,9 @@
   <Teleport to="body">
     <div v-show="visible" class="modal-container" @click.stop>
       <div class="modal-view" :class="{ out: isOut }">
+        <span style="position: absolute;right: 20px;top:20px;z-index: 99999;font-size: 20px" @click="handleClose" class="icon-hover">
+          <img src="@/assets/icons/close.svg" width="20" height="20" alt="">
+        </span>
         <slot name="title">
           <div class="modal-title">{{ title }}</div>
         </slot>
@@ -87,7 +90,7 @@
   }
 
   .modal-view {
-    position: relative;
+    position: absolute;
     left: 50%;
     top: 30%;
     transform: translate(-50%, -50%);
