@@ -91,6 +91,8 @@
   import bookmarkEdit from 'src/assets/video/bookmark_edit.webm';
   import tagMg from 'src/assets/img/help/tagMg.jpg';
   import bookmarkMg from 'src/assets/img/help/bookmarkMg.jpg';
+  import opinionMg from 'src/assets/img/help/opinionMg.png';
+
 
   import 'viewerjs/dist/viewer.css'; //样式文件不要忘了
   import Viewer from 'viewerjs';
@@ -217,6 +219,42 @@
   </p>
     </div>
   <p>系统会根据书签的网站地址，自动获取网站图标</p>
+  </div>`,
+    },
+    {
+      id: '意见反馈',
+      title: '意见反馈',
+      content: `<div class="tag-explanation" >
+     <div class="bookmark-example">
+      <img style="width: 80%" src="${opinionMg}" alt="标签管理示例" class="bookmark-image">
+      <p style="font-size: 12px">
+      <i>意见反馈页面</i>
+  </p>
+    </div>
+  <p><li>模块宗旨</li><span style="font-size: 14px">意见反馈模块旨在搭建一个用户与项目开发人员之间沟通的桥梁，便于您及时向我反映在使用过程中遇到的问题、提出的建议以及期望的功能，帮助我不断优化产品，为您提供更优质的服务。</span>
+<br/>
+<li>模块功能</li>
+<span style="font-size: 14px">问题反馈：您可以在此提交在使用项目过程中遇到的问题，如功能异常、操作不便等，我将尽快为您解决。<br/>
+建议征集：欢迎您提出宝贵建议，包括功能优化、界面美化、操作简化等方面，我会认真倾听并积极采纳。<br/>
+点赞与鼓励：如果您对我的项目表示满意，也可以在此给予我肯定和鼓励，激励我继续努力。<br/>
+实时跟进：提交反馈后，您可以实时查看反馈处理进度，了解解决结果。</span>
+
+<br/>
+
+<li>使用指南</li>
+<span style="font-size: 14px">进入意见反馈模块：项目右上角头像下拉框中找到“意见反馈”入口，点击进入。
+填写反馈内容：根据提示，详细描述您遇到的问题或建议，以便我更快地为您解决问题。<br/>
+提交反馈：确认无误后，点击“提交”按钮，您的反馈将实时发送至项目团队。<br/>
+查看反馈进度：在“我的反馈”页面，您可以查看已提交反馈的处理进度及回复。</span>
+
+<br/>
+
+<li>温馨提示</li>
+<span style="font-size: 14px">请确保反馈内容真实、客观、具体，以便我更好地为您解决问题。
+为保护您的隐私，请勿在反馈内容中透露个人信息。
+我会尽快处理您的反馈，请您耐心等待。</span>
+<br/>
+感谢您对项目的支持与关注，您的意见是我不断进步的动力！让我们共同努力，打造更优质的产品和服务。</p>
   </div>`,
     },
   ]);
