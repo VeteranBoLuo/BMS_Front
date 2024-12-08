@@ -85,8 +85,9 @@
                 <svg-icon size="30" :src="icon.file_upload" />
               </div>
             </b-upload>
-            <span v-for="item in opinionData.imgArray">
+            <span v-for="(item,index) in opinionData.imgArray" style="position: relative">
               <img :src="item" style="width: 80px; height: 80px" alt="" />
+              <span style="position: absolute;right: 10px;top:0;z-index: 9;font-size: 14px;color: red" @click="opinionData.imgArray.splice(index,1)" class="icon-hover">x</span>
             </span>
           </div>
           <div style="margin-top: 10px">
