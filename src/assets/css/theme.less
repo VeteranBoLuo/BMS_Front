@@ -29,13 +29,13 @@
   --menu-body-bg-color: #f9f9fa;
   --menu-item-bg-color: #f2f2f4;
   --menu-item-h-bg-color: #e4e4e6;
-  --primary-btn-bg-color: #F2F2F4;
-  --primary-btn-h-bg-color: #E4E4E6;
-  --modal-input-bg:#F5F5F5
+  --primary-btn-bg-color: #f2f2f4;
+  --primary-btn-h-bg-color: #e4e4e6;
+  --modal-input-bg: #f5f5f5;
 }
 
 [data-theme='night'] {
-  --background-color:#161822;
+  --background-color: #161822;
   --text-color: #ffffff;
   --icon-color: #ffffff;
   --category-item-ba-color: #232029;
@@ -50,8 +50,8 @@
   --ant-select-selector-bg-color: #141620;
   --ant-select-selection-item-bg-color: #3c3f41;
   --ant-select-selection-item-anticon-close-color: #ffffff;
-  --ant-select-dropdown-bg-color: #919191;
-  --ant-select-item-option-selected-bg-colot: #5f5f5f; // 下拉框选中项背景颜色
+  --ant-select-dropdown-bg-color: #252631;
+  --ant-select-item-option-selected-bg-colot: #41424b; // 下拉框选中项背景颜色
   --scrollbar-color: #ccc;
   --require-tip-color: wheat;
   --userCenter-left-bg-color: #2b2b2b;
@@ -61,7 +61,8 @@
   --menu-body-bg-color: #252632;
   --menu-item-bg-color: #33343f;
   --menu-item-h-bg-color: #41424c;
-  --modal-input-bg:#2e2f3b;
+  --modal-input-bg: #2e2f3b;
+  --text-night-color: white;
 }
 
 /*--------------------------a-select下拉框配置----------------------*/
@@ -75,15 +76,20 @@
     color: var(--ant-select-selection-item-anticon-close-color) !important;
   }
 }
-
 // 选择器下拉菜单背景颜色
 .ant-select-dropdown {
   background-color: var(--ant-select-dropdown-bg-color) !important;
-  color: white !important;
+}
+.ant-select-item-option-content {
+  color: var(--text-night-color);
+}
+.ant-select-item-option{
+  margin-bottom: 2px;
 }
 .ant-select-item-option-selected {
   background-color: var(--ant-select-item-option-selected-bg-colot) !important;
-  color: #ffffff !important;
+
+  color: white !important;
 }
 .anticon-close-circle {
   background-color: var(--bl-input-bg-color) !important;
