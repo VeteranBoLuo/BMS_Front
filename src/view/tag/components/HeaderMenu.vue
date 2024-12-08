@@ -54,7 +54,7 @@
       :visible="opinionsVisible"
       @close="opinionsVisible = false"
     >
-      <div :style="{ width: bookmark.isPhone ? '90%' : '450px' }">
+      <div :style="{ width: bookmark.isPhone ? '95%' : '450px' }">
         <div class="opinionType">
           <div style="font-size: 14px">反馈类型</div>
           <b-radio
