@@ -1,34 +1,40 @@
 <template>
   <Teleport to="body">
-    <div class="bAlert" :class="{ out: isExit }">
-      <div style="height: 50px; border-bottom: 1px solid #f0f0f0; box-sizing: border-box">
+    <div class="bAlert-bg">
+      <div class="bAlert" :class="{ out: isExit }">
         <slot name="title">
-          <div style="padding: 10px">{{ title }}</div>
+          <div style="font-size: 16px;margin-bottom: 15px">{{ title }}</div>
         </slot>
-      </div>
-      <div style="padding: 12px; color: var(--desc-color)">
-        {{ content }}
-      </div>
-      <div
-        style="
-          position: absolute;
-          bottom: 0px;
-          height: 50px;
-          border-top: 1px solid #f0f0f0;
-          width: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: flex-end;
-          padding-right: 20px;
-          box-sizing: border-box;
-        "
-      >
-        <slot name="footer">
-          <b-space>
+        <div style="color: var(--desc-color); font-size: 14px">
+          {{ content }}
+        </div>
+        <div
+          style="
+            position: absolute;
+            bottom: 20px;
+            width: calc(100% - 40px);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            box-sizing: border-box;
+          "
+        >
+          <slot name="footer" v-if="footer?.length > 0">
+            <b-space>
+              <b-button
+                v-for="btn in footer"
+                class="btn"
+                :type="btn.type"
+                @click="btn.function ? btnFunc(btn.function) : obClose()"
+                >{{ btn.label }}</b-button
+              >
+            </b-space>
+          </slot>
+          <b-space v-else>
             <b-button class="btn" type="primary" @click="onOk">{{ okText }}</b-button>
             <b-button class="btn" @click="obClose">{{ cancelText }}</b-button>
           </b-space>
-        </slot>
+        </div>
       </div>
     </div>
   </Teleport>
@@ -56,6 +62,10 @@
       type: String,
       default: '取消',
     },
+    footer: {
+      type: Array,
+      default: () => [],
+    },
   });
   const isExit = ref(false);
   function obClose() {
@@ -69,22 +79,36 @@
   function onOk() {
     bAlert.onOk();
   }
+
+  function btnFunc(func) {
+    func();
+    obClose();
+  }
 </script>
 
 <style scoped lang="less">
+  .bAlert-bg {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 99999999;
+  }
   .bAlert {
-    position: absolute;
+    position: relative;
     left: 50%;
-    right: 50%;
+    top: 30%;
     transform: translate(-50%, -50%);
+    box-sizing: border-box;
     width: 460px;
     height: 180px;
-    border: 1px solid #ebeef5;
-    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.12);
-    border-radius: 8px;
+    //box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.12);
+    border-radius: 16px;
     z-index: 9999;
-    background-color: var(--modal-bg-color);
+    box-shadow: 0 0 24px rgba(0, 0, 0, 0.6);
+    background-color: var(--menu-body-bg-color);
     animation: in-animation 0.3s ease;
+    padding: 22px;
   }
 
   .out {

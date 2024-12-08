@@ -146,6 +146,6 @@
 
   .input:checked + .slider:before {
     transform: translateX(30px);
-    background-color: #212121;
+    background-color: #020617;
   }
 </style>

@@ -43,25 +43,26 @@
 
 <style scoped lang="less">
   .b_btn {
-    border: 1px solid #d9d9d9;
     border-radius: 6px;
     white-space: nowrap;
     text-align: center;
     box-sizing: border-box;
     cursor: pointer;
     height: 32px;
+    line-height: 32px;
     transition: color 0.2s;
     width: max-content;
-    display: inline-block;
-    padding: 4px 15px;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
     font-size: 14px;
   }
   .primary_btn {
-    color: white;
-    background-color: #4e4b46;
+    color:var(--text-color);
+    background-color: var(--primary-btn-bg-color);
     transition: all 0.3s;
     &:hover {
-      background-color: #6e6c6a;
+      background-color: var(--primary-btn-h-bg-color);
     }
   }
   .dashed_btn {
@@ -72,6 +73,7 @@
     }
   }
   .default_btn {
+    border: 1px solid #d9d9d9;
     &:hover {
       color: #ff9800;
       border: 1px solid #ff9800;
@@ -79,7 +81,8 @@
     }
   }
   .danger_btn {
-    background-color: #ff4d4f;
+    //background-color: #ff4d4f;
+    background-color: #fe2c55;
     color: white;
     transition: all 0.3s;
     &:hover {

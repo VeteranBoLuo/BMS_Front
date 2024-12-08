@@ -11,7 +11,7 @@
           <svg-icon :src="icon.navigation_search" size="16" />
         </template>
       </b-input>
-      <b-button @click="clearOperationLogs" type="danger">清空</b-button>
+      <b-button @click="clearOperationLogs" type="primary">清空</b-button>
     </b-space>
     <a-table
       :data-source="logList"
@@ -128,14 +128,23 @@
     Alert.alert({
       title: '提示',
       content: `请确认是否要清空操作日志？`,
-      onOk() {
-        apiBaseGet('/api/common/clearOperationLogs', {}).then((res) => {
-          if (res.status === 200) {
-            message.success('日志清空成功');
-            searchApiLog();
-          }
-        });
-      },
+      footer: [
+        {
+          label: '取消',
+          type: 'primary'
+        },
+        {
+          label: '确认',
+          type: 'danger',
+          function: () =>
+            apiBaseGet('/api/common/clearOperationLogs', {}).then((res) => {
+              if (res.status === 200) {
+                message.success('日志清空成功');
+                searchApiLog();
+              }
+            }),
+        },
+      ],
     });
   }
 

@@ -17,7 +17,7 @@
             <!-- 循环遍历菜单项，显示出来 -->
             <div
               @click="handleClick(label)"
-              class="menu-item"
+              class="context-menu-item menu-item"
               v-for="(label, i) in menu"
               :key="label"
             >
@@ -96,22 +96,19 @@
   }
   .context-menu {
     padding: 5px 0;
-    background-color: var(--right-menu-bg-color);
+    background-color: var(--menu-body-bg-color);
     width: 150px;
     border: 1px solid #ccc;
     border-radius: 12px;
     box-shadow: 0 0 3px #ccc;
     overflow: hidden;
-    .menu-item {
+    .context-menu-item {
       padding-left: 10px;
       font-size: 12px;
       height: 26px;
       display: flex;
       align-items: center;
       cursor: pointer;
-      &:hover {
-        background-color:  var(--btn-h-bg-color);
-      }
     }
   }
 

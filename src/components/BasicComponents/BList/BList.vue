@@ -3,11 +3,11 @@
     <slot name="input">
       <b-input v-model:value="searchValue" :placeholder="placeholder" v-if="searchFilter" />
     </slot>
-    <div  class="menu-body" :style="{ marginTop: hasInputSlot ? '10px' : '' }">
+    <div class="category-body" :style="{ marginTop: hasInputSlot ? '10px' : '' }">
       <div :key="item[nodeType.id]" v-for="item in viewList" @click="nodeClick(item)">
         <slot name="item" :item="item">
           <div
-            class="menu-item"
+            class="category-item"
             :title="item[nodeType.title]"
             :style="{
               backgroundColor:
@@ -98,17 +98,18 @@
     height: 100%;
     width: 100%;
   }
-  .menu-body {
+  .category-body {
     height: calc(100% - 42px);
     overflow-y: auto;
   }
-  .menu-item {
+  .category-item {
     margin: 5px 0;
     padding: 5px 10px;
     border-radius: 8px;
     cursor: pointer;
     display: flex;
     align-items: center;
+    width: 100%;
     box-sizing: border-box;
     gap: 10px;
 

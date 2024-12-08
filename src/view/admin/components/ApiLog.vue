@@ -11,7 +11,7 @@
           <svg-icon :src="icon.navigation_search" size="16" />
         </template>
       </b-input>
-      <b-button @click="clearApiLogs" type="danger">清空</b-button>
+      <b-button @click="clearApiLogs" type="primary">清空</b-button>
     </b-space>
     <a-table
       :data-source="logList"
@@ -22,10 +22,7 @@
       :pagination="false"
     >
       <template #expandedRowRender="{ record }">
-        <div
-          layout="vertical"
-          style="overflow: auto; height: 300px; color: var(--text-color)"
-        >
+        <div layout="vertical" style="overflow: auto; height: 300px; color: var(--text-color)">
           <div label="requestTime">时间：{{ record.requestTime }}</div>
           <div label="url">接口：{{ record.url }}</div>
           <div label="req">
@@ -143,14 +140,23 @@
     Alert.alert({
       title: '提示',
       content: `请确认是否要清空日志？`,
-      onOk() {
-        apiBaseGet('/api/common/clearApiLogs', {}).then((res) => {
-          if (res.status === 200) {
-            message.success('日志清空成功');
-            searchApiLog();
-          }
-        });
-      },
+      footer: [
+        {
+          label: '取消',
+          type: 'primary',
+        },
+        {
+          label: '确认',
+          type: 'danger',
+          function: () =>
+            apiBaseGet('/api/common/clearApiLogs', {}).then((res) => {
+              if (res.status === 200) {
+                message.success('日志清空成功');
+                searchApiLog();
+              }
+            }),
+        },
+      ],
     });
   }
 

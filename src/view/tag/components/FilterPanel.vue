@@ -10,18 +10,15 @@
           <template #suffix>
             <a-dropdown :trigger="['hover']">
               <template #overlay>
-                <a-menu
-                  :style="{
-                    backgroundColor: bookmark.theme === 'day' ? '#ffffff' : '#18181b',
-                  }"
-                >
-                  <a-menu-item :style="{ color: bookmark.iconColor }" key="addTag" @click="addTag">
+                <a-menu style="background-color: var(--menu-body-bg-color)">
+                  <a-menu-item :style="{ color: bookmark.iconColor }" key="addTag" @click="addTag" class="menu-item">
                     <span v-click-log="{ module: '首页', operation: `点击添加标签` }">
                       添加标签
                     </span>
                   </a-menu-item>
                   <a-menu-item
                     :style="{ color: bookmark.iconColor }"
+                    class="menu-item"
                     key="editTag"
                     @click="addBookmark"
                   >
@@ -165,7 +162,6 @@
       router.push({ path: `/home/${tag.id}` });
     }
   }
-
 </script>
 
 <style lang="less" scoped>
@@ -179,21 +175,6 @@
     width: 180px;
   }
 
-  .category-item {
-    margin: 5px 0;
-    padding: 5px 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    box-sizing: border-box;
-    gap: 10px;
-
-    &:hover {
-      background-color: var(--category-item-ba-color);
-    }
-  }
 
   .edit-input {
     :deep(.b_input) {

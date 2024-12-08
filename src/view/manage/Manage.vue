@@ -92,12 +92,17 @@
 
   .mange-menu-item {
     height: 70px;
-    box-shadow: 0 0 2px 2px #ccc;
     color: #f0f0f0; // #ced1d7
     border-radius: 12px;
     cursor: pointer;
     display: grid;
     place-items: center;
+  }
+
+  @media (max-width: 600px) {
+    .mange-menu {
+      grid-template-columns: unset;
+    }
   }
 
   @media (max-width: 1350px) {

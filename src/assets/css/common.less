@@ -17,7 +17,7 @@
 }
 
 :root {
-  --primary-color: #4e4b46;
+  --primary-color: #353641;
   --primary-text: #fff8e8;
   --primary-h-color: #3b82f6;
   font-family: '微软雅黑';
@@ -108,6 +108,28 @@ h1 {
   transform: translateX(-50%);
 }
 
+.category-item {
+  margin: 5px 0;
+  padding: 5px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  gap: 10px;
+
+  &:hover {
+    background-color: var(--category-item-ba-color);
+  }
+}
+
+.menu-item{
+  background-color: var(--menu-body-bg-color);
+  &:hover{
+    background-color: var(--menu-item-h-bg-color)!important;
+  }
+}
 // AntDesign组件
 .ant-table-container {
   border: 1px solid var(--icon-color);
@@ -158,3 +180,4 @@ h1 {
 .ant-pagination .ant-pagination-options {
   display: unset;
 }
+
