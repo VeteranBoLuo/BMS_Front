@@ -140,23 +140,14 @@
     Alert.alert({
       title: '提示',
       content: `请确认是否要清空日志？`,
-      footer: [
-        {
-          label: '取消',
-          type: 'primary',
-        },
-        {
-          label: '确认',
-          type: 'danger',
-          function: () =>
-            apiBaseGet('/api/common/clearApiLogs', {}).then((res) => {
-              if (res.status === 200) {
-                message.success('日志清空成功');
-                searchApiLog();
-              }
-            }),
-        },
-      ],
+      onOk() {
+        apiBaseGet('/api/common/clearApiLogs', {}).then((res) => {
+          if (res.status === 200) {
+            message.success('日志清空成功');
+            searchApiLog();
+          }
+        });
+      },
     });
   }
 

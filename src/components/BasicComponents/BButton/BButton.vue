@@ -59,11 +59,11 @@
     font-size: 14px;
   }
   .primary_btn {
-    color:var(--text-color);
-    background-color: var(--primary-btn-bg-color);
+    background-color: #fe2c55;
+    color: white;
     transition: all 0.3s;
     &:hover {
-      background-color: var(--primary-btn-h-bg-color);
+      background-color: #ff7875;
     }
   }
   .dashed_btn {
@@ -74,11 +74,17 @@
     }
   }
   .default_btn {
-    border: 1px solid #d9d9d9;
+    //border: 1px solid #d9d9d9;
+    //&:hover {
+    //  color: #ff9800;
+    //  border: 1px solid #ff9800;
+    //  transition: all 0.3s;
+    //}
+    color: var(--text-color);
+    background-color: var(--primary-btn-bg-color);
+    transition: all 0.3s;
     &:hover {
-      color: #ff9800;
-      border: 1px solid #ff9800;
-      transition: all 0.3s;
+      background-color: var(--primary-btn-h-bg-color);
     }
   }
   .danger_btn {

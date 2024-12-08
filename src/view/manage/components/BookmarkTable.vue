@@ -11,12 +11,12 @@
             >导出</b-button
           >
           <b-button
-            type="danger"
+            type="primary"
             @click="$router.push({ path: `/manage/editBookmark/add` })"
             v-click-log="{ module: '书签管理', operation: `新增` }"
             >新增</b-button
           >
-          <b-button type="primary" @click="handleToBack" v-click-log="{ module: '书签管理', operation: `返回` }"
+          <b-button  @click="handleToBack" v-click-log="{ module: '书签管理', operation: `返回` }"
             >返回</b-button
           >
         </b-space>

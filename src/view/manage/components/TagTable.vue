@@ -9,11 +9,11 @@
         <b-space>
           <b-button
             v-click-log="{ module: '标签管理', operation: `新增` }"
-            type="danger"
+            type="primary"
             @click="$router.push({ path: `/manage/editTag/add` })"
             >新增</b-button
           >
-          <b-button type="primary" @click="handleToBack" v-click-log="{ module: '标签管理', operation: `返回` }">返回</b-button>
+          <b-button  @click="handleToBack" v-click-log="{ module: '标签管理', operation: `返回` }">返回</b-button>
         </b-space>
       </div>
       <a-table

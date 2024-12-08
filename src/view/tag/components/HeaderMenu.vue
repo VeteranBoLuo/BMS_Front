@@ -117,7 +117,7 @@
       </div>
       <template #footer>
         <b-button
-          type="danger"
+          type="primary"
           style="width: 100%; margin-top: 20px"
           @click="submit"
           v-click-log="{ module: '意见反馈', operation: '提交反馈' }"
@@ -169,20 +169,10 @@
     Alert.alert({
       title: '提示',
       content: '此操作将退出登录, 是否继续?',
-      footer: [
-        {
-          label: '取消',
-          type: 'primary',
-        },
-        {
-          label: '确认',
-          type: 'danger',
-          function: () => {
-            bookmark.reset();
-            router.push('/login');
-          },
-        },
-      ],
+      onOk() {
+        bookmark.reset();
+        router.push('/login');
+      },
     });
   }
 
