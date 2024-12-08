@@ -12,6 +12,7 @@
         paddingLeft: hasPrefixSlot ? '30px' : '11px',
         paddingRight: hasSuffixSlot ? '30px' : '11px',
       }"
+      :autocomplete="autocomplete"
       :placeholder="placeholder"
       @focus="$emit('focus')"
       @focusout="$emit('focusout')"
@@ -27,6 +28,7 @@
         paddingLeft: hasPrefixSlot ? '30px' : '11px',
         paddingRight: hasSuffixSlot ? '30px' : '11px',
       }"
+      :autocomplete="autocomplete"
       :placeholder="placeholder"
       @focus="$emit('focus')"
       @focusout="$emit('focusout')"
@@ -54,6 +56,10 @@
     type: {
       type: String,
       default: 'text',
+    },
+    autocomplete: {
+      type: String,
+      default: 'off',
     },
   });
   const value = defineModel('value');
@@ -103,7 +109,7 @@
     }
     outline: none;
   }
-  .b_textarea{
+  .b_textarea {
     border: 1px solid #d9d9d9;
     border-radius: 6px;
     padding: 4px 11px;
@@ -111,7 +117,7 @@
     box-sizing: border-box;
     background-color: var(--bl-input-bg-color);
     color: var(--bl-input-color);
-    font-family: "微软雅黑 Light", serif;
+    font-family: '微软雅黑 Light', serif;
     &:focus {
       border: 1px solid var(--bl-input-border-h-color);
       box-shadow: 0 0 0 2px rgba(92, 90, 86, 0.1);
