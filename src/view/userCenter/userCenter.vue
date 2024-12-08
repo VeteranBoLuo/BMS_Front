@@ -74,7 +74,6 @@
       height: 90%;
       width: 50%;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.14);
-      //background: #fafafa;
       border-radius: 4px;
       display: flex;
       background-color: var(--userCenter-left-bg-color);
