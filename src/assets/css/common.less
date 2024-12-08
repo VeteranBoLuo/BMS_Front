@@ -20,7 +20,7 @@
   --primary-color: #353641;
   --primary-text: #fff8e8;
   --primary-h-color: #3b82f6;
-  font-family: '微软雅黑';
+  font-family: '微软雅黑', serif;
   pre {
     font-family: inherit;
   }
@@ -124,10 +124,10 @@ h1 {
   }
 }
 
-.menu-item{
+.menu-item {
   background-color: var(--menu-body-bg-color);
-  &:hover{
-    background-color: var(--menu-item-h-bg-color)!important;
+  &:hover {
+    background-color: var(--menu-item-h-bg-color) !important;
   }
 }
 // AntDesign组件
@@ -181,3 +181,8 @@ h1 {
   display: unset;
 }
 
+.ant-tooltip .ant-tooltip-inner {
+  padding: 10px;
+  box-sizing: border-box;
+  width: max-content;
+}

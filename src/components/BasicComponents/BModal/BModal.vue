@@ -1,22 +1,24 @@
 <template>
-  <div v-show="visible" class="modal-container" @click.stop>
-    <div class="modal-view" :class="{ in: visible, out: isOut }">
-      <slot name="title">
-        <div class="modal-title">{{ title }}</div>
-      </slot>
-      <div class="modal-content">
-        <slot name="default"></slot>
-      </div>
-      <slot name="footer" v-if="showFooter">
-        <div class="modal-footer">
-          <b-space>
-            <b-button type="primary" @click="$emit('ok')">确定</b-button>
-            <b-button @click="handleClose">取消</b-button>
-          </b-space>
+  <Teleport to="body">
+    <div v-show="visible" class="modal-container" @click.stop>
+      <div class="modal-view" :class="{ out: isOut }">
+        <slot name="title">
+          <div class="modal-title">{{ title }}</div>
+        </slot>
+        <div class="modal-content">
+          <slot name="default"></slot>
         </div>
-      </slot>
+        <slot name="footer" v-if="showFooter">
+          <div class="modal-footer">
+            <b-space>
+              <b-button type="primary" @click="$emit('ok')">确定</b-button>
+              <b-button @click="handleClose">取消</b-button>
+            </b-space>
+          </div>
+        </slot>
+      </div>
     </div>
-  </div>
+  </Teleport>
 </template>
 
 <script lang="ts" setup>
@@ -78,28 +80,27 @@
 <style lang="less" scoped>
   .modal-container {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    cursor: default;
-    align-items: center;
-    z-index: 999;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
   }
 
   .modal-view {
-    position: absolute;
-    top: 10%;
-    background-color: var(--modal-bg-color);
+    position: relative;
+    left: 50%;
+    top: 30%;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    background-color: var(--menu-body-bg-color);
     padding: 20px;
     border-radius: 10px;
+    width: max-content;
     min-width: 400px;
     min-height: 100px;
     display: grid;
+    z-index: 1000;
+    animation: in-animation 0.3s ease;
   }
 
   .modal-title {
@@ -112,14 +113,16 @@
     word-wrap: break-word; /* 允许单词在到达边界时断开换行 */
     overflow-wrap: break-word;
   }
+  :deep(.b_input) {
+    background-color: var(--modal-input-bg);
+  }
+  :deep(.b_textarea) {
+    background-color: var(--modal-input-bg);
 
+  }
   .modal-footer {
     margin-top: 10px;
     place-self: end;
-  }
-
-  .in {
-    animation: in-animation 0.3s ease;
   }
 
   .out {
@@ -129,28 +132,26 @@
   @keyframes in-animation {
     0% {
       opacity: 0;
-      transform: scale(0);
     }
     100% {
       opacity: 1;
-      transform: scale(1);
     }
   }
 
   @keyframes out-animation {
     0% {
       opacity: 1;
-      transform: scale(1);
     }
     100% {
       opacity: 0;
-      transform: scale(0);
     }
   }
 
   @media (max-width: 600px) {
     .modal-view {
       min-width: 80%;
+      top: 50%;
     }
   }
+
 </style>

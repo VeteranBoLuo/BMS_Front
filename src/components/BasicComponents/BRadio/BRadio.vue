@@ -4,7 +4,7 @@
       class="bl-radio"
       v-for="(item, index) in options"
       :key="index"
-      :class="{ 'element-primary': checkRadio === item.value }"
+      :class="{ 'element-primary': value === item.value }"
       @click="radioClick(item.value)"
     >
       {{ item.label }}
@@ -27,19 +27,10 @@
     },
   });
   const emit = defineEmits(['update:value']);
-  const checkRadio = ref('');
 
   function radioClick(value) {
-    checkRadio.value = value;
-    emit('update:value', checkRadio.value);
+    emit('update:value', value);
   }
-
-  watch(
-    () => props.value,
-    () => {
-      checkRadio.value = cloneDeep(props.value);
-    },
-  );
 </script>
 
 <style lang="less">

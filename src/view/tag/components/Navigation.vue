@@ -64,62 +64,7 @@
           <!--  主题切换        -->
           <ThemeSwith />
           <!--用户信息          -->
-          <a-tooltip
-            :color="bookmark.theme === 'day' ? '#ffffff' : '#252632'"
-            placement="bottomLeft"
-            :get-popup-container="getPopupContainer"
-            v-model:open="userVisible"
-          >
-            <template #title>
-              <div style="text-align: center">
-                <div class="flex-align-center" style="gap: 15px">
-                  <div
-                    :class="['navigation-icon']"
-                    @click="router.push('/userCenter'), (userVisible = false)"
-                  >
-                    <svg-icon
-                      size="40"
-                      :src="user.headPicture || icon.navigation_user"
-                      class="icon-hover"
-                    />
-                  </div>
-                  <div class="user-icon-text" :style="{ color: bookmark.iconColor }">
-                    <div>{{ user.userName ? user.alias || '默认昵称' : '请登录' }}</div>
-                    <div style="display: flex; gap: 20px">
-                      <span
-                        >标签<span style="margin-left: 5px">{{ user.tagTotal }}</span></span
-                      >
-                      <span
-                        >书签<span style="margin-left: 5px">{{ user.bookmarkTotal }}</span></span
-                      >
-                    </div>
-                  </div>
-                </div>
-                <hr />
-                <ul class="header_menu_ul">
-                  <li class="flex-center" @click="handleAdmin" v-if="user.role === 'root'">
-                    <svg-icon size="16" :src="icon.user_admin" />
-                    后台管理
-                  </li>
-                  <li class="flex-center" @click="handleManageData">
-                    <svg-icon size="16" :src="icon.user_manage" />
-                    配置中心
-                  </li>
-                  <li class="flex-center" @click="handleExitLogin">
-                    <svg-icon size="16" :src="icon.user_exit" />
-                    退出登录
-                  </li>
-                </ul>
-              </div>
-            </template>
-            <div :class="['navigation-icon']">
-              <svg-icon
-                size="30"
-                :src="user.headPicture || icon.navigation_user"
-                class="icon-hover"
-              />
-            </div>
-          </a-tooltip>
+          <HeaderMenu />
         </div>
       </div>
     </div>
@@ -135,13 +80,9 @@
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
   import icon from '@/config/icon.ts';
   import ThemeSwith from '@/components/tag/ThemeSwith.vue';
+  import HeaderMenu from '@/view/tag/components/HeaderMenu.vue';
 
   const placeholder = ref('Search...');
-  const userVisible = ref(false);
-
-  const getPopupContainer = (trigger: HTMLElement) => {
-    return document.getElementById('tag-container');
-  };
 
   document.addEventListener('DOMContentLoaded', function () {
     var searchInput = document.getElementById('searchInput');
@@ -163,30 +104,6 @@
   const phoneSearchVisible = computed(() => {
     return bookmark.isPhone && router.currentRoute.value.path.includes('home') && bookmark.isFold;
   });
-
-  function handleAdmin() {
-    userVisible.value = false;
-    router.push('/admin');
-  }
-
-  function handleManageData() {
-    userVisible.value = false;
-    router.push('/manage');
-  }
-
-  const user = useUserStore();
-
-  function handleExitLogin() {
-    userVisible.value = false;
-    Alert.alert({
-      title: '提示',
-      content: '此操作将退出登录, 是否继续?',
-      onOk() {
-        router.push('/login');
-        bookmark.reset();
-      },
-    });
-  }
 
   const bookmark = bookmarkStore();
   const dom = domStore();
@@ -338,8 +255,7 @@
     margin: 5px 0 0 0;
     padding: 2px;
     box-sizing: border-box;
-    width: 200px;
-
+    width: 220px;
     li {
       width: 100%;
       height: 30px;
@@ -349,7 +265,7 @@
       background-color: var(--menu-item-bg-color);
       color: var(--text-color);
       margin-bottom: 5px;
-      gap: 5px;
+      gap: 10px;
 
       &:hover {
         background-color: var(--menu-item-h-bg-color);
@@ -367,6 +283,9 @@
       .navigation-title-link {
         gap: 10px;
       }
+    }
+    .header_menu_ul {
+      width: 180px;
     }
   }
 

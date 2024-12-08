@@ -3,7 +3,7 @@
     <div class="bAlert-bg">
       <div class="bAlert" :class="{ out: isExit }">
         <slot name="title">
-          <div style="font-size: 16px;margin-bottom: 15px">{{ title }}</div>
+          <div style="font-size: 16px; margin-bottom: 15px">{{ title }}</div>
         </slot>
         <div style="color: var(--desc-color); font-size: 14px">
           {{ content }}
@@ -31,8 +31,8 @@
             </b-space>
           </slot>
           <b-space v-else>
-            <b-button class="btn" type="primary" @click="onOk">{{ okText }}</b-button>
             <b-button class="btn" @click="obClose">{{ cancelText }}</b-button>
+            <b-button class="btn" type="primary" @click="onOk">{{ okText }}</b-button>
           </b-space>
         </div>
       </div>
@@ -110,7 +110,6 @@
     animation: in-animation 0.3s ease;
     padding: 22px;
   }
-
   .out {
     animation: out-animation 0.3s ease;
   }

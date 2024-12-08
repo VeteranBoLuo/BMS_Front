@@ -1,10 +1,26 @@
 <template>
   <div class="input-container">
+    <textarea
+      v-if="type === 'textarea'"
+      :id="id"
+      :rows="4"
+      class="b_textarea"
+      :value="value"
+      @input="handleInput"
+      @enter="$emit('enter')"
+      :style="{
+        paddingLeft: hasPrefixSlot ? '30px' : '11px',
+        paddingRight: hasSuffixSlot ? '30px' : '11px',
+      }"
+      :placeholder="placeholder"
+      @focus="$emit('focus')"
+      @focusout="$emit('focusout')"
+    />
     <input
+      v-else
       :id="id"
       class="b_input"
       :value="value"
-      :type="type"
       @input="handleInput"
       @enter="$emit('enter')"
       :style="{
@@ -75,6 +91,27 @@
     box-sizing: border-box;
     background-color: var(--bl-input-bg-color);
     color: var(--bl-input-color);
+    &:focus {
+      border: 1px solid var(--bl-input-border-h-color);
+      box-shadow: 0 0 0 2px rgba(92, 90, 86, 0.1);
+    }
+    &:hover {
+      border: 1px solid var(--bl-input-border-h-color);
+    }
+    &:active {
+      border: 1px solid var(--bl-input-border-h-color);
+    }
+    outline: none;
+  }
+  .b_textarea{
+    border: 1px solid #d9d9d9;
+    border-radius: 6px;
+    padding: 4px 11px;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: var(--bl-input-bg-color);
+    color: var(--bl-input-color);
+    font-family: "微软雅黑 Light", serif;
     &:focus {
       border: 1px solid var(--bl-input-border-h-color);
       box-shadow: 0 0 0 2px rgba(92, 90, 86, 0.1);

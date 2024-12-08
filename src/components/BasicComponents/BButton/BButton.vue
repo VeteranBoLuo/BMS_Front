@@ -53,6 +53,7 @@
     transition: color 0.2s;
     width: max-content;
     display: flex;
+    justify-content: center;
     align-items: center;
     padding: 0 15px;
     font-size: 14px;
