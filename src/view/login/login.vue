@@ -10,22 +10,26 @@
               name="userName"
               :rules="[{ required: true, message: '请输入账号' }]"
             >
-              <a-input style="height: 40px" v-model:value="userFormData.userName" />
+              <a-input style="height: 40px" v-model:value="userFormData.userName">
+                <template #prefix>
+                  <svg-icon :src="icon.navigation_user" size="16" />
+                </template>
+              </a-input>
             </a-form-item>
             <a-form-item
               label="密码"
               name="password"
-              :rules="{ required: true, message: '请输入密码' }"
+              :rules="[{ required: true, message: '请输入密码' }]"
             >
               <span class="flex-center">
-                <a-input
-                  style="height: 40px"
-                  type="password"
-                  v-model:value="userFormData.password"
-                />
+                <a-input style="height: 40px" maxlength="20" type="password" v-model:value="userFormData.password">
+                  <template #prefix>
+                    <svg-icon :src="icon.login_password" size="16" />
+                  </template>
+                </a-input>
                 <div
                   v-show="title === '登录'"
-                  style="cursor: pointer; position: absolute; right: 0px"
+                  style="cursor: pointer; position: absolute; right: 0;z-index: 1"
                 >
                   <span style="color: #ccc">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
                   <span style="color: #ccc; margin-right: 5px" @click="handleInsertTest"
@@ -77,7 +81,11 @@
                 { min: 6, message: '账号长度不能少于6个字符' },
               ]"
             >
-              <a-input style="height: 40px" v-model:value="userFormData.userName" />
+              <a-input style="height: 40px" v-model:value="userFormData.userName">
+                <template #prefix>
+                  <svg-icon :src="icon.navigation_user" size="16" />
+                </template>
+              </a-input>
             </a-form-item>
             <a-form-item
               label="密码"
@@ -89,11 +97,11 @@
               ]"
             >
               <span class="flex-center">
-                <a-input
-                  style="height: 40px"
-                  type="password"
-                  v-model:value="userFormData.password"
-                />
+                <a-input style="height: 40px" maxlength="20"  type="password" v-model:value="userFormData.password">
+                  <template #prefix>
+                    <svg-icon :src="icon.login_password" size="16" />
+                  </template>
+                </a-input>
               </span>
             </a-form-item>
             <a-form-item
@@ -101,7 +109,11 @@
               name="email"
               :rules="[{ type: 'email', message: '请输入正确的邮箱格式' }]"
             >
-              <a-input style="height: 40px" v-model:value="userFormData.email" />
+              <a-input style="height: 40px" v-model:value="userFormData.email">
+                <template #prefix>
+                  <svg-icon :src="icon.login_email" size="16" />
+                </template>
+              </a-input>
             </a-form-item>
           </a-form>
           <b-button @click="handleToPage" class="handle-btn">注册</b-button>
@@ -118,6 +130,8 @@
   import { message } from 'ant-design-vue';
   import userApi from '@/api/userApi';
   import { bookmarkStore, useUserStore } from '@/store';
+  import icon from '@/config/icon.ts';
+  import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
 
   // 是否反转
   const isFlipped = ref(false);
@@ -174,7 +188,7 @@
           .then((res: any) => {
             if (res.status === 200) {
               localStorage.setItem('userId', res.data.id);
-              localStorage.setItem('theme', res.data.theme)
+              localStorage.setItem('theme', res.data.theme);
               bookmark.theme = res.data?.theme || 'day';
               user.setUserInfo(res.data);
               router.push('/');
@@ -233,7 +247,7 @@
     place-items: center;
     height: 100%;
     width: 100%;
-    background-color: white!important;
+    background-color: white !important;
   }
 
   .login-view {
@@ -322,6 +336,11 @@
     transform: rotateY(0deg);
   }
 
+  :deep(.ant-form-item .ant-form-item-label){
+    display: flex;
+    align-items: center;
+    justify-content: end;
+  }
   @media (max-width: 600px) {
     .login-view {
       width: 100%;
