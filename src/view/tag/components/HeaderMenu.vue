@@ -248,7 +248,6 @@
     display: flex;
     align-items: center;
     border-radius: 30px;
-    overflow: hidden;
     cursor: pointer;
   }
 
