@@ -92,7 +92,7 @@
   .modal-view {
     position: absolute;
     left: 50%;
-    top: 30%;
+    top: 40%;
     transform: translate(-50%, -50%);
     box-sizing: border-box;
     background-color: var(--menu-body-bg-color);
@@ -153,7 +153,6 @@
   @media (max-width: 600px) {
     .modal-view {
       min-width: 80%;
-      top: 50%;
     }
   }
 

@@ -1,8 +1,15 @@
 <template>
   <div @click="handleUpload" style="width: max-content">
     <slot name="default">
-      <div class="upload_class">
-        <span>上传文件</span>
+      <div
+        style="width: 80px; height: 80px; color: #6c7074; border-radius: 8px"
+        :style="{
+          backgroundColor: bookmark.theme === 'day' ? '#F5F5F5' : '#2e2f3b',
+          border: bookmark.theme === 'day' ? '1px dashed #ccc' : '',
+        }"
+        class="flex-center icon-hover"
+      >
+        <svg-icon size="30" :src="icon.file_upload" />
       </div>
     </slot>
   </div>
@@ -10,57 +17,65 @@
 
 <script lang="ts" setup>
   import { message } from 'ant-design-vue';
+  import icon from '@/config/icon.ts';
+  import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
+  import { bookmarkStore } from '@/store';
 
   const emit = defineEmits(['change']);
+
   const props = withDefaults(
     defineProps<{
-      accept: string;
+      accept: any;
+      multiple: boolean;
+      maxTotalSize: number;
     }>(),
     {
       accept: '*',
+      multiple: true,
+      maxTotalSize: 10 * 1024 * 1024, // 默认总大小限制为10MB
     },
   );
+  const bookmark = bookmarkStore();
   function handleUpload() {
     const input = document.createElement('input');
     input.type = 'file';
     input.accept = props.accept;
+    input.multiple = props.multiple;
     input.addEventListener('change', function (event: any) {
-      const file = event.target.files[0]; // 获取用户选择的文件
-      if (file) {
-        // 检查文件大小是否超过5M
-        const maxFileSize = 5000 * 1024;
-        if (file.size > maxFileSize) {
-          message.warning('图片大小不能超过5MB');
-          return; // 如果文件过大，终止函数执行
+      const files = event.target.files;
+      let totalSize = 0;
+      const result = [];
+      for (let i = 0; i < files.length; i++) {
+        totalSize += files[i].size;
+      }
+      // 检查总文件大小是否超过指定限制
+      if (totalSize > props.maxTotalSize) {
+        message.warning('总文件大小不能超过' + props.maxTotalSize / (1024 * 1024) + 'MB');
+        return; // 如果总文件大小过大，终止函数执行
+      }
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            if (file.type.startsWith('image/')) {
+              result.push(e.target.result); // 图片文件转换为 Base64 字符串
+            } else {
+              result.push(file); // 非图片文件返回原始文件数据
+            }
+            if (result.length === files.length) {
+              emit('change', result); // 当所有文件处理完成后，返回结果数组
+            }
+          };
+          reader.onerror = function (error) {
+            console.error('Error reading file:', error);
+          };
+          reader.readAsDataURL(file);
         }
-        const reader = new FileReader(); // 创建FileReader对象
-        reader.onload = function (e) {
-          const base64 = e.target.result; // 直接获取Base64编码的字符串
-          emit('change', base64.toString());
-        };
-        reader.onerror = function (error) {
-          console.error('Error reading file:', error);
-        };
-        reader.readAsDataURL(file); // 读取文件内容，结果为Base64编码的字符串
       }
     });
-    // 添加到文档并触发点击
     input.click();
   }
 </script>
 
-<style lang="less" scoped>
-  .upload_class {
-    height: 30px;
-    line-height: 30px;
-    width: max-content;
-    padding: 0 5px;
-    display: flex;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    cursor: pointer;
-    &:hover {
-      opacity: 0.8;
-    }
-  }
-</style>
+<style lang="less" scoped></style>

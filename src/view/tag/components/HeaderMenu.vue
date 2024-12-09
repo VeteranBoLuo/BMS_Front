@@ -73,36 +73,35 @@
             placeholder="请输入不少于6字的问题描述"
           />
           <div class="flex-align-center" style="gap: 20px; margin-top: 20px">
-            <b-upload accept="image/*" @change="uploadImg">
-              <div
-                style="width: 80px; height: 80px; color: #6c7074; border-radius: 8px"
-                :style="{
-                  backgroundColor: bookmark.theme === 'day' ? '#F5F5F5' : '#2e2f3b',
-                  border: bookmark.theme === 'day' ? '1px dashed #ccc' : '',
-                }"
-                class="flex-center icon-hover"
-              >
-                <svg-icon size="30" :src="icon.file_upload" />
-              </div>
-            </b-upload>
-            <div
-              v-for="(item, index) in opinionData.imgArray"
-              style="position: relative; width: 80px; height: 80px; box-sizing: border-box"
-            >
+            <b-upload multiple accept="image/*" @change="uploadImg" />
+            <div v-for="(item, index) in opinionData.imgArray" class="img-item">
               <img :src="item" style="width: 80px; height: 80px; box-sizing: border-box" alt="" />
-              <span
+              <div
                 style="
                   position: absolute;
-                  right: 10px;
-                  top: 0;
+                  right: 5px;
+                  top: 5px;
                   z-index: 9;
                   font-size: 14px;
-                  color: red;
+                  padding: 2px;
+                  background-color: rgba(0, 0, 0, 0.6);
+                  border-radius: 50%;
+                  height: 13px;
+                  width: 13px;
                 "
                 @click="opinionData.imgArray.splice(index, 1)"
-                class="icon-hover"
-                >x</span
-              >
+                class="opinion-close-icon"
+                ><svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="1em"
+                  height="1em"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="#fff"
+                    d="M16.95 8.464a1 1 0 0 0-1.414-1.414L12 10.586L8.464 7.05A1 1 0 1 0 7.05 8.464L10.586 12L7.05 15.536a1 1 0 1 0 1.414 1.414L12 13.414l3.536 3.536a1 1 0 1 0 1.414-1.414L13.414 12z"
+                  /></svg
+              ></div>
             </div>
           </div>
           <div style="margin-top: 10px">
@@ -184,21 +183,23 @@
   });
 
   function uploadImg(event) {
-    if (bookmark.isPhone) {
-      if (opinionData.imgArray.length === 2) {
-        opinionData.imgArray.shift();
-        opinionData.imgArray.push(event);
+    event.forEach((img) => {
+      if (bookmark.isPhone) {
+        if (opinionData.imgArray.length === 2) {
+          opinionData.imgArray.shift();
+          opinionData.imgArray.push(img);
+        } else {
+          opinionData.imgArray.push(img);
+        }
       } else {
-        opinionData.imgArray.push(event);
+        if (opinionData.imgArray.length === 3) {
+          opinionData.imgArray.shift();
+          opinionData.imgArray.push(img);
+        } else {
+          opinionData.imgArray.push(img);
+        }
       }
-    } else {
-      if (opinionData.imgArray.length === 3) {
-        opinionData.imgArray.shift();
-        opinionData.imgArray.push(event);
-      } else {
-        opinionData.imgArray.push(event);
-      }
-    }
+    });
   }
 
   function submit() {
@@ -256,7 +257,25 @@
   .user-icon-text {
     text-align: left;
   }
+  .img-item {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    box-sizing: border-box;
+    &:hover {
+      .opinion-close-icon {
+        opacity: 1;
+      }
+    }
+  }
 
+  .opinion-close-icon {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+  }
   @media (max-width: 600px) {
     .header_menu_ul {
       width: 180px;
