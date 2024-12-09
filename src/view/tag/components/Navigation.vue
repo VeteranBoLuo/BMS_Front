@@ -65,12 +65,6 @@
           <ThemeSwith />
           <!--用户信息          -->
           <HeaderMenu />
-          <div :class="['navigation-icon']">
-            <svg-icon size="30" :src="icon.navigation_phone_search" class="icon-hover" />
-          </div>
-          <div :class="['navigation-icon']">
-            <svg-icon size="30" :src="icon.navigation_user" class="icon-hover" />
-          </div>
         </div>
       </div>
     </div>
@@ -249,14 +243,8 @@
   .navigation-icon {
     display: flex;
     align-items: center;
-    border-radius: 30px;
-    overflow: hidden;
+    clip-path: circle(50% at 50% 50%);
     cursor: pointer;
-    transform: translate3d(0, 0, 0);
-    -webkit-backface-visibility: hidden;
-    transform:rotate(0deg);
-    -webkit-transform:rotate(0deg);
-    -webkit-mask-image: -webkit-radial-gradient(white, black);
   }
 
   .header_menu_ul {

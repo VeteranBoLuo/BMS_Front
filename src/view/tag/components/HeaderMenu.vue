@@ -247,8 +247,7 @@
   .navigation-icon {
     display: flex;
     align-items: center;
-    border-radius: 30px;
-    overflow: hidden; // 加上会导致有边框
+    clip-path: circle(50% at 50% 50%);
     cursor: pointer;
   }
 
