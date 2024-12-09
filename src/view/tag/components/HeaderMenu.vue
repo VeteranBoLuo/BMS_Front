@@ -143,6 +143,7 @@
   import { message } from 'ant-design-vue';
   import { apiBaseGet, apiBasePost } from '@/http/request.ts';
   import { cloneDeep } from 'lodash-es';
+  import userApi from "@/api/userApi.ts";
 
   const bookmark = bookmarkStore();
   const getPopupContainer = (trigger: HTMLElement) => {
@@ -163,7 +164,9 @@
   const opinionsVisible = ref(false);
 
   const user = useUserStore();
-
+  function getThemeStyle(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+  }
   function handleExitLogin() {
     userVisible.value = false;
     if (user.role === 'visitor') {
@@ -173,10 +176,22 @@
         title: '提示',
         content: '此操作将退出登录, 是否继续?',
         onOk() {
-          bookmark.isShowLogin = true;
+          // 清空当前用户信息
           user.resetUserInfo();
+          // 打开登录页面
+          bookmark.isShowLogin = true;
+          // 刷新游客书签和标签
           bookmark.type = 'all';
           bookmark.refreshTag();
+          // 获取游客信息
+          userApi.getUserInfoById({ id: localStorage.getItem('userId') }).then((res) => {
+            if (res.status === 200) {
+              user.setUserInfo(res.data);
+              bookmark.theme = res.data.theme;
+              getThemeStyle(res.data.theme);
+              localStorage.setItem('theme', res.data.theme);
+            }
+          });
         },
       });
     }

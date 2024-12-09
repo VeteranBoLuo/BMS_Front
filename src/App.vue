@@ -27,6 +27,7 @@
       .getUserInfoById({ id: localStorage.getItem('userId') })
       .then((res) => {
         if (res.status === 200) {
+          console.log(res.data)
           user.setUserInfo(res.data);
           bookmark.theme = res.data.theme;
           getThemeStyle(res.data.theme);
