@@ -8,7 +8,7 @@
       }"
     >
       <router-view />
-      <login v-if="true"/>
+      <login v-if="bookmark.isShowLogin" />
     </a-config-provider>
   </div>
 </template>
@@ -41,6 +41,9 @@
       });
   } catch (e) {
     router.push('/home');
+  }
+  if (!localStorage.getItem('userId')) {
+    bookmark.isShowLogin = true;
   }
 
   watch(
