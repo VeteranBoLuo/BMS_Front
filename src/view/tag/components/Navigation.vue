@@ -65,6 +65,12 @@
           <ThemeSwith />
           <!--用户信息          -->
           <HeaderMenu />
+          <div :class="['navigation-icon']">
+            <svg-icon size="30" :src="icon.navigation_phone_search" class="icon-hover" />
+          </div>
+          <div :class="['navigation-icon']">
+            <svg-icon size="30" :src="icon.navigation_user" class="icon-hover" />
+          </div>
         </div>
       </div>
     </div>
