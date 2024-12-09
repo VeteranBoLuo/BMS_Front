@@ -248,8 +248,8 @@
     display: flex;
     align-items: center;
     border-radius: 30px;
-    border: unset!important;
     overflow: hidden; // 加上会导致有边框
+    border: 1px solid transparent;
     cursor: pointer;
   }
 
