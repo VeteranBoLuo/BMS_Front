@@ -2,6 +2,7 @@
 import { defineStore } from 'pinia';
 import { FormInstance } from 'ant-design-vue';
 import { TagInterface } from '@/config/bookmarkCfg';
+import icon from '@/config/icon.ts';
 
 export const useUserStore = defineStore('user', {
   state: () => ({
@@ -10,7 +11,7 @@ export const useUserStore = defineStore('user', {
     alias: '默认昵称',
     password: '',
     role: 'user',
-    headPicture: '',
+    headPicture: icon.navigation_user,
     email: '',
     tagTotal: 0,
     bookmarkTotal: 0,
@@ -21,8 +22,8 @@ export const useUserStore = defineStore('user', {
       this.userName = val.userName ?? '默认用户名';
       this.alias = val.alias ?? '默认昵称';
       this.password = val.password ?? '';
-      this.role = val.role ?? 'user';
-      this.headPicture = val.headPicture ?? '';
+      this.role = val.role ?? 'visitor';
+      this.headPicture = val.headPicture ?? icon.navigation_user;
       this.email = val.email ?? '';
       this.tagTotal = val.tagTotal ?? 0;
       this.bookmarkTotal = val.bookmarkTotal ?? 0;
@@ -32,8 +33,8 @@ export const useUserStore = defineStore('user', {
       this.userName = '默认用户名';
       this.alias = '默认昵称';
       this.password = '';
-      this.role = 'user';
-      this.headPicture = '';
+      this.role = 'visitor';
+      this.headPicture = icon.navigation_user;
       this.email = '';
       this.tagTotal = 0;
       this.bookmarkTotal = 0;
@@ -67,6 +68,7 @@ export const bookmarkStore = defineStore('bookmark', {
         screenHeight: number;
         isFold?: boolean; // 手机模式下菜单的折叠状态
         theme: 'day' | 'night'; // 主题
+        isShowLogin: boolean; // 是否弹出登录页面
       }
     >{
       tagData: {
@@ -83,6 +85,7 @@ export const bookmarkStore = defineStore('bookmark', {
       screenHeight: window.innerHeight,
       isFold: true,
       theme: 'day',
+      isShowLogin: false,
     },
   getters: {
     isPhone() {
@@ -112,7 +115,7 @@ export const bookmarkStore = defineStore('bookmark', {
       this.refreshTagKey = false;
       this.type = 'all';
       this.bookmarkSearch = '';
-      this.theme = 'day';
+      this.isShowLogin = false;
     },
   },
 });

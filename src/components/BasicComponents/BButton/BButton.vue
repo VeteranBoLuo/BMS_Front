@@ -13,7 +13,7 @@
       default: 'default',
     },
     type: {
-      type: String as PropType<'primary' | 'dashed' | 'success' | 'danger'>,
+      type: String as PropType<'primary' | 'dashed' | 'function'>,
       default: '',
     },
     danger: {
@@ -31,10 +31,8 @@
       return 'primary_btn';
     } else if (props.type === 'dashed') {
       return 'dashed_btn';
-    } else if (props.type === 'success') {
-      return 'success_btn';
-    } else if (props.type === 'danger') {
-      return 'danger_btn';
+    } else if (props.type === 'function') {
+      return 'function_btn';
     } else {
       return 'default_btn';
     }
@@ -74,12 +72,6 @@
     }
   }
   .default_btn {
-    //border: 1px solid #d9d9d9;
-    //&:hover {
-    //  color: #ff9800;
-    //  border: 1px solid #ff9800;
-    //  transition: all 0.3s;
-    //}
     color: var(--text-color);
     background-color: var(--primary-btn-bg-color);
     transition: all 0.3s;
@@ -87,21 +79,13 @@
       background-color: var(--primary-btn-h-bg-color);
     }
   }
-  .danger_btn {
-    //background-color: #ff4d4f;
-    background-color: #fe2c55;
+
+  .function_btn {
+    background-color: #554dd5;
     color: white;
     transition: all 0.3s;
     &:hover {
-      background-color: #ff7875;
-    }
-  }
-  .success_btn {
-    background-color: #2baf2b;
-    color: white;
-    transition: all 0.3s;
-    &:hover {
-      background-color: #6ccf70;
+      background-color: #6762ee;
     }
   }
 </style>

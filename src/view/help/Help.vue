@@ -3,7 +3,6 @@
     <b-button
       style="position: absolute; right: 20px"
       :style="{ left: bookmark.isPhone ? '' : '187px' }"
-      type="primary"
       @click="$router.push('/manage')"
       v-click-log="{ module: '帮助中心', operation: `返回` }"
       >返回</b-button

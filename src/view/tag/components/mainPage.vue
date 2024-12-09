@@ -9,7 +9,7 @@
   import FilterPanel from '@/view/tag/components/FilterPanel.vue';
   import ViewPanel from '@/view/tag/components/ViewPanel.vue';
   import { computed, nextTick, onMounted, ref, watch } from 'vue';
-  import { bookmarkStore } from '@/store';
+  import { bookmarkStore, useUserStore } from '@/store';
   import { apiBasePost, apiQueryPost } from '@/http/request';
   import { useRouter } from 'vue-router';
   const bookmark = bookmarkStore();
@@ -152,8 +152,12 @@
       });
     },
   );
-
+  const user = useUserStore();
+  const userId = localStorage?.getItem('userId');
   onMounted(() => {
+    if (!userId) {
+      user.role = 'visitor';
+    }
     bookmark.type = 'all';
     // 带有tagId刷新页面时
     if (router.currentRoute.value.params?.id) {

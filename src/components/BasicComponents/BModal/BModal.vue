@@ -1,6 +1,6 @@
 <template>
   <Teleport to="body">
-    <div v-show="visible" class="modal-container" @click.stop>
+    <div v-show="visible" class="mask-container" @click.stop>
       <div class="modal-view" :class="{ out: isOut }">
         <span style="position: absolute;right: 20px;top:20px;z-index: 99999;font-size: 20px" @click="handleClose" class="icon-hover">
           <img src="@/assets/icons/close.svg" width="20" height="20" alt="">
@@ -58,7 +58,7 @@
 
   function closeMask(e) {
     if (typeof e?.target?.className === 'string') {
-      if (props.maskClosable && e.target.className === 'modal-container') {
+      if (props.maskClosable && e.target.className === 'mask-container') {
         handleClose();
       }
     }
@@ -81,7 +81,7 @@
 </script>
 
 <style lang="less" scoped>
-  .modal-container {
+  .mask-container {
     position: fixed;
     height: 100vh;
     width: 100vw;
@@ -152,6 +152,7 @@
 
   @media (max-width: 600px) {
     .modal-view {
+      top: 50%;
       min-width: 80%;
     }
   }

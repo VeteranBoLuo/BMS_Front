@@ -42,9 +42,12 @@
   }
   .bl-radio {
     cursor: pointer;
-    line-height: 100%;
+    height: 30px;
+    line-height: 30px;
+    display: flex;
+    align-items: center;
     box-sizing: border-box;
-    padding: 5px 10px;
+    padding: 0 10px;
     width: max-content;
     border-radius: 4px;
     border: 1px solid var(--primary-color);

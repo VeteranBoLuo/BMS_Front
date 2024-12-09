@@ -133,6 +133,7 @@
   @media (max-width: 600px) {
     .bAlert {
       width: 90%;
+      top: 45%;
     }
   }
 </style>

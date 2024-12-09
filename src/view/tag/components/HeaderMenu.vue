@@ -9,6 +9,7 @@
       <div class="flex-align-center" style="gap: 15px">
         <div
           :class="['navigation-icon']"
+          :style="{ color: bookmark.iconColor }"
           @click="router.push('/userCenter'), (userVisible = false)"
         >
           <svg-icon size="40" :src="user.headPicture || icon.navigation_user" class="icon-hover" />
@@ -41,7 +42,7 @@
         </li>
         <li class="flex-center" @click="handleExitLogin">
           <svg-icon size="16" :src="icon.user_exit" />
-          退出登录
+          {{ user.role === 'visitor' ? '登录/注册' : '退出登录' }}
         </li>
       </ul>
     </template>
@@ -165,14 +166,17 @@
 
   function handleExitLogin() {
     userVisible.value = false;
-    Alert.alert({
-      title: '提示',
-      content: '此操作将退出登录, 是否继续?',
-      onOk() {
-        bookmark.reset();
-        router.push('/login');
-      },
-    });
+    if (user.role === 'visitor') {
+      bookmark.isShowLogin = true;
+    } else {
+      Alert.alert({
+        title: '提示',
+        content: '此操作将退出登录, 是否继续?',
+        onOk() {
+          bookmark.isShowLogin = true;
+        },
+      });
+    }
   }
 
   const opinionData = reactive({
@@ -209,7 +213,7 @@
     }
     const params = cloneDeep(opinionData);
     params.imgArray = JSON.stringify(params.imgArray);
-    apiBasePost('/api/common/addOpinion', params)
+    apiBasePost('/api/common/recordOpinion', params)
       .then((res) => {
         if (res.status === 200) {
           message.success('感谢您的反馈');

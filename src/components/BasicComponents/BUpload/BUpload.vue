@@ -25,15 +25,15 @@
 
   const props = withDefaults(
     defineProps<{
-      accept: any;
+      accept: string;
       multiple: boolean;
       maxTotalSize: number;
     }>(),
     {
-      accept: '*',
+      accept: 'qwe',
       multiple: true,
-      maxTotalSize: 10 * 1024 * 1024, // 默认总大小限制为10MB
-    },
+      maxTotalSize: 10 * 1024 * 1024,
+    }, // 默认总大小限制为10MB
   );
   const bookmark = bookmarkStore();
   function handleUpload() {

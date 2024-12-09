@@ -66,11 +66,11 @@
           value: 'admin',
         },
         {
-          label: 'user',
-          value: 'user',
+          label: 'visitor',
+          value: 'visitor',
         },
       ];
-      return genSelector(options, '', '请选择');
+      return genSelector(options, null, '请选择');
     },
   };
   export default render;

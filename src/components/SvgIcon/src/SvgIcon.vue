@@ -1,6 +1,7 @@
 <template>
+  <svg-icon v-if="!src" :src="icon.nullImg" :size="size" :color="color" />
   <div
-    v-if="iconType === 'base64'"
+    v-else-if="iconType === 'base64'"
     :class="getBase64Class(src)"
     :style="{
       width: size + 'px',
@@ -30,7 +31,6 @@
     v-else-if="iconType === 'css'"
     :style="[extractContentWithinBraces(src), { fontSize: size + 'px', color: color }]"
   ></span>
-  <svg-icon v-else-if="!src" :src="icon.nullImg" :size="size" :color="color" />
   <img :id="imgId" :src="src" v-else :width="size" :height="size" alt="" />
 </template>
 

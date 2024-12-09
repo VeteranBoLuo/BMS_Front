@@ -52,7 +52,7 @@ export default function (app) {
 
   app.directive('click-log', (el, binding) => {
     el.onmousedown = (e) => {
-      apiBasePost('/api/common/addOperationLogs', binding.value).then((r) => {});
+      apiBasePost('/api/common/recordOperationLogs', binding.value).then((r) => {});
     };
   });
 }

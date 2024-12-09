@@ -82,6 +82,10 @@
   }
 
   function saveUserInfo() {
+    if (!['admin', 'root'].includes(user.role) && notNeedAuth) {
+      message.warn('没有操作权限.请登录！！！');
+      return;
+    }
     if (userData.value.email && !validateEmail(userData.value.email)) {
       message.warning('请输入正确的邮箱格式');
       return;
@@ -113,7 +117,7 @@
   function getRoleName() {
     const roleNames = {
       admin: '管理员',
-      user: '普通用户',
+      visitor: '游客',
       root: '超级管理员',
     };
     return roleNames[user.role] || '未知角色';

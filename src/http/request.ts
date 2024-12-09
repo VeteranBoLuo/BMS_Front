@@ -22,17 +22,22 @@ request.interceptors.request.use(
     // 如果用户信息存在，将其添加到请求头中
     if (userId) {
       config.headers['X-User-Id'] = userId;
-      const notNeedAuth = ['add', 'update', 'del'].some((key) => config.url.includes(key));
+      const notNeedAuth = ['add', 'update', 'del'].some((key) =>
+        config.url.includes(key),
+      );
       if (!['admin', 'root'].includes(user.role) && notNeedAuth) {
-        message.warn('没有操作权限');
+        message.warn('没有操作权限.请登录！！！');
         return Promise.reject('接口' + config.url + '没有操作权限');
       }
     } else {
-      if (!['/api/user/login', '/api/user/registerUser'].includes(config.url)) {
-        router.push('/login').then((r) => {});
-        return Promise.reject('User ID not found in local storage');
-      }
+      config.headers['role'] = 'visitor';
     }
+    // else {
+    //   if (!['/api/user/login', '/api/user/registerUser'].includes(config.url)) {
+    //     router.push('/home').then((r) => {});
+    //     return Promise.reject('User ID not found in local storage');
+    //   }
+    // }
     return config; //必须要返回config
   },
   (error) => {

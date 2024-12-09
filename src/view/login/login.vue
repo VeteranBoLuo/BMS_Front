@@ -1,127 +1,146 @@
 <template>
-  <div class="login-container">
-    <div class="login-view" :class="{ flip: isFlipped }">
-      <div class="front-login">
-        <div class="view-page">
-          <b style="font-size: 30px; justify-self: center">登录</b>
-          <a-form :label-col="{ span: 3 }" ref="userFormRef" :model="userFormData">
-            <a-form-item
-              label="账号"
-              name="userName"
-              :rules="[{ required: true, message: '请输入账号' }]"
-            >
-              <a-input style="height: 40px" v-model:value="userFormData.userName">
-                <template #prefix>
-                  <svg-icon :src="icon.navigation_user" size="16" />
-                </template>
-              </a-input>
-            </a-form-item>
-            <a-form-item
-              label="密码"
-              name="password"
-              :rules="[{ required: true, message: '请输入密码' }]"
-            >
-              <span class="flex-center">
-                <a-input style="height: 40px" maxlength="20" type="password" v-model:value="userFormData.password">
+  <teleport to="body">
+    <div class="login-container">
+      <div class="login-view" :class="{ flip: isFlipped }">
+        <div class="front-login">
+          <span @click="bookmark.isShowLogin = false" class="icon-hover login-close-icon">
+            <img src="@/assets/icons/close.svg" width="20" height="20" alt="" />
+          </span>
+          <div class="view-page">
+            <b style="font-size: 30px; justify-self: center">登录</b>
+            <a-form :label-col="{ span: 4 }" ref="userFormRef" :model="userFormData">
+              <a-form-item
+                label=""
+                name="userName"
+                :rules="[{ required: true, message: '请输入账号' }]"
+              >
+                <a-input
+                  style="height: 40px"
+                  v-model:value="userFormData.userName"
+                  placeholder="账号"
+                >
                   <template #prefix>
-                    <svg-icon :src="icon.login_password" size="16" />
+                    <svg-icon :src="icon.navigation_user" size="16" />
                   </template>
                 </a-input>
+              </a-form-item>
+              <a-form-item
+                label=""
+                name="password"
+                :rules="[{ required: true, message: '请输入密码' }]"
+              >
+                <span class="flex-center">
+                  <a-input
+                    style="height: 40px"
+                    maxlength="20"
+                    type="password"
+                    placeholder="密码"
+                    v-model:value="userFormData.password"
+                  >
+                    <template #prefix>
+                      <svg-icon :src="icon.login_password" size="16" />
+                    </template>
+                  </a-input>
+                </span>
+              </a-form-item>
+              <a-form-item>
                 <div
-                  v-show="title === '登录'"
-                  style="cursor: pointer; position: absolute; right: 0;z-index: 1"
+                  style="
+                    display: flex;
+                    width: 100%;
+                    justify-content: space-between;
+                    padding: 0 5px;
+                    box-sizing: border-box;
+                  "
                 >
-                  <span style="color: #ccc">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-                  <span style="color: #ccc; margin-right: 5px" @click="handleInsertTest"
-                    >填入测试账号</span
+                  <span
+                    style="
+                      font-size: 12px;
+                      display: flex;
+                      align-items: center;
+                      gap: 5px;
+                      color: #1f1f1f !important;
+                    "
+                    ><b-checkbox v-model:isCheck="isCheck" />Remember Me</span
+                  >
+                  <span style="font-size: 12px; color: #ccc !important" class="icon-hover"
+                    >Forget Password?</span
                   >
                 </div>
-              </span>
-            </a-form-item>
-            <a-form-item>
-              <div
-                style="
-                  display: flex;
-                  width: 100%;
-                  justify-content: space-between;
-                  padding: 0 10px 0 20px;
-                  box-sizing: border-box;
-                "
-              >
-                <span
-                  style="
-                    font-size: 12px;
-                    display: flex;
-                    align-items: center;
-                    gap: 5px;
-                    color: #1f1f1f !important;
-                  "
-                  ><b-checkbox v-model:isCheck="isCheck" />Remember Me</span
-                >
-                <span style="font-size: 12px; color: #1f1f1f !important" class="icon-hover"
-                  >Forget Password?</span
-                >
-              </div>
-            </a-form-item>
-          </a-form>
-          <b-button type="primary" @click="handleToPage" class="handle-btn">登录</b-button>
-          <span class="tips-text">还没有账号？前往<a @click="toRegister">注册</a></span>
+              </a-form-item>
+            </a-form>
+            <b-button type="primary" @click="handleToPage" class="handle-btn">登录</b-button>
+            <span class="tips-text">还没有账号？前往<a @click="toRegister">注册</a></span>
+          </div>
         </div>
-      </div>
-      <div class="back-register">
-        <div class="view-page">
-          <b style="font-size: 30px; justify-self: center">注册</b>
-          <a-form :label-col="{ span: 3 }" ref="userFormRef2" :model="userFormData">
-            <a-form-item
-              label="账号"
-              name="userName"
-              :rules="[
-                { required: true, message: '请输入账号' },
-                { max: 12, message: '账号长度不能超过12个字符' },
-                { min: 6, message: '账号长度不能少于6个字符' },
-              ]"
-            >
-              <a-input style="height: 40px" v-model:value="userFormData.userName">
-                <template #prefix>
-                  <svg-icon :src="icon.navigation_user" size="16" />
-                </template>
-              </a-input>
-            </a-form-item>
-            <a-form-item
-              label="密码"
-              name="password"
-              :rules="[
-                { required: true, message: '请输入密码' },
-                { max: 15, message: '密码长度不能超过15个字符' },
-                { min: 6, message: '密码长度不能少于6个字符' },
-              ]"
-            >
-              <span class="flex-center">
-                <a-input style="height: 40px" maxlength="20"  type="password" v-model:value="userFormData.password">
+        <div class="back-register">
+          <span @click="bookmark.isShowLogin = false" class="icon-hover login-close-icon">
+            <img src="@/assets/icons/close.svg" width="20" height="20" alt="" />
+          </span>
+          <div class="view-page">
+            <b style="font-size: 30px; justify-self: center">注册</b>
+            <a-form :label-col="{ span: 4 }" ref="userFormRef2" :model="userFormData">
+              <a-form-item
+                label=""
+                name="userName"
+                :rules="[
+                  { required: true, message: '请输入账号' },
+                  { max: 12, message: '账号长度不能超过12个字符' },
+                  { min: 6, message: '账号长度不能少于6个字符' },
+                ]"
+              >
+                <a-input
+                  style="height: 40px"
+                  v-model:value="userFormData.userName"
+                  placeholder="账号"
+                >
                   <template #prefix>
-                    <svg-icon :src="icon.login_password" size="16" />
+                    <svg-icon :src="icon.navigation_user" size="16" />
                   </template>
                 </a-input>
-              </span>
-            </a-form-item>
-            <a-form-item
-              label="邮箱"
-              name="email"
-              :rules="[{ type: 'email', message: '请输入正确的邮箱格式' }]"
-            >
-              <a-input style="height: 40px" v-model:value="userFormData.email">
-                <template #prefix>
-                  <svg-icon :src="icon.login_email" size="16" />
-                </template>
-              </a-input>
-            </a-form-item>
-          </a-form>
-          <b-button @click="handleToPage" class="handle-btn">注册</b-button>
-          <span class="tips-text">已有账号？前往<a @click="title = '登录'">登录</a></span>
+              </a-form-item>
+              <a-form-item
+                label=""
+                name="password"
+                :rules="[
+                  { required: true, message: '请输入密码' },
+                  { max: 15, message: '密码长度不能超过15个字符' },
+                  { min: 6, message: '密码长度不能少于6个字符' },
+                ]"
+              >
+                <span class="flex-center">
+                  <a-input
+                    style="height: 40px"
+                    maxlength="20"
+                    type="password"
+                    placeholder="密码"
+                    v-model:value="userFormData.password"
+                  >
+                    <template #prefix>
+                      <svg-icon :src="icon.login_password" size="16" />
+                    </template>
+                  </a-input>
+                </span>
+              </a-form-item>
+              <a-form-item
+                label=""
+                name="email"
+                :rules="[{ type: 'email', message: '请输入正确的邮箱格式' }]"
+              >
+                <a-input style="height: 40px" v-model:value="userFormData.email" placeholder="邮箱">
+                  <template #prefix>
+                    <svg-icon :src="icon.login_email" size="16" />
+                  </template>
+                </a-input>
+              </a-form-item>
+            </a-form>
+            <b-button type="primary" @click="handleToPage" class="handle-btn">注册</b-button>
+            <span class="tips-text">已有账号？前往<a @click="title = '登录'">登录</a></span>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </teleport>
 </template>
 
 <script lang="ts" setup>
@@ -149,8 +168,8 @@
   const user = useUserStore();
 
   const userFormData: any = ref({
-    userName: 'test',
-    password: '123456',
+    userName: '',
+    password: '',
     email: '',
   });
 
@@ -164,13 +183,6 @@
     };
   };
 
-  function handleInsertTest() {
-    userFormData.value = {
-      userName: 'test',
-      password: '123456',
-      email: '',
-    };
-  }
 
   const userFormRef = ref();
   const userFormRef2 = ref();
@@ -193,6 +205,7 @@
               user.setUserInfo(res.data);
               router.push('/');
               message.success('登录成功');
+              bookmark.isShowLogin = false;
             } else {
               message.error(res.msg);
             }
@@ -232,8 +245,6 @@
       isCheck.value = true;
       userFormData.value = JSON.parse(loginInfo);
     }
-    bookmark.reset();
-    document.documentElement.setAttribute('data-theme', 'day');
   });
 
   onUnmounted(() => {
@@ -243,39 +254,33 @@
 
 <style scoped>
   .login-container {
-    display: grid;
-    place-items: center;
-    height: 100%;
-    width: 100%;
-    background-color: white !important;
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    animation: in-animation 0.3s ease;
   }
 
   .login-view {
-    box-sizing: border-box;
-    border-radius: 50%;
-    margin: 0 auto;
-    background: transparent;
-    position: relative;
-    height: 90%;
-    width: 50vw;
-    box-shadow:
-      inset 15px 10px 40px rgba(158, 158, 158, 0.303),
-      10px 10px 20px rgba(117, 117, 117, 0.3),
-      15px 15px 30px rgba(72, 70, 70, 0.193),
-      inset -10px -10px 20px rgba(233, 229, 229, 0.873);
-    animation: move 4s linear infinite;
+    width: 450px;
+    height: 450px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
   }
 
-  @keyframes move {
-    50% {
-      border-radius: 42% 58% 49% 51% / 52% 36% 64% 48%;
-    }
-    75% {
-      border-radius: 52% 48% 49% 51% / 43% 49% 51% 57%;
-    }
-    25% {
-      border-radius: 52% 48% 59% 41% / 43% 49% 51% 57%;
-    }
+  .front-login,
+  .back-register {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    backface-visibility: hidden;
+    transition: transform 0.6s;
+    border: 1px solid #ccc;
+    border-radius: 8px;
   }
 
   .view-page {
@@ -286,11 +291,10 @@
   }
 
   .tips-text {
-    font-size: 12px;
+    font-size: 14px;
     position: absolute;
-    right: 10px;
-    bottom: 10px;
-
+    right: 20px;
+    bottom: 20px;
     a {
       cursor: pointer;
       color: #3b82f6;
@@ -299,25 +303,11 @@
   }
 
   .handle-btn {
+    width: 80%;
     justify-self: center;
     position: relative;
     bottom: 50px;
     color: white !important;
-    background-color: #4e4b46 !important;
-  }
-
-  .front-login,
-  .back-register {
-    width: 52%;
-    backface-visibility: hidden;
-    transition: transform 0.6s;
-    position: absolute;
-    height: 400px;
-    left: 25%;
-    top: 25%;
-    transform: translate(-50%, -50%);
-    border: 1px solid #ccc;
-    border-radius: 8px;
   }
 
   .front-login {
@@ -336,22 +326,36 @@
     transform: rotateY(0deg);
   }
 
-  :deep(.ant-form-item .ant-form-item-label){
+  :deep(.ant-form-item .ant-form-item-label) {
     display: flex;
     align-items: center;
     justify-content: end;
   }
+
+  .login-close-icon {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    z-index: 99999;
+    font-size: 20px;
+  }
+
+  @keyframes in-animation {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
   @media (max-width: 600px) {
     .login-view {
-      width: 100%;
-      height: 100%;
-      box-shadow: unset;
+      height: 500px;
     }
     .front-login,
     .back-register {
+      height: 80%;
       width: 80%;
-      height: 50%;
-      left: 10%;
     }
   }
 </style>
