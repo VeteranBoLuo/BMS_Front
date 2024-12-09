@@ -7,7 +7,7 @@
             <img src="@/assets/icons/close.svg" width="20" height="20" alt="" />
           </span>
           <div class="view-page">
-            <b style="font-size: 30px; justify-self: center;color: #161824">登录</b>
+            <b style="font-size: 30px; justify-self: center; color: #161824">登录</b>
             <a-form :label-col="{ span: 4 }" ref="userFormRef" :model="userFormData">
               <a-form-item
                 label=""
@@ -78,7 +78,7 @@
             <img src="@/assets/icons/close.svg" width="20" height="20" alt="" />
           </span>
           <div class="view-page">
-            <b style="font-size: 30px; justify-self: center;color: #161824">注册</b>
+            <b style="font-size: 30px; justify-self: center; color: #161824">注册</b>
             <a-form :label-col="{ span: 4 }" ref="userFormRef2" :model="userFormData">
               <a-form-item
                 label=""
@@ -205,6 +205,8 @@
               router.push('/');
               message.success('登录成功');
               bookmark.isShowLogin = false;
+              bookmark.type = 'all';
+              bookmark.refreshTag();
             } else {
               message.error(res.msg);
             }
