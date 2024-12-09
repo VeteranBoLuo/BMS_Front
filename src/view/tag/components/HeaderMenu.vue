@@ -174,6 +174,7 @@
         content: '此操作将退出登录, 是否继续?',
         onOk() {
           bookmark.isShowLogin = true;
+          user.resetUserInfo()
         },
       });
     }

@@ -82,8 +82,8 @@
   }
 
   function saveUserInfo() {
-    if (!['admin', 'root'].includes(user.role) && notNeedAuth) {
-      message.warn('没有操作权限.请登录！！！');
+    if (!['admin', 'root'].includes(user.role)) {
+      message.warn('请登录');
       return;
     }
     if (userData.value.email && !validateEmail(userData.value.email)) {

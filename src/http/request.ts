@@ -22,7 +22,7 @@ request.interceptors.request.use(
     // 如果用户信息存在，将其添加到请求头中
     if (userId) {
       config.headers['X-User-Id'] = userId;
-      const notNeedAuth = ['add', 'update', 'del'].some((key) =>
+      const notNeedAuth = ['del'].some((key) =>
         config.url.includes(key),
       );
       if (!['admin', 'root'].includes(user.role) && notNeedAuth) {

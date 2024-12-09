@@ -7,7 +7,7 @@
             <img src="@/assets/icons/close.svg" width="20" height="20" alt="" />
           </span>
           <div class="view-page">
-            <b style="font-size: 30px; justify-self: center">登录</b>
+            <b style="font-size: 30px; justify-self: center;color: #161824">登录</b>
             <a-form :label-col="{ span: 4 }" ref="userFormRef" :model="userFormData">
               <a-form-item
                 label=""
@@ -78,7 +78,7 @@
             <img src="@/assets/icons/close.svg" width="20" height="20" alt="" />
           </span>
           <div class="view-page">
-            <b style="font-size: 30px; justify-self: center">注册</b>
+            <b style="font-size: 30px; justify-self: center;color: #161824">注册</b>
             <a-form :label-col="{ span: 4 }" ref="userFormRef2" :model="userFormData">
               <a-form-item
                 label=""
@@ -183,7 +183,6 @@
     };
   };
 
-
   const userFormRef = ref();
   const userFormRef2 = ref();
   const handleToPage = async () => {
@@ -238,6 +237,8 @@
   }
 
   onMounted(() => {
+    document.addEventListener('mouseup', closeMask);
+    document.addEventListener('keydown', clickEsc);
     document.addEventListener('keydown', enterFunc);
     localStorage.setItem('userId', '');
     const loginInfo = localStorage.getItem('loginInfo');
@@ -249,7 +250,23 @@
 
   onUnmounted(() => {
     document.removeEventListener('keydown', enterFunc);
+    document.removeEventListener('mouseup', closeMask);
+    document.addEventListener('keydown', clickEsc);
   });
+
+  function closeMask(e) {
+    if (typeof e?.target?.className === 'string') {
+      if (e.target.className === 'login-container') {
+        bookmark.isShowLogin = false;
+      }
+    }
+  }
+
+  function clickEsc(e) {
+    if (e.keyCode === 27) {
+      bookmark.isShowLogin = false;
+    }
+  }
 </script>
 
 <style scoped>
@@ -281,6 +298,7 @@
     transition: transform 0.6s;
     border: 1px solid #ccc;
     border-radius: 8px;
+    background-image: var(--bg-image2);
   }
 
   .view-page {
