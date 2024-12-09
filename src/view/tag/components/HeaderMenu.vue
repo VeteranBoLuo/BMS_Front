@@ -249,7 +249,6 @@
     align-items: center;
     border-radius: 30px;
     overflow: hidden; // 加上会导致有边框
-    transform: rotate(0deg);
     cursor: pointer;
   }
 

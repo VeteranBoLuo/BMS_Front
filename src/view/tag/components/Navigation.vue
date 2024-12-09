@@ -212,12 +212,6 @@
     width: 100%;
     position: fixed;
     top: 0;
-    transform: translate3d(0, 0, 0);
-    -webkit-backface-visibility: hidden;
-    transform:rotate(0deg);
-    -webkit-transform:rotate(0deg);
-    -webkit-mask-image: -webkit-radial-gradient(white, black);
-
   }
 
   .navigation-title {
@@ -258,6 +252,11 @@
     border-radius: 30px;
     overflow: hidden;
     cursor: pointer;
+    transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    transform:rotate(0deg);
+    -webkit-transform:rotate(0deg);
+    -webkit-mask-image: -webkit-radial-gradient(white, black);
   }
 
   .header_menu_ul {
