@@ -214,7 +214,8 @@
     top: 0;
     transform: translate3d(0, 0, 0);
     -webkit-backface-visibility: hidden;
-    -webkit-transform: translate3d(0, 0, 0);
+    transform:rotate(0deg);
+    -webkit-transform:rotate(0deg);
     -webkit-mask-image: -webkit-radial-gradient(white, black);
 
   }
