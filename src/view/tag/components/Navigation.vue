@@ -57,7 +57,7 @@
             </template>
           </b-input>
         </div>
-        <div style="position: absolute; right: 25px; display: flex; align-items: center; gap: 10px">
+        <div style="position: absolute; right: 25px; display: flex; align-items: center; gap: 15px">
           <div v-if="phoneSearchVisible" class="flex-align-center icon-hover">
             <svg-icon size="30" :src="icon.navigation_phone_search" @click="phoneSearchClick" />
           </div>
