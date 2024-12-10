@@ -1,7 +1,7 @@
 <template>
   <div class="main-page">
     <FilterPanel id="phone-filter-panel" class="phone-filter-panel" />
-    <ViewPanel />
+    <ViewPanel :key="bookmark.mainPanelKey" />
   </div>
 </template>
 

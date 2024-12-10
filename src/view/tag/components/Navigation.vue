@@ -109,17 +109,10 @@
   const dom = domStore();
 
   async function handleToIndex() {
+    bookmark.type = 'all';
+    bookmark.refreshData();
     await router.push({ path: `/` });
-    if (bookmark.isPhone) {
-      location.reload();
-    } else {
-      bookmark.type = 'all';
-      bookmark.refreshData();
-      const viewPanel = document.getElementById('view-panel');
-      if (viewPanel) {
-        viewPanel.scrollTop = 0;
-      }
-    }
+    bookmark.refreshViewKey();
   }
 
   function foldClick() {

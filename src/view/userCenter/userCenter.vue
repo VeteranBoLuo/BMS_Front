@@ -20,7 +20,7 @@
       <div class="right-content-body">
         <b-button
           style="position: absolute; right: 20px; top: 30px; z-index: 2"
-          @click="$router.push('/home')"
+          @click="$router.push(String(backRouter))"
           v-click-log="{ module: '用户中心', operation: `返回` }"
           >返回</b-button
         >
@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, ref } from 'vue';
+  import { computed, onMounted, ref } from 'vue';
   import router from '@/router';
   import icon from '@/config/icon';
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
@@ -60,6 +60,12 @@
   function handleClickItem(menu: { key: string; label: string }) {
     router.push('/userCenter/' + menu.key);
   }
+  const backRouter = computed(() => {
+    if (router.options.history.state.back.toString().includes('userCenter')) {
+      return '/home';
+    }
+    return router.options.history.state.back
+  });
 </script>
 
 <style lang="less">
