@@ -113,6 +113,7 @@
     bookmark.refreshData();
     await router.push({ path: `/` });
     bookmark.refreshViewKey();
+    bookmark.isFold = true;
   }
 
   function foldClick() {

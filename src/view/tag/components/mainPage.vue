@@ -37,9 +37,9 @@
           });
           if (normalRes.status === 200) {
             bookmark.bookmarkList = normalRes.data.items;
-            if (bookmark.isPhone) {
-              bookmark.isFold = true;
-            }
+          }
+          if (bookmark.isPhone) {
+            bookmark.isFold = true;
           }
         }
         const dom = document.getElementById('view-panel');
@@ -74,9 +74,7 @@
           bookmark.refreshData();
         }
       }
-      if (bookmark.isPhone) {
-        bookmark.isFold = true;
-      }
+
       // 缓存图片
       await apiBasePost(
         '/api/common/analyzeImgUrl',
