@@ -19,16 +19,14 @@ request.interceptors.request.use(
     // 假设你有一个全局状态管理器（如Vuex）或者一个响应式的引用（如ref）来存储用户信息
     const userId = localStorage?.getItem('userId'); /* 从你的状态管理器或响应式引用中获取用户信息 */
     const user = useUserStore();
+    const notNeedAuth = ['del'].some((key) => config.url.includes(key));
+    if (!['admin', 'root'].includes(user.role) && notNeedAuth) {
+      message.warn('没有操作权限.请登录！！！');
+      return Promise.reject('接口' + config.url + '没有操作权限');
+    }
     // 如果用户信息存在，将其添加到请求头中
     if (userId) {
       config.headers['X-User-Id'] = userId;
-      const notNeedAuth = ['del'].some((key) =>
-        config.url.includes(key),
-      );
-      if (!['admin', 'root'].includes(user.role) && notNeedAuth) {
-        message.warn('没有操作权限.请登录！！！');
-        return Promise.reject('接口' + config.url + '没有操作权限');
-      }
     } else {
       config.headers['role'] = 'visitor';
     }
