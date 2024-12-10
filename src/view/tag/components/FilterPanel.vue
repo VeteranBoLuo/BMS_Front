@@ -103,10 +103,6 @@
   const rightTagData = ref<TagInterface>();
 
   function handleTagMenu(menu, tag: TagInterface) {
-    if (!['admin', 'root'].includes(user.role) && menu === '删除') {
-      message.warning('没有操作权限');
-      return;
-    }
     rightTagData.value = tag;
     if (menu === '重命名') {
       tag.isRename = true;
