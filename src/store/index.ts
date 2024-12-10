@@ -62,7 +62,7 @@ export const bookmarkStore = defineStore('bookmark', {
         imgList?: any; // 网站图标列表
         refreshKey?: boolean;
         refreshTagKey?: boolean;
-        type?: 'all' | 'normal' | 'search';
+        type: 'all' | 'normal' | 'search';
         bookmarkSearch?: any;
         screenWidth: number;
         screenHeight: number;
@@ -73,8 +73,8 @@ export const bookmarkStore = defineStore('bookmark', {
       }
     >{
       tagData: {
-        associatedTagList: [],
-      }, // 当前选中标签详情
+        associatedTagList: [], // 当前选中标签详情
+      },
       tagList: [], // 标签列表
       bookmarkList: [], // 书签列表
       imgList: [],
@@ -86,7 +86,8 @@ export const bookmarkStore = defineStore('bookmark', {
       screenHeight: window.innerHeight,
       isFold: true,
       theme: 'day',
-      mainPanelKey: () => (Math.random() * 9000000).toString(),
+      isShowLogin: false,
+      mainPanelKey: (Math.random() * 9000000).toString(),
     },
   getters: {
     isPhone() {
