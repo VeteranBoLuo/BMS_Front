@@ -143,7 +143,7 @@
   import { message } from 'ant-design-vue';
   import { apiBaseGet, apiBasePost } from '@/http/request.ts';
   import { cloneDeep } from 'lodash-es';
-  import userApi from "@/api/userApi.ts";
+  import userApi from '@/api/userApi.ts';
 
   const bookmark = bookmarkStore();
   const getPopupContainer = (trigger: HTMLElement) => {
@@ -183,6 +183,7 @@
           // 刷新游客书签和标签
           bookmark.type = 'all';
           bookmark.refreshTag();
+          router.push('/home');
           // 获取游客信息
           userApi.getUserInfoById({ id: localStorage.getItem('userId') }).then((res) => {
             if (res.status === 200) {
