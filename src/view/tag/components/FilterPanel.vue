@@ -11,7 +11,12 @@
             <a-dropdown :trigger="['hover']">
               <template #overlay>
                 <a-menu style="background-color: var(--menu-body-bg-color)">
-                  <a-menu-item :style="{ color: bookmark.iconColor }" key="addTag" @click="addTag" class="menu-item">
+                  <a-menu-item
+                    :style="{ color: bookmark.iconColor }"
+                    key="addTag"
+                    @click="addTag"
+                    class="menu-item"
+                  >
                     <span v-click-log="{ module: '首页', operation: `点击添加标签` }">
                       添加标签
                     </span>
@@ -98,7 +103,7 @@
   const rightTagData = ref<TagInterface>();
 
   function handleTagMenu(menu, tag: TagInterface) {
-    if (!['admin', 'root'].includes(user.role)) {
+    if (!['admin', 'root'].includes(user.role) && menu === '删除') {
       message.warning('没有操作权限');
       return;
     }
@@ -174,7 +179,6 @@
   .header-input {
     width: 180px;
   }
-
 
   .edit-input {
     :deep(.b_input) {
