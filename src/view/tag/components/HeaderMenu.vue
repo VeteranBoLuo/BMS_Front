@@ -12,7 +12,7 @@
           :style="{ color: bookmark.iconColor }"
           @click="router.push('/userCenter'), (userVisible = false)"
         >
-          <svg-icon size="40" :src="user.headPicture || icon.navigation_user" class="icon-hover" />
+          <svg-icon size="40" :src="user.headPicture || icon.navigation_user" class="dom-hover" />
         </div>
         <div class="user-icon-text" :style="{ color: bookmark.iconColor }">
           <div>{{ user.userName ? user.alias || '默认昵称' : '请登录' }}</div>
@@ -47,7 +47,7 @@
       </ul>
     </template>
     <div :class="['navigation-icon']">
-      <svg-icon size="30" :src="user.headPicture || icon.navigation_user" class="icon-hover" />
+      <svg-icon size="30" :src="user.headPicture || icon.navigation_user" class="dom-hover" />
     </div>
     <b-modal
       :mask-closable="false"
@@ -230,7 +230,7 @@
       message.warning('请输入不少于6字的问题描述');
       return;
     }
-    const params = cloneDeep(opinionData);
+    const params:any = cloneDeep(opinionData);
     params.imgArray = JSON.stringify(params.imgArray);
     apiBasePost('/api/common/recordOpinion', params)
       .then((res) => {

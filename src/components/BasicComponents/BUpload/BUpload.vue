@@ -7,7 +7,7 @@
           backgroundColor: bookmark.theme === 'day' ? '#F5F5F5' : '#2e2f3b',
           border: bookmark.theme === 'day' ? '1px dashed #ccc' : '',
         }"
-        class="flex-center icon-hover"
+        class="flex-center dom-hover"
       >
         <svg-icon size="30" :src="icon.file_upload" />
       </div>

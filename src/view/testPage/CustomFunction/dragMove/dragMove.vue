@@ -52,7 +52,7 @@
   .dragBody {
     width: 300px;
     height: 200px;
-    background-color: var(--primary-color);
+    background-color: #fe2c55;
     color: var(--primary-text);
     border-radius: 4px;
     box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.12);

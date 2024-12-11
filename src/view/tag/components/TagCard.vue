@@ -10,12 +10,7 @@
     </div>
     <div class="card-description">{{ cardInfo.description }}</div>
     <div class="footer-tag">
-      <div
-        class="common-tag"
-        @click="handleToTagPage(tag)"
-        v-for="tag in cardInfo.tagList"
-        @click.stop
-      >
+      <div class="common-tag" @click="handleToTagPage(tag)" v-for="tag in cardInfo.tagList" @click.stop>
         <span>{{ tag.name }}</span>
       </div>
     </div>
@@ -28,27 +23,26 @@
   import { onMounted } from 'vue';
 
   const bookmark = bookmarkStore();
-  const props = withDefaults(
-    defineProps<{
-      cardInfo: {
+  const props = defineProps({
+    cardInfo: {
+      type: Object as () => {
         id?: string;
         name: string;
         description: string;
         url: string;
         tags: any;
         tagList?: any;
-      };
-    }>(),
-    {
-      cardInfo: () => ({
+      },
+      default: () => ({
+        id: '',
         name: '哔哩哔哩',
         description: '哔哩哔哩 (゜-゜)つロ 干杯~-bilibili',
         url: 'https://www.bilibili.com/',
         tags: [],
-        tagIds: '',
+        tagList: undefined, // 你可以根据实际情况决定是否需要提供默认值
       }),
     },
-  );
+  });
 
   function toNewPage() {
     if (!props.cardInfo.url.includes('https') || !props.cardInfo.url.includes('http')) {
@@ -168,70 +162,6 @@
   }
 
   @media (max-width: 600px) {
-    /*----------------------------tag.vue-------------------------------------*/
-    .container {
-      .main-page {
-        padding: 20px 0;
-      }
-    }
-
-    /*-----------------------------login.vue----------------------------------*/
-    .login-view {
-      width: 100%;
-      height: 100%;
-      box-shadow: unset;
-    }
-
-    .front-login,
-    .back-register {
-      width: 80%;
-      height: 50%;
-      left: 10%;
-    }
-
-    /*------------------------------BAlert.vue------------------------------------*/
-    .bAlert {
-      width: 90%;
-    }
-
-    /*-------------------------------BModal.vue-----------------------------------*/
-    .modal-view {
-      min-width: 80%;
-    }
-
-    /*--------------------------------CardPanel.vue--------------------------------*/
-    .card-panel {
-      justify-content: center;
-    }
-
-    /*--------------------------------FilterPanel.vue------------------------------*/
-    .filter-panel {
-      min-width: unset;
-      width: 100%;
-      padding: 20px;
-    }
-
-    &.header-input {
-      width: unset;
-    }
-
-    .category-item {
-      width: 100%;
-    }
-
-    .filter-panel-menu {
-      width: unset;
-    }
-
-    /*-----------------------------------Navigation.vue-----------------------------*/
-    .navigation-title {
-      gap: 20px;
-
-      .navigation-title-link {
-        gap: 10px;
-      }
-    }
-
     .card-body {
       height: 140px;
       &:hover {

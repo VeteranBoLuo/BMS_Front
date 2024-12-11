@@ -59,7 +59,7 @@
                 size="16"
                 @click="edit(record.id)"
                 v-click-log="{ module: '书签管理', operation: `编辑` }"
-                class="icon-hover"
+                class="dom-hover"
               />
               <svg-icon
                 title="删除"
@@ -67,7 +67,7 @@
                 size="16"
                 @click="handleDeleteTag(record)"
                 v-click-log="{ module: '书签管理', operation: `删除` }"
-                class="icon-hover"
+                class="dom-hover"
               />
             </div>
           </template>

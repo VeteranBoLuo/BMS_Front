@@ -323,7 +323,7 @@
   .help-title {
     height: 30px;
     line-height: 1rem;
-    background-color: var(--primary-color);
+    background-color: #fe2c55;
     color: #ffffff;
     display: flex;
     align-items: center;

@@ -67,8 +67,8 @@
   .dashed_btn {
     border: 2px dashed #d9d9d9;
     &:hover {
-      color: var(--primary-color);
-      border-color: var(--primary-color);
+      color: #fe2c55;
+      border-color: #fe2c55;
     }
   }
   .default_btn {

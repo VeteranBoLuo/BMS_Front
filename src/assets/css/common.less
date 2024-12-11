@@ -18,7 +18,7 @@
 
 :root {
   --primary-color: #33343f;
-  --primary-text: #fff8e8;
+  --primary-text: #fe2c55;
   --primary-h-color: #3b82f6;
   font-family: '微软雅黑', serif;
   pre {
@@ -27,8 +27,8 @@
 }
 
 .element-primary {
-  background-color: var(--primary-color);
-  color: var(--primary-text);
+  background-color: #33343f;
+  color: #fff8e8;
 }
 
 .flex-align-center {
@@ -47,13 +47,13 @@
   justify-content: center;
 }
 
-.icon-hover {
+.dom-hover {
   cursor: pointer;
 }
-.icon-hover-click {
+.dom-hover-click {
   cursor: pointer;
   &:hover {
-    color: #ff9800 !important;
+    color: var(--primary-text) !important;
   }
 }
 

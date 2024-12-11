@@ -98,12 +98,12 @@
     cursor: pointer;
     padding-left: 20px;
     &:hover {
-      background: var(--primary-color);
+      background: #fe2c55;
       color: #fff;
     }
   }
   [isCheck='true'] {
-    background: var(--primary-color);
+    background: #fe2c55;
     color: #fff;
   }
   .right-content-body {

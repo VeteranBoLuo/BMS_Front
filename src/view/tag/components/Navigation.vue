@@ -17,21 +17,13 @@
         <svg-icon
           :src="icon.navigation_menu"
           size="25"
-          v-if="
-            bookmark.isPhone &&
-            router.currentRoute.value.fullPath.includes('home') &&
-            bookmark.isFold
-          "
+          v-if="bookmark.isPhone && router.currentRoute.value.fullPath.includes('home') && bookmark.isFold"
           @click="foldClick"
         />
         <svg-icon
           :src="icon.navigation_close"
           size="25"
-          v-if="
-            bookmark.isPhone &&
-            router.currentRoute.value.fullPath.includes('home') &&
-            !bookmark.isFold
-          "
+          v-if="bookmark.isPhone && router.currentRoute.value.fullPath.includes('home') && !bookmark.isFold"
           @click="foldClick"
         />
         <template class="navigation-title-link" @click="handleToIndex">
@@ -58,7 +50,7 @@
           </b-input>
         </div>
         <div style="position: absolute; right: 25px; display: flex; align-items: center; gap: 15px">
-          <div v-if="phoneSearchVisible" class="flex-align-center icon-hover">
+          <div v-if="phoneSearchVisible" class="flex-align-center dom-hover">
             <svg-icon size="30" :src="icon.navigation_phone_search" @click="phoneSearchClick" />
           </div>
           <!--  主题切换        -->
@@ -161,6 +153,7 @@
     const search: any = document.getElementById('phone-navigation-search');
     search.style.transform = ' translateX(20px)';
     const body: any = document.getElementById('phone-navigation-container');
+    body.style.transition='all 0.3s'
     body.style.transform = ' translateX(100%)';
     document.getElementById('navigation-phone-input').focus();
   }
@@ -169,6 +162,7 @@
     const search: any = document.getElementById('phone-navigation-search');
     search.style.transform = ' translateX(calc(-100%))';
     const body: any = document.getElementById('phone-navigation-container');
+    body.style.transition='all 0.3s'
     body.style.transform = ' translateX(0)';
   }
 
@@ -300,7 +294,7 @@
     gap: 10px;
     display: flex;
     transition: all 0.3s;
-
+    z-index: 9;
     .search-back-span {
       cursor: pointer;
       width: 60px;

@@ -2,7 +2,7 @@
   <Teleport to="body">
     <div v-show="visible" class="mask-container" @click.stop>
       <div class="modal-view" :class="{ out: isOut }">
-        <span style="position: absolute;right: 20px;top:20px;z-index: 99999;font-size: 20px" @click="handleClose" class="icon-hover">
+        <span style="position: absolute;right: 20px;top:20px;z-index: 99999;font-size: 20px" @click="handleClose" class="dom-hover">
           <img src="@/assets/icons/close.svg" width="20" height="20" alt="">
         </span>
         <slot name="title">
@@ -152,7 +152,7 @@
 
   @media (max-width: 600px) {
     .modal-view {
-      top: 50%;
+      top: 45%;
       min-width: 80%;
     }
   }

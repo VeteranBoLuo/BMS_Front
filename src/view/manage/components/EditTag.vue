@@ -12,7 +12,7 @@
             <template #suffix>
               <svg-icon
                 :src="icon.file_upload"
-                class="icon-hover-click"
+                class="dom-hover-click"
                 size="20"
                 style="height: 32px"
                 @click.stop="uploadTagImg"

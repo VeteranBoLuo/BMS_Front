@@ -15,14 +15,14 @@
               :src="icon.table_edit"
               size="16"
               @click="editUser(record)"
-              class="icon-hover"
+              class="dom-hover"
             />
             <svg-icon
               title="编辑"
               :src="icon.table_delete"
               size="16"
               @click="delUser(record)"
-              class="icon-hover"
+              class="dom-hover"
             />
           </b-space>
         </template>

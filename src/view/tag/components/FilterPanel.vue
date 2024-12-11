@@ -1,25 +1,14 @@
 <template>
   <div class="filter-panel">
-    <b-list
-      class="header-input"
-      :list-options="filterTagList"
-      :node-type="{ id: 'id', title: 'name' }"
-    >
+    <b-list class="header-input" :list-options="filterTagList" :node-type="{ id: 'id', title: 'name' }">
       <template #input>
         <b-input placeholder="请输入标签名" v-model:value="tagName">
           <template #suffix>
-            <a-dropdown :trigger="['hover']">
+            <a-dropdown :trigger="['hover']" class='flex-align-center'>
               <template #overlay>
                 <a-menu style="background-color: var(--menu-body-bg-color)">
-                  <a-menu-item
-                    :style="{ color: bookmark.iconColor }"
-                    key="addTag"
-                    @click="addTag"
-                    class="menu-item"
-                  >
-                    <span v-click-log="{ module: '首页', operation: `点击添加标签` }">
-                      添加标签
-                    </span>
+                  <a-menu-item :style="{ color: bookmark.iconColor }" key="addTag" @click="addTag" class="menu-item">
+                    <span v-click-log="{ module: '首页', operation: `点击添加标签` }"> 添加标签 </span>
                   </a-menu-item>
                   <a-menu-item
                     :style="{ color: bookmark.iconColor }"
@@ -27,9 +16,7 @@
                     key="editTag"
                     @click="addBookmark"
                   >
-                    <span v-click-log="{ module: '首页', operation: `点击添加书签` }">
-                      添加书签
-                    </span>
+                    <span v-click-log="{ module: '首页', operation: `点击添加书签` }"> 添加书签 </span>
                   </a-menu-item>
                 </a-menu>
               </template>
@@ -49,8 +36,7 @@
             class="category-item"
             :title="item.name"
             :style="{
-              backgroundColor:
-                bookmark.tagData?.id === item.id ? 'var(--category-item-ba-color)' : '',
+              backgroundColor: bookmark.tagData?.id === item.id ? 'var(--category-item-ba-color)' : '',
             }"
             :key="item"
             v-click-log="{ module: '首页', operation: `查询标签【${item.name}】下的书签列表` }"
@@ -66,7 +52,7 @@
               :src="icon.filter_panel_check"
               size="18"
               @click="handleRename(<TagInterface>item)"
-              class="icon-hover"
+              class="dom-hover"
             />
           </template>
         </b-input>
@@ -91,9 +77,7 @@
 
   const tagName = ref('');
   const filterTagList = computed(() => {
-    return bookmark.tagList.filter(
-      (item) => item.name.toUpperCase().indexOf(tagName.value.toUpperCase()) > -1,
-    );
+    return bookmark.tagList.filter((item) => item.name.toUpperCase().indexOf(tagName.value.toUpperCase()) > -1);
   });
   const user = useUserStore();
   const bookmark = bookmarkStore();
@@ -169,7 +153,6 @@
   .filter-panel {
     min-width: 180px;
     height: 100%;
-    overflow: auto;
   }
 
   .header-input {

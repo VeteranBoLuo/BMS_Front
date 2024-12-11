@@ -10,7 +10,7 @@
       </div>
       <div class="category-tag">
         <div
-          class="category-tag-item icon-hover"
+          class="category-tag-item dom-hover"
           @click="handleToTagPage(tag)"
           v-for="tag in bookmark.tagData?.associatedTagList"
           >{{ tag.name }}</div

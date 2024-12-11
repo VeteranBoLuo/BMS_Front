@@ -17,8 +17,8 @@
   import userApi from '@/api/userApi';
   import router from '@/router';
   import { bookmarkStore, useUserStore } from '@/store';
-  import { onMounted, watch } from 'vue';
-  import login from '@/view/login/login.vue';
+  import { watch } from 'vue';
+  import login from '@/view/login/index.vue';
 
   const user = useUserStore();
   const bookmark = bookmarkStore();
@@ -27,7 +27,6 @@
       .getUserInfoById({ id: localStorage.getItem('userId') })
       .then((res) => {
         if (res.status === 200) {
-          console.log(res.data)
           user.setUserInfo(res.data);
           bookmark.theme = res.data.theme;
           getThemeStyle(res.data.theme);
@@ -53,7 +52,7 @@
       getThemeStyle(val);
     },
   );
-  // 页面加载前需要设置主题，否则如果后台查询是黑夜主题，但是页面默认是白色的，页面会从白到黑闪一下，这种情况就需要提前设置为黑色
+  // 页面加载前需要提前预设置主题，否则如果后台查询是黑夜主题，但是页面默认是白色的，页面会从白到黑闪一下，这种情况就需要提前设置为黑色
   const theme = localStorage.getItem('theme');
   if (theme) {
     bookmark.theme = theme;

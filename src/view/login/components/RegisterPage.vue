@@ -1,0 +1,147 @@
+<template>
+  <div class="view-body" :class="title !== '注册' ? 'hide' : ''">
+    <span @click="bookmark.isShowLogin = false" class="dom-hover login-close-icon">
+      <img src="@/assets/icons/close.svg" width="20" height="20" alt="" />
+    </span>
+    <div class="view-page">
+      <b style="font-size: 30px; justify-self: center; color: #161824">注册</b>
+      <a-form
+        :label-col="{
+          span: 4,
+        }"
+        ref="registerRef"
+        :model="formData"
+      >
+        <a-form-item
+          label=""
+          name="userName"
+          :rules="[
+            {
+              max: 12,
+              message: '账号长度不能超过12个字符',
+            },
+            {
+              min: 6,
+              message: '账号长度不能少于6个字符',
+            },
+          ]"
+        >
+          <b-input
+            height="40px"
+            theme="day"
+            v-model:value="formData.userName"
+            placeholder="账号"
+            @blur="validateFun('userName')"
+          >
+            <template #prefix>
+              <svg-icon :src="icon.navigation_user" size="16" />
+            </template>
+          </b-input>
+        </a-form-item>
+        <a-form-item
+          label=""
+          name="password"
+          :rules="[
+            {
+              max: 15,
+              message: '密码长度不能超过15个字符',
+            },
+            {
+              min: 6,
+              message: '密码长度不能少于6个字符',
+            },
+          ]"
+        >
+          <span class="flex-center">
+            <b-input
+              theme="day"
+              height="40px"
+              maxlength="20"
+              type="password"
+              placeholder="密码"
+              @blur="validateFun('password')"
+              v-model:value="formData.password"
+            >
+              <template #prefix>
+                <svg-icon :src="icon.login_password" size="16" />
+              </template>
+            </b-input>
+          </span>
+        </a-form-item>
+        <a-form-item
+          label=""
+          name="email"
+          @blur="validateFun('email')"
+          :rules="[
+            {
+              type: 'email',
+              message: '请输入正确的邮箱格式',
+            },
+          ]"
+        >
+          <b-input height="40px" theme="day" v-model:value="formData.email" placeholder="邮箱" @blur="validateFun">
+            <template #prefix>
+              <svg-icon :src="icon.login_email" size="16" />
+            </template>
+          </b-input>
+        </a-form-item>
+        <a-form-item>
+          <b-button type="primary" class="handle-btn" :class="{ 'disable-btn': disable }" @click="handleRegister"
+            >注册
+          </b-button>
+        </a-form-item>
+      </a-form>
+      <span class="tips-text"
+        >已有账号？前往<a style="cursor: pointer !important; color: #3b82f6; margin-left: 2px" @click="title = '登录'"
+          >登录</a
+        ></span
+      >
+    </div>
+  </div>
+</template>
+
+<script lang="ts" setup>
+  import { computed, reactive, ref } from 'vue';
+  import icon from '@/config/icon.ts';
+  import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
+  import userApi from '@/api/userApi.ts';
+  import { message } from 'ant-design-vue';
+  import { bookmarkStore } from '@/store';
+  const title = defineModel('title');
+  const formData = reactive({
+    userName: '',
+    password: '',
+    email: '',
+    role: 'admin',
+  });
+  const bookmark = bookmarkStore();
+  const disable = computed(() => {
+    return !formData.userName || !formData.password || !formData.email;
+  });
+  async function validateFun(names?: any) {
+    await registerRef.value.validate(names);
+  }
+  const registerRef = ref();
+  async function handleRegister() {
+    await validateFun();
+    formData.role = 'admin';
+    userApi.registerUser(formData).then((res: any) => {
+      if (res.status === 200) {
+        message.success('注册成功');
+        title.value = '登录';
+      } else {
+        message.error(res.msg);
+      }
+    });
+  }
+</script>
+
+<style lang="less" scoped>
+  .login-close-icon {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    z-index: 99999;
+    font-size: 20px;
+  }
+</style>
