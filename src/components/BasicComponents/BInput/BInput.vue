@@ -123,7 +123,7 @@
     color: var(--bl-input-color);
     &:focus {
       border: 1px solid var(--bl-input-border-h-color);
-      box-shadow: 0 0 0 2px rgba(92, 90, 86, 0.1);
+      box-shadow: 0 0 0 1px rgba(92, 90, 86, 0.1);
     }
     &:hover {
       border: 1px solid var(--bl-input-border-h-color);
@@ -144,7 +144,7 @@
     font-family: '微软雅黑 Light', serif;
     &:focus {
       border: 1px solid var(--bl-input-border-h-color);
-      box-shadow: 0 0 0 2px rgba(92, 90, 86, 0.1);
+      box-shadow: 0 0 0 1px rgba(92, 90, 86, 0.1);
     }
     &:hover {
       border: 1px solid var(--bl-input-border-h-color);
@@ -182,5 +182,12 @@
   .input-day {
     background-color: #ffffff !important;
     color: rgb(0, 0, 0) !important;
+  }
+  @media (max-width: 600px) {
+    .b_input {
+      &:focus {
+        box-shadow: unset;
+      }
+    }
   }
 </style>
