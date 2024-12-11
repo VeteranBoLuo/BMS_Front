@@ -191,7 +191,6 @@
     if (loginInfo) {
       isCheck.value = true;
       Object.assign(formData, JSON.parse(loginInfo));
-      console.log(formData);
       formData.password = decrypt(formData.password);
     } else {
       isCheck.value = false;
