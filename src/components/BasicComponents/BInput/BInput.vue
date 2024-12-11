@@ -184,11 +184,11 @@
     background-color: #ffffff !important;
     color: rgb(0, 0, 0) !important;
   }
-  @media (max-width: 600px) {
-    .b_input {
-      &:focus {
-        box-shadow: unset;
-      }
-    }
-  }
+  //@media (max-width: 600px) {
+  //  .b_input {
+  //    &:focus {
+  //      box-shadow: unset;
+  //    }
+  //  }
+  //}
 </style>
