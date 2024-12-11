@@ -127,6 +127,7 @@
     }
     &:hover {
       border: 1px solid var(--bl-input-border-h-color);
+      transition: all 0.2s;
     }
     &:active {
       border: 1px solid var(--bl-input-border-h-color);
