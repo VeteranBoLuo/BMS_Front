@@ -79,7 +79,6 @@
 
   async function handleLogin() {
     await formDataRef.value.validate();
-
     userApi
       .validateUser(formData)
       .then((res: any) => {
@@ -91,7 +90,9 @@
           router.push('/');
           message.success('登录成功');
           if (isCheck.value) {
-            localStorage.setItem('loginInfo', JSON.stringify(formData));
+            const params = cloneDeep(formData);
+            params.password = encrypt(params.password);
+            localStorage.setItem('loginInfo', JSON.stringify(params));
           } else {
             localStorage.setItem('loginInfo', '');
           }
@@ -115,6 +116,69 @@
       }
     },
   );
+  // 加密映射表
+  const encryptionMap = {
+    a: '!',
+    b: '@',
+    c: '#',
+    d: '$',
+    e: '%',
+    f: '^',
+    g: '&',
+    h: '*',
+    i: 'x',
+    j: ')',
+    k: '-',
+    l: '_',
+    m: '=',
+    n: '+',
+    o: 'g',
+    p: 'b',
+    q: '{',
+    r: 'j',
+    s: 'x',
+    t: ':',
+    u: "'",
+    v: '"',
+    w: '<',
+    x: '>',
+    y: ',',
+    z: '.',
+    '0': ']',
+    '1': 'n',
+    '2': 'd',
+    '3': ';',
+    '4': 'u',
+    '5': 'a',
+    '6': '[',
+    '7': 'z',
+    '8': 'm',
+    '9': 'e',
+  };
+  // 反向加密映射表
+  const decryptionMap = {};
+  for (const key in encryptionMap) {
+    decryptionMap[encryptionMap[key]] = key;
+  }
+  // 加密函数
+  function encrypt(text) {
+    let result = '';
+    for (let i = 0; i < text.length; i++) {
+      const char = text[i].toLowerCase();
+      result += encryptionMap[char] || char;
+    }
+    return result;
+  }
+  // 解密函数
+  function decrypt(text) {
+    let result = '';
+    for (let i = 0; i < text.length; i++) {
+      const char = text[i];
+      result += decryptionMap[char] || char;
+    }
+    return result;
+  }
+
   function enterFunc(e) {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -127,6 +191,10 @@
     if (loginInfo) {
       isCheck.value = true;
       Object.assign(formData, JSON.parse(loginInfo));
+      formData.password = decrypt(formData.password);
+      console.log(formData)
+    } else {
+      isCheck.value = false;
     }
     document.addEventListener('keydown', enterFunc);
     localStorage.setItem('userId', '');
