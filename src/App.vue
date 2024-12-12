@@ -19,7 +19,6 @@
   import { bookmarkStore, useUserStore } from '@/store';
   import { watch } from 'vue';
   import login from '@/view/login/index.vue';
-  import {apiBasePost} from "@/http/request";
 
   const user = useUserStore();
   const bookmark = bookmarkStore();
@@ -62,8 +61,5 @@
     document.documentElement.setAttribute('data-theme', theme);
   }
 
-  setInterval(()=>{
-    apiBasePost('/submit/urls?site=https://www.boluo66.top&token=DtE7xSONKmost928')
-  },2000)
 </script>
 <style></style>
