@@ -180,6 +180,7 @@
   }
 
   function enterFunc(e) {
+    if(disable.value) return
     if (e.key === 'Enter') {
       e.preventDefault();
       handleLogin();

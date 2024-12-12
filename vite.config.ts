@@ -37,6 +37,11 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path: string) => path.replace(/^\/api/, ''),
       },
+        '/submit': {
+            target: 'http://data.zz.baidu.com',
+            changeOrigin: true,
+            rewrite: (path: string) => path.replace(/^\/submit/, ''),
+        },
     },
     open: true, // 自动打开浏览器
   },
