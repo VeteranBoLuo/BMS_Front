@@ -32,12 +32,6 @@ request.interceptors.request.use(
     } else {
       config.headers['role'] = 'visitor';
     }
-    // else {
-    //   if (!['/api/user/login', '/api/user/registerUser'].includes(config.url)) {
-    //     router.push('/home').then((r) => {});
-    //     return Promise.reject('User ID not found in local storage');
-    //   }
-    // }
     return config; //必须要返回config
   },
   (error) => {
