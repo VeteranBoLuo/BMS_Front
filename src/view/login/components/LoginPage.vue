@@ -180,7 +180,7 @@
   }
 
   function enterFunc(e) {
-    if(disable.value) return
+    if (disable.value) return;
     if (e.key === 'Enter') {
       e.preventDefault();
       handleLogin();
@@ -193,7 +193,7 @@
       isCheck.value = true;
       Object.assign(formData, JSON.parse(loginInfo));
       formData.password = decrypt(formData.password);
-      console.log(formData)
+      console.log(formData);
     } else {
       isCheck.value = false;
     }
@@ -207,6 +207,9 @@
 </script>
 
 <style lang="less" scoped>
+  :deep(:-webkit-autofill) {
+    -webkit-text-fill-color: white !important; //这个地方的颜色是字体颜色，可以根据实际情况修改
+  }
   .login-tips-text {
     height: 40px;
     line-height: 40px;

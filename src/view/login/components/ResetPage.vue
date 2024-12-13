@@ -122,3 +122,8 @@
     await resetRef.value.validate(names);
   }
 </script>
+<style scoped>
+  :deep(:-webkit-autofill) {
+    -webkit-text-fill-color: white !important; //这个地方的颜色是字体颜色，可以根据实际情况修改
+  }
+</style>

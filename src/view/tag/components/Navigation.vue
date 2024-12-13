@@ -153,7 +153,7 @@
     const search: any = document.getElementById('phone-navigation-search');
     search.style.transform = ' translateX(20px)';
     const body: any = document.getElementById('phone-navigation-container');
-    body.style.transition='all 0.3s'
+    body.style.transition = 'all 0.3s';
     body.style.transform = ' translateX(100%)';
     document.getElementById('navigation-phone-input').focus();
   }
@@ -162,7 +162,7 @@
     const search: any = document.getElementById('phone-navigation-search');
     search.style.transform = ' translateX(calc(-100%))';
     const body: any = document.getElementById('phone-navigation-container');
-    body.style.transition='all 0.3s'
+    body.style.transition = 'all 0.3s';
     body.style.transform = ' translateX(0)';
   }
 
