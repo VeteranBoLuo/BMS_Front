@@ -30,6 +30,7 @@
         paddingLeft: hasPrefixSlot ? '30px' : '11px',
         paddingRight: hasSuffixSlot ? '30px' : '11px',
       }"
+      :autocomplete="autocomplete"
       :maxlength="maxlength"
       :placeholder="placeholder"
       @change="$emit('change')"
