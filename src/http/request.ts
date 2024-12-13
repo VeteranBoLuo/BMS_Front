@@ -24,18 +24,14 @@ request.interceptors.request.use(
       message.warn('没有操作权限.请登录！！！');
       return Promise.reject('接口' + config.url + '没有操作权限');
     }
-    // 如果用户信息存在，将其添加到请求头中
-    if (userId) {
+    if (config.url.includes('login')) {
+      config.headers['X-User-Id'] = '';
+      config.headers['role'] = '';
+    } else if (userId) {
       config.headers['X-User-Id'] = userId;
     } else {
       config.headers['role'] = 'visitor';
     }
-    // else {
-    //   if (!['/api/user/login', '/api/user/registerUser'].includes(config.url)) {
-    //     router.push('/home').then((r) => {});
-    //     return Promise.reject('User ID not found in local storage');
-    //   }
-    // }
     return config; //必须要返回config
   },
   (error) => {
