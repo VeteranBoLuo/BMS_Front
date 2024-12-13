@@ -30,6 +30,7 @@
         paddingLeft: hasPrefixSlot ? '30px' : '11px',
         paddingRight: hasSuffixSlot ? '30px' : '11px',
       }"
+      :autocomplete="autocomplete"
       :maxlength="maxlength"
       :placeholder="placeholder"
       @change="$emit('change')"
@@ -179,18 +180,8 @@
     -webkit-text-fill-color: var(--text-color) !important; //这个地方的颜色是字体颜色，可以根据实际情况修改
     transition: background-color 50000s ease-in-out 0s;
   }
-  input {
-    background-color: transparent; //设置input输入框的背景颜色为透明色
-  }
   .input-day {
     background-color: #ffffff !important;
     color: rgb(0, 0, 0) !important;
   }
-  //@media (max-width: 600px) {
-  //  .b_input {
-  //    &:focus {
-  //      box-shadow: unset;
-  //    }
-  //  }
-  //}
 </style>
