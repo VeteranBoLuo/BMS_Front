@@ -21,9 +21,7 @@
     () => [watchedId, watchedRefreshKey],
     async () => {
       if (bookmark.type === 'normal') {
-        const tag = bookmark.tagList?.find(
-          (item) => item.id === router.currentRoute.value.params?.id,
-        );
+        const tag = bookmark.tagList?.find((item) => item.id === router.currentRoute.value.params?.id);
         bookmark.tagData = tag;
         if (tag) {
           const userId = localStorage.getItem('userId');
@@ -115,16 +113,14 @@
   watch(
     () => bookmark.isFold,
     (val) => {
-      const body: any = document.getElementById('phone-filter-panel');
+      const filter: any = document.getElementById('phone-filter-panel');
       if (bookmark.isPhone) {
-        body.style.transition = 'all 0.3s';
-      } else {
-        body.style.transition = 'none';
-      }
-      if (val === false) {
-        body.style.transform = 'translateX(0)';
-      } else {
-        body.style.transform = 'translateX(-100%)';
+        filter.style.transition = 'all 0.3s';
+        if (val) {
+          filter.style.transform = 'translateX(-100%)';
+        } else {
+          filter.style.transform = 'translateX(0)';
+        }
       }
     },
   );
@@ -135,17 +131,15 @@
       nextTick(() => {
         const body: any = document.getElementById('phone-navigation-container');
         const filter: any = document.getElementById('phone-filter-panel');
-        if (val === false) {
+        if (val) {
+          filter.style.transition = 'none';
+          filter.style.transform = 'translateX(-100%)';
+        } else {
           body.style.transform = 'translateX(0)';
           body.style.transition = 'unset';
           filter.style.transform = 'translateX(0)';
           filter.style.transition = 'unset';
-        } else {
           bookmark.isFold = true;
-          nextTick(() => {
-            filter.style.transition = 'none';
-            filter.style.transform = 'translateX(-100%)';
-          });
         }
       });
     },
