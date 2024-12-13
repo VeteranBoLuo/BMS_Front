@@ -123,6 +123,6 @@
 </script>
 <style lang="less" scoped>
   :deep(:-webkit-autofill) {
-    -webkit-text-fill-color: white !important;
+    -webkit-text-fill-color: #161824 !important;
   }
 </style>

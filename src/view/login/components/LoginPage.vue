@@ -208,7 +208,7 @@
 
 <style lang="less" scoped>
   :deep(:-webkit-autofill) {
-    -webkit-text-fill-color: white !important; //这个地方的颜色是字体颜色，可以根据实际情况修改
+    -webkit-text-fill-color: #161824 !important; //这个地方的颜色是字体颜色，可以根据实际情况修改
   }
   .login-tips-text {
     height: 40px;
