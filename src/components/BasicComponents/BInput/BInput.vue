@@ -31,7 +31,6 @@
         paddingRight: hasSuffixSlot ? '30px' : '11px',
       }"
       :maxlength="maxlength"
-      :autocomplete="autocomplete"
       :placeholder="placeholder"
       @change="$emit('change')"
       @focus="$emit('focus')"
@@ -174,12 +173,15 @@
     display: grid;
     place-items: center;
   }
-  input:-internal-autofill-selected {
-    box-shadow: 0 0 0 1000px var(--background-color) inset;
-    caret-color: var(--text-color);
-    -webkit-text-fill-color: var(--text-color);
+  input:-webkit-autofill,
+  textarea:-webkit-autofill,
+  select:-webkit-autofill {
+    -webkit-text-fill-color: var(--text-color) !important; //这个地方的颜色是字体颜色，可以根据实际情况修改
+    transition: background-color 50000s ease-in-out 0s;
   }
-
+  input {
+    background-color: transparent; //设置input输入框的背景颜色为透明色
+  }
   .input-day {
     background-color: #ffffff !important;
     color: rgb(0, 0, 0) !important;
