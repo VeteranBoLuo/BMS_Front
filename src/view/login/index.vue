@@ -24,28 +24,16 @@
 
   const user = useUserStore();
 
-
   const bookmark = bookmarkStore();
 
-
   onMounted(() => {
-    document.addEventListener('mouseup', closeMask);
     document.addEventListener('keydown', clickEsc);
     localStorage.setItem('userId', '');
   });
 
   onUnmounted(() => {
-    document.removeEventListener('mouseup', closeMask);
     document.addEventListener('keydown', clickEsc);
   });
-
-  function closeMask(e) {
-    if (typeof e?.target?.className === 'string') {
-      if (e.target.className === 'index-container') {
-        bookmark.isShowLogin = false;
-      }
-    }
-  }
 
   function clickEsc(e) {
     if (e.keyCode === 27) {
@@ -124,7 +112,13 @@
     cursor: unset;
     pointer-events: none;
   }
-
+  :deep(.login-close-icon) {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    z-index: 99999;
+    font-size: 20px;
+  }
   @keyframes in-animation {
     0% {
       opacity: 0;
@@ -136,6 +130,7 @@
 
   @media (max-width: 600px) {
     .index-view {
+      top: 45%;
       height: 400px;
     }
     :deep(.view-body) {
