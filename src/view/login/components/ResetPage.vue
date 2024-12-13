@@ -18,7 +18,6 @@
         <a-form-item
           label=""
           name="email"
-          validateTrigger
           :rules="[
             {
               type: 'email',
@@ -93,7 +92,7 @@
           </span>
         </a-form-item>
         <a-form-item>
-          <b-button class="handle-btn" :class="{ 'disable-btn': disable }" type="primary">功能暂时关闭</b-button>
+          <b-button class="handle-btn" :class="{ 'disable-btn': true }" type="primary">功能暂时关闭</b-button>
         </a-form-item>
       </a-form>
     </div>
@@ -122,8 +121,8 @@
     await resetRef.value.validate(names);
   }
 </script>
-<style scoped>
+<style lang="less" scoped>
   :deep(:-webkit-autofill) {
-    -webkit-text-fill-color: white !important; //这个地方的颜色是字体颜色，可以根据实际情况修改
+    -webkit-text-fill-color: white !important;
   }
 </style>

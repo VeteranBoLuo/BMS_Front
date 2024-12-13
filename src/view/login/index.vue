@@ -13,10 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, onMounted, onUnmounted, ref } from 'vue';
-  import router from '@/router';
-  import { message } from 'ant-design-vue';
-  import userApi from '@/api/userApi';
+  import { onMounted, onUnmounted, ref } from 'vue';
   import { bookmarkStore, useUserStore } from '@/store';
   import LoginPage from '@/view/login/components/LoginPage.vue';
   import ResetPage from '@/view/login/components/ResetPage.vue';
