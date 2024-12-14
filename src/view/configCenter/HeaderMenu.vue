@@ -3,7 +3,7 @@
     :color="bookmark.theme === 'day' ? '#97a1c6' : '#4d5264'"
     placement="bottomLeft"
     :get-popup-container="getPopupContainer"
-    v-model::open="menuVisible"
+    v-model:open="menuVisible"
   >
     <template #title>
       <div class="flex-align-center" style="gap: 15px; padding: 5px">
