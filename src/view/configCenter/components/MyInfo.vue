@@ -3,7 +3,7 @@
     <div class="home-container">
       <div style="width: 100%" class="flex-justify-center">
         <div class="user_icon" @click="uploadImg" v-click-log="{ module: '我的信息', operation: `上传头像` }">
-          <svg-icon :src="headPicture || icon.navigation_user" size="100" />
+          <svg-icon :src="headPicture || icon.navigation_user" :size="bookmark.isPhone ? 80 : 100" />
         </div>
       </div>
       <div class="home-user-body">
@@ -42,8 +42,8 @@
 
 <script lang="ts" setup>
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
-  import { useUserStore } from '@/store';
-  import { onMounted, ref, watch } from 'vue';
+  import { bookmarkStore, useUserStore } from '@/store';
+  import { ref, watch } from 'vue';
   import BButton from '@/components/BasicComponents/BButton/BButton.vue';
   import userApi from '@/api/userApi.ts';
   import { message } from 'ant-design-vue';
@@ -54,6 +54,8 @@
   const user = useUserStore();
   const headPicture = ref<string>('');
   const visible = <boolean>defineModel('visible');
+
+  const bookmark = bookmarkStore();
   function uploadImg() {
     const input = document.createElement('input');
     input.type = 'file';
@@ -187,6 +189,21 @@
       justify-content: center; /* 水平居中 */
       align-items: center; /* 垂直居中 */
       font-size: 12px; /* 文字大小 */
+    }
+  }
+  @media (max-width: 600px) {
+    .home-container {
+      width: 90%;
+    }
+    .home-user-body {
+      gap: 20px;
+    }
+    .user-item {
+      gap: 10px;
+    }
+    .user_icon {
+      width: 80px;
+      height: 80px;
     }
   }
 </style>
