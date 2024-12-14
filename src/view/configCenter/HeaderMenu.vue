@@ -3,7 +3,7 @@
     :color="bookmark.theme === 'day' ? '#97a1c6' : '#4d5264'"
     placement="bottomLeft"
     :get-popup-container="getPopupContainer"
-    v-model:open="menuVisible"
+    v-model::open="menuVisible"
   >
     <template #title>
       <div class="flex-align-center" style="gap: 15px; padding: 5px">
@@ -46,7 +46,10 @@
             {{ ThemeName }}
           </div>
         </div>
-        <hr style="width: calc(100% - 36px)" :color="bookmark.theme === 'day' ? '#f6f7f9' : '#373a41'" />
+        <hr
+          style="width: calc(100% - 20px); border: unset; height: 1px"
+          :color="bookmark.theme === 'day' ? '#f6f7f9' : '#4e5262'"
+        />
         <div class="header_menu_ul">
           <div class="flex-center li" @click="router.push('/admin'), (menuVisible = false)" v-if="user.role === 'root'">
             <svg-icon size="14" :src="icon.user_admin" />
