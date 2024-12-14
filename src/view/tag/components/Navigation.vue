@@ -72,7 +72,7 @@
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
   import icon from '@/config/icon.ts';
   import ThemeSwith from '@/components/tag/ThemeSwith.vue';
-  import HeaderMenu from '@/view/tag/components/HeaderMenu.vue';
+  import HeaderMenu from '@/view/configCenter/HeaderMenu.vue';
 
   const placeholder = ref('Search...');
 

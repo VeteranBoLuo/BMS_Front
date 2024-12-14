@@ -122,6 +122,7 @@
     const match = str.match(regex);
     return match ? match[1] : str;
   }
+
 </script>
 <style lang="less" scoped>
   .icon-base64 {

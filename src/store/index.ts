@@ -3,6 +3,7 @@ import { defineStore } from 'pinia';
 import { FormInstance } from 'ant-design-vue';
 import { TagInterface } from '@/config/bookmarkCfg';
 import icon from '@/config/icon.ts';
+import Viewer from 'viewerjs';
 
 export const useUserStore = defineStore('user', {
   state: () => ({
@@ -11,7 +12,7 @@ export const useUserStore = defineStore('user', {
     alias: '默认昵称',
     password: '',
     role: 'user',
-    headPicture: icon.navigation_user,
+    headPicture: icon.navigation_user_null,
     email: '',
     tagTotal: 0,
     bookmarkTotal: 0,
@@ -70,6 +71,12 @@ export const bookmarkStore = defineStore('bookmark', {
         theme: 'day' | 'night' | string; // 主题
         isShowLogin: boolean; // 是否弹出登录页面
         mainPanelKey: string; // 用于刷新主面板
+        viewerKey: string;
+        viewer: {
+          container: Viewer;
+          src: string;
+          options: Viewer.Options;
+        };
       }
     >{
       tagData: {
@@ -88,6 +95,11 @@ export const bookmarkStore = defineStore('bookmark', {
       theme: 'day',
       isShowLogin: false,
       mainPanelKey: (Math.random() * 9000000).toString(),
+      viewerKey: '',
+      viewer: {
+        src: '',
+        options: {},
+      },
     },
   getters: {
     isPhone() {
@@ -109,6 +121,11 @@ export const bookmarkStore = defineStore('bookmark', {
     },
     refreshTag() {
       this.refreshTagKey = !this.refreshTagKey;
+    },
+    refreshViewer(src: string, options: Viewer.Options = {}) {
+      this.viewer.src = src;
+      this.viewer.options = options;
+      this.viewerKey = (Math.random() * 9000000).toString();
     },
     reset() {
       this.tagData = {

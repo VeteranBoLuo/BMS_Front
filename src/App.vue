@@ -9,6 +9,7 @@
     >
       <router-view />
       <login v-if="bookmark.isShowLogin" />
+      <BViewer />
     </a-config-provider>
   </div>
 </template>
@@ -19,6 +20,8 @@
   import { bookmarkStore, useUserStore } from '@/store';
   import { watch } from 'vue';
   import login from '@/view/login/index.vue';
+  import BViewer from '@/components/Viewer/BViewer.vue';
+  import icon from '@/config/icon';
 
   const user = useUserStore();
   const bookmark = bookmarkStore();
@@ -60,6 +63,5 @@
   function getThemeStyle(theme) {
     document.documentElement.setAttribute('data-theme', theme);
   }
-
 </script>
 <style></style>

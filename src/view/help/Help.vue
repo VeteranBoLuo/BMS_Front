@@ -3,7 +3,7 @@
     <b-button
       style="position: absolute; right: 20px"
       :style="{ left: bookmark.isPhone ? '' : '187px' }"
-      @click="$router.push('/manage')"
+      @click="$router.push('/home')"
       v-click-log="{ module: '帮助中心', operation: `返回` }"
       >返回</b-button
     >
@@ -24,18 +24,10 @@
         >使用介绍</div
       >
       <div v-if="!bookmark.isPhone" :style="{ width: '150px' }">
-        <div
-          class="help-title"
-          @click="checkId = ''"
-          v-click-log="{ module: '帮助中心', operation: `使用介绍` }"
+        <div class="help-title" @click="checkId = ''" v-click-log="{ module: '帮助中心', operation: `使用介绍` }"
           >使用介绍</div
         >
-        <BList
-          style="font-size: 12px"
-          :listOptions="viewOptions"
-          @nodeClick="logItem"
-          :check-id="checkId"
-        >
+        <BList style="font-size: 12px" :listOptions="viewOptions" @nodeClick="logItem" :check-id="checkId">
           <template #icon>
             <svg-icon :src="icon.help_document" />
           </template>
@@ -70,7 +62,6 @@
         v-html="content"
       />
     </div>
-    <img :src="viewSrc" id="viewImage" alt="Picture" style="opacity: 0" />
   </div>
 </template>
 
@@ -92,9 +83,9 @@
   import bookmarkMg from 'src/assets/img/help/bookmarkMg.jpg';
   import opinionMg from 'src/assets/img/help/opinionMg.png';
 
-
   import 'viewerjs/dist/viewer.css'; //样式文件不要忘了
   import Viewer from 'viewerjs';
+  import BViewer from '@/components/Viewer/BViewer.vue';
 
   const bookmark = bookmarkStore();
   const checkId = ref('');
@@ -286,22 +277,11 @@
   function removeClickListener() {
     document.removeEventListener('click', imgClick);
   }
-  const viewSrc = ref();
   function imgClick(e: any) {
     if (e.target?.className === 'bookmark-image') {
-      viewSrc.value = e.target.src;
-      nextTick(() => {
-        viewer.value = new Viewer(document.getElementById('viewImage'), {
-          inline: false,
-          hidden(event: CustomEvent) {
-            viewer.value.destroy();
-          },
-        });
-        viewer.value.show();
-      });
+      bookmark.refreshViewer(e.target.src, {});
     }
   }
-  const viewer = ref<Viewer>();
   onMounted(() => {
     setupClickListener();
   });

@@ -163,7 +163,7 @@
   }
 
   function handleToBack() {
-    router.push('/manage');
+    router.push('/home');
   }
 
   function extractIconValue(str: string) {

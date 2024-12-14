@@ -2,8 +2,12 @@
   <Teleport to="body">
     <div v-show="visible" class="mask-container" @click.stop>
       <div class="modal-view" :class="{ out: isOut }">
-        <span style="position: absolute;right: 20px;top:20px;z-index: 99999;font-size: 20px" @click="handleClose" class="dom-hover">
-          <img src="@/assets/icons/close.svg" width="20" height="20" alt="">
+        <span
+          style="position: absolute; right: 20px; top: 20px; z-index: 99999; font-size: 20px"
+          @click="handleClose"
+          class="dom-hover"
+        >
+          <img src="@/assets/icons/close.svg" width="20" height="20" alt="" />
         </span>
         <slot name="title">
           <div class="modal-title">{{ title }}</div>
@@ -37,8 +41,8 @@
       escClosable: boolean; // 按下esc关闭
     }>(),
     {
-      visible: false,
       title: '默认标题',
+      visible: false,
       maskClosable: true,
       showFooter: true,
       escClosable: true,
@@ -121,7 +125,6 @@
   }
   :deep(.b_textarea) {
     background-color: var(--modal-input-bg);
-
   }
   .modal-footer {
     margin-top: 10px;
@@ -156,5 +159,4 @@
       min-width: 80%;
     }
   }
-
 </style>

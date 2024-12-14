@@ -1,57 +1,58 @@
 <template>
-  <div class="home-container">
-    <div class="home-user-body">
-      <div class="user-item">
-        <span class="user-item-label">头像：</span>
-        <div
-          class="user_icon"
-          @click="uploadImg"
-          v-click-log="{ module: '我的信息', operation: `上传头像` }"
-        >
-          <svg-icon :src="headPicture || icon.navigation_user" size="50" />
+  <b-modal :mask-closable="false" title="编辑资料" :visible="visible" @close="visible = false">
+    <div class="home-container">
+      <div style="width: 100%" class="flex-justify-center">
+        <div class="user_icon" @click="uploadImg" v-click-log="{ module: '我的信息', operation: `上传头像` }">
+          <svg-icon :src="headPicture || icon.navigation_user" size="100" />
         </div>
       </div>
-      <div class="user-item">
-        <span class="user-item-label">账号：</span>
-        <span>{{ user.userName }}</span>
-      </div>
-      <div class="user-item">
-        <span class="user-item-label">角色：</span>
-        <span>{{ getRoleName() }}</span>
-      </div>
-      <div class="user-item">
-        <span class="user-item-label">昵称：</span>
-        <b-input v-model:value="userData.alias" placeholder="请输入昵称" />
-      </div>
+      <div class="home-user-body">
+        <div class="flex-align-center" style="gap: 20px">
+          <div class="flex-justify-center" style="gap: 20px">
+            <span class="user-item-label">账号</span>
+            <span style="color: #8f9096">{{ user.userName }}</span>
+          </div>
+          <div class="flex-justify-center" style="gap: 20px">
+            <span class="user-item-label">角色</span>
+            <span style="color: #8f9096">{{ getRoleName() }}</span>
+          </div>
+        </div>
+        <div class="user-item">
+          <span class="user-item-label">昵称</span>
+          <b-input style="width: 100%" v-model:value="userData.alias" placeholder="请输入昵称" />
+        </div>
 
-      <div class="user-item">
-        <span class="user-item-label">邮箱：</span>
-        <b-input v-model:value="userData.email" placeholder="请输入邮箱" />
+        <div class="user-item">
+          <span class="user-item-label">邮箱</span>
+          <b-input v-model:value="userData.email" placeholder="请输入邮箱" />
+        </div>
       </div>
+      <b-button
+        class="footer-center"
+        style="bottom: 20px"
+        type="primary"
+        @click="saveUserInfo"
+        v-click-log="{ module: '我的信息', operation: `保存` }"
+        >保存</b-button
+      >
     </div>
-    <b-button
-      class="footer-center"
-      style="bottom: 20px"
-      type="primary"
-      @click="saveUserInfo"
-      v-click-log="{ module: '我的信息', operation: `保存` }"
-      >保存</b-button
-    >
-  </div>
+  </b-modal>
 </template>
 
 <script lang="ts" setup>
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
-  import { useUserStore } from '@/store/index';
+  import { useUserStore } from '@/store';
   import { onMounted, ref, watch } from 'vue';
   import BButton from '@/components/BasicComponents/BButton/BButton.vue';
-  import userApi from '@/api/userApi';
+  import userApi from '@/api/userApi.ts';
   import { message } from 'ant-design-vue';
   import BInput from '@/components/BasicComponents/BInput/BInput.vue';
   import { cloneDeep } from 'lodash-es';
   import icon from '@/config/icon.ts';
+  import BModal from '@/components/BasicComponents/BModal/BModal.vue';
   const user = useUserStore();
   const headPicture = ref<string>('');
+  const visible = <boolean>defineModel('visible');
   function uploadImg() {
     const input = document.createElement('input');
     input.type = 'file';
@@ -138,17 +139,22 @@
 
 <style lang="less" scoped>
   .home-container {
-    padding: 20px;
+    width: 400px;
+    padding: 10px;
+    font-size: 14px;
   }
   .home-user-body {
+    margin-top: 30px;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     gap: 30px;
   }
   .user-item {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     gap: 20px;
+    width: 100%;
     .user-item-label {
       width: 80px;
       text-overflow: ellipsis;
@@ -157,13 +163,13 @@
     }
   }
   .user_icon {
-    height: 50px;
-    width: 50px;
+    height: 100px;
+    width: 100px;
     display: flex;
     align-items: center;
-    background-color: transparent;
+    background-color: #b2b1b0;
     border: 1px solid #f5f5f5;
-    border-radius: 30px;
+    border-radius: 50%;
     cursor: pointer;
     overflow: hidden;
     position: relative;
