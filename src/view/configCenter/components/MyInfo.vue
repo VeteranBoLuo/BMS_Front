@@ -27,15 +27,16 @@
           <b-input v-model:value="userData.email" placeholder="请输入邮箱" />
         </div>
       </div>
+    </div>
+    <template #footer>
       <b-button
-        class="footer-center"
-        style="bottom: 20px"
+        style="margin-top: 10px; place-self: center"
         type="primary"
         @click="saveUserInfo"
         v-click-log="{ module: '我的信息', operation: `保存` }"
         >保存</b-button
       >
-    </div>
+    </template>
   </b-modal>
 </template>
 
