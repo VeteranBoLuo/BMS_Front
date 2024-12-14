@@ -150,6 +150,7 @@
     bookmark.refreshViewer(user.headPicture || icon.navigation_user, {
       toolbar: false,
     });
+    menuVisible.value = false;
   }
 </script>
 
