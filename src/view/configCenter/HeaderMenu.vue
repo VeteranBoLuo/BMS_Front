@@ -26,7 +26,7 @@
               @click="(userVisible = true), (menuVisible = false)"
             />
           </div>
-          <div style="display: flex; gap: 20px;font-size: 12px">
+          <div style="display: flex; gap: 20px; font-size: 12px">
             <span
               >标签<span style="margin-left: 10px">{{ user.tagTotal }}</span></span
             >
@@ -53,19 +53,19 @@
             后台管理
           </div>
           <div class="flex-center li" @click="$router.push('/manage/editTag'), (menuVisible = false)">
-            <svg-icon size="14" :src="icon.user_manage" />
+            <svg-icon size="14" :src="icon.manage_categoryBtn_tag" />
             标签管理
           </div>
           <div class="flex-center li" @click="$router.push('/manage/editBookmark'), (menuVisible = false)">
-            <svg-icon size="14" :src="icon.user_manage" />
+            <svg-icon size="14" :src="icon.manage_categoryBtn_bookmark" />
             书签管理
           </div>
           <div class="flex-center li" @click="$router.push('/help'), (menuVisible = false)">
-            <svg-icon size="14" :src="icon.user_manage" />
+            <svg-icon size="14" :src="icon.help_document" />
             帮助中心
           </div>
           <div class="flex-center li" @click="(opinionsVisible = true), (menuVisible = false)">
-            <svg-icon size="14" :src="icon.user_manage" />
+            <svg-icon size="14" :src="icon.userCenter_OperationLog" />
             意见反馈
           </div>
           <div class="flex-center li" @click="handleExitLogin">
