@@ -46,7 +46,7 @@
             {{ ThemeName }}
           </div>
         </div>
-        <hr />
+        <hr style="width: calc(100% - 36px)" :color="bookmark.theme === 'day' ? '#f6f7f9' : '#373a41'" />
         <div class="header_menu_ul">
           <div class="flex-center li" @click="router.push('/admin'), (menuVisible = false)" v-if="user.role === 'root'">
             <svg-icon size="14" :src="icon.user_admin" />
