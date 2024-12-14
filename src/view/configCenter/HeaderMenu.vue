@@ -18,7 +18,7 @@
         </div>
         <div class="user-icon-text" :style="{ color: bookmark.iconColor }">
           <div class="flex-align-center" style="gap: 10px"
-            ><div>{{ user.userName ? user.alias || '默认昵称' : '请登录' }}</div>
+            ><b>{{ user.userName ? user.alias || '默认昵称' : '请登录' }}</b>
             <svg-icon
               class="dom-hover"
               :src="icon.card_edit"
@@ -26,12 +26,12 @@
               @click="(userVisible = true), (menuVisible = false)"
             />
           </div>
-          <div style="display: flex; gap: 20px">
+          <div style="display: flex; gap: 20px;font-size: 12px">
             <span
-              >标签<span style="margin-left: 5px">{{ user.tagTotal }}</span></span
+              >标签<span style="margin-left: 10px">{{ user.tagTotal }}</span></span
             >
             <span
-              >书签<span style="margin-left: 5px">{{ user.bookmarkTotal }}</span></span
+              >书签<span style="margin-left: 10px">{{ user.bookmarkTotal }}</span></span
             >
           </div>
         </div>
@@ -137,8 +137,6 @@
       });
     }
   }
-
-
 
   const ThemeName = computed(() => {
     if (bookmark.theme === 'night') {
