@@ -19,12 +19,7 @@
         <div class="user-icon-text" :style="{ color: bookmark.iconColor }">
           <div class="flex-align-center" style="gap: 10px"
             ><b>{{ user.userName ? user.alias || '默认昵称' : '请登录' }}</b>
-            <svg-icon
-              class="dom-hover"
-              :src="icon.card_edit"
-              size="16"
-              @click="(userVisible = true), (menuVisible = false)"
-            />
+            <svg-icon class="dom-hover" :src="icon.card_edit" size="16" @click="editUser" />
           </div>
           <div style="display: flex; gap: 20px; font-size: 12px">
             <span
@@ -81,7 +76,7 @@
     <div :class="['navigation-icon']">
       <svg-icon size="30" :src="user.headPicture || icon.navigation_user" class="dom-hover" />
     </div>
-    <my-info v-model:visible="userVisible" />
+    <my-info v-if="userVisible" v-model:visible="userVisible" />
     <Opinions v-model:visible="opinionsVisible" />
   </a-tooltip>
 </template>
@@ -153,6 +148,11 @@
     bookmark.refreshViewer(user.headPicture || icon.navigation_user, {
       toolbar: false,
     });
+    menuVisible.value = false;
+  }
+
+  function editUser() {
+    userVisible.value = true;
     menuVisible.value = false;
   }
 </script>

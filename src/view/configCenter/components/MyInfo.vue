@@ -170,7 +170,6 @@
     width: 100px;
     display: flex;
     align-items: center;
-    background-color: #b2b1b0;
     border: 1px solid #f5f5f5;
     border-radius: 50%;
     cursor: pointer;
