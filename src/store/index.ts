@@ -122,7 +122,7 @@ export const bookmarkStore = defineStore('bookmark', {
     refreshTag() {
       this.refreshTagKey = !this.refreshTagKey;
     },
-    refreshViewer(src: string, options: Viewer.Options = {}) {
+    refreshViewer(src: string, options?: Viewer.Options) {
       this.viewer.src = src;
       this.viewer.options = options;
       this.viewerKey = (Math.random() * 9000000).toString();

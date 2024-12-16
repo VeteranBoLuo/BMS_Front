@@ -31,7 +31,7 @@
             </b-space>
           </slot>
           <b-space v-else>
-            <b-button class="btn" @click="obClose">{{ cancelText }}</b-button>
+            <b-button class="btn" @click="obClose(200)">{{ cancelText }}</b-button>
             <b-button class="btn" type="primary" @click="onOk">{{ okText }}</b-button>
           </b-space>
         </div>

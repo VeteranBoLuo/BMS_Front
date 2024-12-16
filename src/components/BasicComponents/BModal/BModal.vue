@@ -57,7 +57,7 @@
       isOut.value = false;
       emit('close');
       clearTimeout(timer);
-    }, 250);
+    }, 200);
   }
 
   function closeMask(e) {

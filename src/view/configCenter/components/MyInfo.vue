@@ -156,7 +156,7 @@
   .user-item {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
     width: 100%;
     .user-item-label {
       width: 80px;

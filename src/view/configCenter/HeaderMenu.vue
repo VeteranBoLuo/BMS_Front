@@ -145,9 +145,11 @@
   const viewer = ref<Viewer>();
 
   function zoomImage() {
-    bookmark.refreshViewer(user.headPicture || icon.navigation_user, {
-      toolbar: false,
-    });
+    const src = user.headPicture || icon.navigation_user;
+    if (src === icon.navigation_user) {
+      return;
+    }
+    bookmark.refreshViewer(user.headPicture || icon.navigation_user);
     menuVisible.value = false;
   }
 
