@@ -65,6 +65,7 @@
           <span class="person-menu-item-des">{{ ThemeName }}</span></div
         >
         <div
+          v-if="user.role === 'root'"
           class="person-menu-item"
           style="border-bottom: 1px solid var(--person-menu-item-border-color)"
           @click="router.push('/admin')"
