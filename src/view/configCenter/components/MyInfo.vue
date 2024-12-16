@@ -30,7 +30,7 @@
     </div>
     <template #footer>
       <b-button
-        style="margin-top: 10px; place-self: center"
+        style="margin-top: 10px; place-self: center; width: 100%"
         type="primary"
         @click="saveUserInfo"
         v-click-log="{ module: '我的信息', operation: `保存` }"
@@ -81,7 +81,7 @@
         reader.readAsDataURL(file); // 读取文件内容，结果为Base64编码的字符串
       }
     });
-
+    0;
     input.click(); // 触发文件选择对话框
   }
 

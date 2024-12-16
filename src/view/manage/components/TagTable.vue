@@ -2,9 +2,7 @@
   <b-loading :loading="loading">
     <div class="edit-tag-container">
       <h2>标签管理</h2>
-      <div
-        style="display: flex; align-items: center; justify-content: space-between; margin-top: 20px"
-      >
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 20px">
         <b-input v-model:value="tableSearchValue" class="table-search-input" />
         <b-space>
           <b-button
@@ -13,7 +11,7 @@
             @click="$router.push({ path: `/manage/editTag/add` })"
             >新增</b-button
           >
-          <b-button  @click="handleToBack" v-click-log="{ module: '标签管理', operation: `返回` }">返回</b-button>
+          <b-button @click="handleToBack" v-click-log="{ module: '标签管理', operation: `返回` }">返回</b-button>
         </b-space>
       </div>
       <a-table
@@ -43,12 +41,7 @@
           </template>
           <template v-else-if="column.dataIndex === 'bookmarkList'">
             <div class="text-hidden">
-              <span
-                class="common-tag"
-                style="margin-right: 10px"
-                v-for="b in record.bookmarkList"
-                :key="b.id"
-              >
+              <span class="common-tag" style="margin-right: 10px" v-for="b in record.bookmarkList" :key="b.id">
                 {{ b.name }}
               </span>
             </div>
@@ -163,9 +156,12 @@
   }
 
   function handleToBack() {
-    router.push('/home');
+    if (bookmark.isPhone) {
+      router.push('/personCenter');
+    } else {
+      router.push('/home');
+    }
   }
-
   function extractIconValue(str: string) {
     if (!str) {
       return 'mdi:tag-outline';

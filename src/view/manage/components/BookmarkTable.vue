@@ -2,23 +2,17 @@
   <b-loading :loading="loading">
     <div class="edit-tag-container">
       <h2>书签管理</h2>
-      <div
-        style="display: flex; align-items: center; justify-content: space-between; margin-top: 20px"
-      >
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 20px">
         <b-input v-model:value="tableSearchValue" class="table-search-input" />
-        <b-space :size="user.role === 'root' ? 5 : 10">
-          <b-button type="success" @click="exportBookmark" v-if="user.role === 'root'"
-            >导出</b-button
-          >
+        <b-space :size="10">
+          <!--          <b-button type="success" @click="exportBookmark" v-if="user.role === 'root'">导出</b-button>-->
           <b-button
             type="primary"
             @click="$router.push({ path: `/manage/editBookmark/add` })"
             v-click-log="{ module: '书签管理', operation: `新增` }"
             >新增</b-button
           >
-          <b-button  @click="handleToBack" v-click-log="{ module: '书签管理', operation: `返回` }"
-            >返回</b-button
-          >
+          <b-button @click="handleToBack" v-click-log="{ module: '书签管理', operation: `返回` }">返回</b-button>
         </b-space>
       </div>
       <a-table
@@ -41,12 +35,7 @@
           </template>
           <template v-else-if="column.dataIndex === 'tagList'">
             <div class="text-hidden">
-              <span
-                class="common-tag"
-                style="margin-right: 10px"
-                v-for="t in record.tagList"
-                :key="t.id"
-              >
+              <span class="common-tag" style="margin-right: 10px" v-for="t in record.tagList" :key="t.id">
                 {{ t.name }}
               </span>
             </div>
@@ -144,7 +133,11 @@
   }
 
   function handleToBack() {
-    router.push('/home');
+    if (bookmark.isPhone) {
+      router.push('/personCenter');
+    } else {
+      router.push('/home');
+    }
   }
   const tableSearchValue = ref('');
   const bookmarkList = computed(() => {
@@ -197,8 +190,7 @@
 
   function onErrorImg(event) {
     event.target.src =
-        'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIwLjhlbSIgaGVpZ2h0PSIwLjhlbSIgdmlld0JveD0iMCAwIDIwIDIwIj48cGF0aCBmaWxsPSIjNWI1YjViIiBkPSJNMTAgMjBhMTAgMTAgMCAxIDEgMC0yMGExMCAxMCAwIDAgMSAwIDIwbTcuNzUtOGE4IDggMCAwIDAgMC00aC0zLjgyYTI5IDI5IDAgMCAxIDAgNHptLS44MiAyaC0zLjIyYTE0LjQgMTQuNCAwIDAgMS0uOTUgMy41MUE4LjAzIDguMDMgMCAwIDAgMTYuOTMgMTRtLTguODUtMmgzLjg0YTI0LjYgMjQuNiAwIDAgMCAwLTRIOC4wOGEyNC42IDI0LjYgMCAwIDAgMCA0bS4yNSAyYy40MSAyLjQgMS4xMyA0IDEuNjcgNHMxLjI2LTEuNiAxLjY3LTR6bS02LjA4LTJoMy44MmEyOSAyOSAwIDAgMSAwLTRIMi4yNWE4IDggMCAwIDAgMCA0bS44MiAyYTguMDMgOC4wMyAwIDAgMCA0LjE3IDMuNTFjLS40Mi0uOTYtLjc0LTIuMTYtLjk1LTMuNTF6bTEzLjg2LThhOC4wMyA4LjAzIDAgMCAwLTQuMTctMy41MWMuNDIuOTYuNzQgMi4xNi45NSAzLjUxem0tOC42IDBoMy4zNGMtLjQxLTIuNC0xLjEzLTQtMS42Ny00UzguNzQgMy42IDguMzMgNk0zLjA3IDZoMy4yMmMuMi0xLjM1LjUzLTIuNTUuOTUtMy41MUE4LjAzIDguMDMgMCAwIDAgMy4wNyA2Ii8+PC9zdmc+';
-
+      'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIwLjhlbSIgaGVpZ2h0PSIwLjhlbSIgdmlld0JveD0iMCAwIDIwIDIwIj48cGF0aCBmaWxsPSIjNWI1YjViIiBkPSJNMTAgMjBhMTAgMTAgMCAxIDEgMC0yMGExMCAxMCAwIDAgMSAwIDIwbTcuNzUtOGE4IDggMCAwIDAgMC00aC0zLjgyYTI5IDI5IDAgMCAxIDAgNHptLS44MiAyaC0zLjIyYTE0LjQgMTQuNCAwIDAgMS0uOTUgMy41MUE4LjAzIDguMDMgMCAwIDAgMTYuOTMgMTRtLTguODUtMmgzLjg0YTI0LjYgMjQuNiAwIDAgMCAwLTRIOC4wOGEyNC42IDI0LjYgMCAwIDAgMCA0bS4yNSAyYy40MSAyLjQgMS4xMyA0IDEuNjcgNHMxLjI2LTEuNiAxLjY3LTR6bS02LjA4LTJoMy44MmEyOSAyOSAwIDAgMSAwLTRIMi4yNWE4IDggMCAwIDAgMCA0bS44MiAyYTguMDMgOC4wMyAwIDAgMCA0LjE3IDMuNTFjLS40Mi0uOTYtLjc0LTIuMTYtLjk1LTMuNTF6bTEzLjg2LThhOC4wMyA4LjAzIDAgMCAwLTQuMTctMy41MWMuNDIuOTYuNzQgMi4xNi45NSAzLjUxem0tOC42IDBoMy4zNGMtLjQxLTIuNC0xLjEzLTQtMS42Ny00UzguNzQgMy42IDguMzMgNk0zLjA3IDZoMy4yMmMuMi0xLjM1LjUzLTIuNTUuOTUtMy41MUE4LjAzIDguMDMgMCAwIDAgMy4wNyA2Ii8+PC9zdmc+';
   }
 
   init();

@@ -36,6 +36,7 @@ const configCenterRouter: AppRouteRecordRaw = {
       component: () => import('@/view/manage/components/EditBookmark.vue'),
     },
   ],
+
 };
 
 export default configCenterRouter;

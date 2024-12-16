@@ -55,8 +55,12 @@
           </div>
           <!--  主题切换        -->
           <ThemeSwith />
-          <!--用户信息          -->
-          <HeaderMenu />
+          <!--移动端个人中心       -->
+          <div :class="['navigation-icon']" v-if="bookmark.isPhone" @click="router.push('/personCenter')">
+            <svg-icon size="30" :src="user.headPicture || icon.navigation_user" class="dom-hover" />
+          </div>
+          <!--pc端个人中心       -->
+          <HeaderMenu v-else />
         </div>
       </div>
     </div>
@@ -73,7 +77,7 @@
   import icon from '@/config/icon.ts';
   import ThemeSwith from '@/components/tag/ThemeSwith.vue';
   import HeaderMenu from '@/view/configCenter/HeaderMenu.vue';
-
+  const user = useUserStore();
   const placeholder = ref('Search...');
 
   document.addEventListener('DOMContentLoaded', function () {

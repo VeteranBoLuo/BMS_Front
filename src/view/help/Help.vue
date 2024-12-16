@@ -3,7 +3,7 @@
     <b-button
       style="position: absolute; right: 20px"
       :style="{ left: bookmark.isPhone ? '' : '187px' }"
-      @click="$router.push('/home')"
+      @click="handleToBack"
       v-click-log="{ module: '帮助中心', operation: `返回` }"
       >返回</b-button
     >
@@ -86,6 +86,7 @@
   import 'viewerjs/dist/viewer.css'; //样式文件不要忘了
   import Viewer from 'viewerjs';
   import BViewer from '@/components/Viewer/BViewer.vue';
+  import router from '@/router';
 
   const bookmark = bookmarkStore();
   const checkId = ref('');
@@ -107,7 +108,13 @@
     }
     return listOptions.value;
   });
-  const imgArr = ref([tagAndBookmark]);
+  function handleToBack() {
+    if (bookmark.isPhone) {
+      router.push('/personCenter');
+    } else {
+      router.push('/home');
+    }
+  }
   const listOptions = ref([
     {
       id: '书签与标签',

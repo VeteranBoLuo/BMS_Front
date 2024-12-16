@@ -2,11 +2,12 @@ import { createRouter, createWebHashHistory, RouteMeta, RouteRecordRaw } from 'v
 import { Component } from 'vue';
 
 import loginRouter from '@/router/modules/login';
-import manageRouter from '@/router/modules/manage';
+import manageRouter from '@/router/modules/personCenter.ts';
 import mainPageRouter from '@/router/modules/mainPage';
 import statusRouter from '@/router/modules/status';
 import helpRouter from '@/router/modules/help';
 import adminRouter from '@/router/modules/admin';
+import personCenterRouter from '@/router/modules/personCenter.ts';
 export interface AppRouteRecordRaw {
   name?: string;
   meta?: RouteMeta;
@@ -25,8 +26,14 @@ const routes: Array<RouteRecordRaw | any> = [
     component: () => import('@/view/index.vue'),
     children: [mainPageRouter, manageRouter, helpRouter, adminRouter],
   },
+  {
+    path: '/personCenter',
+    name: 'personCenter',
+    component: () => import('@/view/configCenter/PersonCenter.vue'),
+  },
   loginRouter,
   statusRouter,
+  personCenterRouter,
 ];
 
 const router = createRouter({
