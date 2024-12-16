@@ -14,7 +14,6 @@ declare module 'vue' {
     AFormItem: typeof import('ant-design-vue/es')['FormItem']
     AMenu: typeof import('ant-design-vue/es')['Menu']
     AMenuItem: typeof import('ant-design-vue/es')['MenuItem']
-    APagination: typeof import('ant-design-vue/es')['Pagination']
     ASelect: typeof import('ant-design-vue/es')['Select']
     ATable: typeof import('ant-design-vue/es')['Table']
     ATooltip: typeof import('ant-design-vue/es')['Tooltip']

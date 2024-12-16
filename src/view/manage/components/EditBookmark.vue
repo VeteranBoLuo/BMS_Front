@@ -13,6 +13,7 @@
         <div class="tag-attr-item">
           <span class="tag-attr-label">相关标签</span>
           <a-select
+            :listHeight="350"
             mode="multiple"
             :max-tag-count="3"
             :options="tagOptions"
@@ -28,15 +29,8 @@
       </div>
     </b-loading>
     <b-space class="edit-tag-footer">
-      <b-button
-        type="primary"
-        @click="submit"
-        v-click-log="{ module: '书签编辑', operation: `确定` }"
-        >确定</b-button
-      >
-      <b-button @click="$router.back()" v-click-log="{ module: '书签编辑', operation: `返回` }"
-        >返回</b-button
-      >
+      <b-button type="primary" @click="submit" v-click-log="{ module: '书签编辑', operation: `确定` }">确定</b-button>
+      <b-button @click="$router.back()" v-click-log="{ module: '书签编辑', operation: `返回` }">返回</b-button>
     </b-space>
   </div>
 </template>
