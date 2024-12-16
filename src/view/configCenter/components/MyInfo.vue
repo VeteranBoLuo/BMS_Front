@@ -43,7 +43,7 @@
 <script lang="ts" setup>
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
   import { bookmarkStore, useUserStore } from '@/store';
-  import { ref, watch } from 'vue';
+  import { Ref, ref, watch } from 'vue';
   import BButton from '@/components/BasicComponents/BButton/BButton.vue';
   import userApi from '@/api/userApi.ts';
   import { message } from 'ant-design-vue';
@@ -53,7 +53,7 @@
   import BModal from '@/components/BasicComponents/BModal/BModal.vue';
   const user = useUserStore();
   const headPicture = ref<string>('');
-  const visible = <boolean>defineModel('visible');
+  const visible = <Ref<boolean>>defineModel('visible');
 
   const bookmark = bookmarkStore();
   function uploadImg() {
@@ -106,6 +106,7 @@
           message.success('保存成功');
           const userPromise = await userApi.getUserInfoById({ id: localStorage.getItem('userId') });
           user.setUserInfo(userPromise.data);
+          visible.value = false;
         }
       })
       .catch((err) => {
