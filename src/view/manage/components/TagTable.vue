@@ -21,7 +21,7 @@
         :columns="tagColumns"
         row-key="id"
         :pagination="false"
-        :scroll="{ y: bookmark.screenHeight - 240 }"
+        :scroll="{ y: bookmark.screenHeight - 300 }"
       >
         <template #bodyCell="{ column, text, record }">
           <template v-if="column.dataIndex === 'name'">

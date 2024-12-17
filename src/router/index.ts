@@ -24,7 +24,7 @@ const routes: Array<RouteRecordRaw | any> = [
     name: '/',
     redirect: '/home',
     component: () => import('@/view/index.vue'),
-    children: [mainPageRouter, manageRouter, helpRouter, adminRouter],
+    children: [mainPageRouter, manageRouter, helpRouter, adminRouter, personCenterRouter],
   },
   {
     path: '/personCenter',
@@ -33,7 +33,6 @@ const routes: Array<RouteRecordRaw | any> = [
   },
   loginRouter,
   statusRouter,
-  personCenterRouter,
 ];
 
 const router = createRouter({
