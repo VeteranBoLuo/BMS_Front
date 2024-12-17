@@ -1,18 +1,6 @@
 <template>
   <div class="phone-person-container" :style="{ backgroundColor: bookmark.theme === 'day' ? '#f6f7f9' : '#111111' }">
-    <div
-      style="
-        margin: 0 auto;
-        font-size: 20px;
-        font-weight: 550;
-        width: 100%;
-        height: 60px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-      "
-    >
+    <div class="phone-person-navigation">
       <span
         style="position: absolute; left: 0; top: 30px; transform: translateY(-50%)"
         class="flex-align-center"
@@ -22,7 +10,16 @@
       </span>
       <span>个人中心</span>
     </div>
-    <div style="height: calc(100% - 60px); width: 100%">
+    <div
+      style="
+        height: calc(100% - 80px);
+        width: calc(100% - 40px);
+        position: fixed;
+        top: 60px;
+        box-sizing: border-box;
+        overflow: auto;
+      "
+    >
       <div class="person-title-card" :style="{ backgroundColor: bookmark.theme === 'day' ? '#97a1c6' : '#4d5264' }">
         <div style="display: flex; gap: 10px">
           <div :class="['navigation-icon']" :style="{ color: bookmark.iconColor }">
@@ -210,7 +207,18 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-
+    .phone-person-navigation {
+      margin: 0 auto;
+      font-size: 20px;
+      font-weight: 550;
+      width: 100%;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: fixed;
+      top: 0;
+    }
     .person-title-card {
       gap: 40px;
       padding: 15px;

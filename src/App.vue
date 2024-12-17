@@ -18,7 +18,7 @@
   import userApi from '@/api/userApi';
   import router from '@/router';
   import { bookmarkStore, useUserStore } from '@/store';
-  import { watch } from 'vue';
+  import { onMounted, watch } from 'vue';
   import login from '@/view/login/index.vue';
   import BViewer from '@/components/Viewer/BViewer.vue';
   import icon from '@/config/icon';
@@ -63,5 +63,11 @@
   function getThemeStyle(theme) {
     document.documentElement.setAttribute('data-theme', theme);
   }
+
+  onMounted(() => {
+    if (bookmark.isPhone) {
+      import('@/assets/css/phone.less');
+    }
+  });
 </script>
 <style></style>
