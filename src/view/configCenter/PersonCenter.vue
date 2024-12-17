@@ -1,5 +1,5 @@
 <template>
-  <div class="phone-person-container" :style="{ backgroundColor: bookmark.theme === 'day' ? '#f6f7f9' : '#111111' }">
+  <div class="phone-person-container no-scrollbar" :style="{ backgroundColor: bookmark.theme === 'day' ? '#f6f7f9' : '#111111' }">
     <div class="phone-person-navigation">
       <span
         style="position: absolute; left: 0; top: 30px; transform: translateY(-50%)"
@@ -11,14 +11,7 @@
       <span>个人中心</span>
     </div>
     <div
-      style="
-        height: calc(100% - 80px);
-        width: calc(100% - 40px);
-        position: fixed;
-        top: 60px;
-        box-sizing: border-box;
-        overflow: auto;
-      "
+      style="height: calc(100% - 80px); width: calc(100% - 40px); position: fixed; top: 60px; box-sizing: border-box;overflow: auto"
     >
       <div class="person-title-card" :style="{ backgroundColor: bookmark.theme === 'day' ? '#97a1c6' : '#4d5264' }">
         <div style="display: flex; gap: 10px">
@@ -98,8 +91,8 @@
         >
           <span class="person-menu-item-title">意见反馈</span>
           <span class="person-menu-item-des"
-            ><svg-icon color="#999fa8" style="rotate: 180deg" :src="icon.arrow_left" size="14" /></span
-        ></div>
+            ><svg-icon color="#999fa8" style="rotate: 180deg" :src="icon.arrow_left" size="14" /></span></div
+        >
         <div class="person-menu-item" @click="$router.push('/help')">
           <span class="person-menu-item-title">帮助中心</span>
           <span class="person-menu-item-des"
@@ -359,4 +352,5 @@
       max-width: 700px;
     }
   }
+
 </style>
