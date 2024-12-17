@@ -23,6 +23,7 @@
         <div class="tag-attr-item">
           <span class="tag-attr-label">相关标签</span>
           <a-select
+            :listHeight="350"
             mode="multiple"
             :max-tag-count="3"
             :options="tagOptions"
@@ -32,20 +33,11 @@
           />
         </div>
         <div class="tag-attr-item">
-          <span class="tag-attr-label">关联标签</span>
-          <div
-            v-if="bookmark.isPhone"
-            :style="{ height: bookmark.screenHeight - 400 + 'px', overflow: 'auto' }"
-          >
-            <a-checkbox-group
-              v-model:value="tag.bookmarkList"
-              name="checkboxgroup"
-              :options="bookmarkOptions"
-            >
+          <span class="tag-attr-label">关联书签</span>
+          <div v-if="bookmark.isPhone" :style="{ height: bookmark.screenHeight - 400 + 'px', overflow: 'auto' }">
+            <a-checkbox-group v-model:value="tag.bookmarkList" name="checkboxgroup" :options="bookmarkOptions">
               <template #label="{ label }">
-                <div
-                  :style="{ width: bookmark.screenWidth / 2 - 20 - 16 - 16 + 'px' }"
-                  class="text-hidden"
+                <div :style="{ width: bookmark.screenWidth / 2 - 20 - 16 - 16 + 'px' }" class="text-hidden"
                   >{{ label }}
                 </div>
               </template>
@@ -71,24 +63,15 @@
             }"
           >
             <template #render="item">
-              <span class="custom-item" :style="{ color: bookmark.iconColor }">{{
-                item.name
-              }}</span>
+              <span class="custom-item" :style="{ color: bookmark.iconColor }">{{ item.name }}</span>
             </template>
           </a-transfer>
         </div>
       </div>
     </b-loading>
     <b-space class="edit-tag-footer">
-      <b-button
-        type="primary"
-        @click="submit"
-        v-click-log="{ module: '标签编辑', operation: `确定` }"
-        >确定
-      </b-button>
-      <b-button @click="$router.back()" v-click-log="{ module: '标签编辑', operation: `返回` }"
-        >返回
-      </b-button>
+      <b-button type="primary" @click="submit" v-click-log="{ module: '标签编辑', operation: `确定` }">确定 </b-button>
+      <b-button @click="$router.back()" v-click-log="{ module: '标签编辑', operation: `返回` }">返回 </b-button>
     </b-space>
   </div>
 </template>
