@@ -1,7 +1,7 @@
 <template>
   <div class="category-panel">
     <template v-if="bookmark.type === 'normal' && bookmark.tagData">
-      <div class="category-title">{{ bookmark.tagData?.name || 'PBM' }}</div>
+      <div class="category-title">{{ bookmark.tagData?.name || '菠萝书签' }}</div>
       <div class="category-content">
         {{ bookmark.tagData.associatedTagList?.length }} 个相关书签，{{ bookmark.tagData.bookmarkList?.length }}
         个关联标签
