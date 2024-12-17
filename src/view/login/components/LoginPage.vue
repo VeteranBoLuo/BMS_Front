@@ -1,10 +1,22 @@
 <template>
   <div class="view-body" :class="title !== '登录' ? 'hide' : ''">
-     <span @click="bookmark.isShowLogin = false" class="dom-hover login-close-icon">
+    <span @click="bookmark.isShowLogin = false" class="dom-hover login-close-icon">
       <img src="@/assets/icons/close.svg" width="20" height="20" alt="" />
     </span>
     <div class="view-page">
       <b style="font-size: 30px; justify-self: center; color: #161824">登录</b>
+      <span
+        style="
+          font-family: 微软雅黑;
+          font-size: 12px;
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+          top: 60px;
+          color: #a9a1ad;
+        "
+        >欢迎使用菠萝书签（PBM）</span
+      >
       <a-form
         :label-col="{
           span: 4,

@@ -3,9 +3,9 @@
 ![image](https://github.com/user-attachments/assets/2585fdfd-bc6d-4aa6-b2fc-6bc950a4748f)
 
 
-### <div align="center">BMS</div>
+### <div align="center">菠萝书签</div>
 <div align="center">收纳、分享、探索优质网站</div>
-<div align="center">BMS / bookmark site / 你的专属书签管家</div>
+<div align="center">菠萝书签 / bookmark site / 你的专属书签管家</div>
 
 
 
@@ -175,6 +175,6 @@
 
 
 ### 网站地址
-**[BMS](http://boluo66.top/)**
+**[菠萝书签](http://boluo66.top/)**
 
 

@@ -28,7 +28,7 @@
         />
         <template class="navigation-title-link" @click="handleToIndex">
           <img src="../../../assets/icons/bookmark.svg" title="首页" width="25" height="25" />
-          <span>BMS</span>
+          <span>PBM</span>
         </template>
       </div>
       <div class="navigation-body">
