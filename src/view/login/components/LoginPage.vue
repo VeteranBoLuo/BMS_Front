@@ -12,10 +12,12 @@
           position: absolute;
           left: 50%;
           transform: translateX(-50%);
-          top: 60px;
+          top: 65px;
           color: #a9a1ad;
+          width: 100%;
+          text-align: center;
         "
-        >欢迎使用菠萝书签（PBM）</span
+        >欢迎使用智汇云书签</span
       >
       <a-form
         :label-col="{
