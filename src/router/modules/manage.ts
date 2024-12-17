@@ -1,6 +1,6 @@
 import { AppRouteRecordRaw } from '@/router';
 
-const configCenterRouter: AppRouteRecordRaw = {
+const manageRouter: AppRouteRecordRaw = {
   meta: {
     title: '数据管理',
     keepAlive: true,
@@ -9,10 +9,6 @@ const configCenterRouter: AppRouteRecordRaw = {
   path: '/manage',
   name: 'manage',
   children: [
-    {
-      path: '',
-      component: () => import('@/view/manage/Manage.vue'),
-    },
     {
       path: 'editTag',
       name: 'editTag',
@@ -36,7 +32,6 @@ const configCenterRouter: AppRouteRecordRaw = {
       component: () => import('@/view/manage/components/EditBookmark.vue'),
     },
   ],
-
 };
 
-export default configCenterRouter;
+export default manageRouter;
