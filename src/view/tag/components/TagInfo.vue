@@ -17,7 +17,7 @@
       <div class="category-tag-item" style="opacity: 0; height: 1px">占位块</div>
     </template>
     <template v-else-if="bookmark.type === 'all'">
-      <div class="category-title" style="font-size: 18px">{{ '菠萝书签管理平台' }}</div>
+      <div class="category-title" style="font-size: 18px">{{ '菠萝书签' }}</div>
       <div class="category-content">
         <div style="text-align: center">
           <div>收纳、分享、探索优质网站</div>
