@@ -4,7 +4,7 @@
 
 
 <div align="center">收纳、分享、探索优质网站</div>
-<div align="center">菠萝书签 / bookmark site / 你的专属书签管家</div>
+<div align="center">你的专属书签管家</div>
 
 
 
