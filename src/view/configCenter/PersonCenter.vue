@@ -1,123 +1,99 @@
 <template>
-  <div class="phone-person-container" :style="{ backgroundColor: bookmark.theme === 'day' ? '#f6f7f9' : '#111111' }">
-    <div
-      style="
-        margin: 0 auto;
-        font-size: 20px;
-        font-weight: 550;
-        width: 100%;
-        height: 60px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-      "
-    >
-      <span
-        style="position: absolute; left: 0; top: 30px; transform: translateY(-50%)"
-        class="flex-align-center"
-        @click="router.push('/home')"
+  <PhoneContainer title="个人中心" :style="{ backgroundColor: bookmark.theme === 'day' ? '#f6f7f9' : '#111111' }">
+    <div class="person-title-card" :style="{ backgroundColor: bookmark.theme === 'day' ? '#97a1c6' : '#4d5264' }">
+      <div style="display: flex; gap: 10px">
+        <div :class="['navigation-icon']" :style="{ color: bookmark.iconColor }">
+          <svg-icon
+            img-id="viewUserImg"
+            @click="zoomImage"
+            size="50"
+            :src="user.headPicture || icon.navigation_user"
+            class="dom-hover"
+          />
+        </div>
+        <div style="display: flex; flex-direction: column">
+          <b style="font-size: 20px">{{ user.alias ? user.alias : '默认昵称' }}</b>
+          <span style="font-size: 14px; color: #edf2fa">{{ user.userName }}</span>
+        </div>
+      </div>
+      <div class="user-icon-text" :style="{ color: bookmark.iconColor }">
+        <div style="display: flex; gap: 20px; font-size: 14px">
+          <span
+            >标签<span style="margin-left: 10px">{{ user.tagTotal }}</span></span
+          >
+          <span
+            >书签<span style="margin-left: 10px">{{ user.bookmarkTotal }}</span></span
+          >
+        </div>
+      </div>
+    </div>
+    <div class="person-menu">
+      <div class="person-menu-item" @click="editUser">
+        <span class="person-menu-item-title">个人资料</span>
+        <span class="person-menu-item-des"
+          >邮箱、昵称等
+          <svg-icon color="#999fa8" style="rotate: 180deg" :src="icon.arrow_left" size="14" />
+        </span>
+      </div>
+    </div>
+    <div class="person-menu">
+      <div class="person-menu-item" style="border-bottom: 1px solid var(--person-menu-item-border-color)">
+        <span class="person-menu-item-title">主题设置</span>
+        <span class="person-menu-item-des">{{ ThemeName }}</span></div
       >
-        <svg-icon :src="icon.arrow_left" size="25" />
-      </span>
-      <span>个人中心</span>
+      <div
+        v-if="user.role === 'root'"
+        class="person-menu-item"
+        style="border-bottom: 1px solid var(--person-menu-item-border-color)"
+        @click="router.push('/admin')"
+      >
+        <span class="person-menu-item-title">后台管理</span>
+        <span class="person-menu-item-des"
+          >日志、用户管理等<svg-icon color="#999fa8" style="rotate: 180deg" :src="icon.arrow_left" size="14" /></span
+      ></div>
+      <div
+        class="person-menu-item"
+        style="border-bottom: 1px solid var(--person-menu-item-border-color)"
+        @click="$router.push('/phone/editTag')"
+      >
+        <span class="person-menu-item-title">标签管理</span>
+        <span class="person-menu-item-des"
+          ><svg-icon color="#999fa8" style="rotate: 180deg" :src="icon.arrow_left" size="14" /></span
+      ></div>
+      <div
+        class="person-menu-item"
+        style="border-bottom: 1px solid var(--person-menu-item-border-color)"
+        @click="$router.push('/phone/editBookmark')"
+      >
+        <span class="person-menu-item-title">书签管理</span>
+        <span class="person-menu-item-des"
+          ><svg-icon color="#999fa8" style="rotate: 180deg" :src="icon.arrow_left" size="14" /></span
+      ></div>
     </div>
-    <div style="height: calc(100% - 60px); width: 100%">
-      <div class="person-title-card" :style="{ backgroundColor: bookmark.theme === 'day' ? '#97a1c6' : '#4d5264' }">
-        <div style="display: flex; gap: 10px">
-          <div :class="['navigation-icon']" :style="{ color: bookmark.iconColor }">
-            <svg-icon
-              img-id="viewUserImg"
-              @click="zoomImage"
-              size="50"
-              :src="user.headPicture || icon.navigation_user"
-              class="dom-hover"
-            />
-          </div>
-          <div style="display: flex; flex-direction: column">
-            <b style="font-size: 20px">{{ user.alias ? user.alias : '默认昵称' }}</b>
-            <span style="font-size: 14px; color: #edf2fa">{{ user.userName }}</span>
-          </div>
-        </div>
-        <div class="user-icon-text" :style="{ color: bookmark.iconColor }">
-          <div style="display: flex; gap: 20px; font-size: 14px">
-            <span
-              >标签<span style="margin-left: 10px">{{ user.tagTotal }}</span></span
-            >
-            <span
-              >书签<span style="margin-left: 10px">{{ user.bookmarkTotal }}</span></span
-            >
-          </div>
-        </div>
-      </div>
-      <div class="person-menu">
-        <div class="person-menu-item" @click="editUser">
-          <span class="person-menu-item-title">个人资料</span>
-          <span class="person-menu-item-des"
-            >邮箱、昵称等
-            <svg-icon color="#999fa8" style="rotate: 180deg" :src="icon.arrow_left" size="14" />
-          </span>
-        </div>
-      </div>
-      <div class="person-menu">
-        <div class="person-menu-item" style="border-bottom: 1px solid var(--person-menu-item-border-color)">
-          <span class="person-menu-item-title">主题设置</span>
-          <span class="person-menu-item-des">{{ ThemeName }}</span></div
-        >
-        <div
-          v-if="user.role === 'root'"
-          class="person-menu-item"
-          style="border-bottom: 1px solid var(--person-menu-item-border-color)"
-          @click="router.push('/admin')"
-        >
-          <span class="person-menu-item-title">后台管理</span>
-          <span class="person-menu-item-des"
-            >日志、用户管理等<svg-icon color="#999fa8" style="rotate: 180deg" :src="icon.arrow_left" size="14" /></span
-        ></div>
-        <div
-          class="person-menu-item"
-          style="border-bottom: 1px solid var(--person-menu-item-border-color)"
-          @click="$router.push('/manage/editTag')"
-        >
-          <span class="person-menu-item-title">标签管理</span>
-          <span class="person-menu-item-des"
-            ><svg-icon color="#999fa8" style="rotate: 180deg" :src="icon.arrow_left" size="14" /></span
-        ></div>
-        <div
-          class="person-menu-item"
-          style="border-bottom: 1px solid var(--person-menu-item-border-color)"
-          @click="$router.push('/manage/editBookmark')"
-        >
-          <span class="person-menu-item-title">书签管理</span>
-          <span class="person-menu-item-des"
-            ><svg-icon color="#999fa8" style="rotate: 180deg" :src="icon.arrow_left" size="14" /></span
-        ></div>
-      </div>
-      <div class="person-menu">
-        <div
-          class="person-menu-item"
-          style="border-bottom: 1px solid var(--person-menu-item-border-color)"
-          @click="opinionsVisible = true"
-        >
-          <span class="person-menu-item-title">意见反馈</span>
-          <span class="person-menu-item-des"
-            ><svg-icon color="#999fa8" style="rotate: 180deg" :src="icon.arrow_left" size="14" /></span
-        ></div>
-        <div class="person-menu-item" @click="$router.push('/help')">
-          <span class="person-menu-item-title">帮助中心</span>
-          <span class="person-menu-item-des"
-            ><svg-icon color="#999fa8" style="rotate: 180deg" :src="icon.arrow_left" size="14" /></span
-        ></div>
-      </div>
-      <div class="person-menu" @click="handleExitLogin">
-        <div class="person-menu-item" style="justify-content: center">
-          <span class="person-menu-item-title">{{ user.role === 'visitor' ? '登录/注册' : '退出登录' }}</span></div
-        >
-      </div>
-      <my-info v-if="userVisible" v-model:visible="userVisible" />
-      <Opinions v-model:visible="opinionsVisible" />
+    <div class="person-menu">
+      <div
+        class="person-menu-item"
+        style="border-bottom: 1px solid var(--person-menu-item-border-color)"
+        @click="opinionsVisible = true"
+      >
+        <span class="person-menu-item-title">意见反馈</span>
+        <span class="person-menu-item-des"
+          ><svg-icon color="#999fa8" style="rotate: 180deg" :src="icon.arrow_left" size="14" /></span
+      ></div>
+      <div class="person-menu-item" @click="$router.push('/phone/help')">
+        <span class="person-menu-item-title">帮助中心</span>
+        <span class="person-menu-item-des"
+          ><svg-icon color="#999fa8" style="rotate: 180deg" :src="icon.arrow_left" size="14" /></span
+      ></div>
     </div>
-  </div>
+    <div class="person-menu" @click="handleExitLogin">
+      <div class="person-menu-item" style="justify-content: center">
+        <span class="person-menu-item-title">{{ user.role === 'visitor' ? '登录/注册' : '退出登录' }}</span></div
+      >
+    </div>
+    <my-info v-if="userVisible" v-model:visible="userVisible" />
+    <Opinions v-model:visible="opinionsVisible" />
+  </PhoneContainer>
 </template>
 
 <script setup lang="ts">
@@ -131,6 +107,7 @@
   import MyInfo from '@/view/configCenter/components/MyInfo.vue';
   import Viewer from '@/components/Viewer/BViewer.vue';
   import Opinions from '@/view/configCenter/components/Opinions.vue';
+  import PhoneContainer from '@/components/PhoneContainer/PhoneContainer.vue';
 
   const bookmark = bookmarkStore();
   const getPopupContainer = (trigger: HTMLElement) => {
@@ -210,45 +187,58 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+  }
 
-    .person-title-card {
-      gap: 40px;
-      padding: 15px;
-      height: 160px;
-      box-sizing: border-box;
-      border-radius: 12px;
-      margin-top: 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      color: white;
+  .phone-person-navigation {
+    margin: 0 auto;
+    font-size: 20px;
+    font-weight: 550;
+    width: calc(100% - 40px);
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+  }
+
+  .person-title-card {
+    gap: 40px;
+    padding: 15px;
+    height: 160px;
+    box-sizing: border-box;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+  }
+
+  .person-menu {
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 20px;
+  }
+
+  .person-menu-item {
+    background-color: var(--person-menu-item-bg-color);
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    justify-content: space-between;
+    cursor: pointer;
+
+    .person-menu-item-title {
     }
 
-    .person-menu {
-      border-radius: 12px;
-      overflow: hidden;
-      margin-top: 20px;
-    }
-
-    .person-menu-item {
-      background-color: var(--person-menu-item-bg-color);
-      height: 50px;
+    .person-menu-item-des {
+      color: #999fa8;
+      font-size: 14px;
       display: flex;
       align-items: center;
-      padding: 0 20px;
-      justify-content: space-between;
-      cursor: pointer;
-      .person-menu-item-title {
-      }
-
-      .person-menu-item-des {
-        color: #999fa8;
-        font-size: 14px;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        line-height: 100%;
-      }
+      gap: 5px;
+      line-height: 100%;
     }
   }
 

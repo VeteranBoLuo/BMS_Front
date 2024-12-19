@@ -28,7 +28,7 @@
         />
         <template class="navigation-title-link" @click="handleToIndex">
           <img src="../../../assets/icons/bookmark.svg" title="首页" width="25" height="25" />
-          <span>BMS</span>
+          <span style='font-family: 微软雅黑;font-size: 18px'>智汇云书签</span>
         </template>
       </div>
       <div class="navigation-body">
@@ -56,7 +56,7 @@
           <!--  主题切换        -->
           <ThemeSwith />
           <!--移动端个人中心       -->
-          <div :class="['navigation-icon']" v-if="bookmark.isPhone" @click="router.push('/personCenter')">
+          <div :class="['navigation-icon']" v-if="bookmark.isPhone" @click="handleToPhoneUserCenter">
             <svg-icon size="30" :src="user.headPicture || icon.navigation_user" class="dom-hover" />
           </div>
           <!--pc端个人中心       -->
@@ -168,6 +168,11 @@
     const body: any = document.getElementById('phone-navigation-container');
     body.style.transition = 'all 0.3s';
     body.style.transform = ' translateX(0)';
+  }
+
+  function handleToPhoneUserCenter() {
+    bookmark.isFold = true;
+    router.push('/personCenter');
   }
 
   const pagePath = computed(() => {

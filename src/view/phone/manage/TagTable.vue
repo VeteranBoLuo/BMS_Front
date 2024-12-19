@@ -1,74 +1,72 @@
 <template>
   <b-loading :loading="loading">
-    <div class="edit-tag-container">
-      <h2>标签管理</h2>
-      <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 20px">
-        <b-input v-model:value="tableSearchValue" class="table-search-input" />
-        <b-space>
+    <PhoneContainer title="标签管理" >
+      <div class="edit-tag-container">
+        <div style="display: flex; align-items: center; gap: 10px">
+          <b-input v-model:value="tableSearchValue" class="table-search-input" />
           <b-button
             v-click-log="{ module: '标签管理', operation: `新增` }"
             type="primary"
-            @click="$router.push({ path: `/manage/editTag/add` })"
+            @click="$router.push({ path: `/phone/editTag/add` })"
             >新增</b-button
           >
-          <b-button @click="handleToBack" v-click-log="{ module: '标签管理', operation: `返回` }">返回</b-button>
-        </b-space>
-      </div>
-      <a-table
-        data-theme="dark"
-        style="width: 90vw; margin-top: 5px"
-        :data-source="tagList"
-        :columns="tagColumns"
-        row-key="id"
-        :pagination="false"
-        :scroll="{ y: bookmark.screenHeight - 300 }"
-      >
-        <template #bodyCell="{ column, text, record }">
-          <template v-if="column.dataIndex === 'name'">
-            <span style="display: flex; align-items: center; gap: 10px">
-              <svg-icon :src="record.iconUrl" />
-              {{ text }}
-            </span>
-          </template>
-          <template v-else-if="column.dataIndex === 'associatedTagIds'">
-            <div>
-              <div style="display: flex; align-items: center; gap: 10px" v-if="getTagName(text)">
-                <div class="common-tag" v-for="tag in getTagName(text)" :key="tag.id">
-                  {{ tag.name }}
+        </div>
+        <a-table
+          data-theme="dark"
+          style="width: 90vw; margin-top: 5px"
+          :data-source="tagList"
+          :columns="tagColumns"
+          row-key="id"
+          :pagination="false"
+          :scroll="{ y: bookmark.screenHeight - 220 }"
+        >
+          <template #bodyCell="{ column, text, record }">
+            <template v-if="column.dataIndex === 'name'">
+              <span style="display: flex; align-items: center; gap: 10px">
+                <svg-icon :src="record.iconUrl" />
+                {{ text }}
+              </span>
+            </template>
+            <template v-else-if="column.dataIndex === 'associatedTagIds'">
+              <div>
+                <div style="display: flex; align-items: center; gap: 10px" v-if="getTagName(text)">
+                  <div class="common-tag" v-for="tag in getTagName(text)" :key="tag.id">
+                    {{ tag.name }}
+                  </div>
                 </div>
               </div>
-            </div>
+            </template>
+            <template v-else-if="column.dataIndex === 'bookmarkList'">
+              <div class="text-hidden">
+                <span class="common-tag" style="margin-right: 10px" v-for="b in record.bookmarkList" :key="b.id">
+                  {{ b.name }}
+                </span>
+              </div>
+            </template>
+            <template v-else-if="column.dataIndex === 'operation'">
+              <div class="edit-tag-operation">
+                <svg-icon
+                  title="编辑"
+                  :src="icon.table_edit"
+                  v-click-log="{ module: '标签管理', operation: `编辑标签` }"
+                  size="16"
+                  @click="edit(record.id)"
+                  class="dom-hover"
+                />
+                <svg-icon
+                  title="删除"
+                  :src="icon.table_delete"
+                  size="16"
+                  @click="handleDeleteTag(record)"
+                  v-click-log="{ module: '标签管理', operation: `删除标签` }"
+                  class="dom-hover"
+                />
+              </div>
+            </template>
           </template>
-          <template v-else-if="column.dataIndex === 'bookmarkList'">
-            <div class="text-hidden">
-              <span class="common-tag" style="margin-right: 10px" v-for="b in record.bookmarkList" :key="b.id">
-                {{ b.name }}
-              </span>
-            </div>
-          </template>
-          <template v-else-if="column.dataIndex === 'operation'">
-            <div class="edit-tag-operation">
-              <svg-icon
-                title="编辑"
-                :src="icon.table_edit"
-                v-click-log="{ module: '标签管理', operation: `编辑标签` }"
-                size="16"
-                @click="edit(record.id)"
-                class="dom-hover"
-              />
-              <svg-icon
-                title="删除"
-                :src="icon.table_delete"
-                size="16"
-                @click="handleDeleteTag(record)"
-                v-click-log="{ module: '标签管理', operation: `删除标签` }"
-                class="dom-hover"
-              />
-            </div>
-          </template>
-        </template>
-      </a-table>
-    </div>
+        </a-table>
+      </div>
+    </PhoneContainer>
   </b-loading>
 </template>
 
@@ -76,8 +74,8 @@
   import { bookmarkStore } from '@/store';
   import { computed, ref } from 'vue';
   import { message } from 'ant-design-vue';
-  import { apiBasePost, apiQueryPost } from '@/http/request';
-  import Alert from '@/components/BasicComponents/BModal/Alert';
+  import { apiBasePost, apiQueryPost } from '@/http/request.ts';
+  import Alert from '@/components/BasicComponents/BModal/Alert.ts';
   import BButton from '@/components/BasicComponents/BButton/BButton.vue';
   import router from '@/router';
   import { Icon } from '@iconify/vue';
@@ -86,6 +84,8 @@
   import BSpace from '@/components/BasicComponents/BSpace/BSpace.vue';
   import BLoading from '@/components/BasicComponents/BLoading/BLoading.vue';
   import BInput from '@/components/BasicComponents/BInput/BInput.vue';
+  import PhoneContainer from '@/components/PhoneContainer/PhoneContainer.vue';
+  import Navigation from '@/view/tag/components/Navigation.vue';
 
   const visible = defineModel<boolean>('visible');
 
@@ -135,7 +135,7 @@
   });
 
   const edit = (id: string) => {
-    router.push({ path: `/manage/editTag/${id}` });
+    router.push({ path: `/phone/editTag/${id}` });
   };
 
   function handleDeleteTag(tag) {
@@ -202,9 +202,6 @@
 
 <style lang="less" scoped>
   .edit-tag-container {
-    padding: 0 40px;
-    position: absolute;
-    top: 20px;
     box-sizing: border-box;
   }
   .edit-tag-operation {
@@ -213,14 +210,6 @@
     gap: 10px;
   }
   .table-search-input {
-    width: 30%;
-  }
-  @media (max-width: 600px) {
-    .edit-tag-container {
-      padding: 0px 20px;
-    }
-    .table-search-input {
-      width: calc(100% - 145px);
-    }
+    width: 100%;
   }
 </style>
