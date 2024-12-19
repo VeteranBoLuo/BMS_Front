@@ -12,24 +12,24 @@ const manageRouter: AppRouteRecordRaw = {
     {
       path: 'editTag',
       name: 'editTag',
-      component: () => import('@/view/manage/components/TagTable.vue'),
+      component: () => import('@/view/manage/components/TagMg.vue'),
     },
     {
       path: 'editTag/:id',
-      component: () => import('@/view/manage/components/EditTag.vue'),
+      component: () => import('@/view/manage/components/tagEditMg.vue'),
     },
     {
       path: 'editBookmark',
       name: 'editBookmark',
-      component: () => import('@/view/manage/components/BookmarkTable.vue'),
+      component: () => import('@/view/manage/components/BookmarkMg.vue'),
     },
     {
       path: 'editBookmark/:id',
-      component: () => import('@/view/manage/components/EditBookmark.vue'),
+      component: () => import('@/view/manage/components/BookmarkEditMg.vue'),
     },
     {
       path: 'editBookmark/add/:tagId', // 新增时，自动关联tag
-      component: () => import('@/view/manage/components/EditBookmark.vue'),
+      component: () => import('@/view/manage/components/BookmarkEditMg.vue'),
     },
   ],
 };

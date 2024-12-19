@@ -31,7 +31,6 @@ const routes: Array<RouteRecordRaw | any> = [
     name: 'personCenter',
     component: () => import('@/view/configCenter/PersonCenter.vue'),
   },
-  phoneRouter, //手机端路由
   loginRouter,
   statusRouter,
 ];

@@ -54,7 +54,7 @@
       <div
         class="person-menu-item"
         style="border-bottom: 1px solid var(--person-menu-item-border-color)"
-        @click="$router.push('/phone/editTag')"
+        @click="$router.push('/manage/editTag')"
       >
         <span class="person-menu-item-title">标签管理</span>
         <span class="person-menu-item-des"
@@ -63,7 +63,7 @@
       <div
         class="person-menu-item"
         style="border-bottom: 1px solid var(--person-menu-item-border-color)"
-        @click="$router.push('/phone/editBookmark')"
+        @click="$router.push('/manage/editBookmark')"
       >
         <span class="person-menu-item-title">书签管理</span>
         <span class="person-menu-item-des"
@@ -80,7 +80,7 @@
         <span class="person-menu-item-des"
           ><svg-icon color="#999fa8" style="rotate: 180deg" :src="icon.arrow_left" size="14" /></span
       ></div>
-      <div class="person-menu-item" @click="$router.push('/phone/help')">
+      <div class="person-menu-item" @click="$router.push('/manage/help')">
         <span class="person-menu-item-title">帮助中心</span>
         <span class="person-menu-item-des"
           ><svg-icon color="#999fa8" style="rotate: 180deg" :src="icon.arrow_left" size="14" /></span

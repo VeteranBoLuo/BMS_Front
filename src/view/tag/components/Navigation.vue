@@ -9,7 +9,10 @@
         placeholder="可根据网站名称、描述搜索"
         @focusout="searchBackClick"
         @input="handleSearch"
-      />
+      >
+        <template #prefix>
+          <svg-icon color='#cccccc' :src="icon.navigation_search" size="16" /> </template
+      ></b-input>
       <span class="search-back-span flex-center" @click="searchBackClick">返回</span>
     </div>
     <div id="phone-navigation-container" class="flex-align-center">
@@ -28,7 +31,7 @@
         />
         <template class="navigation-title-link" @click="handleToIndex">
           <img src="../../../assets/icons/bookmark.svg" title="首页" width="25" height="25" />
-          <span style='font-family: 微软雅黑;font-size: 18px'>智汇云书签</span>
+          <span style="font-family: 微软雅黑; font-size: 18px">智汇云书签</span>
         </template>
       </div>
       <div class="navigation-body">

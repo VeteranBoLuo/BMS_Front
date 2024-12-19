@@ -1,80 +1,81 @@
 <template>
-  <PhoneContainer title="书签管理">
-    <b-loading :loading="loading">
-      <div class="edit-tag-container">
-        <div style="display: flex; align-items: center; gap: 10px">
-          <b-input v-model:value="tableSearchValue" class="table-search-input" />
-          <b-space :size="10">
-            <b-button
-              type="primary"
-              @click="$router.push({ path: `/phone/editBookmark/add` })"
-              v-click-log="{ module: '书签管理', operation: `新增` }"
-              >新增</b-button
-            >
-          </b-space>
-        </div>
-        <a-table
-          data-theme="dark"
-          style="width: 90vw; margin-top: 5px"
-          :data-source="bookmarkList"
-          :columns="tagColumns"
-          row-key="id"
-          :pagination="false"
-          :scroll="{ y: bookmark.screenHeight - 220 }"
-        >
-          <template #bodyCell="{ column, text, record }">
-            <template v-if="column.dataIndex === 'name'">
-              <span style="display: flex; align-items: center; gap: 10px">
-                <div class="card-img-container">
-                  <img v-if="record.iconUrl" :src="record.iconUrl" height="20" width="20" @error="onErrorImg" />
-                </div>
-                {{ text }}
-              </span>
-            </template>
-            <template v-else-if="column.dataIndex === 'tagList'">
-              <div class="text-hidden">
-                <span class="common-tag" style="margin-right: 10px" v-for="t in record.tagList" :key="t.id">
-                  {{ t.name }}
-                </span>
-              </div>
-            </template>
-            <template v-else-if="column.dataIndex === 'operation'">
-              <div class="edit-tag-operation">
-                <svg-icon
-                  title="编辑"
-                  :src="icon.table_edit"
-                  size="16"
-                  @click="edit(record.id)"
-                  v-click-log="{ module: '书签管理', operation: `编辑` }"
-                  class="dom-hover"
-                />
-                <svg-icon
-                  title="删除"
-                  :src="icon.table_delete"
-                  size="16"
-                  @click="handleDeleteTag(record)"
-                  v-click-log="{ module: '书签管理', operation: `删除` }"
-                  class="dom-hover"
-                />
-              </div>
-            </template>
-          </template>
-        </a-table>
+  <b-loading :loading="loading">
+    <div class="edit-tag-container">
+      <h2>书签管理</h2>
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 20px">
+        <b-input v-model:value="tableSearchValue" class="table-search-input" />
+        <b-space :size="10">
+          <!--          <b-button type="success" @click="exportBookmark" v-if="user.role === 'root'">导出</b-button>-->
+          <b-button
+            type="primary"
+            @click="$router.push({ path: `/manage/editBookmark/add` })"
+            v-click-log="{ module: '书签管理', operation: `新增` }"
+            >新增</b-button
+          >
+          <b-button @click="handleToBack" v-click-log="{ module: '书签管理', operation: `返回` }">返回</b-button>
+        </b-space>
       </div>
-    </b-loading>
-  </PhoneContainer>
+      <a-table
+        data-theme="dark"
+        style="width: 90vw; margin-top: 5px"
+        :data-source="bookmarkList"
+        :columns="tagColumns"
+        row-key="id"
+        :pagination="false"
+        :scroll="{ y: bookmark.screenHeight - 300 }"
+      >
+        <template #bodyCell="{ column, text, record }">
+          <template v-if="column.dataIndex === 'name'">
+            <span style="display: flex; align-items: center; gap: 10px">
+              <div class="card-img-container">
+                <img v-if="record.iconUrl" :src="record.iconUrl" height="20" width="20" @error="onErrorImg" />
+              </div>
+              {{ text }}
+            </span>
+          </template>
+          <template v-else-if="column.dataIndex === 'tagList'">
+            <div class="text-hidden">
+              <span class="common-tag" style="margin-right: 10px" v-for="t in record.tagList" :key="t.id">
+                {{ t.name }}
+              </span>
+            </div>
+          </template>
+          <template v-else-if="column.dataIndex === 'operation'">
+            <div class="edit-tag-operation">
+              <svg-icon
+                title="编辑"
+                :src="icon.table_edit"
+                size="16"
+                @click="edit(record.id)"
+                v-click-log="{ module: '书签管理', operation: `编辑` }"
+                class="dom-hover"
+              />
+              <svg-icon
+                title="删除"
+                :src="icon.table_delete"
+                size="16"
+                @click="handleDeleteTag(record)"
+                v-click-log="{ module: '书签管理', operation: `删除` }"
+                class="dom-hover"
+              />
+            </div>
+          </template>
+        </template>
+      </a-table>
+    </div>
+  </b-loading>
 </template>
 
 <script lang="ts" setup>
   import { bookmarkStore, useUserStore } from '@/store';
   import { computed, ref } from 'vue';
   import { message } from 'ant-design-vue';
-  import { apiBasePost, apiQueryPost } from '@/http/request';
-  import Alert from '@/components/BasicComponents/BModal/Alert';
+  import { apiBasePost, apiQueryPost } from '@/http/request.ts';
+  import Alert from '@/components/BasicComponents/BModal/Alert.ts';
   import BButton from '@/components/BasicComponents/BButton/BButton.vue';
   import router from '@/router';
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
-  import icon from '@/config/icon';
+  import icon from '@/config/icon.ts';
   import BSpace from '@/components/BasicComponents/BSpace/BSpace.vue';
   import BLoading from '@/components/BasicComponents/BLoading/BLoading.vue';
   import BInput from '@/components/BasicComponents/BInput/BInput.vue';
@@ -111,7 +112,7 @@
   });
 
   const edit = (id: string) => {
-    router.push({ path: `/phone/editBookmark/${id}` });
+    router.push({ path: `/manage/editBookmark/${id}` });
   };
 
   function handleDeleteTag(bookmark) {
@@ -131,6 +132,13 @@
     });
   }
 
+  function handleToBack() {
+    if (bookmark.isPhone) {
+      router.push('/personCenter');
+    } else {
+      router.push('/home');
+    }
+  }
   const tableSearchValue = ref('');
   const bookmarkList = computed(() => {
     if (tableSearchValue.value) {
@@ -144,7 +152,6 @@
 
   import * as XLSX from 'xlsx';
   import { cloneDeep } from 'lodash-es';
-  import PhoneContainer from '@/components/PhoneContainer/PhoneContainer.vue';
   function exportBookmark() {
     // 随便声明一个结果
     const exportData = bookmarkList.value?.map((item: any) => {
@@ -220,6 +227,8 @@
 <style lang="less" scoped>
   .edit-tag-container {
     padding: 0 40px;
+    position: absolute;
+    top: 20px;
   }
   .edit-tag-operation {
     display: flex;
@@ -227,7 +236,7 @@
     gap: 10px;
   }
   .table-search-input {
-    width: 100%;
+    width: 30%;
   }
   .card-img-container {
     width: 22px;
@@ -239,5 +248,13 @@
     background-color: rgb(255, 255, 255);
     border-radius: 0.5rem;
     flex-shrink: 0;
+  }
+  @media (max-width: 600px) {
+    .edit-tag-container {
+      padding: 0 20px;
+    }
+    .table-search-input {
+      width: calc(100% - 145px);
+    }
   }
 </style>

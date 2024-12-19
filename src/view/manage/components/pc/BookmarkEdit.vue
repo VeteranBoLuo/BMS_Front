@@ -3,22 +3,12 @@
     <b-loading :loading="loading">
       <div class="tag-edit-body">
         <div class="tag-attr-item">
-          <span class="tag-attr-label">标签名称</span>
-          <b-input v-model:value="tag.name" />
+          <span class="tag-attr-label">书签名称</span>
+          <b-input v-model:value="bookmarkData.name" />
         </div>
-        <div class="tag-attr-item" style="position: relative">
-          <span class="tag-attr-label">图标</span>
-          <b-input v-model:value="tag.iconUrl">
-            <template #suffix>
-              <svg-icon
-                :src="icon.file_upload"
-                class="dom-hover-click"
-                size="20"
-                style="height: 32px"
-                @click.stop="uploadTagImg"
-              />
-            </template>
-          </b-input>
+        <div class="tag-attr-item">
+          <span class="tag-attr-label">网站地址</span>
+          <b-input v-model:value="bookmarkData.url" />
         </div>
         <div class="tag-attr-item">
           <span class="tag-attr-label">相关标签</span>
@@ -29,78 +19,43 @@
             :options="tagOptions"
             show-search
             :filter-option="SelectionSearch"
-            v-model:value="tag.associatedTagIds"
+            v-model:value="bookmarkData.relatedTags"
           />
         </div>
         <div class="tag-attr-item">
-          <span class="tag-attr-label">关联书签</span>
-          <div v-if="bookmark.isPhone" :style="{ height: bookmark.screenHeight - 400 + 'px', overflow: 'auto' }">
-            <a-checkbox-group v-model:value="tag.bookmarkList" name="checkboxgroup" :options="bookmarkOptions">
-              <template #label="{ label }">
-                <div :style="{ width: bookmark.screenWidth / 2 - 20 - 16 - 16 + 'px' }" class="text-hidden"
-                  >{{ label }}
-                </div>
-              </template>
-            </a-checkbox-group>
-          </div>
-          <a-transfer
-            v-else
-            :rowKey="(record) => record.id"
-            v-model:target-keys="tag.bookmarkList"
-            :filter-option="filterOption"
-            :locale="{
-              itemUnit: '项',
-              itemsUnit: '项',
-              notFoundContent: '列表为空',
-              searchPlaceholder: '请输入搜索内容',
-            }"
-            :titles="['--未关联', '--待关联']"
-            show-search
-            :data-source="mockData"
-            :list-style="{
-              width: '100%',
-              height: bookmark.screenHeight - 400 + 'px',
-            }"
-          >
-            <template #render="item">
-              <span class="custom-item" :style="{ color: bookmark.iconColor }">{{ item.name }}</span>
-            </template>
-          </a-transfer>
+          <span class="tag-attr-label">描述</span>
+          <b-input v-model:value="bookmarkData.description" />
         </div>
       </div>
     </b-loading>
     <b-space class="edit-tag-footer">
-      <b-button type="primary" @click="submit" v-click-log="{ module: '标签编辑', operation: `确定` }">确定 </b-button>
-      <b-button @click="$router.back()" v-click-log="{ module: '标签编辑', operation: `返回` }">返回 </b-button>
+      <b-button type="primary" @click="submit" v-click-log="{ module: '书签编辑', operation: `确定` }">确定</b-button>
+      <b-button @click="$router.back()" v-click-log="{ module: '书签编辑', operation: `返回` }">返回</b-button>
     </b-space>
   </div>
 </template>
 
 <script lang="ts" setup>
   import { computed, onMounted, ref } from 'vue';
-  import { TagInterface } from '@/config/bookmarkCfg';
-  import { apiBasePost, apiQueryPost } from '@/http/request';
+  import { TagInterface } from '@/config/bookmarkCfg.ts';
+  import { apiBasePost, apiQueryPost } from '@/http/request.ts';
   import { useRouter } from 'vue-router';
   import BInput from '@/components/BasicComponents/BInput/BInput.vue';
   import { bookmarkStore, useUserStore } from '@/store';
   import BSpace from '@/components/BasicComponents/BSpace/BSpace.vue';
   import { message } from 'ant-design-vue';
   import { SelectionSearch } from '@/components/BasicComponents/BForm/FormRenders.vue';
-  import BLoading from '@/components/BasicComponents/BLoading/BLoading.vue';
-  import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
-  import icon from '@/config/icon.ts';
 
   const bookmark = bookmarkStore();
   const user = useUserStore();
 
-  const tag = ref<TagInterface>({
+  const bookmarkData = ref<any>({
     id: '',
     name: '',
     iconUrl: '',
-    color: '',
+    description: '',
     createTime: '',
-    updateTime: '',
-    bookmarkList: [],
+    relatedTags: [],
   });
 
   getAllBookmarkList();
@@ -121,15 +76,6 @@
       mockData.value = allRes.data.items;
     }
   }
-
-  const bookmarkOptions = computed(() => {
-    return mockData.value.map((data) => {
-      return {
-        label: data.name,
-        value: data.id,
-      };
-    });
-  });
 
   const tagOptions = ref([]);
 
@@ -155,44 +101,17 @@
     return [];
   }
 
-  function uploadTagImg() {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = 'image/*';
-
-    input.addEventListener('change', function (event: any) {
-      const file = event.target.files[0]; // 获取用户选择的文件
-      if (file) {
-        // 检查文件大小是否超过5M
-        const maxFileSize = 5000 * 1024;
-        if (file.size > maxFileSize) {
-          message.warning('图片大小不能超过5MB');
-          return; // 如果文件过大，终止函数执行
-        }
-        const reader = new FileReader(); // 创建FileReader对象
-        reader.onload = function (e) {
-          const base64 = e.target.result; // 直接获取Base64编码的字符串
-          tag.value.iconUrl = base64.toString();
-        };
-        reader.onerror = function (error) {
-          console.error('Error reading file:', error);
-        };
-        reader.readAsDataURL(file); // 读取文件内容，结果为Base64编码的字符串
-      }
-    });
-
-    input.click(); // 触发文件选择对话框
-  }
-
   function submit() {
     if (loading.value) {
       message.warning('请等待数据请求完毕');
     }
-    let url = '/api/bookmark/updateTag';
+    let params = JSON.parse(JSON.stringify(bookmarkData.value));
+    let url = '/api/bookmark/updateBookmark';
     if (handleType.value === 'add') {
-      url = '/api/bookmark/addTag';
+      url = '/api/bookmark/addBookmark';
+      params.userId = user.id;
     }
-    apiBasePost(url, tag.value).then((res) => {
+    apiBasePost(url, bookmarkData.value).then((res) => {
       if (res.status === 200) {
         message.success('保存成功');
         router.back();
@@ -201,7 +120,7 @@
   }
 
   const handleType = computed(() => {
-    if (router.currentRoute.value.params.id === 'add') {
+    if (router.currentRoute.value.params.id === 'add' || router.currentRoute.value.params.tagId) {
       return 'add';
     }
     return 'edit';
@@ -211,31 +130,27 @@
   const loading = ref(false);
   onMounted(async () => {
     if (handleType.value === 'add') {
+      if (router.currentRoute.value.params.tagId) {
+        bookmarkData.value.relatedTags = [router.currentRoute.value.params.tagId];
+      }
       return;
     }
     loading.value = true;
     // 创建两个Promise，分别对应两个API调用
-    const res = await apiQueryPost('/api/bookmark/getTagDetail', {
+    const res = await apiQueryPost('/api/bookmark/getBookmarkDetail', {
       filters: {
         id: router.currentRoute.value.params?.id,
       },
     });
-    tag.value = res.data;
-    const bookmarkListRes = await apiQueryPost('/api/bookmark/getBookmarkList', {
+    bookmarkData.value = res.data;
+    const tagRes = await apiQueryPost('/api/bookmark/getRelatedTag', {
       filters: {
         userId: user.id,
-        tagId: tag.value.id,
-        type: 'normal',
+        id: router.currentRoute.value.params?.id,
+        type: 'bookmark',
       },
     });
-    tag.value.bookmarkList = bookmarkListRes.data.items?.map((data) => data.id);
-    const relatedRes = await apiQueryPost('/api/bookmark/getRelatedTag', {
-      filters: {
-        userId: user.id,
-        id: tag.value.id,
-      },
-    });
-    tag.value.associatedTagIds = relatedRes.data?.map((data) => data.id);
+    bookmarkData.value.relatedTags = tagRes.data.map((data) => data.id);
     loading.value = false;
   });
 </script>
@@ -312,11 +227,9 @@
   :deep(.ant-spin-container::after) {
     background-color: unset;
   }
-
   :deep(.ant-btn-icon-only) {
     color: #ccc;
   }
-
   @media (max-width: 1300px) {
     .tag-attr-item {
       display: flex;

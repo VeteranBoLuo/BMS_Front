@@ -23,7 +23,7 @@ const mainPageRouter: AppRouteRecordRaw = {
     {
       path: 'edit',
       name: 'edit',
-      component: () => import('@/view/manage/components/TagTable.vue'),
+      component: () => import('@/view/manage/components/pc/TagTable.vue'),
     },
   ],
 };

@@ -76,8 +76,8 @@
   import { bookmarkStore } from '@/store';
   import { computed, ref } from 'vue';
   import { message } from 'ant-design-vue';
-  import { apiBasePost, apiQueryPost } from '@/http/request';
-  import Alert from '@/components/BasicComponents/BModal/Alert';
+  import { apiBasePost, apiQueryPost } from '@/http/request.ts';
+  import Alert from '@/components/BasicComponents/BModal/Alert.ts';
   import BButton from '@/components/BasicComponents/BButton/BButton.vue';
   import router from '@/router';
   import { Icon } from '@iconify/vue';
@@ -214,13 +214,5 @@
   }
   .table-search-input {
     width: 30%;
-  }
-  @media (max-width: 600px) {
-    .edit-tag-container {
-      padding: 0px 20px;
-    }
-    .table-search-input {
-      width: calc(100% - 145px);
-    }
   }
 </style>

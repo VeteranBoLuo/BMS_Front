@@ -1,5 +1,5 @@
 <template>
-  <PhoneContainer :title="(handleType === 'add' ? '新增' : '编辑') + '标签'">
+  <div class="tag-edit-container">
     <b-loading :loading="loading">
       <div class="tag-edit-body">
         <div class="tag-attr-item">
@@ -69,14 +69,11 @@
         </div>
       </div>
     </b-loading>
-    <b-button
-      class="edit-tag-footer"
-      type="primary"
-      @click="submit"
-      v-click-log="{ module: '标签编辑', operation: `确定` }"
-      >确定
-    </b-button>
-  </PhoneContainer>
+    <b-space class="edit-tag-footer">
+      <b-button type="primary" @click="submit" v-click-log="{ module: '标签编辑', operation: `确定` }">确定 </b-button>
+      <b-button @click="$router.back()" v-click-log="{ module: '标签编辑', operation: `返回` }">返回 </b-button>
+    </b-space>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -92,7 +89,6 @@
   import BLoading from '@/components/BasicComponents/BLoading/BLoading.vue';
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
   import icon from '@/config/icon.ts';
-  import PhoneContainer from '@/components/PhoneContainer/PhoneContainer.vue';
 
   const bookmark = bookmarkStore();
   const user = useUserStore();
@@ -245,6 +241,13 @@
 </script>
 
 <style lang="less" scoped>
+  .tag-edit-container {
+    height: 100%;
+    width: 100%;
+    padding-top: 20px;
+    box-sizing: border-box;
+  }
+
   .tag-edit-body {
     width: 100%;
     display: flex;
@@ -269,7 +272,6 @@
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    width: 80%;
   }
 
   :deep(.ant-transfer-list-header) {

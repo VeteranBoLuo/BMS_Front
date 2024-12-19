@@ -11,7 +11,7 @@ const configCenterRouter: AppRouteRecordRaw = {
   children: [
     {
       path: 'editTag',
-      component: () => import('@/view/phone/manage/TagTable.vue'),
+      component: () => import('@/view/manage/components/phone/PTagTable.vue'),
     },
     {
       path: 'editTag/:id',
@@ -19,7 +19,7 @@ const configCenterRouter: AppRouteRecordRaw = {
     },
     {
       path: 'editBookmark',
-      component: () => import('@/view/phone/manage/BookmarkTable.vue'),
+      component: () => import('@/view/manage/components/phone/PBookmarkTable.vue'),
     },
     {
       path: 'editBookmark/:id',
