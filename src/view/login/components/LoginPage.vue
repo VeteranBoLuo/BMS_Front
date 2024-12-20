@@ -1,5 +1,12 @@
 <template>
-  <div class="view-body" :class="title !== '登录' ? 'hide' : ''">
+  <iframe
+    style="position: fixed; z-index: 99999"
+    src="https://boluo66.top"
+    width="430"
+    height="900"
+    v-if="viewPhoneVisible"
+  />
+  <div v-else class="view-body" :class="title !== '登录' ? 'hide' : ''">
     <span @click="bookmark.isShowLogin = false" class="dom-hover login-close-icon">
       <img src="@/assets/icons/close.svg" width="20" height="20" alt="" />
     </span>
@@ -61,7 +68,7 @@
           </b-button>
         </a-form-item>
       </a-form>
-
+      <a class="tips-text dom-hover" style="left: 20px; font-size: 12px" @click="viewPhoneVisible = true">移动端预览</a>
       <span class="tips-text"
         >还没有账号？前往<a style="cursor: pointer !important; color: #3b82f6; margin-left: 2px" @click="title = '注册'"
           >注册</a
@@ -69,6 +76,14 @@
       >
     </div>
   </div>
+  <div
+    @click="viewPhoneVisible = false"
+    v-if="viewPhoneVisible"
+    class="dom-hover"
+    style="position: fixed; left: 50%; transform: translate(220px, -440px)"
+  >
+    <img src="@/assets/icons/close.svg" width="20" height="20" alt=""
+  /></div>
 </template>
 
 <script lang="ts" setup>
@@ -93,7 +108,7 @@
   const formDataRef = ref();
   const bookmark = bookmarkStore();
   const user = useUserStore();
-
+  const viewPhoneVisible = ref(false);
   async function handleLogin() {
     await formDataRef.value.validate();
     userApi
