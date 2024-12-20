@@ -52,7 +52,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, onMounted, ref } from 'vue';
+  import { computed, onMounted, ref, watch } from 'vue';
   import { apiBaseGet, apiQueryPost } from '@/http/request.ts';
   import { bookmarkStore } from '@/store';
   import BInput from '@/components/BasicComponents/BInput/BInput.vue';
@@ -63,6 +63,7 @@
   import { message } from 'ant-design-vue';
   import BSpace from '@/components/BasicComponents/BSpace/BSpace.vue';
   import PhoneContainer from '@/components/phoneComponents/PhoneContainer/PhoneContainer.vue';
+  import router from '@/router';
   const bookmark = bookmarkStore();
   const logList = ref([]);
 
@@ -168,6 +169,14 @@
       }
     });
   }
+  watch(
+    () => bookmark.isPhone,
+    () => {
+      if (!bookmark.isPhone) {
+        router.push('/admin');
+      }
+    },
+  );
   onMounted(() => {
     searchApiLog();
   });

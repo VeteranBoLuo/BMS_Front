@@ -1,5 +1,5 @@
 <template>
-  <PhoneContainer title="后台管理" :style="{ backgroundColor: bookmark.theme === 'day' ? '#f6f7f9' : '#111111' }">
+  <PhoneContainer title="后台管理" :style="{ backgroundColor: bookmark.theme === 'day' ? '#f6f7f9' : '#222222' }">
     <PhoneMenu :menu-list="menuList" label="title" @click="clickItem" />
   </PhoneContainer>
 </template>
@@ -10,6 +10,7 @@
   import PhoneContainer from '@/components/phoneComponents/PhoneContainer/PhoneContainer.vue';
   import PhoneMenu from '@/components/phoneComponents/PhoneMenu/PhoneMenu.vue';
   import router from '@/router';
+  import { watch } from 'vue';
   const bookmark = bookmarkStore();
   const menuList = [
     [
@@ -36,6 +37,7 @@
   function clickItem(item) {
     router.push(item.url);
   }
+
 </script>
 
 <style lang="less" scoped></style>

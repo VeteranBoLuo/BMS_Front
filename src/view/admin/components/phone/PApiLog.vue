@@ -53,7 +53,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, onMounted, ref } from 'vue';
+  import { computed, onMounted, ref, watch } from 'vue';
   import { apiBaseGet, apiQueryPost } from '@/http/request.ts';
   import { bookmarkStore } from '@/store';
   import BInput from '@/components/BasicComponents/BInput/BInput.vue';
@@ -180,6 +180,14 @@
       }
     });
   }
+  watch(
+    () => bookmark.isPhone,
+    () => {
+      if (!bookmark.isPhone) {
+        router.push('/admin');
+      }
+    },
+  );
   onMounted(() => {
     searchApiLog();
   });

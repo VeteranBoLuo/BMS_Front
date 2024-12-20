@@ -22,7 +22,15 @@
             >
           </slot>
           <div
-            style="color: var(--desc-color); font-size: 14px; margin-top: 40px; width: 100%; text-align: center"
+            style="
+              color: var(--desc-color);
+              font-size: 14px;
+              margin-top: 40px;
+              width: 100%;
+              text-align: center;
+              padding: 0 20px;
+              box-sizing: border-box;
+            "
             class="footer-center"
           >
             {{ content }}

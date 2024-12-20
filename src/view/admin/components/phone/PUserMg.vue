@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, onMounted, ref } from 'vue';
+  import { computed, onMounted, ref, watch } from 'vue';
   import { bookmarkStore } from '@/store';
   import { apiBaseGet, apiQueryPost } from '@/http/request.ts';
   import icon from '@/config/icon.ts';
@@ -45,6 +45,7 @@
   import BSpace from '@/components/BasicComponents/BSpace/BSpace.vue';
   import Alert from '@/components/BasicComponents/BModal/Alert.ts';
   import PhoneContainer from '@/components/phoneComponents/PhoneContainer/PhoneContainer.vue';
+  import router from '@/router';
   const bookmark = bookmarkStore();
   const userList = ref([]);
   const userColumns = computed(() => {
@@ -163,7 +164,14 @@
       }
     });
   }
-
+  watch(
+    () => bookmark.isPhone,
+    () => {
+      if (!bookmark.isPhone) {
+        router.push('/admin');
+      }
+    },
+  );
   onMounted(() => {
     init();
   });

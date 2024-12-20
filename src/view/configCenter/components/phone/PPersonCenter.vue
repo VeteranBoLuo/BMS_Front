@@ -1,5 +1,5 @@
 <template>
-  <PhoneContainer title="个人中心" :style="{ backgroundColor: bookmark.theme === 'day' ? '#f6f7f9' : '#111111' }">
+  <PhoneContainer title="个人中心" :style="{ backgroundColor: bookmark.theme === 'day' ? '#f6f7f9' : '#222222' }">
     <div class="person-title-card" :style="{ backgroundColor: bookmark.theme === 'day' ? '#97a1c6' : '#4d5264' }">
       <div style="display: flex; gap: 10px">
         <div :class="['navigation-icon']" :style="{ color: bookmark.iconColor }">
