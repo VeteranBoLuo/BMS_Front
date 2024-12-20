@@ -38,7 +38,7 @@ export default defineConfig({
         rewrite: (path: string) => path.replace(/^\/api/, ''),
       },
     },
-    open: true, // 自动打开浏览器
+    open: true,
   },
   resolve: {
     alias: [
