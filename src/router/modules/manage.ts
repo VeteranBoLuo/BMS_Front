@@ -10,20 +10,22 @@ const manageRouter: AppRouteRecordRaw = {
   name: 'manage',
   children: [
     {
-      path: 'editTag',
+      path: 'tagMg',
       name: 'editTag',
       component: () => import('@/view/manage/components/TagMg.vue'),
     },
     {
+      name: 'tagEditMg',
       path: 'editTag/:id',
       component: () => import('@/view/manage/components/tagEditMg.vue'),
     },
     {
-      path: 'editBookmark',
+      path: 'bookmarkMg',
       name: 'editBookmark',
       component: () => import('@/view/manage/components/BookmarkMg.vue'),
     },
     {
+      name:'bookmarkEditMg',
       path: 'editBookmark/:id',
       component: () => import('@/view/manage/components/BookmarkEditMg.vue'),
     },
