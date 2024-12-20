@@ -1,6 +1,6 @@
 import { AppRouteRecordRaw } from '@/router';
 
-const adminRouter: AppRouteRecordRaw = [
+const adminRouter: AppRouteRecordRaw[] = [
   {
     meta: {
       title: '后台管理',
