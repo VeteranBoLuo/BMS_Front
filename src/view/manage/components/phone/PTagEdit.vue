@@ -1,6 +1,6 @@
 <template>
   <PhoneContainer :title="(handleType === 'add' ? '新增' : '编辑') + '标签'">
-    <b-loading :loading="loading">
+    <b-loading :loading="loading" style="height: unset">
       <div class="tag-edit-body">
         <div class="tag-attr-item">
           <span class="tag-attr-label">标签名称</span>
@@ -86,7 +86,6 @@
   import { useRouter } from 'vue-router';
   import BInput from '@/components/BasicComponents/BInput/BInput.vue';
   import { bookmarkStore, useUserStore } from '@/store';
-  import BSpace from '@/components/BasicComponents/BSpace/BSpace.vue';
   import { message } from 'ant-design-vue';
   import { SelectionSearch } from '@/components/BasicComponents/BForm/FormRenders.vue';
   import BLoading from '@/components/BasicComponents/BLoading/BLoading.vue';
