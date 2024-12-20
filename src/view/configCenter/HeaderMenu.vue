@@ -50,11 +50,11 @@
             <svg-icon size="14" :src="icon.user_admin" />
             后台管理
           </div>
-          <div class="flex-center li" @click="$router.push('/manage/editTag'), (menuVisible = false)">
+          <div class="flex-center li" @click="$router.push('/manage/tagMg'), (menuVisible = false)">
             <svg-icon size="14" :src="icon.manage_categoryBtn_tag" />
             标签管理
           </div>
-          <div class="flex-center li" @click="$router.push('/manage/editBookmark'), (menuVisible = false)">
+          <div class="flex-center li" @click="$router.push('/manage/bookmarkMg'), (menuVisible = false)">
             <svg-icon size="14" :src="icon.manage_categoryBtn_bookmark" />
             书签管理
           </div>
