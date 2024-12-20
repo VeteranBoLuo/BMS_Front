@@ -11,7 +11,7 @@
           <svg-icon :src="icon.navigation_search" size="16" />
         </template>
       </b-input>
-      <b-button @click="clearApiLogs" type="primary">清空</b-button>
+      <b-button @click="clearOperationLogs" type="primary">清空</b-button>
     </b-space>
     <a-table
       :data-source="logList"
@@ -23,22 +23,21 @@
     >
       <template #expandedRowRender="{ record }">
         <div layout="vertical" style="overflow: auto; height: 300px; color: var(--text-color)">
-          <div label="requestTime">时间：{{ record.requestTime }}</div>
-          <div label="url">接口：{{ record.url }}</div>
-          <div label="req">
-            请求参数： <pre>{{ record.req }}</pre>
-          </div>
-          <div label="os">系统：{{ record.os }}</div>
-          <div label="browser">浏览器：{{ record.browser }}</div>
+          <div label="module">操作人员：{{ record.userName }}</div>
+          <div label="module">模块：{{ record.module }}</div>
+          <div label="operation">操作：{{ record.operation }}</div>
+          <div label="requestTime">时间：{{ record.createTime }}</div>
+          <div label="operation">系统：{{ record.os }}</div>
+          <div label="requestTime">浏览器：{{ record.browser }}</div>
         </div>
       </template>
     </a-table>
     <a-pagination
-      style="margin-top: 10px"
       :current="currentPage"
       :page-size="pageSize"
       show-size-changer
       size="small"
+      style="margin-top: 10px"
       :total="total"
       :show-total="(total) => `总计 ${total} 条`"
       @change="onChange"
@@ -52,14 +51,13 @@
 
 <script lang="ts" setup>
   import { computed, onMounted, ref } from 'vue';
-  import { apiBaseGet, apiQueryPost } from '@/http/request';
+  import { apiBaseGet, apiQueryPost } from '@/http/request.ts';
   import { bookmarkStore } from '@/store';
   import BInput from '@/components/BasicComponents/BInput/BInput.vue';
   import icon from '@/config/icon.ts';
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
-  import router from '@/router';
   import BButton from '@/components/BasicComponents/BButton/BButton.vue';
-  import Alert from '@/components/BasicComponents/BModal/Alert';
+  import Alert from '@/components/BasicComponents/BModal/Alert.ts';
   import { message } from 'ant-design-vue';
   import BSpace from '@/components/BasicComponents/BSpace/BSpace.vue';
   const bookmark = bookmarkStore();
@@ -69,48 +67,38 @@
     if (bookmark.isPhone) {
       return [
         {
-          title: '用户名',
+          title: '操作人员',
           dataIndex: 'userName',
           ellipsis: true,
         },
         {
-          title: '接口',
-          dataIndex: 'url',
+          title: '操作名称',
+          dataIndex: 'operation',
           ellipsis: true,
         },
       ];
     }
     return [
       {
-        title: '用户名',
+        title: '操作人员',
         dataIndex: 'userName',
         ellipsis: true,
       },
       {
-        title: '时间',
-        dataIndex: 'requestTime',
+        title: '模块',
+        dataIndex: 'module',
         ellipsis: true,
       },
       {
-        title: '接口',
-        dataIndex: 'url',
+        title: '操作',
+        dataIndex: 'operation',
         ellipsis: true,
       },
-      // {
-      //   title: '接口类型',
-      //   dataIndex: 'method',
-      //   ellipsis: true,
-      // },
-      // {
-      //   title: '请求参数',
-      //   dataIndex: 'req',
-      //   ellipsis: true,
-      // },
-      // {
-      //   title: '响应参数',
-      //   dataIndex: 'res',
-      //   ellipsis: true,
-      // },
+      {
+        title: '时间',
+        dataIndex: 'createTime',
+        ellipsis: true,
+      },
       {
         title: '系统',
         dataIndex: 'os',
@@ -136,12 +124,12 @@
     searchApiLog();
   };
 
-  function clearApiLogs() {
+  function clearOperationLogs() {
     Alert.alert({
       title: '提示',
-      content: `请确认是否要清空日志？`,
+      content: `请确认是否要清空操作日志？`,
       onOk() {
-        apiBaseGet('/api/common/clearApiLogs', {}).then((res) => {
+        apiBaseGet('/api/common/clearOperationLogs', {}).then((res) => {
           if (res.status === 200) {
             message.success('日志清空成功');
             searchApiLog();
@@ -164,7 +152,7 @@
   const total = ref(0);
   const searchValue = ref('');
   function searchApiLog() {
-    apiQueryPost('/api/common/getApiLogs', {
+    apiQueryPost('/api/common/getOperationLogs', {
       currentPage: currentPage.value,
       pageSize: pageSize.value,
       filters: {

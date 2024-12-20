@@ -37,45 +37,28 @@
       </div>
     </div>
     <div class="person-menu">
-      <div class="person-menu-item" style="border-bottom: 1px solid var(--person-menu-item-border-color)">
+      <div class="person-menu-item">
         <span class="person-menu-item-title">主题设置</span>
         <span class="person-menu-item-des">{{ ThemeName }}</span></div
       >
-      <div
-        v-if="user.role === 'root'"
-        class="person-menu-item"
-        style="border-bottom: 1px solid var(--person-menu-item-border-color)"
-        @click="router.push('/admin')"
-      >
+      <div v-if="user.role === 'root'" class="person-menu-item" @click="router.push('/admin')">
         <span class="person-menu-item-title">后台管理</span>
         <span class="person-menu-item-des"
           >日志、用户管理等<svg-icon color="#999fa8" style="rotate: 180deg" :src="icon.arrow_left" size="14" /></span
       ></div>
-      <div
-        class="person-menu-item"
-        style="border-bottom: 1px solid var(--person-menu-item-border-color)"
-        @click="$router.push('/manage/tagMg')"
-      >
+      <div class="person-menu-item" @click="$router.push('/manage/tagMg')">
         <span class="person-menu-item-title">标签管理</span>
         <span class="person-menu-item-des"
           ><svg-icon color="#999fa8" style="rotate: 180deg" :src="icon.arrow_left" size="14" /></span
       ></div>
-      <div
-        class="person-menu-item"
-        style="border-bottom: 1px solid var(--person-menu-item-border-color)"
-        @click="$router.push('/manage/bookmarkMg')"
-      >
+      <div class="person-menu-item" @click="$router.push('/manage/bookmarkMg')">
         <span class="person-menu-item-title">书签管理</span>
         <span class="person-menu-item-des"
           ><svg-icon color="#999fa8" style="rotate: 180deg" :src="icon.arrow_left" size="14" /></span
       ></div>
     </div>
     <div class="person-menu">
-      <div
-        class="person-menu-item"
-        style="border-bottom: 1px solid var(--person-menu-item-border-color)"
-        @click="opinionsVisible = true"
-      >
+      <div class="person-menu-item" @click="opinionsVisible = true">
         <span class="person-menu-item-title">意见反馈</span>
         <span class="person-menu-item-des"
           ><svg-icon color="#999fa8" style="rotate: 180deg" :src="icon.arrow_left" size="14" /></span
@@ -107,7 +90,7 @@
   import MyInfo from '@/view/configCenter/components/MyInfo.vue';
   import Viewer from '@/components/Viewer/BViewer.vue';
   import Opinions from '@/view/configCenter/components/Opinions.vue';
-  import PhoneContainer from '@/components/PhoneContainer/PhoneContainer.vue';
+  import PhoneContainer from '@/components/phoneComponents/PhoneContainer/PhoneContainer.vue';
 
   const bookmark = bookmarkStore();
   const getPopupContainer = (trigger: HTMLElement) => {
@@ -178,7 +161,7 @@
   }
 </script>
 
-<style scoped lang="less">
+<style lang="less" scoped>
   .phone-person-container {
     position: relative;
     padding: 20px;
@@ -221,14 +204,16 @@
   }
 
   .person-menu-item {
-    background-color: var(--person-menu-item-bg-color);
+    background-color: var(--phone-menu-item-bg-color);
     height: 50px;
     display: flex;
     align-items: center;
     padding: 0 20px;
     justify-content: space-between;
     cursor: pointer;
-
+    &:not(:last-child) {
+      border-bottom: 1px solid var(--phone-menu-item-border-color);
+    }
     .person-menu-item-title {
     }
 

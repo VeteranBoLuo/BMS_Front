@@ -1,5 +1,65 @@
 <template>
-  <Teleport to="body">
+  <Teleport to="body" v-if="bookmark.isPhone">
+    <div class="bAlert-bg">
+      <div class="bAlert" :class="{ out: isExit }">
+        <div
+          style="
+            padding: 22px;
+            height: 100%;
+            width: 100%;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+          "
+        >
+          <slot name="title">
+            <div
+              style="font-size: 16px; margin-bottom: 15px; font-weight: 550; font-family: '微软雅黑'"
+              class="footer-center"
+              >{{ title }}</div
+            >
+          </slot>
+          <div
+            style="color: var(--desc-color); font-size: 14px; margin-top: 40px; width: 100%; text-align: center"
+            class="footer-center"
+          >
+            {{ content }}
+          </div>
+        </div>
+        <div
+          style="
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            box-sizing: border-box;
+          "
+        >
+          <slot name="footer" v-if="footer?.length > 0">
+            <div>
+              <div
+                v-for="btn in footer"
+                class="btn"
+                :type="btn.type"
+                @click="btn.function ? btnFunc(btn.function) : obClose()"
+                >{{ btn.label }}</div
+              >
+            </div>
+          </slot>
+          <div v-else style="width: 100%" class="flex-align-center">
+            <div class="btn dom-hover" @click="obClose(200)">{{ cancelText }}</div>
+            <div class="btn dom-hover" style="color: #5c82ff" type="primary" @click="onOk">{{ okText }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Teleport>
+
+  <Teleport to="body" v-else>
     <div class="bAlert-bg">
       <div class="bAlert" :class="{ out: isExit }">
         <slot name="title">
@@ -45,6 +105,8 @@
   import bAlert from '@/components/BasicComponents/BModal/Alert';
   import { ref } from 'vue';
   import BSpace from '@/components/BasicComponents/BSpace/BSpace.vue';
+  import { bookmarkStore } from '@/store';
+  const bookmark = bookmarkStore();
   const props = defineProps({
     title: {
       type: String,
@@ -132,8 +194,21 @@
 
   @media (max-width: 600px) {
     .bAlert {
-      width: 90%;
+      width: 70%;
       top: 45%;
+      height: 160px;
+      padding: 0;
+      background-color: var(--phone-menu-item-bg-color);
+    }
+    .btn {
+      border-top: 1px solid var(--phone-menu-item-border-color);
+      flex: 1;
+      text-align: center;
+      height: 40px;
+      line-height: 40px;
+      &:not(:last-child) {
+        border-right: 1px solid var(--phone-menu-item-border-color);
+      }
     }
   }
 </style>

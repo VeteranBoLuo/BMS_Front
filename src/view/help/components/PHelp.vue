@@ -61,7 +61,7 @@
   import Viewer from 'viewerjs';
   import BViewer from '@/components/Viewer/BViewer.vue';
   import router from '@/router';
-  import PhoneContainer from '@/components/PhoneContainer/PhoneContainer.vue';
+  import PhoneContainer from '@/components/phoneComponents/PhoneContainer/PhoneContainer.vue';
 
   const bookmark = bookmarkStore();
   const checkId = ref('');

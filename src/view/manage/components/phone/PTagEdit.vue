@@ -91,7 +91,7 @@
   import BLoading from '@/components/BasicComponents/BLoading/BLoading.vue';
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
   import icon from '@/config/icon.ts';
-  import PhoneContainer from '@/components/PhoneContainer/PhoneContainer.vue';
+  import PhoneContainer from '@/components/phoneComponents/PhoneContainer/PhoneContainer.vue';
 
   const bookmark = bookmarkStore();
   const user = useUserStore();

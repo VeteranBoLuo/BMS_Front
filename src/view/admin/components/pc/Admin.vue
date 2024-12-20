@@ -1,12 +1,7 @@
 <template>
   <div class="admin-container">
     <div class="menu-body">
-      <BList
-        style="font-size: 12px"
-        :listOptions="viewOptions"
-        @nodeClick="nodeClick"
-        :check-id="checkId"
-      >
+      <BList style="font-size: 12px" :listOptions="viewOptions" @nodeClick="nodeClick" :check-id="checkId">
         <template #icon="{ item }">
           <svg-icon :src="item.icon" />
         </template>
@@ -19,12 +14,16 @@
 </template>
 
 <script lang="ts" setup>
-  import icon from '@/config/icon';
+  import icon from '@/config/icon.ts';
   import BList from '@/components/BasicComponents/BList/BList.vue';
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
-  import { computed, onMounted, ref } from 'vue';
+  import { onMounted, ref } from 'vue';
   import router from '@/router';
+  import { bookmarkStore } from '@/store';
+  import PhoneContainer from '@/components/phoneComponents/PhoneContainer/PhoneContainer.vue';
+  import PhoneMenu from '@/components/phoneComponents/PhoneMenu/PhoneMenu.vue';
   const checkId = ref('operationLog');
+  const bookmark = bookmarkStore();
   const viewOptions = ref([
     {
       id: 'operationLog',
@@ -63,6 +62,34 @@
   }
   .admin-view-panel {
     width: calc(100% - 210px);
+  }
+
+  .person-menu {
+    border-radius: 12px;
+    overflow: hidden;
+    margin-top: 20px;
+  }
+
+  .person-menu-item {
+    background-color: var(--phone-menu-item-bg-color);
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    justify-content: space-between;
+    cursor: pointer;
+
+    .person-menu-item-title {
+    }
+
+    .person-menu-item-des {
+      color: #999fa8;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      line-height: 100%;
+    }
   }
   @media (max-width: 600px) {
     .admin-container {

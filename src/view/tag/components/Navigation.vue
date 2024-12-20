@@ -63,7 +63,7 @@
             <svg-icon size="30" :src="user.headPicture || icon.navigation_user" class="dom-hover" />
           </div>
           <!--pc端个人中心       -->
-          <HeaderMenu v-else />
+          <PersonCenter v-else />
         </div>
       </div>
     </div>
@@ -79,7 +79,7 @@
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
   import icon from '@/config/icon.ts';
   import ThemeSwith from '@/components/tag/ThemeSwith.vue';
-  import HeaderMenu from '@/view/configCenter/HeaderMenu.vue';
+  import PersonCenter from '@/view/configCenter/components/pc/PersonCenter.vue';
   const user = useUserStore();
   const placeholder = ref('Search...');
 

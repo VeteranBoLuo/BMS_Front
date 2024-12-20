@@ -32,7 +32,7 @@
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
   import BLoading from '@/components/BasicComponents/BLoading/BLoading.vue';
   import BInput from '@/components/BasicComponents/BInput/BInput.vue';
-  import PhoneContainer from '@/components/PhoneContainer/PhoneContainer.vue';
+  import PhoneContainer from '@/components/phoneComponents/PhoneContainer/PhoneContainer.vue';
   import icon from '@/config/icon.ts';
 
   const props = defineProps({
@@ -96,6 +96,6 @@
     gap: 10px;
     height: 44px;
     padding-left: 10px;
-    border-bottom: 1px solid var(--person-menu-item-border-color);
+    border-bottom: 1px solid var(--phone-menu-item-border-color);
   }
 </style>

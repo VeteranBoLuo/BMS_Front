@@ -22,7 +22,8 @@
   import router from '@/router';
   import icon from '@/config/icon.ts';
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
-
+  import { bookmarkStore } from '@/store';
+  const bookmark = bookmarkStore();
   const props = defineProps({
     title: {
       type: String,
@@ -31,13 +32,14 @@
   });
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
   .phone-container {
-    position: relative;
+    position: fixed !important;
+    top: 0 !important;
     padding: 0 20px 20px 20px;
     box-sizing: border-box;
     width: 100%;
-    height: 100%;
+    height: 100% !important;
     display: flex;
     flex-direction: column;
   }

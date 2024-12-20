@@ -110,8 +110,8 @@
 
   import * as XLSX from 'xlsx';
   import { cloneDeep } from 'lodash-es';
-  import PhoneContainer from '@/components/PhoneContainer/PhoneContainer.vue';
-  import PhoneListMg from '@/components/PhoneComponents/PhoneListMg.vue';
+  import PhoneContainer from '@/components/phoneComponents/PhoneContainer/PhoneContainer.vue';
+  import PhoneListMg from '@/components/phoneComponents/PhoneListMg.vue';
   function exportBookmark() {
     // 随便声明一个结果
     const exportData = bookmarkList.value?.map((item: any) => {

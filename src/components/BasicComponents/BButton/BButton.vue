@@ -13,7 +13,7 @@
       default: 'default',
     },
     type: {
-      type: String as PropType<'primary' | 'dashed' | 'function'>,
+      type: String as PropType<'primary' | 'danger' | 'dashed' | 'function'>,
       default: '',
     },
     danger: {
@@ -57,6 +57,14 @@
     font-size: 14px;
   }
   .primary_btn {
+    background-color: #615ced;
+    color: white;
+    transition: all 0.3s;
+    &:hover {
+      background-color: #6b66ef;
+    }
+  }
+  .danger {
     background-color: #fe2c55;
     color: white;
     transition: all 0.3s;

@@ -48,7 +48,7 @@
   import BSpace from '@/components/BasicComponents/BSpace/BSpace.vue';
   import { message } from 'ant-design-vue';
   import { SelectionSearch } from '@/components/BasicComponents/BForm/FormRenders.vue';
-  import PhoneContainer from '@/components/PhoneContainer/PhoneContainer.vue';
+  import PhoneContainer from '@/components/phoneComponents/PhoneContainer/PhoneContainer.vue';
 
   const bookmark = bookmarkStore();
   const user = useUserStore();

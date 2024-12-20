@@ -35,7 +35,7 @@
   import Alert from '@/components/BasicComponents/BModal/Alert.ts';
   import router from '@/router';
   import BLoading from '@/components/BasicComponents/BLoading/BLoading.vue';
-  import PhoneListMg from '@/components/PhoneComponents/PhoneListMg.vue';
+  import PhoneListMg from '@/components/phoneComponents/PhoneListMg.vue';
   import icon from '@/config/icon.ts';
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
 
@@ -111,6 +111,6 @@
     gap: 10px;
     height: 44px;
     padding-left: 10px;
-    border-bottom: 1px solid var(--person-menu-item-border-color);
+    border-bottom: 1px solid var(--phone-menu-item-border-color);
   }
 </style>
