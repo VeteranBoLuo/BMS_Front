@@ -13,7 +13,7 @@
           </div>
         </div>
         <b-button
-          class="footer-center"
+          class="container-footer-btn"
           style="width: 80%; margin-top: 15px; border-radius: 80px"
           type="primary"
           @click="$emit('add')"

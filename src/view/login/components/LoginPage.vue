@@ -68,7 +68,13 @@
           </b-button>
         </a-form-item>
       </a-form>
-      <a v-click-log="{ module: '登录', operation: `移动端预览` }" class="tips-text dom-hover" style="left: 20px; font-size: 12px" @click="viewPhoneVisible = true">移动端预览</a>
+      <a
+        v-click-log="{ module: '登录', operation: `移动端预览` }"
+        class="tips-text dom-hover"
+        style="left: 20px; font-size: 12px"
+        @click="viewPhoneVisible = true"
+        >移动端预览</a
+      >
       <span class="tips-text"
         >还没有账号？前往<a style="cursor: pointer !important; color: #3b82f6; margin-left: 2px" @click="title = '注册'"
           >注册</a
@@ -236,6 +242,18 @@
   onUnmounted(() => {
     document.removeEventListener('keydown', enterFunc);
   });
+  watch(
+    () => viewPhoneVisible.value,
+    (val) => {
+      const bg:any = document.getElementsByClassName('index-container');
+
+      if (val) {
+        bg[0].style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
+      } else {
+        bg[0].style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+      }
+    },
+  );
 </script>
 
 <style lang="less" scoped>
