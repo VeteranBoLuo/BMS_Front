@@ -22,7 +22,7 @@
         <div
           id="view-body"
           style="
-            height: calc(100% - 120px);
+            height: calc(100% - 122px);
             border: 1px solid var(--card-border-color);
             border-radius: 4px;
             padding: 20px;
@@ -325,7 +325,7 @@
   }
   .phone-help-menu {
     display: flex;
-    margin-top: 3px;
+    margin-top: 10px;
     box-sizing: border-box;
     height: max-content;
     width: max-content;
