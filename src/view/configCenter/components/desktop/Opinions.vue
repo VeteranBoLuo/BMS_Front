@@ -125,4 +125,23 @@
   }
 </script>
 
-<style></style>
+<style lang="less" scoped>
+.img-item {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  box-sizing: border-box;
+  &:hover {
+    .opinion-close-icon {
+      opacity: 1;
+    }
+  }
+}
+.opinion-close-icon {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+}
+</style>

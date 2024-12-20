@@ -123,4 +123,17 @@
   }
 </script>
 
-<style></style>
+<style lang="less" scoped>
+.img-item {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  box-sizing: border-box;
+}
+.opinion-close-icon {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+</style>
