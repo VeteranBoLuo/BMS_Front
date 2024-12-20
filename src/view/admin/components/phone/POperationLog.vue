@@ -5,7 +5,6 @@
         <b-input
           v-model:value="searchValue"
           placeholder="用户名或接口名..."
-          class="log-search-input"
           @input="handleSearch"
         >
           <template #prefix>
@@ -183,9 +182,6 @@
 </script>
 
 <style lang="less" scoped>
-  .log-search-input {
-    width: 50%;
-  }
   :deep(.ant-table-container) {
     border: 1px solid var(--icon-color);
     border-radius: 8px;
@@ -232,9 +228,4 @@
     color: var(--icon-color) !important;
   }
 
-  @media (max-width: 600px) {
-    .log-search-input {
-      width: calc(100% - 80px);
-    }
-  }
 </style>
