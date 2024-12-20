@@ -4,14 +4,13 @@
       <b-input v-model:value="searchValue" placeholder="目录名..." style="width: 100%" />
       <div class="help-body">
         <div class="help-title" @click="checkId = ''" v-click-log="{ module: '帮助中心', operation: `使用介绍` }"
-        >使用介绍</div
+          >使用介绍</div
         >
         <div class="phone-help-menu">
           <div
             v-for="item in viewOptions"
             :style="{
-              background: checkId === item.id ? '#4e4b46' : '',
-              color: checkId === item.id ? 'white' : '',
+              color: checkId === item.id ? 'gray' : '',
             }"
             class="phone-help-menu-item"
             @click="checkId = item.id"
@@ -41,13 +40,8 @@
 
 <script lang="ts" setup>
   import { computed, nextTick, onMounted, onUnmounted, ref } from 'vue';
-  import BList from '@/components/BasicComponents/BList/BList.vue';
-  import icon from '@/config/icon.ts';
-  import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
   import { bookmarkStore } from '@/store';
   import BInput from '@/components/BasicComponents/BInput/BInput.vue';
-  import BButton from '@/components/BasicComponents/BButton/BButton.vue';
-  import BSpace from '@/components/BasicComponents/BSpace/BSpace.vue';
 
   import tagAndBookmark from 'src/assets/img/help/tag_bookmark_relation.jpg';
   import addTagAndBookmark from 'src/assets/img/help/add_data.jpg';
@@ -148,7 +142,7 @@
       title: '标签管理',
       content: `<div class="tag-explanation">
     <div class="bookmark-example">
-     <video width="85%" controls>
+     <video width="100%" controls>
     <source src="${tagEdit}" />
   </video>
       <p style="font-size: 12px">
@@ -183,7 +177,7 @@
       content: `<div class="tag-explanation">
     <div class="bookmark-example">
        <div class="bookmark-example">
-     <video width="85%" controls>
+     <video width="100%" controls>
     <source src="${bookmarkEdit}" />
   </video>
       <p style="font-size: 12px">
@@ -309,8 +303,8 @@
   .bookmark-example {
     text-align: center;
   }
-  .bookmark-image {
-    max-width: 100%;
+  :deep(.bookmark-image) {
+    width: 100% !important;
     height: auto;
     border: 1px solid #ddd;
     padding: 5px;
@@ -331,7 +325,6 @@
   }
   .phone-help-menu {
     display: flex;
-    border: 1px solid var(--text-color);
     margin-top: 3px;
     box-sizing: border-box;
     height: max-content;
@@ -348,6 +341,8 @@
     justify-content: center;
     cursor: pointer;
     padding: 0 4px;
-    border-right: 1px solid var(--text-color);
+    &:not(:last-child) {
+      border-right: 1px solid var(--text-color);
+    }
   }
 </style>
