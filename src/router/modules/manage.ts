@@ -11,7 +11,7 @@ const manageRouter: AppRouteRecordRaw = {
   children: [
     {
       path: 'tagMg',
-      name: 'editTag',
+      name: 'tagMg',
       component: () => import('@/view/manage/components/TagMg.vue'),
     },
     {
@@ -21,7 +21,7 @@ const manageRouter: AppRouteRecordRaw = {
     },
     {
       path: 'bookmarkMg',
-      name: 'editBookmark',
+      name: 'bookmarkMg',
       component: () => import('@/view/manage/components/BookmarkMg.vue'),
     },
     {

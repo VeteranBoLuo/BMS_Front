@@ -54,7 +54,7 @@
       <div
         class="person-menu-item"
         style="border-bottom: 1px solid var(--person-menu-item-border-color)"
-        @click="$router.push('/manage/editTag')"
+        @click="$router.push('/manage/tagMg')"
       >
         <span class="person-menu-item-title">标签管理</span>
         <span class="person-menu-item-des"
@@ -63,7 +63,7 @@
       <div
         class="person-menu-item"
         style="border-bottom: 1px solid var(--person-menu-item-border-color)"
-        @click="$router.push('/manage/editBookmark')"
+        @click="$router.push('/manage/bookmarkMg')"
       >
         <span class="person-menu-item-title">书签管理</span>
         <span class="person-menu-item-des"
