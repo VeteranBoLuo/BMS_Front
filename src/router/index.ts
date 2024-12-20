@@ -7,6 +7,7 @@ import statusRouter from '@/router/modules/status';
 import helpRouter from '@/router/modules/help';
 import adminRouter from '@/router/modules/admin';
 import manageRouter from '@/router/modules/manage.ts';
+import commonRouter from '@/router/modules/common.ts';
 export interface AppRouteRecordRaw {
   name?: string;
   meta?: RouteMeta;
@@ -30,6 +31,7 @@ const routes: Array<RouteRecordRaw | any> = [
     name: 'personCenter',
     component: () => import('@/view/configCenter/components/phone/PPersonCenter.vue'),
   },
+  ...commonRouter,
   loginRouter,
   statusRouter,
 ];

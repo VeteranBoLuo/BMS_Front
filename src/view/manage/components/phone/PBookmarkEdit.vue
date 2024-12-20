@@ -29,7 +29,7 @@
       </div>
     </b-loading>
     <b-button
-      class="edit-tag-footer"
+      class="container-footer-btn"
       type="primary"
       @click="submit"
       v-click-log="{ module: '书签编辑', operation: `确定` }"
@@ -179,13 +179,6 @@
     white-space: nowrap;
   }
 
-  .edit-tag-footer {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%;
-  }
 
   :deep(.ant-transfer-list-header) {
     background-color: var(--background-color);

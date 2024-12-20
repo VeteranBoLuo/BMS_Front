@@ -14,15 +14,15 @@ const adminRouter: AppRouteRecordRaw[] = [
     children: [
       {
         path: 'apiLog',
-        component: () => import('@/view/admin/components/pc/ApiLog.vue'),
+        component: () => import('@/view/admin/components/desktop/ApiLog.vue'),
       },
       {
         path: 'operationLog',
-        component: () => import('@/view/admin/components/pc/OperationLog.vue'),
+        component: () => import('@/view/admin/components/desktop/OperationLog.vue'),
       },
       {
         path: 'userMg',
-        component: () => import('@/view/admin/components/pc/UserMg.vue'),
+        component: () => import('@/view/admin/components/desktop/UserMg.vue'),
       },
     ],
   },

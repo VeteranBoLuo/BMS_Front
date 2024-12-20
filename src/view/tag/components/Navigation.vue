@@ -79,7 +79,7 @@
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
   import icon from '@/config/icon.ts';
   import ThemeSwith from '@/components/tag/ThemeSwith.vue';
-  import PersonCenter from '@/view/configCenter/components/pc/PersonCenter.vue';
+  import PersonCenter from '@/view/configCenter/components/desktop/PersonCenter.vue';
   const user = useUserStore();
   const placeholder = ref('Search...');
 

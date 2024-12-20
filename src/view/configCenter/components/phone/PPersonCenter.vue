@@ -28,7 +28,7 @@
       </div>
     </div>
     <div class="person-menu">
-      <div class="person-menu-item" @click="editUser">
+      <div class="person-menu-item" @click="$router.push('/myInfo')">
         <span class="person-menu-item-title">个人资料</span>
         <span class="person-menu-item-des"
           >邮箱、昵称等
@@ -58,7 +58,7 @@
       ></div>
     </div>
     <div class="person-menu">
-      <div class="person-menu-item" @click="opinionsVisible = true">
+      <div class="person-menu-item" @click="$router.push('/opinions')">
         <span class="person-menu-item-title">意见反馈</span>
         <span class="person-menu-item-des"
           ><svg-icon color="#999fa8" style="rotate: 180deg" :src="icon.arrow_left" size="14" /></span
@@ -75,7 +75,6 @@
       >
     </div>
     <my-info v-if="userVisible" v-model:visible="userVisible" />
-    <Opinions v-model:visible="opinionsVisible" />
   </PhoneContainer>
 </template>
 
@@ -87,9 +86,8 @@
   import Alert from '@/components/BasicComponents/BModal/Alert.ts';
   import { computed, ref } from 'vue';
   import userApi from '@/api/userApi.ts';
-  import MyInfo from '@/view/configCenter/components/MyInfo.vue';
+  import MyInfo from '@/view/configCenter/components/desktop/MyInfo.vue';
   import Viewer from '@/components/Viewer/BViewer.vue';
-  import Opinions from '@/view/configCenter/components/Opinions.vue';
   import PhoneContainer from '@/components/phoneComponents/PhoneContainer/PhoneContainer.vue';
 
   const bookmark = bookmarkStore();
@@ -98,8 +96,6 @@
   };
   const menuVisible = ref(false);
   const userVisible = ref(false);
-
-  const opinionsVisible = ref(false);
 
   const user = useUserStore();
 
@@ -152,11 +148,6 @@
       return;
     }
     bookmark.refreshViewer(user.headPicture || icon.navigation_user);
-    menuVisible.value = false;
-  }
-
-  function editUser() {
-    userVisible.value = true;
     menuVisible.value = false;
   }
 </script>

@@ -26,7 +26,7 @@
   import Area from '@/components/AntVG2Plot/Area.vue';
   import Column from '@/components/AntVG2Plot/Column.vue';
   import CodeDes from '@/components/BasicComponents/CodeDes/CodeDes.vue';
-  import { g2plotCode } from '@/view/config.ts';
+  import { g2plotCode } from '@/view/common.ts';
 
   const componentName = ref(Line);
   const activeName = ref('Line');

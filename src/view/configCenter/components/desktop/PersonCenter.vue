@@ -89,9 +89,9 @@
   import Alert from '@/components/BasicComponents/BModal/Alert.ts';
   import { computed, ref } from 'vue';
   import userApi from '@/api/userApi.ts';
-  import MyInfo from '@/view/configCenter/components/MyInfo.vue';
+  import MyInfo from '@/view/configCenter/components/desktop/MyInfo.vue';
   import Viewer from '@/components/Viewer/BViewer.vue';
-  import Opinions from '@/view/configCenter/components/Opinions.vue';
+  import Opinions from '@/view/configCenter/components/desktop/Opinions.vue';
   const bookmark = bookmarkStore();
   const getPopupContainer = (trigger: HTMLElement) => {
     return document.getElementById('tag-container');

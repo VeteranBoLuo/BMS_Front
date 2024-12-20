@@ -54,7 +54,7 @@
 
 <script lang="ts" setup>
   import { onMounted, ref } from 'vue';
-  import { tem } from '@/view/config.ts';
+  import { tem } from '@/view/common.ts';
   import { copyTextToClipboard } from '@/utils/common.ts';
 
   const Array = ref(['张三', '李四', '王五', '赵六']);

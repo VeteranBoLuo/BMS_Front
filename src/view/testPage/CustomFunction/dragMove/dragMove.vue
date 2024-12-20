@@ -34,7 +34,7 @@
 <script lang="ts" setup>
   import { ref } from 'vue';
   import CodeDes from '@/components/BasicComponents/CodeDes/CodeDes.vue';
-  import { dragCode } from '@/view/config.ts';
+  import { dragCode } from '@/view/common.ts';
 
   const dragRef = ref();
 </script>

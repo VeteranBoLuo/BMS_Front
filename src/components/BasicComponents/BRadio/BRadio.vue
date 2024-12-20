@@ -50,6 +50,6 @@
     padding: 0 10px;
     width: max-content;
     border-radius: 4px;
-    border: 1px solid #33343f;
+    border: 1px solid #333333;
   }
 </style>
