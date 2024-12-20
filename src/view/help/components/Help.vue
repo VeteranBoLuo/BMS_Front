@@ -1,42 +1,68 @@
 <template>
-  <PhoneContainer title="帮助中心">
-    <div class="help-container">
-      <b-input v-model:value="searchValue" placeholder="目录名..." style="width: 100%" />
-      <div class="help-body">
+  <div class="help-container">
+    <b-button
+      style="position: absolute; right: 20px"
+      :style="{ left: bookmark.isPhone ? '' : '187px' }"
+      @click="handleToBack"
+      v-click-log="{ module: '帮助中心', operation: `返回` }"
+      >返回</b-button
+    >
+    <b-space style="width: 100%">
+      <b-input
+        v-model:value="searchValue"
+        :style="{ width: bookmark.isPhone ? 'calc(100% - 80px)' : '145px' }"
+        placeholder="目录名..."
+      />
+    </b-space>
+    <div class="help-body">
+      <div
+        v-if="bookmark.isPhone"
+        class="help-title"
+        style="position: relative; top: 10px"
+        @click="checkId = ''"
+        v-click-log="{ module: '帮助中心', operation: `使用介绍` }"
+        >使用介绍</div
+      >
+      <div v-if="!bookmark.isPhone" :style="{ width: '150px' }">
         <div class="help-title" @click="checkId = ''" v-click-log="{ module: '帮助中心', operation: `使用介绍` }"
           >使用介绍</div
         >
-        <div class="phone-help-menu">
-          <div
-            v-for="item in viewOptions"
-            :style="{
-              background: checkId === item.id ? '#4e4b46' : '',
-              color: checkId === item.id ? 'white' : '',
-            }"
-            class="phone-help-menu-item"
-            @click="checkId = item.id"
-            v-click-log="{ module: '帮助中心', operation: `${item.title}` }"
-          >
-            {{ item.title }}
-          </div>
-        </div>
-        <div
-          id="view-body"
-          style="
-            height: calc(100% - 120px);
-            border: 1px solid var(--card-border-color);
-            border-radius: 4px;
-            padding: 20px;
-            overflow: auto;
-            line-height: 2rem;
-            flex-grow: 1;
-            margin-top: 10px;
-          "
-          v-html="content"
-        />
+        <BList style="font-size: 12px" :listOptions="viewOptions" @nodeClick="logItem" :check-id="checkId">
+          <template #icon>
+            <svg-icon :src="icon.help_document" />
+          </template>
+        </BList>
       </div>
+      <div v-else class="phone-help-menu">
+        <div
+          v-for="item in viewOptions"
+          :style="{
+            background: checkId === item.id ? '#4e4b46' : '',
+            color: checkId === item.id ? 'white' : '',
+          }"
+          class="phone-help-menu-item"
+          @click="checkId = item.id"
+          v-click-log="{ module: '帮助中心', operation: `${item.title}` }"
+        >
+          {{ item.title }}
+        </div>
+      </div>
+      <div
+        id="view-body"
+        :style="{ width: bookmark.isPhone ? 'calc(100% - 40px)' : 'calc(100% - 150px)' }"
+        style="
+          height: 100%;
+          border: 1px solid var(--card-border-color);
+          border-radius: 4px;
+          padding: 20px;
+          overflow: auto;
+          line-height: 2rem;
+          flex-grow: 1;
+        "
+        v-html="content"
+      />
     </div>
-  </PhoneContainer>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -49,19 +75,18 @@
   import BButton from '@/components/BasicComponents/BButton/BButton.vue';
   import BSpace from '@/components/BasicComponents/BSpace/BSpace.vue';
 
-  import tagAndBookmark from 'src/assets/img/help/tag_bookmark_relation.jpg';
-  import addTagAndBookmark from 'src/assets/img/help/add_data.jpg';
-  import tagEdit from 'src/assets/video/tag_edit.webm';
-  import bookmarkEdit from 'src/assets/video/bookmark_edit.webm';
-  import tagMg from 'src/assets/img/help/tagMg.jpg';
-  import bookmarkMg from 'src/assets/img/help/bookmarkMg.jpg';
-  import opinionMg from 'src/assets/img/help/opinionMg.png';
+  import tagAndBookmark from '@/assets/img/help/tag_bookmark_relation.jpg';
+  import addTagAndBookmark from '@/assets/img/help/add_data.jpg';
+  import tagEdit from '@/assets/video/tag_edit.webm';
+  import bookmarkEdit from '@/assets/video/bookmark_edit.webm';
+  import tagMg from '@/assets/img/help/tagMg.jpg';
+  import bookmarkMg from '@/assets/img/help/bookmarkMg.jpg';
+  import opinionMg from '@/assets/img/help/opinionMg.png';
 
   import 'viewerjs/dist/viewer.css'; //样式文件不要忘了
   import Viewer from 'viewerjs';
   import BViewer from '@/components/Viewer/BViewer.vue';
   import router from '@/router';
-  import PhoneContainer from '@/components/PhoneContainer/PhoneContainer.vue';
 
   const bookmark = bookmarkStore();
   const checkId = ref('');
@@ -273,17 +298,16 @@
   });
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
   .help-container {
-    height: 100%;
     width: 100%;
+    padding: 20px;
     box-sizing: border-box;
-    display: flex;
     flex-direction: column;
+    display: flex;
     gap: 10px;
   }
   .help-title {
-    margin-top: 10px;
     height: 30px;
     line-height: 1rem;
     background-color: #fe2c55;
@@ -292,6 +316,11 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+  }
+  .help-body {
+    display: flex;
+    gap: 20px;
+    height: calc(100% - 80px);
   }
 
   .tag-explanation {
@@ -319,33 +348,5 @@
     background-color: var(--background-color);
     padding: 10px;
     border: 1px solid #ccc;
-  }
-  .help-body {
-    height: calc(100% - 40px);
-    flex-direction: column;
-    gap: 10px;
-    position: relative;
-    bottom: 10px;
-  }
-  .phone-help-menu {
-    display: flex;
-    border: 1px solid var(--text-color);
-    margin-top: 3px;
-    box-sizing: border-box;
-    height: max-content;
-    width: max-content;
-    &:not(:last-child) {
-      border-right: unset;
-    }
-  }
-  .phone-help-menu-item {
-    height: 28px;
-    line-height: 28px;
-    display: flex;
-    box-sizing: border-box;
-    justify-content: center;
-    cursor: pointer;
-    padding: 0 4px;
-    border-right: 1px solid var(--text-color);
   }
 </style>

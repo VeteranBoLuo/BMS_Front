@@ -8,7 +8,7 @@ const helpRouter: AppRouteRecordRaw = {
   },
   path: '/help',
   name: 'help',
-  component: () => import('@/view/help/Help.vue'),
+  component: () => import('@/view/help/HelpMg.vue'),
 };
 
 export default helpRouter;

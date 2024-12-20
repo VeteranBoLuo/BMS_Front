@@ -80,7 +80,7 @@
         <span class="person-menu-item-des"
           ><svg-icon color="#999fa8" style="rotate: 180deg" :src="icon.arrow_left" size="14" /></span
       ></div>
-      <div class="person-menu-item" @click="$router.push('/manage/help')">
+      <div class="person-menu-item" @click="$router.push('/help')">
         <span class="person-menu-item-title">帮助中心</span>
         <span class="person-menu-item-des"
           ><svg-icon color="#999fa8" style="rotate: 180deg" :src="icon.arrow_left" size="14" /></span

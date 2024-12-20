@@ -1,6 +1,6 @@
 <template>
   <PhoneContainer :title="(handleType === 'add' ? '新增' : '编辑') + '书签'">
-    <b-loading :loading="loading">
+    <b-loading :loading="loading" style='height: unset'>
       <div class="tag-edit-body">
         <div class="tag-attr-item">
           <span class="tag-attr-label">书签名称</span>

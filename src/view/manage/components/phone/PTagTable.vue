@@ -35,7 +35,7 @@
   import Alert from '@/components/BasicComponents/BModal/Alert.ts';
   import router from '@/router';
   import BLoading from '@/components/BasicComponents/BLoading/BLoading.vue';
-  import PhoneListMg from '@/view/phone/manage/PhoneListMg.vue';
+  import PhoneListMg from '@/components/PhoneComponents/PhoneListMg.vue';
   import icon from '@/config/icon.ts';
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
 
