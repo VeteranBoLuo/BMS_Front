@@ -17,7 +17,7 @@ const manageRouter: AppRouteRecordRaw = {
     {
       name: 'tagEditMg',
       path: 'editTag/:id',
-      component: () => import('@/view/manage/components/tagEditMg.vue'),
+      component: () => import('@/view/manage/components/TagEditMg.vue'),
     },
     {
       path: 'bookmarkMg',
