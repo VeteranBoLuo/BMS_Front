@@ -53,7 +53,7 @@
     </div>
     <b-button
       type="primary"
-      class='container-footer-btn'
+      class="container-footer-btn"
       @click="submit"
       v-click-log="{ module: '意见反馈', operation: '提交反馈' }"
       >提交</b-button
@@ -73,8 +73,8 @@
   import { cloneDeep } from 'lodash-es';
   import { apiBasePost } from '@/http/request.ts';
   import PhoneContainer from '@/components/phoneComponents/PhoneContainer/PhoneContainer.vue';
+  import router from '@/router';
 
-  const visible = <Ref<boolean>>defineModel('visible');
   const bookmark = bookmarkStore();
 
   const opinionData = reactive({
@@ -105,7 +105,6 @@
   }
 
   function submit() {
-    visible.value = false;
     if (opinionData.content.length < 6) {
       message.warning('请输入不少于6字的问题描述');
       return;
@@ -119,7 +118,7 @@
         }
       })
       .finally(() => {
-        visible.value = false;
+        router.back();
       });
   }
 </script>

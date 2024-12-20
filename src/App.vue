@@ -64,10 +64,5 @@
     document.documentElement.setAttribute('data-theme', theme);
   }
 
-  onMounted(() => {
-    if (bookmark.isPhone) {
-      import('@/assets/css/phone.less');
-    }
-  });
 </script>
 <style></style>
