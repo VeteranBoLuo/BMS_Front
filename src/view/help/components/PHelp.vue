@@ -300,7 +300,7 @@
     padding: 10px 20px;
     margin: 20px 0;
   }
-  .bookmark-example {
+  :deep(.bookmark-example) {
     text-align: center;
   }
   :deep(.bookmark-image) {
