@@ -217,13 +217,6 @@
     return result;
   }
 
-  function enterFunc(e) {
-    if (disable.value) return;
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      handleLogin();
-    }
-  }
 
   onMounted(() => {
     const loginInfo = localStorage.getItem('loginInfo');
@@ -235,13 +228,9 @@
     } else {
       isCheck.value = false;
     }
-    document.addEventListener('keydown', enterFunc);
     localStorage.setItem('userId', '');
   });
 
-  onUnmounted(() => {
-    document.removeEventListener('keydown', enterFunc);
-  });
   watch(
     () => viewPhoneVisible.value,
     (val) => {
