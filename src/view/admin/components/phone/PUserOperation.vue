@@ -1,17 +1,12 @@
 <template>
-  <PhoneContainer title="api日志">
+  <PhoneContainer title="用户反馈">
     <div style="overflow: hidden; height: 100%; box-sizing: border-box">
       <b-space style="width: 100%">
-        <b-input
-          v-model:value="searchValue"
-          placeholder="用户名或接口名..."
-          @input="handleSearch"
-        >
+        <b-input v-model:value="searchValue" placeholder="用户名..." @input="handleSearch">
           <template #prefix>
             <svg-icon :src="icon.navigation_search" size="16" />
           </template>
         </b-input>
-        <b-button @click="clearApiLogs" type="primary">清空</b-button>
       </b-space>
       <a-table
         :data-source="logList"
@@ -22,14 +17,22 @@
         :pagination="false"
       >
         <template #expandedRowRender="{ record }">
-          <div layout="vertical" style="overflow: auto; height: 300px; color: var(--text-color)">
-            <div label="requestTime">时间：{{ record.requestTime }}</div>
-            <div label="url">接口：{{ record.url }}</div>
-            <div label="req">
-              请求参数： <pre>{{ record.req }}</pre>
+          <div
+            layout="vertical"
+            style="max-height: 300px; overflow-y: auto; min-height: 120px; color: var(--text-color)"
+          >
+            <p label="content">反馈内容：{{ record.content }}</p>
+            <p label="createTime">反馈时间：{{ record.createTime }}</p>
+            反馈图片：
+            <div class="flex-align-center-gap">
+              <img
+                v-for="src in JSON.parse(record.imgArray)"
+                :src="src"
+                height="100"
+                width="100"
+                @click="bookmark.refreshViewer(src)"
+              />
             </div>
-            <div label="os">系统：{{ record.os }}</div>
-            <div label="browser">浏览器：{{ record.browser }}</div>
           </div>
         </template>
       </a-table>
@@ -52,7 +55,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, onMounted, ref, watch } from 'vue';
+  import { computed, onMounted, ref } from 'vue';
   import { apiBaseGet, apiQueryPost } from '@/http/request.ts';
   import { bookmarkStore } from '@/store';
   import BInput from '@/components/BasicComponents/BInput/BInput.vue';
@@ -76,8 +79,8 @@
           ellipsis: true,
         },
         {
-          title: '时间',
-          dataIndex: 'requestTime',
+          title: '反馈内容',
+          dataIndex: 'content',
           ellipsis: true,
         },
       ];
@@ -89,45 +92,20 @@
         ellipsis: true,
       },
       {
-        title: '时间',
-        dataIndex: 'requestTime',
+        title: '反馈内容',
+        dataIndex: 'content',
         ellipsis: true,
       },
       {
-        title: '接口',
-        dataIndex: 'url',
-        ellipsis: true,
-      },
-      // {
-      //   title: '接口类型',
-      //   dataIndex: 'method',
-      //   ellipsis: true,
-      // },
-      // {
-      //   title: '请求参数',
-      //   dataIndex: 'req',
-      //   ellipsis: true,
-      // },
-      // {
-      //   title: '响应参数',
-      //   dataIndex: 'res',
-      //   ellipsis: true,
-      // },
-      {
-        title: '系统',
-        dataIndex: 'os',
-        ellipsis: true,
-      },
-      {
-        title: '浏览器',
-        dataIndex: 'browser',
+        title: '反馈时间',
+        dataIndex: 'createTime',
         ellipsis: true,
       },
     ];
   });
 
   const currentPage = ref<number>(1);
-  const pageSize = ref<number>(20);
+  const pageSize = ref<number>(10);
   const onChange = (page: number, newPageSize: number) => {
     if (newPageSize !== pageSize.value) {
       currentPage.value = 1;
@@ -137,21 +115,6 @@
     pageSize.value = newPageSize;
     searchApiLog();
   };
-
-  function clearApiLogs() {
-    Alert.alert({
-      title: '提示',
-      content: `请确认是否要清空日志？`,
-      onOk() {
-        apiBaseGet('/api/common/clearApiLogs', {}).then((res) => {
-          if (res.status === 200) {
-            message.success('日志清空成功');
-            searchApiLog();
-          }
-        });
-      },
-    });
-  }
 
   const timer = ref();
   function handleSearch() {
@@ -166,7 +129,7 @@
   const total = ref(0);
   const searchValue = ref('');
   function searchApiLog() {
-    apiQueryPost('/api/common/getApiLogs', {
+    apiQueryPost('/api/common/getOpinionList', {
       currentPage: currentPage.value,
       pageSize: pageSize.value,
       filters: {
@@ -230,5 +193,4 @@
   :deep(.ant-pagination-item-ellipsis) {
     color: var(--icon-color) !important;
   }
-
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="admin-container">
     <div class="menu-body">
-      <BList style="font-size: 12px" :listOptions="viewOptions" @nodeClick="nodeClick" :check-id="checkId">
+      <BList style="font-size: 12px;" :listOptions="viewOptions" @nodeClick="nodeClick" :check-id="checkId">
         <template #icon="{ item }">
           <svg-icon :src="item.icon" />
         </template>
@@ -39,6 +39,11 @@
       id: 'userMg',
       title: '用户管理',
       icon: icon.navigation_user,
+    },
+    {
+      id: 'userOperation',
+      title: '用户反馈',
+      icon: icon.userCenter_OperationLog,
     },
   ]);
 

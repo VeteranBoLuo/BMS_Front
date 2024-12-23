@@ -1,5 +1,9 @@
 <template>
-  <PhoneContainer title="个人中心" :style="{ backgroundColor: bookmark.theme === 'day' ? '#f6f7f9' : '#222222' }">
+  <PhoneContainer
+    title="个人中心"
+    :style="{ backgroundColor: bookmark.theme === 'day' ? '#f6f7f9' : '#222222' }"
+    @backClick="router.push('/home')"
+  >
     <div class="person-title-card" :style="{ backgroundColor: bookmark.theme === 'day' ? '#97a1c6' : '#4d5264' }">
       <div style="display: flex; gap: 10px">
         <div :class="['navigation-icon']" :style="{ color: bookmark.iconColor }">
@@ -269,8 +273,6 @@
     text-align: left;
     color: white !important;
   }
-
-
 
   .modal-content {
     margin: auto;

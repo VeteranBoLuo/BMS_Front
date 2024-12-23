@@ -18,10 +18,9 @@
   import userApi from '@/api/userApi';
   import router from '@/router';
   import { bookmarkStore, useUserStore } from '@/store';
-  import { onMounted, watch } from 'vue';
+  import { nextTick, watch } from 'vue';
   import login from '@/view/login/index.vue';
   import BViewer from '@/components/Viewer/BViewer.vue';
-  import icon from '@/config/icon';
 
   const user = useUserStore();
   const bookmark = bookmarkStore();
@@ -49,12 +48,6 @@
     bookmark.isShowLogin = true;
   }
 
-  watch(
-    () => bookmark.theme,
-    (val) => {
-      getThemeStyle(val);
-    },
-  );
   // 页面加载前需要提前预设置主题，否则如果后台查询是黑夜主题，但是页面默认是白色的，页面会从白到黑闪一下，这种情况就需要提前设置为黑色
   const theme = localStorage.getItem('theme');
   if (theme) {
@@ -64,5 +57,53 @@
     document.documentElement.setAttribute('data-theme', theme);
   }
 
+  watch(
+    () => bookmark.theme,
+    (val) => {
+      getThemeStyle(val);
+    },
+  );
+
+  watch(
+    () => bookmark.isPhone,
+    (val) => {
+      routerChange();
+      setTransition(val);
+    },
+  );
+
+  // 设置动画
+  function setTransition(val) {
+    nextTick(() => {
+      const body = document.getElementById('phone-navigation-container');
+      const filter = document.getElementById('phone-filter-panel');
+      if (body && filter) {
+        if (val) {
+          filter.style.transition = 'none';
+          filter.style.transform = 'translateX(-100%)';
+        } else {
+          body.style.transform = 'translateX(0)';
+          body.style.transition = 'unset';
+          filter.style.transform = 'translateX(0)';
+          filter.style.transition = 'unset';
+          bookmark.isFold = true;
+        }
+      }
+    });
+  }
+
+  // 手机端路由和电脑端不一样，切换视图后需要切换对应路由地址
+  function routerChange() {
+    if (['/apiLog', '/userMg', '/userOperation', '/operationLog'].includes(router.currentRoute.value.path)) {
+      router.push('/admin' + router.currentRoute.value.path);
+    }
+    if (
+      ['/admin/apiLog', '/admin/userMg', '/admin/userOperation', '/admin/operationLog'].includes(
+        router.currentRoute.value.path,
+      )
+    ) {
+      router.push(router.currentRoute.value.path.replace('/admin', ''));
+    }
+  }
 </script>
 <style></style>

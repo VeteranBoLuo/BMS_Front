@@ -125,25 +125,6 @@
     },
   );
 
-  watch(
-    () => bookmark.isPhone,
-    (val) => {
-      nextTick(() => {
-        const body: any = document.getElementById('phone-navigation-container');
-        const filter: any = document.getElementById('phone-filter-panel');
-        if (val) {
-          filter.style.transition = 'none';
-          filter.style.transform = 'translateX(-100%)';
-        } else {
-          body.style.transform = 'translateX(0)';
-          body.style.transition = 'unset';
-          filter.style.transform = 'translateX(0)';
-          filter.style.transition = 'unset';
-          bookmark.isFold = true;
-        }
-      });
-    },
-  );
   const user = useUserStore();
   const userId = localStorage?.getItem('userId');
   onMounted(() => {

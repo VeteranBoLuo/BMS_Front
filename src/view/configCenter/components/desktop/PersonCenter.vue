@@ -142,7 +142,6 @@
     }
     return '浅色';
   });
-  const viewer = ref<Viewer>();
 
   function zoomImage() {
     const src = user.headPicture || icon.navigation_user;

@@ -5,7 +5,7 @@
         <span
           style="position: absolute; left: 0; top: 30px; transform: translateY(-50%)"
           class="flex-align-center"
-          @click="router.back()"
+          @click="backClick"
         >
           <svg-icon :src="icon.arrow_left" size="25" />
         </span>
@@ -23,6 +23,7 @@
   import icon from '@/config/icon.ts';
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
   import { bookmarkStore } from '@/store';
+  import { useAttrs, getCurrentInstance } from 'vue';
   const bookmark = bookmarkStore();
   const props = defineProps({
     title: {
@@ -30,6 +31,21 @@
       default: '',
     },
   });
+  const emit = defineEmits(['backClick']);
+  const instance = getCurrentInstance();
+  const hasParentHandler = () => {
+    // 检查父组件是否提供了 backClick 处理函数
+    return !!instance?.vnode?.props?.onBackClick;
+  };
+  function backClick() {
+    // 如果父组件提供了处理函数，则发出事件
+    if (hasParentHandler()) {
+      emit('backClick');
+    } else {
+      // 否则执行默认行为
+      router.back();
+    }
+  }
 </script>
 
 <style lang="less" scoped>

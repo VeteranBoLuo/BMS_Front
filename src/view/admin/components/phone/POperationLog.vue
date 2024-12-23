@@ -168,14 +168,6 @@
       }
     });
   }
-  watch(
-    () => bookmark.isPhone,
-    () => {
-      if (!bookmark.isPhone) {
-        router.push('/admin');
-      }
-    },
-  );
   onMounted(() => {
     searchApiLog();
   });
