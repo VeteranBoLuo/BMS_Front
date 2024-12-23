@@ -20,12 +20,14 @@
         <svg-icon
           :src="icon.navigation_menu"
           size="25"
+          class='dom-hover'
           v-if="bookmark.isPhone && router.currentRoute.value.fullPath.includes('home') && bookmark.isFold"
           @click="foldClick"
         />
         <svg-icon
           :src="icon.navigation_close"
           size="25"
+          class='dom-hover'
           v-if="bookmark.isPhone && router.currentRoute.value.fullPath.includes('home') && !bookmark.isFold"
           @click="foldClick"
         />

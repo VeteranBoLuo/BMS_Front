@@ -4,7 +4,7 @@
       <slot name="navigation">
         <span
           style="position: absolute; left: 0; top: 30px; transform: translateY(-50%)"
-          class="flex-align-center"
+          class="flex-align-center dom-hover"
           @click="backClick"
         >
           <svg-icon :src="icon.arrow_left" size="25" />
