@@ -121,13 +121,13 @@
     box-sizing: border-box;
     background-color: var(--bl-input-bg-color);
     color: var(--bl-input-color);
+    transition: border-color 0.2s!important;
     &:focus {
       border: 1px solid var(--bl-input-border-h-color);
       box-shadow: 0 0 0 1px rgba(92, 90, 86, 0.1);
     }
     &:hover {
       border: 1px solid var(--bl-input-border-h-color);
-      transition: all 0.2s;
     }
     &:active {
       border: 1px solid var(--bl-input-border-h-color);

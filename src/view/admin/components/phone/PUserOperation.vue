@@ -177,9 +177,9 @@
     background-color: unset !important;
     transition: none !important;
   }
-  :deep(.ant-select-selector) {
-    transition: none !important;
-  }
+  //:deep(.ant-select-selector) {
+  //  transition: none !important;
+  //}
   /*--分页背景调色--*/
   :deep(.ant-pagination) {
     color: var(--text-color);

@@ -16,7 +16,6 @@
         </b-space>
       </div>
       <a-table
-        data-theme="dark"
         style="width: 90vw; margin-top: 5px"
         :data-source="bookmarkList"
         :columns="tagColumns"

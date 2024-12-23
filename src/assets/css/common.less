@@ -154,6 +154,64 @@ h1 {
   }
 }
 // AntDesign组件
+
+/*--------------------------a-select下拉框配置----------------------*/
+.ant-select-selector {
+  transition: border-color 0.2s!important;
+  border: 1px solid #d9d9d9 !important;
+  background-color: var(--ant-select-selector-bg-color) !important;
+  color: var(--text-color) !important;
+  &:hover {
+    box-shadow: unset !important;
+    border: 1px solid var(--bl-input-border-h-color) !important;
+  }
+  &:focus {
+    box-shadow: unset !important;
+  }
+  .ant-select-selection-item {
+    background-color: var(--ant-select-selection-item-bg-color) !important;
+  }
+  .anticon-close {
+    color: var(--ant-select-selection-item-anticon-close-color) !important;
+  }
+}
+.ant-select-focused .ant-select-selector {
+  border: 1px solid var(--bl-input-border-h-color) !important;
+  box-shadow: 0 0 0 1px rgba(92, 90, 86, 0.1) !important;
+}
+// 选择器下拉菜单背景颜色
+.ant-select-dropdown {
+  background-color: var(--ant-select-dropdown-bg-color) !important;
+}
+.ant-select-item-option-content {
+  color: var(--text-night-color);
+}
+.ant-select-item-option {
+  margin-bottom: 2px;
+  transition: none !important;
+  &:hover {
+    background-color: var(--ant-select-item-option-selected-bg-colot) !important;
+    color: #ffffff;
+  }
+}
+.ant-select-item-option-selected {
+  background-color: var(--ant-select-item-option-selected-bg-colot) !important;
+
+  color: white !important;
+}
+.anticon-close-circle {
+  background-color: var(--bl-input-bg-color) !important;
+  color: var(--text-color);
+}
+.ant-input::placeholder {
+  color: #7d7d7d;
+}
+.ant-input-affix-wrapper {
+  transition: border-color 0.2s!important;
+  &:hover {
+    border: 1px solid var(--bl-input-border-h-color) !important;
+  }
+}
 .ant-table-container {
   border: 1px solid var(--icon-color);
   border-radius: 8px;
@@ -185,19 +243,6 @@ h1 {
 .ant-input-affix-wrapper-focused {
   border: 1px solid var(--bl-input-border-h-color) !important;
   box-shadow: 0 0 0 2px rgba(92, 90, 86, 0.1);
-}
-.ant-input-affix-wrapper-hover {
-  border: unset !important;
-}
-.ant-select-selector {
-  &:focus {
-    border: 1px solid var(--bl-input-border-h-color) !important;
-    box-shadow: 0 0 0 2px rgba(92, 90, 86, 0.1) !important;
-  }
-}
-
-.ant-select-focused .ant-select-selector {
-  box-shadow: 0 0 0 2px rgba(92, 90, 86, 0.1) !important;
 }
 
 .ant-pagination .ant-pagination-options {

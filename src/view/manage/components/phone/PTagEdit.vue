@@ -275,9 +275,9 @@
     transition: none;
   }
 
-  :deep(.ant-select-selector) {
-    transition: none !important;
-  }
+  //:deep(.ant-select-selector) {
+  //  transition: none !important;
+  //}
 
   :deep(.ant-input-affix-wrapper) {
     transition: none;
