@@ -97,19 +97,20 @@ export const apiBaseGet = async (url: string, params: any, options?: AxiosReques
   return handleBaseResponse(res);
 };
 export function handleBaseResponse(data: any) {
-  if (data.status === 200) {
-    return data;
-  }
   if (data.status === 500) {
     message.error(data.msg || '服务器错误');
-  } else if (data.status === 303) {
-    message.error(data.msg || '存在同名数据');
   } else if (data.status === 403) {
-    message.error(data.msg || '服务器错误');
+    message.error(data.msg || '服务器拒绝请求');
   } else if (data.status === 401) {
-    message.error(data.msg || '服务器错误');
-  } else {
-    message.error(data.msg || '服务器错误');
+    message.error(data.msg || '无权限，请登录');
+  } else if (data.status === 400) {
+    message.error(data.msg || '客户端请求异常');
+  } else if (data.status === 404) {
+    message.error(data.msg || '请求资源不存在');
+  } else if (data.status === 504) {
+    message.error(data.msg || '服务器异常');
+  } else if (data.status === 505) {
+    message.error(data.msg || 'HTTP 版本不受支持');
   }
   return data;
 }
