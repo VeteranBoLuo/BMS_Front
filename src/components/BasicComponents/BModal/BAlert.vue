@@ -212,8 +212,8 @@
       border-top: 1px solid var(--phone-menu-item-border-color);
       flex: 1;
       text-align: center;
-      height: 40px;
-      line-height: 40px;
+      height: 44px;
+      line-height: 44px;
       &:not(:last-child) {
         border-right: 1px solid var(--phone-menu-item-border-color);
       }
