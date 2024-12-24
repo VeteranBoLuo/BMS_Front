@@ -30,7 +30,7 @@
       .then((res) => {
         if (res.status === 200) {
           user.setUserInfo(res.data);
-          bookmark.theme = res.data.theme;
+          bookmark.theme = res.data.theme || 'day';
           getThemeStyle(res.data.theme);
           localStorage.setItem('theme', res.data.theme);
         } else {
@@ -54,6 +54,7 @@
     bookmark.theme = theme;
   }
   function getThemeStyle(theme) {
+    console.log('theme', theme);
     document.documentElement.setAttribute('data-theme', theme);
   }
 

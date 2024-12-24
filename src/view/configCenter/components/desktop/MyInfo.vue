@@ -152,7 +152,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 30px;
+    gap: 20px;
   }
   .user-item {
     display: flex;
@@ -167,8 +167,8 @@
     }
   }
   .user_icon {
-    height: 100px;
-    width: 100px;
+    height: 80px;
+    width: 80px;
     display: flex;
     align-items: center;
     border: 1px solid #f5f5f5;

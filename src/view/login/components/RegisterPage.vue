@@ -113,6 +113,7 @@
     password: '',
     email: '',
     role: 'admin',
+    theme: 'day',
   });
   const bookmark = bookmarkStore();
   const disable = computed(() => {
@@ -122,6 +123,7 @@
     await registerRef.value.validate(names);
   }
   const registerRef = ref();
+  const emit = defineEmits(['update:success']);
   async function handleRegister() {
     await validateFun();
     formData.role = 'admin';
@@ -129,6 +131,7 @@
       if (res.status === 200) {
         message.success('注册成功');
         title.value = '登录';
+        emit('update:success', formData);
       } else {
         message.error(res.msg);
       }

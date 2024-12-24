@@ -2,9 +2,9 @@
   <teleport to="body">
     <div class="index-container">
       <div class="index-view">
-        <LoginPage v-model:title="title" />
+        <LoginPage v-model:title="title" v-model:formData="formData" />
         <!------------注册------------->
-        <RegisterPage v-model:title="title" />
+        <RegisterPage v-model:title="title" @update:success="registerSuccess" />
         <!------------重置------------->
         <ResetPage v-model:title="title" />
       </div>
@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { onMounted, onUnmounted, ref } from 'vue';
+  import { onMounted, onUnmounted, ref, reactive } from 'vue';
   import { bookmarkStore, useUserStore } from '@/store';
   import LoginPage from '@/view/login/components/LoginPage.vue';
   import ResetPage from '@/view/login/components/ResetPage.vue';
@@ -25,6 +25,16 @@
   const user = useUserStore();
 
   const bookmark = bookmarkStore();
+
+  const formData = ref({
+    userName: '',
+    password: '',
+  });
+
+  function registerSuccess(params: any) {
+    formData.value.userName = params.userName;
+    formData.value.password = params.password;
+  }
 
   onMounted(() => {
     document.addEventListener('keydown', clickEsc);

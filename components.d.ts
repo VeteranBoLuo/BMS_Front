@@ -10,6 +10,7 @@ declare module 'vue' {
     ACheckboxGroup: typeof import('ant-design-vue/es')['CheckboxGroup']
     AConfigProvider: typeof import('ant-design-vue/es')['ConfigProvider']
     ADropdown: typeof import('ant-design-vue/es')['Dropdown']
+    AEmpty: typeof import('ant-design-vue/es')['Empty']
     AForm: typeof import('ant-design-vue/es')['Form']
     AFormItem: typeof import('ant-design-vue/es')['FormItem']
     AMenu: typeof import('ant-design-vue/es')['Menu']

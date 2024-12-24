@@ -103,13 +103,10 @@
   import { cloneDeep } from 'lodash-es';
 
   const title = defineModel('title');
-  const formData = reactive({
-    userName: '',
-    password: '',
-  });
+  const formData = defineModel('formData')
   const isCheck = ref(true);
   const disable = computed(() => {
-    return !formData.userName || !formData.password;
+    return !formData.value.userName || !formData.value.password;
   });
   const formDataRef = ref();
   const bookmark = bookmarkStore();
@@ -118,7 +115,7 @@
   async function handleLogin() {
     await formDataRef.value.validate();
     userApi
-      .validateUser(formData)
+      .validateUser(formData.value)
       .then((res: any) => {
         if (res.status === 200) {
           localStorage.setItem('userId', res.data.id);
@@ -128,7 +125,7 @@
           router.push('/');
           message.success('登录成功');
           if (isCheck.value) {
-            const params = cloneDeep(formData);
+            const params = cloneDeep(formData.value);
             params.password = encrypt(params.password);
             localStorage.setItem('loginInfo', JSON.stringify(params));
           } else {
@@ -223,8 +220,7 @@
     if (loginInfo) {
       isCheck.value = true;
       Object.assign(formData, JSON.parse(loginInfo));
-      formData.password = decrypt(formData.password);
-      console.log(formData);
+      formData.value.password = decrypt(formData.value.password);
     } else {
       isCheck.value = false;
     }
