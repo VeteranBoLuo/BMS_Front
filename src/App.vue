@@ -36,7 +36,7 @@
           bookmark.theme = res.data.theme || 'day';
           getThemeStyle(res.data.theme);
           localStorage.setItem('theme', res.data.theme);
-        } else if (res.status === 401) {
+        } else {
           bookmark.isShowLogin = true;
         }
       })
