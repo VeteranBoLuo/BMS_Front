@@ -99,17 +99,19 @@ export const apiBaseGet = async (url: string, params: any, options?: AxiosReques
 export function handleBaseResponse(data: any) {
   if (data.status === 200) {
     return data;
-  } else if (data.status === 500) {
+  }
+  if (data.status === 500) {
     message.error(data.msg || '服务器错误');
   } else if (data.status === 303) {
     message.error(data.msg || '存在同名数据');
   } else if (data.status === 403) {
-    message.error(data.msg);
+    message.error(data.msg || '服务器错误');
   } else if (data.status === 401) {
+    message.error(data.msg || '服务器错误');
   } else {
     message.error(data.msg || '服务器错误');
   }
-  return;
+  return data;
 }
 
 function getUserOsInfo() {
