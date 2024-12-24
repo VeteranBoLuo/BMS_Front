@@ -2,11 +2,7 @@
   <PhoneContainer title="api日志">
     <div style="overflow: hidden; height: 100%; box-sizing: border-box">
       <b-space style="width: 100%">
-        <b-input
-          v-model:value="searchValue"
-          placeholder="用户名或接口名..."
-          @input="handleSearch"
-        >
+        <b-input v-model:value="searchValue" placeholder="用户名或接口名..." @input="handleSearch">
           <template #prefix>
             <svg-icon :src="icon.navigation_search" size="16" />
           </template>
@@ -28,8 +24,9 @@
             <div label="req">
               请求参数： <pre>{{ record.req }}</pre>
             </div>
-            <div label="os">系统：{{ record.os }}</div>
-            <div label="browser">浏览器：{{ record.browser }}</div>
+            <div label="os">ip地址：{{ JSON.parse(record.location).ip }}</div>
+            <div label="browser">省份：{{ JSON.parse(record.location).province }}</div>
+            <div label="browser">城市：{{ JSON.parse(record.location).city }}</div>
           </div>
         </template>
       </a-table>
@@ -230,5 +227,4 @@
   :deep(.ant-pagination-item-ellipsis) {
     color: var(--icon-color) !important;
   }
-
 </style>
