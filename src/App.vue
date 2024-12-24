@@ -18,40 +18,24 @@
   import userApi from '@/api/userApi';
   import router from '@/router';
   import { bookmarkStore, useUserStore } from '@/store';
-  import { nextTick, watch } from 'vue';
+  import { nextTick, watch, onMounted } from 'vue';
   import login from '@/view/login/index.vue';
   import BViewer from '@/components/Viewer/BViewer.vue';
-  import { apiBaseGet, apiBasePost } from '@/http/request';
+  import { apiBaseGet } from '@/http/request';
 
   const user = useUserStore();
   const bookmark = bookmarkStore();
+
+  getUserInfo();
   if (!localStorage.getItem('userId')) {
     bookmark.isShowLogin = true;
   }
-  apiBaseGet('/api/user/getUserInfo', { id: localStorage.getItem('userId') })
-    .then((res) => {
-      if (res.status === 200) {
-        user.setUserInfo(res.data);
-        bookmark.theme = res.data.theme || 'day';
-        getThemeStyle(res.data.theme);
-        localStorage.setItem('theme', res.data.theme);
-      } else {
-        router.push('/home');
-        bookmark.isShowLogin = true;
-      }
-    })
-    .catch((e) => {
-      console.error('接口错误：', e);
-      router.push('/home');
-      bookmark.isShowLogin = true;
-    });
   // 页面加载前需要提前预设置主题，否则如果后台查询是黑夜主题，但是页面默认是白色的，页面会从白到黑闪一下，这种情况就需要提前设置为黑色
   const theme = localStorage.getItem('theme');
   if (theme) {
     bookmark.theme = theme;
   }
   function getThemeStyle(theme) {
-    console.log('theme', theme);
     document.documentElement.setAttribute('data-theme', theme);
   }
 
@@ -103,5 +87,41 @@
       router.push(router.currentRoute.value.path.replace('/admin', ''));
     }
   }
+
+  function getUserInfo() {
+    apiBaseGet('/api/user/getUserInfo', { id: localStorage.getItem('userId') })
+      .then((res) => {
+        if (res.status === 200) {
+          user.setUserInfo(res.data);
+          bookmark.theme = res.data.theme || 'day';
+          getThemeStyle(res.data.theme);
+          localStorage.setItem('theme', res.data.theme);
+        } else {
+          router.push('/home');
+          bookmark.isShowLogin = true;
+        }
+      })
+      .catch((e) => {
+        console.error('接口错误：', e);
+        router.push('/home');
+        bookmark.isShowLogin = true;
+      });
+  }
+
+  // function getVisitorId() {
+  //   // 储存指纹
+  //   import('https://openfpcdn.io/fingerprintjs/v4')
+  //     .then((res) => res.load())
+  //     .then((fp) => fp.get())
+  //     .then((result) => {
+  //       window.visitorId = result.visitorId;
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error getting visitor ID:', error);
+  //     })
+  //     .finally(() => {
+  //       getUserInfo();
+  //     });
+  // }
 </script>
 <style></style>

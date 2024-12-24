@@ -6,32 +6,36 @@ import { useUserStore } from '@/store'; // 1. 引入 axios
 const request = axios.create({
   timeout: 60000,
 });
-request.defaults.withCredentials = true; //跨域请求时发送cookie
 //请求拦截
 request.interceptors.request.use(
-  (config) => {
-    config.headers['Access-Control-Allow-Origin'] = '*';
-    config.headers['OS'] = getUserOsInfo();
-    config.headers['Browser'] = getBrowserType();
-    config.headers['Cac'] = getBrowserType();
+  async (config) => {
+    if (config.url.includes('/api')) {
+      config.headers['Access-Control-Allow-Origin'] = '*';
+      config.headers['OS'] = getUserOsInfo();
+      config.headers['Browser'] = getBrowserType();
+      config.headers['Cac'] = getBrowserType();
 
-    // 假设你有一个全局状态管理器（如Vuex）或者一个响应式的引用（如ref）来存储用户信息
-    const userId = localStorage?.getItem('userId'); /* 从你的状态管理器或响应式引用中获取用户信息 */
-    const user = useUserStore();
-    const notNeedAuth = ['del'].some((key) => config.url.includes(key));
-    if (!['admin', 'root'].includes(user.role) && notNeedAuth) {
-      message.warn('没有操作权限.请登录！！！');
-      return Promise.reject('接口' + config.url + '没有操作权限');
+      // 假设你有一个全局状态管理器（如Vuex）或者一个响应式的引用（如ref）来存储用户信息
+      const userId = localStorage?.getItem('userId'); /* 从你的状态管理器或响应式引用中获取用户信息 */
+      const user = useUserStore();
+      const notNeedAuth = ['del'].some((key) => config.url.includes(key));
+      if (!['admin', 'root'].includes(user.role) && notNeedAuth) {
+        message.warn('没有操作权限.请登录！！！');
+        return Promise.reject('接口' + config.url + '没有操作权限');
+      }
+      if (config.url.includes('login')) {
+        config.headers['X-User-Id'] = '';
+        config.headers['role'] = '';
+      } else if (userId) {
+        config.headers['X-User-Id'] = userId;
+        config.headers['role'] = user.role;
+      } else {
+        config.headers['role'] = 'visitor';
+      }
+      config.headers['location'] = JSON.stringify(user.location);
+      return config;
     }
-    if (config.url.includes('login')) {
-      config.headers['X-User-Id'] = '';
-      config.headers['role'] = '';
-    } else if (userId) {
-      config.headers['X-User-Id'] = userId;
-    } else {
-      config.headers['role'] = 'visitor';
-    }
-    return config; //必须要返回config
+    return config;
   },
   (error) => {
     return Promise.reject(error);

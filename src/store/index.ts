@@ -16,6 +16,11 @@ export const useUserStore = defineStore('user', {
     email: '',
     tagTotal: 0,
     bookmarkTotal: 0,
+    location: {
+      province: '',
+      city: '',
+      rectangle: '',
+    },
   }),
   actions: {
     setUserInfo(val) {
@@ -28,6 +33,11 @@ export const useUserStore = defineStore('user', {
       this.email = val.email ?? '';
       this.tagTotal = val.tagTotal ?? 0;
       this.bookmarkTotal = val.bookmarkTotal ?? 0;
+      this.location = val.location ?? {
+        province: '',
+        city: '',
+        rectangle: '',
+      };
     },
     resetUserInfo() {
       this.id = '';

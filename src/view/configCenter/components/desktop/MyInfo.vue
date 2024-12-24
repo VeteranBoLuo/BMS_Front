@@ -3,7 +3,7 @@
     <div class="home-container">
       <div style="width: 100%" class="flex-justify-center">
         <div class="user_icon" @click="uploadImg" v-click-log="{ module: '我的信息', operation: `上传头像` }">
-          <svg-icon :src="headPicture || icon.navigation_user" :size="bookmark.isPhone ? 80 : 100" />
+          <svg-icon :src="headPicture || icon.navigation_user" :size="80" />
         </div>
       </div>
       <div class="home-user-body">
@@ -171,6 +171,7 @@
     width: 80px;
     display: flex;
     align-items: center;
+    justify-content: center;
     border: 1px solid #f5f5f5;
     border-radius: 50%;
     cursor: pointer;
