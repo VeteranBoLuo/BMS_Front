@@ -1,5 +1,4 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
-import router from '@/router';
+import axios, { AxiosRequestConfig } from 'axios';
 import { message } from 'ant-design-vue';
 import { useUserStore } from '@/store'; // 1. 引入 axios
 
@@ -51,11 +50,6 @@ export function setObjToUrlParams(baseUrl: string, obj: any): string {
   parameters = parameters.replace(/&$/, '');
   return /\?$/.test(baseUrl) ? baseUrl + parameters : baseUrl.replace(/\/?$/, '?') + parameters;
 }
-declare interface ResponseData {
-  msg: string;
-  status: number; // '200'
-  data: any;
-}
 
 interface postData {
   pageSize?: number;
@@ -98,19 +92,19 @@ export const apiBaseGet = async (url: string, params: any, options?: AxiosReques
 };
 export function handleBaseResponse(data: any) {
   if (data.status === 500) {
-    message.error(data.msg || '服务器错误');
+    message.error(data.msg || '服务器错误').then();
   } else if (data.status === 403) {
-    message.error(data.msg || '服务器拒绝请求');
+    message.error(data.msg || '服务器拒绝请求').then();
   } else if (data.status === 401) {
-    message.error(data.msg || '无权限，请登录');
+    message.error(data.msg || '无权限，请登录').then();
   } else if (data.status === 400) {
-    message.error(data.msg || '客户端请求异常');
+    message.error(data.msg || '客户端请求异常').then();
   } else if (data.status === 404) {
-    message.error(data.msg || '请求资源不存在');
+    message.error(data.msg || '请求资源不存在').then();
   } else if (data.status === 504) {
-    message.error(data.msg || '服务器异常');
+    message.error(data.msg || '服务器异常').then();
   } else if (data.status === 505) {
-    message.error(data.msg || 'HTTP 版本不受支持');
+    message.error(data.msg || 'HTTP 版本不受支持').then();
   }
   return data;
 }
