@@ -21,20 +21,23 @@
   import { nextTick, watch } from 'vue';
   import login from '@/view/login/index.vue';
   import BViewer from '@/components/Viewer/BViewer.vue';
+  import { apiBaseGet, apiBasePost } from '@/http/request';
 
   const user = useUserStore();
   const bookmark = bookmarkStore();
+  if (!localStorage.getItem('userId')) {
+    bookmark.isShowLogin = true;
+  }
   try {
-    userApi
-      .getUserInfoById({ id: localStorage.getItem('userId') })
+    apiBaseGet('/api/user/getUserInfo', { id: localStorage.getItem('userId') })
       .then((res) => {
         if (res.status === 200) {
           user.setUserInfo(res.data);
           bookmark.theme = res.data.theme || 'day';
           getThemeStyle(res.data.theme);
           localStorage.setItem('theme', res.data.theme);
-        } else {
-          router.push('/home');
+        } else if (res.status === 401) {
+          bookmark.isShowLogin = true;
         }
       })
       .catch((e) => {
@@ -44,10 +47,6 @@
   } catch (e) {
     router.push('/home');
   }
-  if (!localStorage.getItem('userId')) {
-    bookmark.isShowLogin = true;
-  }
-
   // 页面加载前需要提前预设置主题，否则如果后台查询是黑夜主题，但是页面默认是白色的，页面会从白到黑闪一下，这种情况就需要提前设置为黑色
   const theme = localStorage.getItem('theme');
   if (theme) {

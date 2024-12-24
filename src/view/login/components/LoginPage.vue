@@ -103,7 +103,7 @@
   import { cloneDeep } from 'lodash-es';
 
   const title = defineModel('title');
-  const formData = defineModel('formData')
+  const formData:any = defineModel('formData');
   const isCheck = ref(true);
   const disable = computed(() => {
     return !formData.value.userName || !formData.value.password;
@@ -128,6 +128,7 @@
             const params = cloneDeep(formData.value);
             params.password = encrypt(params.password);
             localStorage.setItem('loginInfo', JSON.stringify(params));
+            console.log('yes');
           } else {
             localStorage.setItem('loginInfo', '');
           }
@@ -214,12 +215,11 @@
     return result;
   }
 
-
   onMounted(() => {
     const loginInfo = localStorage.getItem('loginInfo');
     if (loginInfo) {
       isCheck.value = true;
-      Object.assign(formData, JSON.parse(loginInfo));
+      Object.assign(formData.value, JSON.parse(loginInfo));
       formData.value.password = decrypt(formData.value.password);
     } else {
       isCheck.value = false;
@@ -230,7 +230,7 @@
   watch(
     () => viewPhoneVisible.value,
     (val) => {
-      const bg:any = document.getElementsByClassName('index-container');
+      const bg: any = document.getElementsByClassName('index-container');
 
       if (val) {
         bg[0].style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
