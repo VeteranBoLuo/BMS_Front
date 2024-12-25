@@ -1,8 +1,8 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { message } from 'ant-design-vue';
-import { useUserStore } from '@/store'; // 1. 引入 axios
+import { useUserStore } from '@/store';
+import { getBrowserType, getUserOsInfo } from '@/utils/common.ts';
 
-// 2. 创建一个 axios 的实例对象
 const request = axios.create({
   timeout: 60000,
 });
@@ -45,23 +45,16 @@ request.interceptors.response.use((config) => {
   return config.data;
 });
 
-export function setObjToUrlParams(baseUrl: string, obj: any): string {
-  let parameters = '';
-  for (const key in obj) {
-    parameters += key + '=' + encodeURIComponent(obj[key]) + '&';
-  }
-  parameters = parameters.replace(/&$/, '');
-  return /\?$/.test(baseUrl) ? baseUrl + parameters : baseUrl.replace(/\/?$/, '?') + parameters;
-}
-
-interface postData {
-  pageSize?: number;
-  currentPage?: number;
-  level?: number;
-  filters?: any;
-}
-
-export const apiQueryPost = async (url: string, data?: postData, options?: AxiosRequestConfig) => {
+export const apiQueryPost = async (
+  url: string,
+  data?: {
+    pageSize?: number;
+    currentPage?: number;
+    level?: number;
+    filters?: any;
+  },
+  options?: AxiosRequestConfig,
+) => {
   const res = await request({
     url: url,
     method: 'post',
@@ -73,7 +66,7 @@ export const apiQueryPost = async (url: string, data?: postData, options?: Axios
     },
     ...options,
   });
-  return handleBaseResponse(res);
+  return handleErrorResponse(res);
 };
 export const apiBasePost = async (url: string, data?: any, options?: AxiosRequestConfig) => {
   const res = await request({
@@ -82,8 +75,9 @@ export const apiBasePost = async (url: string, data?: any, options?: AxiosReques
     data,
     ...options,
   });
-  return handleBaseResponse(res);
+  return handleErrorResponse(res);
 };
+
 export const apiBaseGet = async (url: string, params: any, options?: AxiosRequestConfig) => {
   const res = await request({
     url: url,
@@ -91,84 +85,29 @@ export const apiBaseGet = async (url: string, params: any, options?: AxiosReques
     params: params,
     ...options,
   });
-  return handleBaseResponse(res);
+  return handleErrorResponse(res);
 };
-export function handleBaseResponse(data: any) {
-  if (data.status === 500) {
-    message.error(data.msg || '服务器错误').then();
-  } else if (data.status === 403) {
-    message.error(data.msg || '服务器拒绝请求').then();
-  } else if (data.status === 401) {
-    message.error(data.msg || '无权限，请登录').then();
-  } else if (data.status === 400) {
-    message.error(data.msg || '客户端请求异常').then();
-  } else if (data.status === 404) {
-    message.error(data.msg || '请求资源不存在').then();
-  } else if (data.status === 504) {
-    message.error(data.msg || '服务器异常').then();
-  } else if (data.status === 505) {
-    message.error(data.msg || 'HTTP 版本不受支持').then();
+
+export function handleErrorResponse(res: any): {
+  status: number;
+  msg: string;
+  data: any;
+} {
+  const errorMessages: { [key: number]: string } = {
+    500: '服务器错误',
+    403: '服务器拒绝请求',
+    401: '无权限，请登录',
+    400: '客户端请求异常',
+    404: '请求资源不存在',
+    504: '服务器异常',
+    505: 'HTTP 版本不受支持',
+  };
+  // 如果状态码在映射中，则显示错误消息
+  if (errorMessages[res.status]) {
+    const errorMsg = res.msg ?? errorMessages[res.status];
+    message.error(errorMsg).then();
   }
-  return data;
+  return res;
 }
 
-function getUserOsInfo() {
-  const userAgent = navigator.userAgent;
-  if (userAgent.indexOf('Windows NT 10.0') !== -1) return 'Windows 10';
-  if (userAgent.indexOf('Windows NT 6.2') !== -1) return 'Windows 8';
-  if (userAgent.indexOf('Windows NT 6.1') !== -1) return 'Windows 7';
-  if (userAgent.indexOf('Windows NT 6.0') !== -1) return 'Windows Vista';
-  if (userAgent.indexOf('Windows NT 5.1') !== -1) return 'Windows XP';
-  if (userAgent.indexOf('Windows NT 5.0') !== -1) return 'Windows 2000';
-  if (userAgent.indexOf('Mac') !== -1) return 'Mac/iOS';
-  if (userAgent.indexOf('X11') !== -1) return 'UNIX';
-  if (userAgent.indexOf('Linux') !== -1) return 'Linux';
-  return 'Other';
-}
-
-// 获取浏览器类型
-function getBrowserType() {
-  let browserType = null;
-  try {
-    let ua = navigator.userAgent.toLocaleLowerCase();
-    function _mime(option, value) {
-      const mimeTypes = navigator.mimeTypes;
-      for (let mt in mimeTypes) {
-        if (mimeTypes[mt][option] == value) {
-          return true;
-        }
-      }
-      return false;
-    }
-    if (ua.match(/msie/) != null || ua.match(/trident/) != null) {
-      browserType = 'IE';
-    } else if (ua.match(/firefox/) != null) {
-      browserType = 'firefox';
-    } else if (ua.match(/ucbrowser/) != null) {
-      browserType = 'UC';
-    } else if (ua.match(/opera/) != null || ua.match(/opr/) != null) {
-      browserType = 'opera';
-    } else if (ua.match(/bidubrowser/) != null) {
-      browserType = 'baidu';
-    } else if (ua.match(/metasr/) != null) {
-      browserType = 'sougou';
-    } else if (ua.match(/tencenttraveler/) != null || ua.match(/qqbrowse/) != null) {
-      browserType = 'QQ';
-    } else if (ua.match(/maxthon/) != null) {
-      browserType = 'maxthon';
-    } else if (ua.match(/chrome/) != null) {
-      const is360 = _mime('type', 'application/vnd.chromium.remoting-viewer');
-      if (is360) {
-        browserType = '360';
-      } else {
-        browserType = 'chrome';
-      }
-    } else if (ua.match(/safari/) != null) {
-      browserType = 'Safari';
-    } else {
-      browserType = 'others';
-    }
-  } catch (e) {}
-  return browserType;
-}
 export default request;

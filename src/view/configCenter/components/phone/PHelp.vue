@@ -43,13 +43,13 @@
   import { bookmarkStore } from '@/store';
   import BInput from '@/components/BasicComponents/BInput/BInput.vue';
 
-  import tagAndBookmark from 'src/assets/img/help/tag_bookmark_relation.jpg';
-  import addTagAndBookmark from 'src/assets/img/help/add_data.jpg';
-  import tagEdit from 'src/assets/video/tag_edit.webm';
-  import bookmarkEdit from 'src/assets/video/bookmark_edit.webm';
-  import tagMg from 'src/assets/img/help/tagMg.jpg';
-  import bookmarkMg from 'src/assets/img/help/bookmarkMg.jpg';
-  import opinionMg from 'src/assets/img/help/opinionMg.png';
+  import tagAndBookmark from '@/assets/img/help/tag_bookmark_relation.jpg';
+  import addTagAndBookmark from '@/assets/img/help/add_data.jpg';
+  import tagEdit from '@/assets/video/tag_edit.webm';
+  import bookmarkEdit from '@/assets/video/bookmark_edit.webm';
+  import tagMg from '@/assets/img/help/tagMg.jpg';
+  import bookmarkMg from '@/assets/img/help/bookmarkMg.jpg';
+  import opinionMg from '@/assets/img/help/opinionMg.png';
 
   import 'viewerjs/dist/viewer.css'; //样式文件不要忘了
   import Viewer from 'viewerjs';

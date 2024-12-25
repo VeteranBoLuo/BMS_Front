@@ -3,7 +3,7 @@ export const copyTextToClipboard = function (text) {
   if (navigator.clipboard) {
     try {
       // 使用navigator.clipboard.writeText()来复制文本
-      navigator.clipboard.writeText(text).then((r) => {});
+      navigator.clipboard.writeText(text).then(() => {});
       // 复制文本成功，直接返回true
       return true;
     } catch (err) {
@@ -19,17 +19,6 @@ export const copyTextToClipboard = function (text) {
   }
 };
 
-export interface resType {
-  data: any;
-  msg?: string;
-  status: number;
-}
-
-export const allTheme = [
-  { title: '简约', background: '#4e4b46', color: '#fff8e8' },
-  { title: '经典', background: '#7666fa', color: 'white' },
-  { title: '古朴', background: '#dd6050', color: 'white' },
-];
 
 //  防抖函数
 export function debounce(func, time) {
@@ -55,4 +44,64 @@ export function throttle(func, time) {
       }, time);
     }
   };
+}
+
+// 获取浏览器类型
+export function getBrowserType() {
+  let browserType = null;
+  try {
+    let ua = navigator.userAgent.toLocaleLowerCase();
+    function _mime(option, value) {
+      const mimeTypes = navigator.mimeTypes;
+      for (let mt in mimeTypes) {
+        if (mimeTypes[mt][option] == value) {
+          return true;
+        }
+      }
+      return false;
+    }
+    if (ua.match(/msie/) != null || ua.match(/trident/) != null) {
+      browserType = 'IE';
+    } else if (ua.match(/firefox/) != null) {
+      browserType = 'firefox';
+    } else if (ua.match(/ucbrowser/) != null) {
+      browserType = 'UC';
+    } else if (ua.match(/opera/) != null || ua.match(/opr/) != null) {
+      browserType = 'opera';
+    } else if (ua.match(/bidubrowser/) != null) {
+      browserType = 'baidu';
+    } else if (ua.match(/metasr/) != null) {
+      browserType = 'sougou';
+    } else if (ua.match(/tencenttraveler/) != null || ua.match(/qqbrowse/) != null) {
+      browserType = 'QQ';
+    } else if (ua.match(/maxthon/) != null) {
+      browserType = 'maxthon';
+    } else if (ua.match(/chrome/) != null) {
+      const is360 = _mime('type', 'application/vnd.chromium.remoting-viewer');
+      if (is360) {
+        browserType = '360';
+      } else {
+        browserType = 'chrome';
+      }
+    } else if (ua.match(/safari/) != null) {
+      browserType = 'Safari';
+    } else {
+      browserType = 'others';
+    }
+  } catch (e) {}
+  return browserType;
+}
+
+export function getUserOsInfo() {
+  const userAgent = navigator.userAgent;
+  if (userAgent.indexOf('Windows NT 10.0') !== -1) return 'Windows 10';
+  if (userAgent.indexOf('Windows NT 6.2') !== -1) return 'Windows 8';
+  if (userAgent.indexOf('Windows NT 6.1') !== -1) return 'Windows 7';
+  if (userAgent.indexOf('Windows NT 6.0') !== -1) return 'Windows Vista';
+  if (userAgent.indexOf('Windows NT 5.1') !== -1) return 'Windows XP';
+  if (userAgent.indexOf('Windows NT 5.0') !== -1) return 'Windows 2000';
+  if (userAgent.indexOf('Mac') !== -1) return 'Mac/iOS';
+  if (userAgent.indexOf('X11') !== -1) return 'UNIX';
+  if (userAgent.indexOf('Linux') !== -1) return 'Linux';
+  return 'Other';
 }

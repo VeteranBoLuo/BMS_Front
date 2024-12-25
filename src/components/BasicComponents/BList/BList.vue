@@ -46,7 +46,6 @@
       placeholder: string;
       listOptions: any;
       searchFilter: boolean; // 启动自带input过滤功能
-      iconVisible: boolean;
     }>(),
     {
       nodeType: () => ({

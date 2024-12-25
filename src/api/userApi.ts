@@ -1,4 +1,4 @@
-import request, { setObjToUrlParams } from '@/http/request';
+import request from '@/http/request';
 
 const userApi = {
   validateUser(user) {
@@ -12,13 +12,6 @@ const userApi = {
   },
   updateUserInfo(user) {
     return request.post('/api/user/saveUserInfo', user);
-  },
-  updateUserInfoByForm(user) {
-    return request.post('/api/user/updateUserInfoByForm', user, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
   },
   deleteUserById(id) {
     return request.get(`/api/user/deleteUserById?id=${id}`);
