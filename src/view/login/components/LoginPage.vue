@@ -14,7 +14,6 @@
       <b style="font-size: 30px; justify-self: center; color: #161824">登录</b>
       <span
         style="
-          font-family: 微软雅黑;
           font-size: 12px;
           position: absolute;
           left: 50%;
@@ -47,6 +46,7 @@
               height="40px"
               maxlength="20"
               type="password"
+              autocomplete="new-password"
               placeholder="密码"
               v-model:value="formData.password"
             >
@@ -98,12 +98,12 @@
   import userApi from '@/api/userApi.ts';
   import router from '@/router';
   import { message } from 'ant-design-vue';
-  import { computed, onMounted, onUnmounted, reactive, ref, watch } from 'vue';
+  import { computed, onMounted, ref, watch } from 'vue';
   import { bookmarkStore, useUserStore } from '@/store';
   import { cloneDeep } from 'lodash-es';
 
   const title = defineModel('title');
-  const formData:any = defineModel('formData');
+  const formData: any = defineModel('formData');
   const isCheck = ref(true);
   const disable = computed(() => {
     return !formData.value.userName || !formData.value.password;

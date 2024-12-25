@@ -48,37 +48,27 @@
 </template>
 
 <script setup lang="ts">
-  import { defineModel, useSlots, computed } from 'vue';
-  const props = defineProps({
-    id: {
-      type: String,
-      default: () => Math.floor(Math.random() * 9000000).toString(),
+  import { useSlots, computed } from 'vue';
+  const props = withDefaults(
+    defineProps<{
+      id: string;
+      placeholder: string;
+      type: string;
+      autocomplete: 'off' | 'on' | 'new-password';
+      height: string;
+      theme: string;
+      maxlength: number | string;
+    }>(),
+    {
+      id: () => Math.floor(Math.random() * 9000000).toString(),
+      placeholder: '请输入',
+      type: 'text',
+      autocomplete: 'off',
+      height: '32px',
+      theme: '',
+      maxlength: '',
     },
-    placeholder: {
-      type: String,
-      default: '请输入',
-    },
-    type: {
-      type: String,
-      default: 'text',
-    },
-    autocomplete: {
-      type: String,
-      default: 'off',
-    },
-    height: {
-      type: String,
-      default: '32px',
-    },
-    theme: {
-      type: String,
-      default: '',
-    },
-    maxlength: {
-      type: [Number, String],
-      default: '',
-    },
-  });
+  );
   const value = defineModel('value');
   const emit = defineEmits(['input', 'enter', 'focus', 'focusout', 'blur', 'change']);
 
@@ -121,7 +111,7 @@
     box-sizing: border-box;
     background-color: var(--bl-input-bg-color);
     color: var(--bl-input-color);
-    transition: border-color 0.2s!important;
+    transition: border-color 0.2s !important;
     &:focus {
       border: 1px solid var(--bl-input-border-h-color);
       box-shadow: 0 0 0 1px rgba(92, 90, 86, 0.1);

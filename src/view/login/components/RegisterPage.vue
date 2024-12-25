@@ -58,6 +58,7 @@
               height="40px"
               maxlength="20"
               type="password"
+              autocomplete="new-password"
               placeholder="密码"
               @blur="validateFun('password')"
               v-model:value="formData.password"
