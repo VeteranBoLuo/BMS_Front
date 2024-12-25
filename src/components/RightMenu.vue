@@ -18,7 +18,7 @@
             <div
               @click="handleClick(label)"
               class="context-menu-item menu-item"
-              v-for="(label, i) in menu"
+              v-for="label in menu"
               :key="label"
             >
               {{ label }}

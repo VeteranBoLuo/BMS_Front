@@ -35,7 +35,7 @@
         size="small"
         style="margin-top: 10px"
         :total="total"
-        :show-total="(total) => `总计 ${total} 条`"
+        :show-total="() => `总计 ${total} 条`"
         @change="onChange"
       >
         <template #buildOptionText="props">

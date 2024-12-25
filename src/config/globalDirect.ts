@@ -37,7 +37,7 @@ export default function (app) {
       };
 
       // 为document添加鼠标释放事件监听，用于结束拖拽
-      document.onmouseup = (e) => {
+      document.onmouseup = () => {
         // 停止监听鼠标移动和释放事件，以及恢复onselectstart的行为
         document.onmousemove = null;
         document.onmouseup = null;
@@ -51,8 +51,8 @@ export default function (app) {
   });
 
   app.directive('click-log', (el, binding) => {
-    el.onmousedown = (e) => {
-      apiBasePost('/api/common/recordOperationLogs', binding.value).then((r) => {});
+    el.onmousedown = () => {
+      apiBasePost('/api/common/recordOperationLogs', binding.value).then(() => {});
     };
   });
 }

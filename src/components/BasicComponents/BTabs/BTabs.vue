@@ -3,7 +3,7 @@
     <div class="tab_title">
       <div
         class="tabs-tab"
-        v-for="(item, index) in titles"
+        v-for="item in titles"
         :key="item.name"
         @click="changeActKey(item.name)"
         :class="{
