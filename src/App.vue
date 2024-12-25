@@ -25,7 +25,7 @@
   const user = useUserStore();
   const bookmark = bookmarkStore();
 
-  getUserInfo();
+  // getUserInfo();
   if (!localStorage.getItem('userId')) {
     bookmark.isShowLogin = true;
   }
@@ -42,6 +42,9 @@
     () => bookmark.theme,
     (val) => {
       getThemeStyle(val);
+    },
+    {
+      immediate: true,
     },
   );
 
