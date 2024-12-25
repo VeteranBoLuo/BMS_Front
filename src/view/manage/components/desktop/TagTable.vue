@@ -91,8 +91,7 @@
   const loading = ref(false);
   function getTagName(tagIds) {
     if (tagIds?.length > 0) {
-      const tags = tagList.value.filter((data) => tagIds.includes(data.id));
-      return tags;
+      return tagList.value.filter((data) => tagIds.includes(data.id));
     } else {
       return '';
     }
@@ -159,14 +158,6 @@
     } else {
       router.push('/home');
     }
-  }
-  function extractIconValue(str: string) {
-    if (!str) {
-      return 'mdi:tag-outline';
-    }
-    const regex = /icon="([^"]+)"/;
-    const match = str.match(regex);
-    return match ? match[1] : str;
   }
   const tableSearchValue = ref('');
   const tagList = computed(() => {

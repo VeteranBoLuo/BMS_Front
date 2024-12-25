@@ -25,7 +25,6 @@
   const user = useUserStore();
   const bookmark = bookmarkStore();
 
-  getUserInfo();
   if (!localStorage.getItem('userId')) {
     bookmark.isShowLogin = true;
   }
@@ -34,6 +33,8 @@
   if (theme) {
     bookmark.theme = theme;
   }
+  getUserInfo();
+
   function getThemeStyle(theme) {
     document.documentElement.setAttribute('data-theme', theme);
   }

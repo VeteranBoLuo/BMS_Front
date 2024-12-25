@@ -8,10 +8,8 @@
     if (option.label.toUpperCase().indexOf(value.toUpperCase()) > -1) {
       return true;
     }
-    if (option.value.toUpperCase().indexOf(value.toUpperCase()) > -1) {
-      return true;
-    }
-    return false;
+    return option.value.toUpperCase().indexOf(value.toUpperCase()) > -1;
+
   }
   function genSelector(
     options: BaseOptions[],

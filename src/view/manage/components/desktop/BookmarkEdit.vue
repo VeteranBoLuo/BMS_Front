@@ -60,10 +60,6 @@
   getAllBookmarkList();
   getTagSelect();
   const mockData = ref<any[]>([]);
-  const filterOption = (inputValue: string, option: any) => {
-    return option.name.toUpperCase().indexOf(inputValue.toUpperCase()) > -1;
-  };
-
   async function getAllBookmarkList() {
     const allRes = await apiQueryPost('/api/bookmark/getBookmarkList', {
       filters: {

@@ -85,11 +85,7 @@
       Fields.value.forEach((field) => {
         if (field.required) {
           // 主要用于校验输入框内容发生变化后的校验，只有为''和[]时触发，初始化时数据默认undefined不触发
-          if (props.formData[field.name]?.length === 0) {
-            field.showRequire = true;
-          } else {
-            field.showRequire = false;
-          }
+          field.showRequire = props.formData[field.name]?.length === 0;
         }
       });
     },

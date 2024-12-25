@@ -58,7 +58,7 @@
             <svg-icon size="30" :src="icon.navigation_phone_search" @click="phoneSearchClick" />
           </div>
           <!--  主题切换        -->
-          <ThemeSwith />
+          <ThemeSwitch />
           <!--移动端个人中心       -->
           <div :class="['navigation-icon']" v-if="bookmark.isPhone" @click="handleToPhoneUserCenter">
             <svg-icon size="30" :src="user.headPicture || icon.navigation_user" class="dom-hover" />
@@ -78,7 +78,7 @@
   import { bookmarkStore, domStore, useUserStore } from '@/store';
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
   import icon from '@/config/icon.ts';
-  import ThemeSwith from '@/components/tag/ThemeSwith.vue';
+  import ThemeSwitch from '@/components/tag/ThemeSwitch.vue';
   import PersonCenter from '@/view/configCenter/components/desktop/PersonCenter.vue';
   const user = useUserStore();
   const placeholder = ref('Search...');

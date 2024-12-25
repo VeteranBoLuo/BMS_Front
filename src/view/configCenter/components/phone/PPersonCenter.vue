@@ -95,9 +95,6 @@
   import PhoneContainer from '@/components/phoneComponents/PhoneContainer/PhoneContainer.vue';
 
   const bookmark = bookmarkStore();
-  const getPopupContainer = (trigger: HTMLElement) => {
-    return document.getElementById('tag-container');
-  };
   const menuVisible = ref(false);
   const userVisible = ref(false);
 
@@ -144,8 +141,7 @@
     }
     return '浅色';
   });
-  const viewer = ref<Viewer>();
-
+  ref<Viewer>();
   function zoomImage() {
     const src = user.headPicture || icon.navigation_user;
     if (src === icon.navigation_user) {

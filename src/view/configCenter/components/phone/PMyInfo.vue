@@ -79,7 +79,6 @@
         reader.readAsDataURL(file); // 读取文件内容，结果为Base64编码的字符串
       }
     });
-    0;
     input.click(); // 触发文件选择对话框
   }
 

@@ -118,7 +118,7 @@
     code: '',
   });
   const bookmark = bookmarkStore();
-  const disable = computed(() => {
+  computed(() => {
     return !formData.password || !formData.rPassword || !formData.email;
   });
   const resetRef = ref();

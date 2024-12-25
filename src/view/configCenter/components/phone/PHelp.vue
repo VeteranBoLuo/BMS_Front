@@ -57,15 +57,6 @@
 
   const bookmark = bookmarkStore();
   const checkId = ref('');
-  function logItem(item) {
-    checkId.value = item.id;
-    nextTick(() => {
-      const dom = document.getElementById('view-body');
-      if (dom) {
-        dom.scrollTop = 0;
-      }
-    });
-  }
   const searchValue = ref('');
   const viewOptions = computed(() => {
     if (searchValue.value) {
@@ -75,13 +66,6 @@
     }
     return listOptions.value;
   });
-  function handleToBack() {
-    if (bookmark.isPhone) {
-      router.push('/personCenter');
-    } else {
-      router.push('/home');
-    }
-  }
   const listOptions = ref([
     {
       id: '书签与标签',

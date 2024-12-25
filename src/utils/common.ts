@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 export const copyTextToClipboard = function (text) {
   // 检查浏览器是否支持Clipboard API
   if (navigator.clipboard) {

@@ -47,7 +47,7 @@
 
   const bookmark = bookmarkStore();
   const loading = ref(false);
-  const tagColumns = computed(() => {
+  computed(() => {
     let columns = [
       {
         title: '书签',
@@ -72,7 +72,6 @@
     }
     return columns;
   });
-
   const edit = (id: string) => {
     router.push({ path: `/manage/editBookmark/${id}` });
   };

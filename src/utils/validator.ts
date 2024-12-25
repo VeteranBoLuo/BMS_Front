@@ -1,3 +1,5 @@
+// noinspection JSUnusedGlobalSymbols
+
 import { message as AntMessage } from 'ant-design-vue/es/components';
 
 export interface endCondition {
@@ -33,10 +35,5 @@ export function isEmpty(val) {
   if (typeof val === 'object' && !Object.keys(val).length) {
     return true;
   }
-  if (Array.isArray(val) && !val.length) {
-    return true;
-  }
-  return false;
+  return Array.isArray(val) && !val.length;
 }
-
-
