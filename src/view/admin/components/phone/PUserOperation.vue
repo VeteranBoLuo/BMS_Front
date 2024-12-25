@@ -71,7 +71,6 @@
   const logList = ref([]);
 
   const logColumns = computed(() => {
-    if (bookmark.isPhone) {
       return [
         {
           title: '用户名',
@@ -84,24 +83,6 @@
           ellipsis: true,
         },
       ];
-    }
-    return [
-      {
-        title: '用户名',
-        dataIndex: 'userName',
-        ellipsis: true,
-      },
-      {
-        title: '反馈内容',
-        dataIndex: 'content',
-        ellipsis: true,
-      },
-      {
-        title: '反馈时间',
-        dataIndex: 'createTime',
-        ellipsis: true,
-      },
-    ];
   });
 
   const currentPage = ref<number>(1);

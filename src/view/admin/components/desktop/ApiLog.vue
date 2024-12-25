@@ -74,8 +74,38 @@
         ellipsis: true,
       },
       {
+        title: '时间',
+        dataIndex: 'requestTime',
+        ellipsis: true,
+      },
+      {
         title: '接口',
         dataIndex: 'url',
+        ellipsis: true,
+      },
+      // {
+      //   title: '接口类型',
+      //   dataIndex: 'method',
+      //   ellipsis: true,
+      // },
+      // {
+      //   title: '请求参数',
+      //   dataIndex: 'req',
+      //   ellipsis: true,
+      // },
+      {
+        title: 'ip',
+        dataIndex: 'ip',
+        ellipsis: true,
+      },
+      {
+        title: '系统',
+        dataIndex: 'os',
+        ellipsis: true,
+      },
+      {
+        title: '浏览器',
+        dataIndex: 'browser',
         ellipsis: true,
       },
     ];

@@ -64,20 +64,6 @@
   const logList = ref([]);
 
   const logColumns = computed(() => {
-    if (bookmark.isPhone) {
-      return [
-        {
-          title: '操作人员',
-          dataIndex: 'userName',
-          ellipsis: true,
-        },
-        {
-          title: '操作名称',
-          dataIndex: 'operation',
-          ellipsis: true,
-        },
-      ];
-    }
     return [
       {
         title: '操作人员',

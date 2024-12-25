@@ -67,7 +67,6 @@
   const logList = ref([]);
 
   const logColumns = computed(() => {
-    if (bookmark.isPhone) {
       return [
         {
           title: '操作人员',
@@ -80,39 +79,6 @@
           ellipsis: true,
         },
       ];
-    }
-    return [
-      {
-        title: '操作人员',
-        dataIndex: 'userName',
-        ellipsis: true,
-      },
-      {
-        title: '模块',
-        dataIndex: 'module',
-        ellipsis: true,
-      },
-      {
-        title: '操作',
-        dataIndex: 'operation',
-        ellipsis: true,
-      },
-      {
-        title: '时间',
-        dataIndex: 'createTime',
-        ellipsis: true,
-      },
-      {
-        title: '系统',
-        dataIndex: 'os',
-        ellipsis: true,
-      },
-      {
-        title: '浏览器',
-        dataIndex: 'browser',
-        ellipsis: true,
-      },
-    ];
   });
 
   const currentPage = ref<number>(1);
