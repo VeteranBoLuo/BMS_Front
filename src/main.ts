@@ -5,7 +5,6 @@ import '@/assets/css/index.less';
 import { Icon } from '@iconify/vue';
 import globalDirect from '@/config/globalDirect';
 import { createPinia } from 'pinia';
-import { bookmarkStore } from '@/store';
 
 // 创建vue实例
 const app = createApp(App);

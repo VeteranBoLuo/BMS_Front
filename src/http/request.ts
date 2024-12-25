@@ -32,7 +32,6 @@ request.interceptors.request.use(
       } else {
         config.headers['role'] = 'visitor';
       }
-      // config.headers['location'] = JSON.stringify(user.location);
       return config;
     }
     return config;

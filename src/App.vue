@@ -15,14 +15,13 @@
 </template>
 <script setup>
   // 检查本地存储中是否有用户数据
-  import userApi from '@/api/userApi';
-  import router from '@/router';
   import { bookmarkStore, useUserStore } from '@/store';
   import { nextTick, watch, onMounted } from 'vue';
   import login from '@/view/login/index.vue';
   import BViewer from '@/components/Viewer/BViewer.vue';
   import { apiBaseGet } from '@/http/request';
-
+  import { useRouter } from 'vue-router';
+  const router = useRouter();
   const user = useUserStore();
   const bookmark = bookmarkStore();
 
@@ -49,7 +48,7 @@
   watch(
     () => bookmark.isPhone,
     (val) => {
-      routerChange();
+      routerChange(val, router.currentRoute.value.path);
       setTransition(val);
     },
   );
@@ -74,17 +73,16 @@
     });
   }
 
-  // 手机端路由和电脑端不一样，切换视图后需要切换对应路由地址
-  function routerChange() {
-    if (['/apiLog', '/userMg', '/userOperation', '/operationLog'].includes(router.currentRoute.value.path)) {
-      router.push('/admin' + router.currentRoute.value.path);
-    }
-    if (
-      ['/admin/apiLog', '/admin/userMg', '/admin/userOperation', '/admin/operationLog'].includes(
-        router.currentRoute.value.path,
-      )
-    ) {
-      router.push(router.currentRoute.value.path.replace('/admin', ''));
+  // 手机端路由和电脑端不一样，切换不同尺寸设备后需要切换对应路由地址
+  function routerChange(isPhone, path) {
+    if (isPhone) {
+      if (['/admin/apiLog', '/admin/userMg', '/admin/userOperation', '/admin/operationLog'].includes(path)) {
+        router.push(path.replace('/admin', ''));
+      }
+    } else {
+      if (['/apiLog', '/userMg', '/userOperation', '/operationLog'].includes(path)) {
+        router.push('/admin' + path);
+      }
     }
   }
 
@@ -123,5 +121,9 @@
   //       getUserInfo();
   //     });
   // }
+  router.beforeEach((to, from, next) => {
+    routerChange(bookmark.isPhone, to.path);
+    next();
+  });
 </script>
 <style></style>
