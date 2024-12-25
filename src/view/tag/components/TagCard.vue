@@ -91,7 +91,7 @@
     position: relative;
 
     &:hover {
-      box-shadow: 0px 8px 8px rgba(59, 130, 246, 0.5);
+      box-shadow: 0 8px 8px rgba(59, 130, 246, 0.5);
       border: 2px solid var(--primary-h-color);
 
       .del-icon {

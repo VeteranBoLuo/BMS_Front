@@ -1,5 +1,5 @@
 <template>
-  <PhoneContainer title="操作日志">
+  <PhoneContainer title="操作日志" @backClick="router.push('/admin')">
     <div style="overflow: hidden; height: 100%; box-sizing: border-box">
       <b-space style="width: 100%">
         <b-input

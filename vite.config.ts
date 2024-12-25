@@ -5,6 +5,7 @@ import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
 
+import path from 'path';
 export default defineConfig({
   esbuild: {
     // pure: ['console.log'], // 删除 console.log或
@@ -38,5 +39,21 @@ export default defineConfig({
       },
     },
     open: true,
+  },
+  resolve: {
+    alias: [
+      {
+        find: '@',
+        replacement: path.resolve(__dirname, 'src'),
+      },
+      {
+        find: 'src',
+        replacement: path.resolve(__dirname, 'src'),
+      },
+      {
+        find: 'assets',
+        replacement: path.resolve(__dirname, 'src/assets'),
+      },
+    ],
   },
 });

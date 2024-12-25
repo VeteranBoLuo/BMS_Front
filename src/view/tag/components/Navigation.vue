@@ -33,7 +33,7 @@
         />
         <template class="navigation-title-link" @click="handleToIndex">
           <img src="../../../assets/icons/bookmark.svg" title="首页" width="25" height="25" />
-          <span style="font-family: 微软雅黑; font-size: 18px">智汇云书签</span>
+          <span style="font-size: 18px">智汇云书签</span>
         </template>
       </div>
       <div class="navigation-body">

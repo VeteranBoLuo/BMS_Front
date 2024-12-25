@@ -209,8 +209,6 @@
     &:not(:last-child) {
       border-bottom: 1px solid var(--phone-menu-item-border-color);
     }
-    .person-menu-item-title {
-    }
 
     .person-menu-item-des {
       color: #999fa8;

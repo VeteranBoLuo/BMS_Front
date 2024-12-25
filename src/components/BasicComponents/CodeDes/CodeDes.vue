@@ -143,7 +143,6 @@
     font-size: 13px;
     line-height: 24px;
     color: rgba(0, 0, 0, 0.85);
-    font-family: Consolas;
     border: none;
     background: #ffffff;
     box-sizing: border-box;

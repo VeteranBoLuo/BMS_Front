@@ -1,8 +1,8 @@
 <template>
   <div class="phone-menu" v-for="item in menuList" :key="item.id">
     <div class="phone-menu-item" v-for="cItem in item" @click="$emit('click', cItem)">
-      <span class="person-menu-item-title">{{ cItem[label] }}</span>
-      <span class="person-menu-item-des">
+      <span class="phone-menu-item-title">{{ cItem[label] }}</span>
+      <span class="phone-menu-item-des">
         <slot name="des">
           <svg-icon color="#999fa8" style="rotate: 180deg" :src="icon.arrow_left" size="14" />
         </slot>
@@ -46,8 +46,6 @@
       border-bottom: 1px solid var(--phone-menu-item-border-color);
     }
 
-    .phone-menu-item-title {
-    }
 
     .phone-menu-item-des {
       color: #999fa8;

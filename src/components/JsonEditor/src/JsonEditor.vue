@@ -362,7 +362,6 @@
     background: #3c3f41;
     box-sizing: border-box;
     border-right: 1px solid;
-    font-family: 微软雅黑;
   }
 
   #rightNum {
@@ -374,7 +373,6 @@
     color: white;
     resize: none;
     border: 0;
-    font-family: 微软雅黑;
     &::-webkit-scrollbar {
       width: 5px;
       height: 5px;
@@ -418,7 +416,6 @@
     background-color: #3c3f41;
     border: 1px solid #d9d9d9;
     overflow: auto;
-    font-family: 微软雅黑;
     text-align: left;
   }
 </style>

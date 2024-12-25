@@ -175,24 +175,22 @@
     color: rgb(113, 117, 127);
     box-sizing: border-box;
     border-radius: 8px 8px 0 0;
-    font-family: HarmonyOS Sans SC;
     font-size: 14px;
     font-weight: 400;
     line-height: 16px;
-    letter-spacing: 0px;
+    letter-spacing: 0;
   }
   .area-submit {
     position: relative;
     border-radius: 8px;
     box-sizing: border-box;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
     height: 15%;
     color: rgb(113, 117, 127);
-    font-family: HarmonyOS Sans SC;
     font-size: 14px;
     font-weight: 400;
     line-height: 16px;
-    letter-spacing: 0px;
+    letter-spacing: 0;
     text-align: left;
   }
   .answer {

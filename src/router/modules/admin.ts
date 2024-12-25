@@ -10,7 +10,6 @@ const adminRouter: AppRouteRecordRaw[] = [
     path: '/admin',
     name: 'admin',
     component: () => import('@/view/admin/AdminMg.vue'),
-    redirect: '/admin/operationLog',
     children: [
       {
         path: 'apiLog',

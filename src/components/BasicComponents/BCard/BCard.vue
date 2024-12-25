@@ -37,7 +37,7 @@
     height: 100%;
     width: 100%;
     border-radius: 8px;
-    box-shadow: 0px 1px 6px 0px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.12);
     box-sizing: border-box;
     padding: 16px;
     background: rgb(255, 255, 255);
@@ -50,10 +50,9 @@
 
   .card-title {
     color: rgb(25, 25, 25);
-    font-family: HarmonyOS Sans SC;
     font-weight: 550;
     line-height: 22px;
-    letter-spacing: 0px;
+    letter-spacing: 0;
     text-align: left;
   }
 </style>

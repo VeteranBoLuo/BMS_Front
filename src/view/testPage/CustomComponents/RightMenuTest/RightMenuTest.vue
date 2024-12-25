@@ -6,7 +6,7 @@
           style="
             height: 100px;
             width: 300px;
-            box-shadow: 0px 0px 6px rgba(000, 000, 000, 20%);
+            box-shadow: 0 0 6px rgba(000, 000, 000, 20%);
             padding-top: 10px;
             box-sizing: border-box;
             border-radius: 4px;

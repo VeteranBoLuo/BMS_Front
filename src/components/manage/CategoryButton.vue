@@ -21,7 +21,7 @@
   .button {
     position: relative;
     transition: all 0.3s ease-in-out;
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     padding-block: 0.5rem;
     border-radius: 9999px;
     display: flex;

@@ -74,7 +74,7 @@
     background-color: #f5f7fa;
     border-radius: 5px  ;
     position: relative;
-    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.12);
     &:hover {
       .copyBtn {
         opacity: 0.8;
@@ -92,7 +92,6 @@
     font-size: 13px;
     line-height: 24px;
     color: rgba(0, 0, 0, 0.85);
-    font-family: Consolas;
     border: none;
     background: #ffffff;
     box-sizing: border-box;

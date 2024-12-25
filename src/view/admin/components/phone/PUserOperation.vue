@@ -1,5 +1,5 @@
 <template>
-  <PhoneContainer title="用户反馈">
+  <PhoneContainer title="用户反馈" @backClick="router.push('/admin')">
     <div style="overflow: hidden; height: 100%; box-sizing: border-box">
       <b-space style="width: 100%">
         <b-input v-model:value="searchValue" placeholder="用户名..." @input="handleSearch">
@@ -71,18 +71,18 @@
   const logList = ref([]);
 
   const logColumns = computed(() => {
-      return [
-        {
-          title: '用户名',
-          dataIndex: 'userName',
-          ellipsis: true,
-        },
-        {
-          title: '反馈内容',
-          dataIndex: 'content',
-          ellipsis: true,
-        },
-      ];
+    return [
+      {
+        title: '用户名',
+        dataIndex: 'userName',
+        ellipsis: true,
+      },
+      {
+        title: '反馈内容',
+        dataIndex: 'content',
+        ellipsis: true,
+      },
+    ];
   });
 
   const currentPage = ref<number>(1);

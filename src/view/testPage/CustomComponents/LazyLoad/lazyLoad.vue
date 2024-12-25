@@ -21,7 +21,7 @@
     display: grid;
     place-items: center;
     border-radius: 5px;
-    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.12);
     grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
     overflow: auto;
   }

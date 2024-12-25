@@ -16,7 +16,7 @@
         >
           <slot name="title">
             <div
-              style="font-size: 16px; margin-bottom: 15px; font-weight: 550; font-family: '微软雅黑'"
+              style="font-size: 16px; margin-bottom: 15px; font-weight: 550;"
               class="footer-center"
               >{{ title }}</div
             >

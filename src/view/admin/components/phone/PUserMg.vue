@@ -1,5 +1,5 @@
 <template>
-  <PhoneContainer title="用户管理">
+  <PhoneContainer title="用户管理" @backClick="router.push('/admin')">
     <a-table
       :data-source="userList"
       :columns="userColumns"

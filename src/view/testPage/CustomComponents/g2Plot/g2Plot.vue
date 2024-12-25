@@ -6,7 +6,7 @@
         <a-tab-pane key="Column" tab="柱状图"> </a-tab-pane>
         <a-tab-pane key="Area" tab="面积图"> </a-tab-pane>
       </a-tabs>
-      <component style="width: 100%;box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.12);padding: 20px;border-radius: 5px" :is="componentName" :options="options" />
+      <component style="width: 100%;box-shadow: 0 0 12px rgba(0, 0, 0, 0.12);padding: 20px;border-radius: 5px" :is="componentName" :options="options" />
     </div>
     <code-des height="695px" style="margin-top: 20px; margin-left: 100px" :value="g2plotCode">
       <template #description>

@@ -55,7 +55,7 @@
     background-color: #fe2c55;
     color: var(--primary-text);
     border-radius: 4px;
-    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.12);
     position: absolute;
     left: 20px;
     padding: 5px;

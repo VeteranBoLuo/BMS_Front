@@ -75,13 +75,7 @@
     height: 100%;
     box-sizing: border-box;
   }
-  .edit-list-operation {
-    position: absolute;
-    right: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
+
   .table-search-input {
     width: 100%;
   }
