@@ -49,34 +49,10 @@
   const bookmark = bookmarkStore();
   const userList = ref([]);
   const userColumns = computed(() => {
-    if (bookmark.isPhone) {
-      return [
-        {
-          title: '昵称',
-          dataIndex: 'alias',
-          ellipsis: true,
-        },
-        {
-          title: '账号',
-          dataIndex: 'userName',
-          ellipsis: true,
-        },
-        {
-          title: '权限',
-          dataIndex: 'role',
-          ellipsis: true,
-        },
-        {
-          title: '操作',
-          dataIndex: 'operation',
-          ellipsis: true,
-        },
-      ];
-    }
     return [
       {
-        title: '昵称',
-        dataIndex: 'alias',
+        title: 'ip',
+        dataIndex: 'ip',
         ellipsis: true,
       },
       {
@@ -87,16 +63,6 @@
       {
         title: '权限',
         dataIndex: 'role',
-        ellipsis: true,
-      },
-      {
-        title: '密码',
-        dataIndex: 'password',
-        ellipsis: true,
-      },
-      {
-        title: '邮箱',
-        dataIndex: 'email',
         ellipsis: true,
       },
       {
