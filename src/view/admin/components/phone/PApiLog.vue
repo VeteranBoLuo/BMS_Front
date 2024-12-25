@@ -24,7 +24,7 @@
             <div label="req">
               请求参数： <pre>{{ record.req }}</pre>
             </div>
-            <div label="os">ip地址：{{ JSON.parse(record.location).ip }}</div>
+            <div label="os">ip地址：{{ record.ip }}</div>
             <div label="browser">省份：{{ JSON.parse(record.location).province }}</div>
             <div label="browser">城市：{{ JSON.parse(record.location).city }}</div>
           </div>
@@ -105,11 +105,11 @@
       //   dataIndex: 'req',
       //   ellipsis: true,
       // },
-      // {
-      //   title: '响应参数',
-      //   dataIndex: 'res',
-      //   ellipsis: true,
-      // },
+      {
+        title: 'ip地址',
+        dataIndex: 'ip',
+        ellipsis: true,
+      },
       {
         title: '系统',
         dataIndex: 'os',

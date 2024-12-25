@@ -28,7 +28,7 @@
           <div label="req">
             请求参数： <pre>{{ record.req }}</pre>
           </div>
-          <div label="os">ip地址：{{ JSON.parse(record.location).ip }}</div>
+          <div label="os">ip地址：{{ record.ip }}</div>
           <div label="browser">省份：{{ JSON.parse(record.location).province }}</div>
           <div label="browser">城市：{{ JSON.parse(record.location).city }}</div>
         </div>
@@ -67,20 +67,6 @@
   const logList = ref([]);
 
   const logColumns = computed(() => {
-    if (bookmark.isPhone) {
-      return [
-        {
-          title: '用户名',
-          dataIndex: 'userName',
-          ellipsis: true,
-        },
-        {
-          title: '接口',
-          dataIndex: 'url',
-          ellipsis: true,
-        },
-      ];
-    }
     return [
       {
         title: '用户名',
@@ -88,38 +74,8 @@
         ellipsis: true,
       },
       {
-        title: '时间',
-        dataIndex: 'requestTime',
-        ellipsis: true,
-      },
-      {
         title: '接口',
         dataIndex: 'url',
-        ellipsis: true,
-      },
-      // {
-      //   title: '接口类型',
-      //   dataIndex: 'method',
-      //   ellipsis: true,
-      // },
-      // {
-      //   title: '请求参数',
-      //   dataIndex: 'req',
-      //   ellipsis: true,
-      // },
-      // {
-      //   title: '响应参数',
-      //   dataIndex: 'res',
-      //   ellipsis: true,
-      // },
-      {
-        title: '系统',
-        dataIndex: 'os',
-        ellipsis: true,
-      },
-      {
-        title: '浏览器',
-        dataIndex: 'browser',
         ellipsis: true,
       },
     ];
