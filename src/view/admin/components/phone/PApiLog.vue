@@ -18,15 +18,16 @@
         :pagination="false"
       >
         <template #expandedRowRender="{ record }">
-          <div layout="vertical" style="overflow: auto; height: 300px; color: var(--text-color)">
-            <div label="requestTime">时间：{{ record.requestTime }}</div>
-            <div label="url">接口：{{ record.url }}</div>
-            <div label="req">
-              请求参数： <pre>{{ record.req }}</pre>
+          <div style="overflow: auto; height: 300px; color: var(--text-color)">
+            <div>时间：{{ record.requestTime }}</div>
+            <div>接口：{{ record.url }}</div>
+            <div>
+              请求参数：
+              <pre>{{ record.req }}</pre>
             </div>
-            <div label="os">ip地址：{{ record.ip }}</div>
-            <div label="browser">省份：{{ JSON.parse(record.location).province }}</div>
-            <div label="browser">城市：{{ JSON.parse(record.location).city }}</div>
+            <div>ip地址：{{ record.ip }}</div>
+            <div>省份：{{ JSON.parse(record.location).province }}</div>
+            <div>城市：{{ JSON.parse(record.location).city }}</div>
           </div>
         </template>
       </a-table>
@@ -49,7 +50,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, onMounted, ref, watch } from 'vue';
+  import { computed, onMounted, ref } from 'vue';
   import { apiBaseGet, apiQueryPost } from '@/http/request.ts';
   import { bookmarkStore } from '@/store';
   import BInput from '@/components/BasicComponents/BInput/BInput.vue';

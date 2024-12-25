@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { onMounted, onUnmounted, ref, reactive } from 'vue';
+  import { onMounted, onUnmounted, ref } from 'vue';
   import { bookmarkStore, useUserStore } from '@/store';
   import LoginPage from '@/view/login/components/LoginPage.vue';
   import ResetPage from '@/view/login/components/ResetPage.vue';

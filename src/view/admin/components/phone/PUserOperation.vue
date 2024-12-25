@@ -31,6 +31,7 @@
                 height="100"
                 width="100"
                 @click="bookmark.refreshViewer(src)"
+                alt=""
               />
             </div>
           </div>
@@ -56,15 +57,12 @@
 
 <script lang="ts" setup>
   import { computed, onMounted, ref } from 'vue';
-  import { apiBaseGet, apiQueryPost } from '@/http/request.ts';
+  import { apiQueryPost } from '@/http/request.ts';
   import { bookmarkStore } from '@/store';
   import BInput from '@/components/BasicComponents/BInput/BInput.vue';
   import icon from '@/config/icon.ts';
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
   import router from '@/router';
-  import BButton from '@/components/BasicComponents/BButton/BButton.vue';
-  import Alert from '@/components/BasicComponents/BModal/Alert.ts';
-  import { message } from 'ant-design-vue';
   import BSpace from '@/components/BasicComponents/BSpace/BSpace.vue';
   import PhoneContainer from '@/components/phoneComponents/PhoneContainer/PhoneContainer.vue';
   const bookmark = bookmarkStore();

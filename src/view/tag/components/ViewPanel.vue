@@ -8,7 +8,6 @@
 <script lang="ts" setup>
   import TagInfo from '@/view/tag/components/TagInfo.vue';
   import CardPanel from '@/view/tag/components/CardPanel.vue';
-  import { domStore } from '@/store';
 
   defineProps({
     loading: {

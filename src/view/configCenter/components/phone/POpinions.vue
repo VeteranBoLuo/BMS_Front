@@ -63,12 +63,11 @@
 
 <script setup lang="ts">
   import BRadio from '@/components/BasicComponents/BRadio/BRadio.vue';
-  import BModal from '@/components/BasicComponents/BModal/BModal.vue';
   import BButton from '@/components/BasicComponents/BButton/BButton.vue';
   import BUpload from '@/components/BasicComponents/BUpload/BUpload.vue';
   import BInput from '@/components/BasicComponents/BInput/BInput.vue';
   import { bookmarkStore } from '@/store';
-  import { reactive, Ref } from 'vue';
+  import { reactive } from 'vue';
   import { message } from 'ant-design-vue';
   import { cloneDeep } from 'lodash-es';
   import { apiBasePost } from '@/http/request.ts';
@@ -124,16 +123,16 @@
 </script>
 
 <style lang="less" scoped>
-.img-item {
-  position: relative;
-  width: 80px;
-  height: 80px;
-  box-sizing: border-box;
-}
-.opinion-close-icon {
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+  .img-item {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    box-sizing: border-box;
+  }
+  .opinion-close-icon {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 </style>

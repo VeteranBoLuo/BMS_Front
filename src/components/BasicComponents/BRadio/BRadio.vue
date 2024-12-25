@@ -13,9 +13,6 @@
 </template>
 
 <script lang="ts" setup>
-  import { onMounted, ref, watch } from 'vue';
-  import { cloneDeep } from 'lodash-es';
-
   const props = defineProps({
     value: {
       type: String,

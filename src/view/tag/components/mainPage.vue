@@ -8,7 +8,7 @@
 <script lang="ts" setup>
   import FilterPanel from '@/view/tag/components/FilterPanel.vue';
   import ViewPanel from '@/view/tag/components/ViewPanel.vue';
-  import { computed, nextTick, onMounted, ref, watch } from 'vue';
+  import { computed, onMounted, watch } from 'vue';
   import { bookmarkStore, useUserStore } from '@/store';
   import { apiBasePost, apiQueryPost } from '@/http/request';
   import { useRouter } from 'vue-router';

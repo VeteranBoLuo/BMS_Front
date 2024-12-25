@@ -41,7 +41,6 @@
    * 当图片类型是base64时，可修改颜色时采用的是mask-image方案，不可修改颜色时则是background-image方案
    * */
   import { computed, PropType } from 'vue';
-  import { Icon } from '@iconify/vue';
   import icon from '@/config/icon.ts';
 
   const props = defineProps({

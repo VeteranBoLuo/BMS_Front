@@ -94,13 +94,6 @@
       box-shadow: 0 8px 8px rgba(59, 130, 246, 0.5);
       border: 2px solid var(--primary-h-color);
 
-      .del-icon {
-        opacity: 1;
-      }
-
-      .edit-icon {
-        opacity: 1;
-      }
     }
   }
 
@@ -149,17 +142,6 @@
     gap: 8px;
   }
 
-  .del-icon {
-    opacity: 0;
-    position: absolute;
-    right: -10px;
-    top: -10px;
-    z-index: 10;
-  }
-
-  .edit-icon {
-    opacity: 0;
-  }
 
   @media (max-width: 600px) {
     .card-body {

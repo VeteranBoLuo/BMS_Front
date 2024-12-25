@@ -2,12 +2,12 @@
   <b-loading :loading="loading">
     <PhoneListMg :list-data="tableData" title="书签管理" v-if="!loading" @add="router.push('/manage/editBookmark/add')">
       <template #item="{ data }">
-        <span style="display: flex; align-items: center; gap: 10px">
+        <div style="display: flex; align-items: center; gap: 10px">
           <div class="card-img-container">
-            <img v-if="data.iconUrl" :src="data.iconUrl" height="20" width="20" @error="onErrorImg" />
+            <img v-if="data.iconUrl" :src="data.iconUrl" height="20" width="20" @error="onErrorImg" alt="" />
           </div>
           {{ data.name }}
-        </span>
+        </div>
         <div class="edit-tag-operation">
           <svg-icon
             title="编辑"
@@ -37,13 +37,10 @@
   import { message } from 'ant-design-vue';
   import { apiBasePost, apiQueryPost } from '@/http/request.ts';
   import Alert from '@/components/BasicComponents/BModal/Alert.ts';
-  import BButton from '@/components/BasicComponents/BButton/BButton.vue';
   import router from '@/router';
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
   import icon from '@/config/icon.ts';
-  import BSpace from '@/components/BasicComponents/BSpace/BSpace.vue';
   import BLoading from '@/components/BasicComponents/BLoading/BLoading.vue';
-  import BInput from '@/components/BasicComponents/BInput/BInput.vue';
 
   const visible = defineModel<boolean>('visible');
   const user = useUserStore();
@@ -110,7 +107,6 @@
 
   import * as XLSX from 'xlsx';
   import { cloneDeep } from 'lodash-es';
-  import PhoneContainer from '@/components/phoneComponents/PhoneContainer/PhoneContainer.vue';
   import PhoneListMg from '@/components/phoneComponents/PhoneListMg.vue';
   function exportBookmark() {
     // 随便声明一个结果

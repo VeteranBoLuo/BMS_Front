@@ -31,9 +31,9 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, onMounted, ref, watch } from 'vue';
+  import { computed, onMounted, ref } from 'vue';
   import { bookmarkStore } from '@/store';
-  import { apiBaseGet, apiQueryPost } from '@/http/request.ts';
+  import { apiQueryPost } from '@/http/request.ts';
   import icon from '@/config/icon.ts';
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
   import BModal from '@/components/BasicComponents/BModal/BModal.vue';

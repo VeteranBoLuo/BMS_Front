@@ -16,7 +16,7 @@
 <script setup>
   // 检查本地存储中是否有用户数据
   import { bookmarkStore, useUserStore } from '@/store';
-  import { nextTick, watch, onMounted } from 'vue';
+  import { nextTick, watch } from 'vue';
   import login from '@/view/login/index.vue';
   import BViewer from '@/components/Viewer/BViewer.vue';
   import { apiBaseGet } from '@/http/request';
@@ -80,6 +80,9 @@
         router.push(path.replace('/admin', ''));
       }
     } else {
+      if (path === '/admin') {
+        router.push('/admin/operationLog');
+      }
       if (['/apiLog', '/userMg', '/userOperation', '/operationLog'].includes(path)) {
         router.push('/admin' + path);
       }

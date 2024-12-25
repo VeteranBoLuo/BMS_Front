@@ -37,7 +37,6 @@
 
 <script lang="ts" setup>
   import { computed, onMounted, ref } from 'vue';
-  import { TagInterface } from '@/config/bookmarkCfg.ts';
   import { apiBasePost, apiQueryPost } from '@/http/request.ts';
   import { useRouter } from 'vue-router';
   import BInput from '@/components/BasicComponents/BInput/BInput.vue';

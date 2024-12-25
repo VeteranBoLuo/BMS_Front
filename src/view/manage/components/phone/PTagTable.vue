@@ -29,7 +29,7 @@
 
 <script lang="ts" setup>
   import { bookmarkStore } from '@/store';
-  import { computed, ref } from 'vue';
+  import { ref } from 'vue';
   import { message } from 'ant-design-vue';
   import { apiBasePost, apiQueryPost } from '@/http/request.ts';
   import Alert from '@/components/BasicComponents/BModal/Alert.ts';

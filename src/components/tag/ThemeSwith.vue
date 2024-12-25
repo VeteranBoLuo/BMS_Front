@@ -20,7 +20,6 @@
   </label>
 </template>
 <script setup lang="ts">
-  import { onMounted } from 'vue';
   import { bookmarkStore } from '@/store';
   import userApi from '@/api/userApi';
   const bookmark = bookmarkStore();
@@ -34,9 +33,10 @@
       .updateUserInfo({
         id: localStorage.getItem('userId'),
         theme: bookmark.theme,
-      }).then(()=>{
-      localStorage.setItem('theme', bookmark.theme)
-    })
+      })
+      .then(() => {
+        localStorage.setItem('theme', bookmark.theme);
+      })
       .catch((err) => {
         console.error('后台错误：' + err);
       });
@@ -146,6 +146,6 @@
 
   .input:checked + .slider:before {
     transform: translateX(30px);
-    background-color: var(--background-color)
+    background-color: var(--background-color);
   }
 </style>

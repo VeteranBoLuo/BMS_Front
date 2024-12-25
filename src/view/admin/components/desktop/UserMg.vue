@@ -10,20 +10,8 @@
       <template #bodyCell="{ column, text, record }">
         <template v-if="column.dataIndex === 'operation'">
           <b-space>
-            <svg-icon
-              title="编辑"
-              :src="icon.table_edit"
-              size="16"
-              @click="editUser(record)"
-              class="dom-hover"
-            />
-            <svg-icon
-              title="编辑"
-              :src="icon.table_delete"
-              size="16"
-              @click="delUser(record)"
-              class="dom-hover"
-            />
+            <svg-icon title="编辑" :src="icon.table_edit" size="16" @click="editUser(record)" class="dom-hover" />
+            <svg-icon title="编辑" :src="icon.table_delete" size="16" @click="delUser(record)" class="dom-hover" />
           </b-space>
         </template>
       </template>
@@ -45,7 +33,7 @@
 <script lang="ts" setup>
   import { computed, onMounted, ref } from 'vue';
   import { bookmarkStore } from '@/store';
-  import { apiBaseGet, apiQueryPost } from '@/http/request.ts';
+  import { apiQueryPost } from '@/http/request.ts';
   import icon from '@/config/icon.ts';
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
   import BModal from '@/components/BasicComponents/BModal/BModal.vue';

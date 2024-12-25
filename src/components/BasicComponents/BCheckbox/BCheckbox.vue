@@ -1,9 +1,5 @@
 <template>
-  <div
-    class="checkbox_container"
-    @click="isCheck = !isCheck"
-    :style="{ backgroundColor: isCheck ? '#2c9e48' : '' }"
-  >
+  <div class="checkbox_container" @click="isCheck = !isCheck" :style="{ backgroundColor: isCheck ? '#2c9e48' : '' }">
     <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
       <g fill="none" fill-rule="evenodd">
         <path
@@ -19,8 +15,6 @@
 </template>
 
 <script lang="ts" setup>
-  import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
-
   const isCheck = defineModel('isCheck');
 </script>
 

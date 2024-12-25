@@ -27,7 +27,6 @@
 <script lang="ts" setup>
   import { bookmarkStore } from '@/store';
   import { computed, ref } from 'vue';
-  import { apiQueryPost } from '@/http/request.ts';
   import BButton from '@/components/BasicComponents/BButton/BButton.vue';
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
   import BLoading from '@/components/BasicComponents/BLoading/BLoading.vue';

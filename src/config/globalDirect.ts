@@ -1,4 +1,4 @@
-import { apiBasePost, apiQueryPost } from '@/http/request';
+import { apiBasePost } from '@/http/request';
 
 export default function (app) {
   app.directive('drag', (el, binding) => {

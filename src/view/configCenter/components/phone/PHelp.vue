@@ -52,8 +52,6 @@
   import opinionMg from '@/assets/img/help/opinionMg.png';
 
   import 'viewerjs/dist/viewer.css'; //样式文件不要忘了
-  import Viewer from 'viewerjs';
-  import BViewer from '@/components/Viewer/BViewer.vue';
   import router from '@/router';
   import PhoneContainer from '@/components/phoneComponents/PhoneContainer/PhoneContainer.vue';
 

@@ -157,29 +157,6 @@
 </script>
 
 <style lang="less" scoped>
-  .phone-person-container {
-    position: relative;
-    padding: 20px;
-    box-sizing: border-box;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .phone-person-navigation {
-    margin: 0 auto;
-    font-size: 20px;
-    font-weight: 550;
-    width: calc(100% - 40px);
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    top: 0;
-  }
-
   .person-title-card {
     gap: 40px;
     padding: 15px;

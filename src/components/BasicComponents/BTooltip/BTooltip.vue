@@ -1,12 +1,6 @@
 <template>
   <div style="position: relative; padding: 5px 0">
-    <div
-      :id="id"
-      @mouseenter="handleEnter"
-      @mouseleave="handleLeave"
-      class="title"
-      @click="handleClick"
-    >
+    <div :id="id" @mouseenter="handleEnter" @mouseleave="handleLeave" class="title" @click="handleClick">
       <slot></slot>
     </div>
     <div
@@ -22,13 +16,11 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, onUnmounted, PropType, ref, watch } from 'vue';
+  import { PropType, ref, watch } from 'vue';
 
   const props = defineProps({
     direction: {
-      type: String as PropType<
-        'top' | 'bottom' | 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight'
-      >,
+      type: String as PropType<'top' | 'bottom' | 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight'>,
       default: 'bottom',
     },
     trigger: {

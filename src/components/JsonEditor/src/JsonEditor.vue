@@ -4,58 +4,58 @@
     <div style="height: 80%">
       <div class="tool_slider">
         <div style="display: flex; align-items: center">
-          <img
-            src="@/assets/icons/format.svg"
-            class="icon_hover"
-            @click="prettyFormat(viewJsonStr)"
-            title="格式化"
-          />
-          <div style="height: 18px; border: 1px solid #858585; margin: 0 3px"></div>
-          <img
-            src="@/assets/icons/clearLine.svg"
-            class="icon_hover"
-            @click="viewJsonStr = viewJsonStr.replace(/\s+/g, '')"
-            title="去除空格"
-          />
-          <div
-            style="
-              display: flex;
-              align-items: center;
-              border-left: 2px solid #858585;
-              height: 18px;
-              margin: 0 3px;
-              padding: 0 3px;
-            "
-          >
-            <img
-              src="@/assets/icons/full.svg"
-              v-if="!isFullScreen"
-              class="icon_hover"
-              @click="fullScreen"
-              title="全屏"
-            />
-            <img
-              src="@/assets/icons/closeFull.svg"
-              v-else
-              class="icon_hover"
-              @click="fullScreen"
-              title="退出"
-            />
-          </div>
+          <!--          <img-->
+          <!--            src="@/assets/icons/format.svg"-->
+          <!--            class="icon_hover"-->
+          <!--            @click="prettyFormat(viewJsonStr)"-->
+          <!--            title="格式化"-->
+          <!--           alt=""/>-->
+          <!--          <div style="height: 18px; border: 1px solid #858585; margin: 0 3px"></div>-->
+          <!--          <img-->
+          <!--            src="@/assets/icons/clearLine.svg"-->
+          <!--            class="icon_hover"-->
+          <!--            @click="viewJsonStr = viewJsonStr.replace(/\s+/g, '')"-->
+          <!--            title="去除空格"-->
+          <!--           alt=""/>-->
+          <!--          <div-->
+          <!--            style="-->
+          <!--              display: flex;-->
+          <!--              align-items: center;-->
+          <!--              border-left: 2px solid #858585;-->
+          <!--              height: 18px;-->
+          <!--              margin: 0 3px;-->
+          <!--              padding: 0 3px;-->
+          <!--            "-->
+          <!--          >-->
+          <!--            <img-->
+          <!--              src="@/assets/icons/full.svg"-->
+          <!--              v-if="!isFullScreen"-->
+          <!--              class="icon_hover"-->
+          <!--              @click="fullScreen"-->
+          <!--              title="全屏"-->
+          <!--             alt=""/>-->
+          <!--            <img-->
+          <!--              src="@/assets/icons/closeFull.svg"-->
+          <!--              v-else-->
+          <!--              class="icon_hover"-->
+          <!--              @click="fullScreen"-->
+          <!--              title="退出"-->
+          <!--             alt=""/>-->
+        </div>
         </div>
         <div style="display: flex; align-items: center">
-          <img
-            src="@/assets/icons/success.svg"
-            title="格式正确"
-            v-if="isPass"
-            style="height: 20px; width: 20px"
-          />
-          <img
-            src="@/assets/icons/error.svg"
-            title="格式错误"
-            v-else
-            style="height: 17px; width: 17px"
-          />
+          <!--          <img-->
+          <!--            src="@/assets/icons/success.svg"-->
+          <!--            title="格式正确"-->
+          <!--            v-if="isPass"-->
+          <!--            style="height: 20px; width: 20px"-->
+          <!--           alt=""/>-->
+          <!--          <img-->
+          <!--            src="@/assets/icons/error.svg"-->
+          <!--            title="格式错误"-->
+          <!--            v-else-->
+          <!--            style="height: 17px; width: 17px"-->
+          <!--           alt=""/>-->
         </div>
       </div>
       <div class="edit-container">
@@ -84,8 +84,8 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
-  import { cloneDeep } from 'lodash-es';
+import {computed, onBeforeUnmount, onMounted, ref, watch} from 'vue';
+import {cloneDeep} from 'lodash-es';
   import {
     handleBackspace,
     handleClick,

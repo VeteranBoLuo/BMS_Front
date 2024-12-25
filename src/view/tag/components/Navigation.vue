@@ -10,8 +10,7 @@
         @focusout="searchBackClick"
         @input="handleSearch"
       >
-        <template #prefix>
-          <svg-icon color='#cccccc' :src="icon.navigation_search" size="16" /> </template
+        <template #prefix> <svg-icon color="#cccccc" :src="icon.navigation_search" size="16" /> </template
       ></b-input>
       <span class="search-back-span flex-center" @click="searchBackClick">返回</span>
     </div>
@@ -20,19 +19,19 @@
         <svg-icon
           :src="icon.navigation_menu"
           size="25"
-          class='dom-hover'
+          class="dom-hover"
           v-if="bookmark.isPhone && router.currentRoute.value.fullPath.includes('home') && bookmark.isFold"
           @click="foldClick"
         />
         <svg-icon
           :src="icon.navigation_close"
           size="25"
-          class='dom-hover'
+          class="dom-hover"
           v-if="bookmark.isPhone && router.currentRoute.value.fullPath.includes('home') && !bookmark.isFold"
           @click="foldClick"
         />
         <template class="navigation-title-link" @click="handleToIndex">
-          <img src="../../../assets/icons/bookmark.svg" title="首页" width="25" height="25" />
+          <img src="../../../assets/icons/bookmark.svg" title="首页" width="25" height="25" alt="" />
           <span style="font-size: 18px">智汇云书签</span>
         </template>
       </div>
@@ -75,7 +74,6 @@
 <script lang="ts" setup>
   import BInput from '@/components/BasicComponents/BInput/BInput.vue';
   import { computed, onMounted, ref, watch } from 'vue';
-  import Alert from '@/components/BasicComponents/BModal/Alert';
   import router from '@/router';
   import { bookmarkStore, domStore, useUserStore } from '@/store';
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
@@ -86,7 +84,7 @@
   const placeholder = ref('Search...');
 
   document.addEventListener('DOMContentLoaded', function () {
-    var searchInput = document.getElementById('searchInput');
+    const searchInput = document.getElementById('searchInput');
 
     searchInput.addEventListener('focus', function () {
       console.log('输入框获得了焦点！');
@@ -218,7 +216,6 @@
     gap: 10px;
     font-weight: 550;
     font-size: 20px;
-    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
     padding-left: 20px;
 
     .navigation-title-link {

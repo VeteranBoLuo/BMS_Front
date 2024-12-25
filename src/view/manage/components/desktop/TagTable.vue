@@ -79,7 +79,6 @@
   import Alert from '@/components/BasicComponents/BModal/Alert.ts';
   import BButton from '@/components/BasicComponents/BButton/BButton.vue';
   import router from '@/router';
-  import { Icon } from '@iconify/vue';
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
   import icon from '@/config/icon.ts';
   import BSpace from '@/components/BasicComponents/BSpace/BSpace.vue';

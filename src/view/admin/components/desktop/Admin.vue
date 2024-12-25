@@ -1,7 +1,7 @@
 <template>
   <div class="admin-container">
     <div class="menu-body">
-      <BList style="font-size: 12px;" :listOptions="viewOptions" @nodeClick="nodeClick" :check-id="checkId">
+      <BList style="font-size: 12px" :listOptions="viewOptions" @nodeClick="nodeClick" :check-id="checkId">
         <template #icon="{ item }">
           <svg-icon :src="item.icon" />
         </template>
@@ -20,8 +20,7 @@
   import { onMounted, ref } from 'vue';
   import router from '@/router';
   import { bookmarkStore } from '@/store';
-  import PhoneContainer from '@/components/phoneComponents/PhoneContainer/PhoneContainer.vue';
-  import PhoneMenu from '@/components/phoneComponents/PhoneMenu/PhoneMenu.vue';
+
   const checkId = ref('operationLog');
   const bookmark = bookmarkStore();
   const viewOptions = ref([
@@ -98,7 +97,6 @@
   }
   @media (max-width: 600px) {
     .admin-container {
-      padding: unset;
       display: flex;
       gap: 10px;
       padding: 5px;

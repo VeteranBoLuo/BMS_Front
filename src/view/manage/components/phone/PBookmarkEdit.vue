@@ -40,12 +40,10 @@
 
 <script lang="ts" setup>
   import { computed, onMounted, ref } from 'vue';
-  import { TagInterface } from '@/config/bookmarkCfg';
   import { apiBasePost, apiQueryPost } from '@/http/request';
   import { useRouter } from 'vue-router';
   import BInput from '@/components/BasicComponents/BInput/BInput.vue';
   import { bookmarkStore, useUserStore } from '@/store';
-  import BSpace from '@/components/BasicComponents/BSpace/BSpace.vue';
   import { message } from 'ant-design-vue';
   import { SelectionSearch } from '@/components/BasicComponents/BForm/FormRenders.vue';
   import PhoneContainer from '@/components/phoneComponents/PhoneContainer/PhoneContainer.vue';

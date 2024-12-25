@@ -21,12 +21,9 @@
       :pagination="false"
     >
       <template #expandedRowRender="{ record }">
-        <div
-          layout="vertical"
-          style="max-height: 300px; overflow-y: auto; min-height: 120px; color: var(--text-color)"
-        >
-          <p label="content">反馈内容：{{ record.content }}</p>
-          <p label="createTime">反馈时间：{{ record.createTime }}</p>
+        <div style="max-height: 300px; overflow-y: auto; min-height: 120px; color: var(--text-color)">
+          <p>反馈内容：{{ record.content }}</p>
+          <p>反馈时间：{{ record.createTime }}</p>
           反馈图片：
           <div class="flex-align-center-gap">
             <img
@@ -35,6 +32,7 @@
               height="100"
               width="100"
               @click="bookmark.refreshViewer(src)"
+              alt=""
             />
           </div>
         </div>

@@ -22,13 +22,13 @@
       :pagination="false"
     >
       <template #expandedRowRender="{ record }">
-        <div layout="vertical" style="overflow: auto; height: 300px; color: var(--text-color)">
-          <div label="module">操作人员：{{ record.userName }}</div>
-          <div label="module">模块：{{ record.module }}</div>
-          <div label="operation">操作：{{ record.operation }}</div>
-          <div label="requestTime">时间：{{ record.createTime }}</div>
-          <div label="operation">系统：{{ record.os }}</div>
-          <div label="requestTime">浏览器：{{ record.browser }}</div>
+        <div style="max-height: 300px; overflow-y: auto; min-height: 120px; color: var(--text-color)">
+          <div>操作人员：{{ record.userName }}</div>
+          <div>模块：{{ record.module }}</div>
+          <div>操作：{{ record.operation }}</div>
+          <div>时间：{{ record.createTime }}</div>
+          <div>系统：{{ record.os }}</div>
+          <div>浏览器：{{ record.browser }}</div>
         </div>
       </template>
     </a-table>

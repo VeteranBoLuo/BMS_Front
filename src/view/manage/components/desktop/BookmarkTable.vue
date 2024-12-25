@@ -1,4 +1,4 @@
-<template>
+<template xmlns="">
   <b-loading :loading="loading">
     <div class="edit-tag-container">
       <h2>书签管理</h2>
@@ -25,12 +25,12 @@
       >
         <template #bodyCell="{ column, text, record }">
           <template v-if="column.dataIndex === 'name'">
-            <span style="display: flex; align-items: center; gap: 10px">
+            <div style="display: flex; align-items: center; gap: 10px">
               <div class="card-img-container">
-                <img v-if="record.iconUrl" :src="record.iconUrl" height="20" width="20" @error="onErrorImg" />
+                <img v-if="record.iconUrl" :src="record.iconUrl" height="20" width="20" @error="onErrorImg" alt="" />
               </div>
               {{ text }}
-            </span>
+            </div>
           </template>
           <template v-else-if="column.dataIndex === 'tagList'">
             <div class="text-hidden">

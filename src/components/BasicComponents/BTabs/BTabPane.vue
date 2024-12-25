@@ -5,11 +5,11 @@
 </template>
 
 <script lang="ts" setup>
-  import { inject, ref, toRef } from 'vue';
+  import { inject, toRef } from 'vue';
   const props = defineProps({
     name: {
       type: String,
-        default:''
+      default: '',
     },
     label: {
       type: String,

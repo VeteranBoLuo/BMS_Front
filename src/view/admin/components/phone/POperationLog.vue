@@ -2,11 +2,7 @@
   <PhoneContainer title="操作日志" @backClick="router.push('/admin')">
     <div style="overflow: hidden; height: 100%; box-sizing: border-box">
       <b-space style="width: 100%">
-        <b-input
-          v-model:value="searchValue"
-          placeholder="用户名或接口名..."
-          @input="handleSearch"
-        >
+        <b-input v-model:value="searchValue" placeholder="用户名或接口名..." @input="handleSearch">
           <template #prefix>
             <svg-icon :src="icon.navigation_search" size="16" />
           </template>
@@ -22,13 +18,13 @@
         :pagination="false"
       >
         <template #expandedRowRender="{ record }">
-          <div layout="vertical" style="overflow: auto; height: 300px; color: var(--text-color)">
-            <div label="module">操作人员：{{ record.userName }}</div>
-            <div label="module">模块：{{ record.module }}</div>
-            <div label="operation">操作：{{ record.operation }}</div>
-            <div label="requestTime">时间：{{ record.createTime }}</div>
-            <div label="operation">系统：{{ record.os }}</div>
-            <div label="requestTime">浏览器：{{ record.browser }}</div>
+          <div style="overflow: auto; height: 300px; color: var(--text-color)">
+            <div>操作人员：{{ record.userName }}</div>
+            <div>模块：{{ record.module }}</div>
+            <div>操作：{{ record.operation }}</div>
+            <div>时间：{{ record.createTime }}</div>
+            <div>系统：{{ record.os }}</div>
+            <div>浏览器：{{ record.browser }}</div>
           </div>
         </template>
       </a-table>
@@ -51,7 +47,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, onMounted, ref, watch } from 'vue';
+  import { computed, onMounted, ref } from 'vue';
   import { apiBaseGet, apiQueryPost } from '@/http/request.ts';
   import { bookmarkStore } from '@/store';
   import BInput from '@/components/BasicComponents/BInput/BInput.vue';
@@ -67,18 +63,18 @@
   const logList = ref([]);
 
   const logColumns = computed(() => {
-      return [
-        {
-          title: '操作人员',
-          dataIndex: 'userName',
-          ellipsis: true,
-        },
-        {
-          title: '操作名称',
-          dataIndex: 'operation',
-          ellipsis: true,
-        },
-      ];
+    return [
+      {
+        title: '操作人员',
+        dataIndex: 'userName',
+        ellipsis: true,
+      },
+      {
+        title: '操作名称',
+        dataIndex: 'operation',
+        ellipsis: true,
+      },
+    ];
   });
 
   const currentPage = ref<number>(1);
@@ -185,5 +181,4 @@
   :deep(.ant-pagination-item-ellipsis) {
     color: var(--icon-color) !important;
   }
-
 </style>

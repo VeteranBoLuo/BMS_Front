@@ -111,7 +111,7 @@
       cursor: pointer;
     }
   }
-
+  /*Transition样式设置*/
   .v-enter-active,
   .v-leave-active {
     transition: opacity 0.5s ease;

@@ -4,7 +4,7 @@
       <template #input>
         <b-input placeholder="请输入标签名" v-model:value="tagName">
           <template #suffix>
-            <a-dropdown :trigger="['hover']" class='flex-align-center'>
+            <a-dropdown :trigger="['hover']" class="flex-align-center">
               <template #overlay>
                 <a-menu style="background-color: var(--menu-body-bg-color)">
                   <a-menu-item :style="{ color: bookmark.iconColor }" key="addTag" @click="addTag" class="menu-item">
@@ -62,15 +62,14 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, nextTick, onMounted, ref } from 'vue';
-  import { apiBasePost, apiQueryPost } from '@/http/request';
+  import { computed, ref } from 'vue';
+  import { apiBasePost } from '@/http/request';
   import { bookmarkStore, useUserStore } from '@/store';
   import { useRouter } from 'vue-router';
   import RightMenu from '@/components/RightMenu.vue';
   import { TagInterface } from '@/config/bookmarkCfg';
   import { message } from 'ant-design-vue';
   import Alert from '@/components/BasicComponents/BModal/Alert';
-  import { Icon } from '@iconify/vue';
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
   import icon from '@/config/icon.ts';
   import BList from '@/components/BasicComponents/BList/BList.vue';

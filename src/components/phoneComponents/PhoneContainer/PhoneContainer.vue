@@ -23,7 +23,7 @@
   import icon from '@/config/icon.ts';
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
   import { bookmarkStore } from '@/store';
-  import { useAttrs, getCurrentInstance } from 'vue';
+  import { getCurrentInstance } from 'vue';
   const bookmark = bookmarkStore();
   const props = defineProps({
     title: {
