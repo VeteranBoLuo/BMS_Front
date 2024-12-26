@@ -10,7 +10,6 @@ const request = axios.create({
 request.interceptors.request.use(
   async (config) => {
     if (config.url.includes('/api')) {
-      config.headers['Access-Control-Allow-Origin'] = '*';
       config.headers['OS'] = getUserOsInfo();
       config.headers['Browser'] = getBrowserType();
       config.headers['Cac'] = getBrowserType();

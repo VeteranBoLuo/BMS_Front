@@ -36,6 +36,7 @@
         </template>
       </div>
       <div class="navigation-body">
+        <div style="width: 140px" v-if="!bookmark.isPhone"></div>
         <div class="navigation-search-input" v-if="searchInputVisible">
           <b-input
             id="bookmark-input"
@@ -53,7 +54,10 @@
             </template>
           </b-input>
         </div>
-        <div style="position: absolute; right: 25px; display: flex; align-items: center; gap: 15px">
+        <div
+          style="display: flex; align-items: center; gap: 15px; width: 120px;margin-left: 20px"
+          :class="{ 'phone-top-menu': bookmark.isPhone }"
+        >
           <div v-if="phoneSearchVisible" class="flex-align-center dom-hover">
             <svg-icon size="30" :src="icon.navigation_phone_search" @click="phoneSearchClick" />
           </div>
@@ -228,7 +232,7 @@
   }
 
   .navigation-body {
-    width: calc(100% - 240px);
+    width: calc(100% - 260px);
     height: 100%;
     align-items: center;
     display: flex;
@@ -274,6 +278,11 @@
     text-align: left;
   }
 
+  .phone-top-menu {
+    position: absolute;
+    right: 25px;
+    width: unset!important;
+  }
   @media (max-width: 600px) {
     .navigation-title {
       gap: 20px;
