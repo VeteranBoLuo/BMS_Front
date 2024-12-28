@@ -1,8 +1,8 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { message } from 'ant-design-vue';
-import { bookmarkStore, useUserStore } from '@/store';
+import { useUserStore } from '@/store';
 import { getBrowserType, getUserOsInfo } from '@/utils/common.ts';
-const bookmark = bookmarkStore();
+
 const request = axios.create({
   timeout: 60000,
 });
@@ -30,7 +30,7 @@ request.interceptors.request.use(
         config.headers['role'] = 'visitor';
       }
       // 设置浏览器指纹
-      config.headers['Browser-Id'] = bookmark.browserId;
+      config.headers['Browser-Id'] = window['visitorId'];
       return config;
     }
     return config;
