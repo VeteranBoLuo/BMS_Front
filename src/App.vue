@@ -33,7 +33,7 @@
   if (theme) {
     bookmark.theme = theme;
   }
-  getUserInfo();
+  getVisitorId();
 
   function getThemeStyle(theme) {
     document.documentElement.setAttribute('data-theme', theme);
@@ -113,21 +113,21 @@
       });
   }
 
-  // function getVisitorId() {
-  //   // 储存指纹
-  //   import('https://openfpcdn.io/fingerprintjs/v4')
-  //     .then((res) => res.load())
-  //     .then((fp) => fp.get())
-  //     .then((result) => {
-  //       window.visitorId = result.visitorId;
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error getting visitor ID:', error);
-  //     })
-  //     .finally(() => {
-  //       getUserInfo();
-  //     });
-  // }
+  function getVisitorId() {
+    // 储存指纹
+    import('https://openfpcdn.io/fingerprintjs/v4')
+      .then((res) => res.load())
+      .then((fp) => fp.get())
+      .then((result) => {
+        window.visitorId = result.visitorId;
+      })
+      .catch((error) => {
+        console.error('Error getting visitor ID:', error);
+      })
+      .finally(() => {
+        getUserInfo();
+      });
+  }
   router.beforeEach((to, from, next) => {
     routerChange(bookmark.isPhone, to.path);
     next();

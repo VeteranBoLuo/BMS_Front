@@ -27,8 +27,6 @@
           <div>模块：{{ record.module }}</div>
           <div>操作：{{ record.operation }}</div>
           <div>时间：{{ record.createTime }}</div>
-          <div>系统：{{ record.os }}</div>
-          <div>浏览器：{{ record.browser }}</div>
         </div>
       </template>
     </a-table>
@@ -83,16 +81,6 @@
       {
         title: '时间',
         dataIndex: 'createTime',
-        ellipsis: true,
-      },
-      {
-        title: '系统',
-        dataIndex: 'os',
-        ellipsis: true,
-      },
-      {
-        title: '浏览器',
-        dataIndex: 'browser',
         ellipsis: true,
       },
     ];

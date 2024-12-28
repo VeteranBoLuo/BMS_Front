@@ -12,8 +12,6 @@ request.interceptors.request.use(
     if (config.url.includes('/api')) {
       config.headers['OS'] = getUserOsInfo();
       config.headers['Browser'] = getBrowserType();
-      config.headers['Cac'] = getBrowserType();
-
       // 假设你有一个全局状态管理器（如Vuex）或者一个响应式的引用（如ref）来存储用户信息
       const userId = localStorage?.getItem('userId'); /* 从你的状态管理器或响应式引用中获取用户信息 */
       const user = useUserStore();
@@ -31,6 +29,8 @@ request.interceptors.request.use(
       } else {
         config.headers['role'] = 'visitor';
       }
+      // 设置浏览器指纹
+      config.headers['Browser-Id'] = window.visitorId;
       return config;
     }
     return config;

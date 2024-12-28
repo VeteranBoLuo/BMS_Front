@@ -26,8 +26,8 @@
               <pre>{{ record.req }}</pre>
             </div>
             <div>ip地址：{{ record.ip }}</div>
-            <div>省份：{{ JSON.parse(record.location).province }}</div>
-            <div>城市：{{ JSON.parse(record.location).city }}</div>
+            <div>省份：{{ record.location.province }}</div>
+            <div>城市：{{ record.location.city }}</div>
           </div>
         </template>
       </a-table>

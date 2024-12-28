@@ -30,8 +30,11 @@
             <pre>{{ record.req }}</pre>
           </div>
           <div>ip地址：{{ record.ip }}</div>
-          <div>省份：{{ JSON.parse(record.location).province }}</div>
-          <div>城市：{{ JSON.parse(record.location).city }}</div>
+          <div>省份：{{ record.location.province }}</div>
+          <div>城市：{{ record.location.city }}</div>
+          <div>浏览器指纹：{{ record.system.browserId }}</div>
+          <div>浏览器：{{ record.system.browser }}</div>
+          <div>操作系统：{{ record.system.os }}</div>
         </div>
       </template>
     </a-table>
@@ -83,29 +86,9 @@
         dataIndex: 'url',
         ellipsis: true,
       },
-      // {
-      //   title: '接口类型',
-      //   dataIndex: 'method',
-      //   ellipsis: true,
-      // },
-      // {
-      //   title: '请求参数',
-      //   dataIndex: 'req',
-      //   ellipsis: true,
-      // },
       {
         title: 'ip',
         dataIndex: 'ip',
-        ellipsis: true,
-      },
-      {
-        title: '系统',
-        dataIndex: 'os',
-        ellipsis: true,
-      },
-      {
-        title: '浏览器',
-        dataIndex: 'browser',
         ellipsis: true,
       },
     ];
