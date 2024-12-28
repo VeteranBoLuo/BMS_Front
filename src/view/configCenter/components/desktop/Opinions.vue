@@ -1,10 +1,9 @@
 <template>
-  <b-modal :mask-closable="false" title="意见反馈" :visible="visible" @close="visible = false">
+  <b-modal :mask-closable="false" title="意见反馈"  :visible="visible" @close="visible = false">
     <div :style="{ width: bookmark.isPhone ? '95%' : '450px' }">
-      <div class="type">
-        <div style="font-size: 14px">反馈类型</div>
+      <BTabs :options="['反馈类型', '反馈历史']" v-model:activeTab="activeTab" />
+      <div class="type" style="height: 330px" v-if="activeTab === '反馈类型'">
         <b-radio
-          style="margin-top: 10px"
           v-model:value="opinionData.type"
           :options="[
             { label: '产品建议', value: '产品建议' },
@@ -50,6 +49,9 @@
           <b-input v-model:value="opinionData.phone" style="margin-top: 10px" placeholder="请输入电话便于联系" />
         </div>
       </div>
+      <div v-else style="min-height: 330px">
+        <a-empty description="功能维护中..." class="absolute-center" style="color: #ccc" />
+      </div>
     </div>
     <template #footer>
       <b-button
@@ -70,13 +72,15 @@
   import BUpload from '@/components/BasicComponents/BUpload/BUpload.vue';
   import BInput from '@/components/BasicComponents/BInput/BInput.vue';
   import { bookmarkStore } from '@/store';
-  import { reactive, Ref } from 'vue';
+  import { reactive, Ref, ref } from 'vue';
   import { message } from 'ant-design-vue';
   import { cloneDeep } from 'lodash-es';
   import { apiBasePost } from '@/http/request.ts';
+  import BTabs from '@/components/BasicComponents/BTabs/BTabs.vue';
 
   const visible = <Ref<boolean>>defineModel('visible');
   const bookmark = bookmarkStore();
+  const activeTab = ref('反馈类型');
 
   const opinionData = reactive({
     type: '产品建议',
@@ -126,22 +130,22 @@
 </script>
 
 <style lang="less" scoped>
-.img-item {
-  position: relative;
-  width: 80px;
-  height: 80px;
-  box-sizing: border-box;
-  &:hover {
-    .opinion-close-icon {
-      opacity: 1;
+  .img-item {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    box-sizing: border-box;
+    &:hover {
+      .opinion-close-icon {
+        opacity: 1;
+      }
     }
   }
-}
-.opinion-close-icon {
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-}
+  .opinion-close-icon {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+  }
 </style>

@@ -77,7 +77,7 @@
       <svg-icon size="30" :src="user.headPicture || icon.navigation_user" class="dom-hover" />
     </div>
     <my-info v-if="userVisible" v-model:visible="userVisible" />
-    <Opinions v-model:visible="opinionsVisible" />
+    <Opinions v-if="opinionsVisible" v-model:visible="opinionsVisible" />
   </a-tooltip>
 </template>
 

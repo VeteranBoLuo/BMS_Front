@@ -1,8 +1,8 @@
 <template>
   <PhoneContainer title="意见反馈">
     <div :style="{ width: bookmark.isPhone ? '95%' : '450px' }">
-      <div class="type">
-        <div style="font-size: 14px">反馈类型</div>
+      <BTabs :options="['反馈类型', '反馈历史']" v-model:activeTab="activeTab" />
+      <div class="type" v-if="activeTab === '反馈类型'">
         <b-radio
           style="margin-top: 10px"
           v-model:value="opinionData.type"
@@ -50,8 +50,12 @@
           <b-input v-model:value="opinionData.phone" style="margin-top: 10px" placeholder="请输入电话便于联系" />
         </div>
       </div>
+      <div v-else>
+        <a-empty description="功能维护中..." class="absolute-center" style="color: #ccc"/>
+      </div>
     </div>
     <b-button
+      v-if="activeTab === '反馈类型'"
       type="primary"
       class="container-footer-btn"
       @click="submit"
@@ -67,14 +71,16 @@
   import BUpload from '@/components/BasicComponents/BUpload/BUpload.vue';
   import BInput from '@/components/BasicComponents/BInput/BInput.vue';
   import { bookmarkStore } from '@/store';
-  import { reactive } from 'vue';
+  import { reactive, ref } from 'vue';
   import { message } from 'ant-design-vue';
   import { cloneDeep } from 'lodash-es';
   import { apiBasePost } from '@/http/request.ts';
   import PhoneContainer from '@/components/phoneComponents/PhoneContainer/PhoneContainer.vue';
   import router from '@/router';
+  import BTabs from '@/components/BasicComponents/BTabs/BTabs.vue';
 
   const bookmark = bookmarkStore();
+  const activeTab = ref('反馈类型');
 
   const opinionData = reactive({
     type: '产品建议',
