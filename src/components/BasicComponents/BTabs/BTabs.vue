@@ -11,12 +11,10 @@
   import { nextTick, watch } from 'vue';
 
   const emit = defineEmits(['change']);
-  const props = defineProps({
-    options: {
-      type: Array,
-      default: () => [],
-    },
+  const props = withDefaults(defineProps<{ options: [] }>(), {
+    options: () => [],
   });
+
   const activeTab = defineModel('activeTab');
   function tabChange(tab) {
     activeTab.value = tab;
@@ -58,7 +56,7 @@
     bottom: 0;
     left: 0;
     height: 2px;
-    background-color: #fe2c55;
+    background-color: #615ced;
     transition:
       left 0.3s ease,
       width 0.3s ease;
