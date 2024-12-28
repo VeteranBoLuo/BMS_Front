@@ -119,7 +119,7 @@
       .then((res) => res.load())
       .then((fp) => fp.get())
       .then((result) => {
-        window.visitorId = result.visitorId;
+        bookmark.browserId = result.visitorId;
       })
       .catch((error) => {
         console.error('Error getting visitor ID:', error);

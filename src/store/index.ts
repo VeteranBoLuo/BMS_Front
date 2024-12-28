@@ -87,6 +87,7 @@ export const bookmarkStore = defineStore('bookmark', {
           src: string;
           options: Viewer.Options;
         };
+        browserId: string; // 浏览器指纹
       }
     >{
       tagData: {
@@ -110,6 +111,7 @@ export const bookmarkStore = defineStore('bookmark', {
         src: '',
         options: {},
       },
+      browserId: '',
     },
   getters: {
     isPhone() {
