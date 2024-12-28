@@ -3,7 +3,7 @@
     <b-space style="width: 100%">
       <b-input
         v-model:value="searchValue"
-        placeholder="用户名或接口名..."
+        placeholder="用户名或ip..."
         class="log-search-input"
         @input="handleSearch"
       >

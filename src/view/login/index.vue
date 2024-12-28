@@ -118,7 +118,7 @@
   }
 
   :deep(.disable-btn) {
-    background-color: #ffc2c6;
+    background-color: #b3b0f5;
     cursor: unset;
     pointer-events: none;
   }

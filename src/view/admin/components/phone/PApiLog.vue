@@ -2,7 +2,7 @@
   <PhoneContainer title="api日志" @backClick="router.push('/admin')">
     <div style="overflow: hidden; height: 100%; box-sizing: border-box">
       <b-space style="width: 100%">
-        <b-input v-model:value="searchValue" placeholder="用户名或接口名..." @input="handleSearch">
+        <b-input v-model:value="searchValue" placeholder="用户名或ip..." @input="handleSearch">
           <template #prefix>
             <svg-icon :src="icon.navigation_search" size="16" />
           </template>
