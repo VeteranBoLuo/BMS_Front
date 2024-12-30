@@ -28,6 +28,8 @@
             <div>ip地址：{{ record.ip }}</div>
             <div>省份：{{ record.location.province }}</div>
             <div>城市：{{ record.location.city }}</div>
+            <div>浏览器：{{ record.system.browser }}</div>
+            <div>操作系统：{{ record.system.os }}</div>
           </div>
         </template>
       </a-table>

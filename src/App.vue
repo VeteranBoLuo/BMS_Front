@@ -7,7 +7,7 @@
         },
       }"
     >
-      <router-view v-if="complete" />
+      <router-view />
       <login v-if="bookmark.isShowLogin" />
       <BViewer />
     </a-config-provider>
@@ -33,7 +33,7 @@
   if (theme) {
     bookmark.theme = theme;
   }
-  getVisitorId();
+  getUserInfo();
 
   function getThemeStyle(theme) {
     document.documentElement.setAttribute('data-theme', theme);
@@ -110,24 +110,6 @@
         console.error('接口错误：', e);
         router.push('/home');
         bookmark.isShowLogin = true;
-      });
-  }
-  const complete = ref(false);
-  const visitorApi = '/visitorId';
-  function getVisitorId() {
-    // 储存指纹
-    import(`${visitorApi}/v4`)
-      .then((res) => res.load())
-      .then((fp) => fp.get())
-      .then((result) => {
-        window.visitorId = result.visitorId;
-      })
-      .catch((error) => {
-        console.error('Error getting visitor ID:', error);
-      })
-      .finally(() => {
-        complete.value = true;
-        getUserInfo();
       });
   }
   router.beforeEach((to, from, next) => {

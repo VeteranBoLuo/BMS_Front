@@ -29,8 +29,6 @@ request.interceptors.request.use(
       } else {
         config.headers['role'] = 'visitor';
       }
-      // 设置浏览器指纹
-      config.headers['Browser-Id'] = window['visitorId'];
       return config;
     }
     return config;
