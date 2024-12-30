@@ -96,18 +96,20 @@
   function getUserInfo() {
     apiBaseGet('/api/user/getUserInfo', { id: localStorage.getItem('userId') })
       .then((res) => {
-        if (res.status === 200) {
-          user.setUserInfo(res.data);
-          bookmark.theme = res.data.theme || 'day';
-          getThemeStyle(res.data.theme);
-          localStorage.setItem('theme', res.data.theme);
-        } else {
+        user.setUserInfo(res.data);
+        bookmark.theme = res.data.theme ?? 'day';
+        getThemeStyle(bookmark.theme);
+        localStorage.setItem('theme', bookmark.theme);
+        if (res.status !== 200) {
           router.push('/home');
+          localStorage.setItem('userId', '');
           bookmark.isShowLogin = true;
         }
       })
       .catch((e) => {
         console.error('接口错误：', e);
+        localStorage.setItem('userId', '');
+        bookmark.theme = 'day';
         router.push('/home');
         bookmark.isShowLogin = true;
       });
