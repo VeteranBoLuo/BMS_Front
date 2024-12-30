@@ -7,7 +7,7 @@
         },
       }"
     >
-      <router-view />
+      <router-view v-if="complete" />
       <login v-if="bookmark.isShowLogin" />
       <BViewer />
     </a-config-provider>
@@ -16,7 +16,7 @@
 <script setup>
   // 检查本地存储中是否有用户数据
   import { bookmarkStore, useUserStore } from '@/store';
-  import { nextTick, watch } from 'vue';
+  import { nextTick, watch, ref } from 'vue';
   import login from '@/view/login/index.vue';
   import BViewer from '@/components/Viewer/BViewer.vue';
   import { apiBaseGet } from '@/http/request';
@@ -112,7 +112,7 @@
         bookmark.isShowLogin = true;
       });
   }
-
+  const complete = ref(false);
   function getVisitorId() {
     // 储存指纹
     import('https://openfpcdn.io/fingerprintjs/v4')
@@ -125,6 +125,7 @@
         console.error('Error getting visitor ID:', error);
       })
       .finally(() => {
+        complete.value = true;
         getUserInfo();
       });
   }

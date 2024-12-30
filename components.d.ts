@@ -15,6 +15,7 @@ declare module 'vue' {
     AMenu: typeof import('ant-design-vue/es')['Menu']
     AMenuItem: typeof import('ant-design-vue/es')['MenuItem']
     APagination: typeof import('ant-design-vue/es')['Pagination']
+    AProgress: typeof import('ant-design-vue/es')['Progress']
     ASelect: typeof import('ant-design-vue/es')['Select']
     ATable: typeof import('ant-design-vue/es')['Table']
     ATabPane: typeof import('ant-design-vue/es')['TabPane']

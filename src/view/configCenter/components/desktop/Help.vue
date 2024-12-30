@@ -1,19 +1,21 @@
 <template>
   <div class="help-container">
-    <b-button
-      style="position: absolute; right: 20px"
-      :style="{ left: bookmark.isPhone ? '' : '187px' }"
-      @click="handleToBack"
-      v-click-log="{ module: '帮助中心', operation: `返回` }"
-      >返回</b-button
+    <!--    <b-button-->
+    <!--      style="position: absolute; right: 20px"-->
+    <!--      :style="{ left: bookmark.isPhone ? '' : '187px' }"-->
+    <!--      @click="handleToBack"-->
+    <!--      v-click-log="{ module: '帮助中心', operation: `返回` }"-->
+    <!--      >返回</b-button-->
+    <!--    >-->
+    <b-input
+      v-model:value="searchValue"
+      placeholder="请搜索问题"
+      style="width: 30%; margin: 0 auto; position: fixed; top: 15px; transform: translateX(-50%); left: 50%"
     >
-    <b-space style="width: 100%">
-      <b-input
-        v-model:value="searchValue"
-        :style="{ width: bookmark.isPhone ? 'calc(100% - 80px)' : '145px' }"
-        placeholder="目录名..."
-      />
-    </b-space>
+      <template #prefix>
+        <svg-icon color="#cccccc" :src="icon.navigation_search" size="16" />
+      </template>
+    </b-input>
     <div class="help-body">
       <div
         v-if="bookmark.isPhone"
