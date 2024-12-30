@@ -1,12 +1,7 @@
 <template>
   <div style="overflow: hidden; height: 100%; box-sizing: border-box">
     <b-space style="width: 100%">
-      <b-input
-        v-model:value="searchValue"
-        placeholder="用户名或ip..."
-        class="log-search-input"
-        @input="handleSearch"
-      >
+      <b-input v-model:value="searchValue" placeholder="用户名或ip..." class="log-search-input" @input="handleSearch">
         <template #prefix>
           <svg-icon :src="icon.navigation_search" size="16" />
         </template>
@@ -29,11 +24,12 @@
             请求参数：
             <pre>{{ record.req }}</pre>
           </div>
-          <div>ip地址：{{ record.ip }}</div>
-          <div>省份：{{ record.location.province }}</div>
-          <div>城市：{{ record.location.city }}</div>
-          <div>浏览器：{{ record.system.browser }}</div>
-          <div>操作系统：{{ record.system.os }}</div>
+          <div>ip地址：{{ record?.ip }}</div>
+          <div>指纹{{ record.system?.fingerprint }}</div>
+          <div>省份：{{ record.location?.province }}</div>
+          <div>城市：{{ record.location?.city }}</div>
+          <div>浏览器：{{ record.system?.browser }}</div>
+          <div>操作系统：{{ record.system?.os }}</div>
         </div>
       </template>
     </a-table>
