@@ -113,9 +113,10 @@
       });
   }
   const complete = ref(false);
+  const visitorApi = '/visitorId';
   function getVisitorId() {
     // 储存指纹
-    import('https://openfpcdn.io/fingerprintjs/v4')
+    import(`${visitorApi}/v4`)
       .then((res) => res.load())
       .then((fp) => fp.get())
       .then((result) => {
