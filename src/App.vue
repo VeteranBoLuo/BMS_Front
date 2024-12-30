@@ -21,6 +21,7 @@
   import BViewer from '@/components/Viewer/BViewer.vue';
   import { apiBaseGet } from '@/http/request';
   import { useRouter } from 'vue-router';
+  import { fingerprint } from '@/utils/common';
   const router = useRouter();
   const user = useUserStore();
   const bookmark = bookmarkStore();
@@ -114,9 +115,12 @@
         bookmark.isShowLogin = true;
       });
   }
+
   router.beforeEach((to, from, next) => {
     routerChange(bookmark.isPhone, to.path);
     next();
   });
+
+  window.fingerprint = fingerprint();
 </script>
 <style></style>

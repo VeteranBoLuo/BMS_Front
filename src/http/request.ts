@@ -29,6 +29,7 @@ request.interceptors.request.use(
       } else {
         config.headers['role'] = 'visitor';
       }
+      config.headers['fingerprint'] = window['fingerprint'];
       return config;
     }
     return config;

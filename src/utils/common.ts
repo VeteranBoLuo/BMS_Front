@@ -21,7 +21,6 @@ export const copyTextToClipboard = function (text) {
   }
 };
 
-
 //  防抖函数
 export function debounce(func, time) {
   let timer: any;
@@ -106,4 +105,73 @@ export function getUserOsInfo() {
   if (userAgent.indexOf('X11') !== -1) return 'UNIX';
   if (userAgent.indexOf('Linux') !== -1) return 'Linux';
   return 'Other';
+}
+
+// fingerprint.js
+export function fingerprint() {
+  // 创建一个简单的哈希函数，用于生成字符串的哈希值
+  const createHash = (input) => {
+    let hash = 0;
+    for (let i = 0; i < input.length; i++) {
+      const character = input.charCodeAt(i);
+      hash = (hash << 5) - hash + character;
+      hash = hash & hash; // 转换为32位整数
+    }
+    return hash.toString(16);
+  };
+
+  // 使用canvas生成一个指纹
+  const getCanvasFingerprint = () => {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return '';
+    // 在canvas上绘制一些隐藏的文字
+    ctx.textBaseline = 'top';
+    ctx.font = '14px "Arial"';
+    ctx.textBaseline = 'alphabetic';
+    ctx.fillStyle = '#f60';
+    ctx.fillRect(125, 1, 62, 20);
+    ctx.fillStyle = '#069';
+    ctx.fillText('browser fingerprint', 2, 15);
+    ctx.fillStyle = 'rgba(102, 204, 0, 0.7)';
+    ctx.fillText('browser fingerprint', 4, 17);
+    // 返回canvas的dataURL字符串
+    return canvas.toDataURL();
+  };
+
+  // 将数组元素排序并连接成字符串，然后返回
+  const getArrayHash = (array) => {
+    if (!Array.isArray(array)) {
+      return '';
+    }
+    return array
+      .sort((a, b) => (a.name || a.type || a).localeCompare(b.name || b.type || b))
+      .map((item) => item.name || item.type || item)
+      .join(';');
+  };
+
+  // 获取浏览器和设备信息
+  const navigatorInfo = window.navigator;
+  const screenInfo = window.screen;
+  const plugins = Array.from(navigatorInfo.plugins);
+  const mimeTypes = Array.from(navigatorInfo.mimeTypes);
+  // 将各种浏览器属性组合成一个字符串数组
+  const attributes = [
+    navigatorInfo.userAgent, // 用户代理字符串
+    navigatorInfo.language, // 浏览器语言
+    screenInfo.width, // 屏幕宽度
+    screenInfo.height, // 屏幕高度
+    screenInfo.colorDepth, // 屏幕颜色深度
+    getArrayHash(plugins), // 插件列表哈希
+    getArrayHash(mimeTypes), // MIME类型列表哈希
+    getCanvasFingerprint(), // Canvas指纹
+    Intl.DateTimeFormat().resolvedOptions().timeZone, // 时区
+    navigator.hardwareConcurrency, // 硬件并发性
+    window.devicePixelRatio, // 设备像素比
+    getUserOsInfo(), // // 自定义属性：操作系统信息
+  ];
+
+  // 将属性数组连接成一个字符串并生成哈希值作为指纹
+  const fingerprintString = attributes.join(';');
+  return createHash(fingerprintString);
 }
