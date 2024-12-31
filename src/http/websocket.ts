@@ -3,7 +3,7 @@ let reconnectAttempts = 0;
 
 const connect = () => {
   // 判断当前环境，选择相应的 WebSocket URL
-  socket = new WebSocket('ws');
+  socket = new WebSocket('/ws');
   // 当连接打开时触发
   socket.onopen = () => {
     console.log('WebSocket 已连接:');
