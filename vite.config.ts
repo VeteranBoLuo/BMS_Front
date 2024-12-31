@@ -37,16 +37,6 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path: string) => path.replace(/^\/api/, ''),
       },
-      // '/ws': {
-      //   target: 'ws://localhost:3000', // WebSocket 服务器的地址
-      //   changeOrigin: true,
-      // },
-      '/ws': {
-        target: 'http://127.0.0.1:9001',
-        changeOrigin: true,
-        ws: true,
-        rewrite: (path) => path.replace(/^\/ws/, ''),
-      },
     },
     open: true,
   },
