@@ -8,8 +8,8 @@ import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
 import path from 'path';
 export default defineConfig({
   esbuild: {
-    // pure: ['console.log'], // 删除 console.log或
-    // drop: ['debugger'], // 删除 debugger
+    pure: ['console.log'], // 删除 console.log或
+    drop: ['debugger'], // 删除 debugger
   },
   build: {
     outDir: 'dist',
