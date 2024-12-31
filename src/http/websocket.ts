@@ -37,5 +37,4 @@ const connect = () => {
   };
 };
 
-// 导出 connect 函数
 export { connect };
