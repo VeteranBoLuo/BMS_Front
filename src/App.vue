@@ -126,10 +126,13 @@
 
   let socket;
   let reconnectAttempts = 0;
-
   const connect = () => {
+    let src = 'wss://139.9.83.16:3000';
+    if (window.location.protocol === 'http:') {
+      src = 'ws://127.0.0.1:3000';
+    }
     // 建立WebSocket连接
-    socket = new WebSocket('wss://139.9.83.16:3000');
+    socket = new WebSocket(src);
 
     // 当连接打开时触发
     socket.onopen = () => {
