@@ -129,7 +129,7 @@
 
   const connect = () => {
     // 建立WebSocket连接
-    socket = new WebSocket('ws://localhost:3000');
+    socket = new WebSocket('ws://139.9.83.16:3000');
 
     // 当连接打开时触发
     socket.onopen = () => {
