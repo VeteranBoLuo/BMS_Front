@@ -26,7 +26,7 @@
               <pre>{{ record.req }}</pre>
             </div>
             <div>ip地址：{{ record?.ip }}</div>
-            <div>指纹{{ record.system?.fingerprint }}</div>
+            <div>指纹：{{ record.system?.fingerprint }}</div>
             <div>省份：{{ record.location?.province }}</div>
             <div>城市：{{ record.location?.city }}</div>
             <div>浏览器：{{ record.system?.browser }}</div>

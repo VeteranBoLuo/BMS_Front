@@ -16,12 +16,13 @@
 <script setup>
   // 检查本地存储中是否有用户数据
   import { bookmarkStore, useUserStore } from '@/store';
-  import { nextTick, watch, ref } from 'vue';
+  import { nextTick, watch } from 'vue';
   import login from '@/view/login/index.vue';
   import BViewer from '@/components/Viewer/BViewer.vue';
   import { apiBaseGet } from '@/http/request';
   import { useRouter } from 'vue-router';
   import { fingerprint } from '@/utils/common';
+
   const router = useRouter();
   const user = useUserStore();
   const bookmark = bookmarkStore();
@@ -122,5 +123,44 @@
   });
 
   window.fingerprint = fingerprint();
+
+  let socket;
+  let reconnectAttempts = 0;
+
+  const connect = () => {
+    // 建立WebSocket连接
+    socket = new WebSocket('ws://localhost:3000');
+
+    // 当连接打开时触发
+    socket.onopen = () => {
+      console.log('WebSocket 已连接:');
+      reconnectAttempts = 0; // 重置重连尝试次数
+    };
+
+    // 当接收到消息时触发
+    socket.onmessage = (event) => {
+      console.log('收到消息:', event.data);
+    };
+
+    // 当连接关闭时触发
+    socket.onclose = (event) => {
+      console.log('WebSocket 连接已关闭:', event);
+      // 延迟重连
+      const reconnectDelay = Math.min(1000 * Math.pow(2, reconnectAttempts), 30000); // 最大30秒
+      setTimeout(() => {
+        reconnectAttempts++;
+        console.log(`尝试第${reconnectAttempts}次重新连接...`);
+        connect();
+      }, reconnectDelay);
+    };
+
+    // 当连接出错时触发
+    socket.onerror = (error) => {
+      console.error('WebSocket 错误:', error);
+    };
+  };
+
+  // 初始连接
+  connect();
 </script>
 <style></style>
