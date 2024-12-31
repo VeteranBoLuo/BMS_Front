@@ -3,7 +3,11 @@ let reconnectAttempts = 0;
 
 const connect = () => {
   // 判断当前环境，选择相应的 WebSocket URL
-  socket = new WebSocket('/ws');
+  const src = window.location.hostname === 'localhost' ? 'ws://127.0.0.1:3000' : '/ws';
+
+  // 建立 WebSocket 连接
+  socket = new WebSocket(src);
+
   // 当连接打开时触发
   socket.onopen = () => {
     console.log('WebSocket 已连接:');
