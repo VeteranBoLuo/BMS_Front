@@ -1,7 +1,7 @@
 let socket;
 let reconnectAttempts = 0;
 const connect = () => {
-  let src = 'wss://127.0.0.1:3000';
+  let src = 'ws://127.0.0.1:3000';
   // if (window.location.protocol === 'http:') {
   //   src = 'ws://127.0.0.1:3000';
   // }
