@@ -1,12 +1,11 @@
-let socket;
+let socket: WebSocket;
 let reconnectAttempts = 0;
+
 const connect = () => {
-  console.log(location.host + location.pathname);
-  let src = `wss://${location.host + location.pathname}`;
-  // if (window.location.protocol === 'http:') {
-  //   src = 'ws://127.0.0.1:3000';
-  // }
-  // 建立WebSocket连接
+  // 判断当前环境，选择相应的 WebSocket URL
+  const src = window.location.hostname === 'localhost' ? 'ws://127.0.0.1:3000' : 'wss://boluo66.top/ws/';
+
+  // 建立 WebSocket 连接
   socket = new WebSocket(src);
 
   // 当连接打开时触发
