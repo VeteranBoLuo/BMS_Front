@@ -35,7 +35,7 @@
   if (theme) {
     bookmark.theme = theme;
   }
-  getUserInfo();
+  window.fingerprint = fingerprint();
 
   function getThemeStyle(theme) {
     document.documentElement.setAttribute('data-theme', theme);
@@ -121,9 +121,5 @@
     routerChange(bookmark.isPhone, to.path);
     next();
   });
-
-  window.fingerprint = fingerprint();
-
-
 </script>
 <style></style>
