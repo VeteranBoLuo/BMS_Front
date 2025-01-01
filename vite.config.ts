@@ -37,6 +37,12 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path: string) => path.replace(/^\/api/, ''),
       },
+      '/ws': {
+        target: 'http://127.0.0.1:3000',
+        changeOrigin: true,
+        ws: true,
+        rewrite: (path: string) => path.replace(/^\/ws/, ''),
+      },
     },
     open: true,
   },
