@@ -36,7 +36,7 @@
     bookmark.theme = theme;
   }
   window.fingerprint = fingerprint();
-
+  getUserInfo();
   function getThemeStyle(theme) {
     document.documentElement.setAttribute('data-theme', theme);
   }
