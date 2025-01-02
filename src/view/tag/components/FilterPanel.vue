@@ -2,7 +2,7 @@
   <div class="filter-panel">
     <b-list class="header-input" :list-options="filterTagList" :node-type="{ id: 'id', title: 'name' }">
       <template #input>
-        <b-input placeholder="请输入标签名" v-model:value="tagName">
+        <b-input placeholder="请输入标签名" v-model:value="tagName" id="ref1">
           <template #suffix>
             <a-dropdown :trigger="['hover']" class="flex-align-center">
               <template #overlay>
@@ -21,7 +21,7 @@
                 </a-menu>
               </template>
               <span>
-                <svg-icon :src="icon.filter_panel_list" size="20" />
+                <svg-icon :src="icon.filter_panel_list" size="20"  />
               </span>
             </a-dropdown> </template
         ></b-input>
@@ -62,13 +62,13 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, ref } from 'vue';
+  import { computed, createVNode, ref, watch } from 'vue';
   import { apiBasePost } from '@/http/request';
-  import { bookmarkStore, useUserStore } from '@/store';
+  import { bookmarkStore, tourStore, useUserStore } from '@/store';
   import { useRouter } from 'vue-router';
   import RightMenu from '@/components/RightMenu.vue';
   import { TagInterface } from '@/config/bookmarkCfg';
-  import { message } from 'ant-design-vue';
+  import { message, TourProps } from 'ant-design-vue';
   import Alert from '@/components/BasicComponents/BModal/Alert';
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
   import icon from '@/config/icon.ts';
@@ -84,7 +84,7 @@
 
   const newName = ref('');
   const rightTagData = ref<TagInterface>();
-
+  const tour = tourStore();
   function handleTagMenu(menu, tag: TagInterface) {
     rightTagData.value = tag;
     if (menu === '重命名') {
@@ -146,6 +146,31 @@
       router.push({ path: `/home/${tag.id}` });
     }
   }
+  // function tourChange() {
+  //   tour.open = true;
+  //   tour.steps = [
+  //     {
+  //       title: 'Upload File',
+  //       description: 'Put your files here.',
+  //       target: () => document.getElementById('ref1'),
+  //       nextButtonProps: {
+  //         onClick: () => {
+  //           router.push('/help');
+  //         },
+  //       },
+  //     },
+  //     {
+  //       title: 'Save',
+  //       description: 'Save your changes.',
+  //       target: () => document.getElementById('ref2'),
+  //       prevButtonProps: {
+  //         onClick: () => {
+  //           router.push('/home');
+  //         },
+  //       },
+  //     },
+  //   ];
+  // }
 </script>
 
 <style lang="less" scoped>

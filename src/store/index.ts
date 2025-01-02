@@ -1,9 +1,12 @@
 // src/store/user.js
 import { defineStore } from 'pinia';
-import { FormInstance } from 'ant-design-vue';
+import { FormInstance, TourProps } from 'ant-design-vue';
 import { TagInterface } from '@/config/bookmarkCfg';
 import icon from '@/config/icon.ts';
 import Viewer from 'viewerjs';
+import { createVNode, nextTick, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import { cloneDeep } from 'lodash-es';
 
 export const useUserStore = defineStore('user', {
   state: () => ({
@@ -223,3 +226,36 @@ export const setFormStoreById = function (id: string, data: ModalOption) {
   }
   return store;
 };
+
+export const tourStore = defineStore('dom', {
+  state: () =>
+    <
+      {
+        steps?: TourProps['steps'];
+        open: boolean; // 是否显示
+        current: number; // 当前步骤
+        close: any; // 自定义关闭
+        finish: any; // 自定义
+      }
+    >{
+      steps: [],
+      open: false,
+      current: 0,
+      close: () => {
+        tourStore().open = false;
+      },
+      finish: () => {
+        tourStore().open = false;
+      },
+    },
+  actions: {
+    // 跨页面时需要重新赋值一次配置才能获取到页面的dom
+    resetSteps() {
+      const steps = cloneDeep(this.steps);
+      this.steps = [];
+      nextTick(() => {
+        this.steps = steps;
+      }).then();
+    },
+  },
+});

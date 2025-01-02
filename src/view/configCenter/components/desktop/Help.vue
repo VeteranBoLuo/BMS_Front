@@ -11,6 +11,7 @@
       v-model:value="searchValue"
       placeholder="请搜索问题"
       style="width: 30%; margin: 0 auto; position: fixed; top: 15px; transform: translateX(-50%); left: 50%"
+      id="ref2"
     >
       <template #prefix>
         <svg-icon color="#cccccc" :src="icon.navigation_search" size="16" />
@@ -68,11 +69,11 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, nextTick, onMounted, onUnmounted, ref } from 'vue';
+  import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue';
   import BList from '@/components/BasicComponents/BList/BList.vue';
   import icon from '@/config/icon.ts';
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
-  import { bookmarkStore } from '@/store';
+  import { bookmarkStore, tourStore } from '@/store';
   import BInput from '@/components/BasicComponents/BInput/BInput.vue';
   import BButton from '@/components/BasicComponents/BButton/BButton.vue';
   import BSpace from '@/components/BasicComponents/BSpace/BSpace.vue';
@@ -292,6 +293,7 @@
       bookmark.refreshViewer(e.target.src, {});
     }
   }
+  const tour = tourStore();
   onMounted(() => {
     setupClickListener();
   });

@@ -7,6 +7,7 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    ACheckboxGroup: typeof import('ant-design-vue/es')['CheckboxGroup']
     AConfigProvider: typeof import('ant-design-vue/es')['ConfigProvider']
     ADropdown: typeof import('ant-design-vue/es')['Dropdown']
     AEmpty: typeof import('ant-design-vue/es')['Empty']
@@ -21,6 +22,8 @@ declare module 'vue' {
     ATabPane: typeof import('ant-design-vue/es')['TabPane']
     ATabs: typeof import('ant-design-vue/es')['Tabs']
     ATooltip: typeof import('ant-design-vue/es')['Tooltip']
+    ATour: typeof import('ant-design-vue/es')['Tour']
+    ATransfer: typeof import('ant-design-vue/es')['Transfer']
     BAlert: typeof import('./src/components/BasicComponents/BModal/BAlert.vue')['default']
     BButton: typeof import('./src/components/BasicComponents/BButton/BButton.vue')['default']
     BCard: typeof import('./src/components/BasicComponents/BCard/BCard.vue')['default']

@@ -11,17 +11,26 @@
       <login v-if="bookmark.isShowLogin" />
       <BViewer />
     </a-config-provider>
+    <a-tour
+      v-if="tour.open"
+      v-model:current="tour.current"
+      :open="tour.open"
+      :steps="tour.steps"
+      @close="tour.close"
+      @finish="tour.finish"
+    />
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
   // 检查本地存储中是否有用户数据
-  import { bookmarkStore, useUserStore } from '@/store';
-  import { nextTick, watch } from 'vue';
+  import { bookmarkStore, useUserStore, tourStore } from '@/store';
+  import { createVNode, nextTick, onMounted, ref, watch } from 'vue';
   import login from '@/view/login/index.vue';
   import BViewer from '@/components/Viewer/BViewer.vue';
   import { apiBaseGet } from '@/http/request';
   import { useRouter } from 'vue-router';
   import { fingerprint } from '@/utils/common';
+  import { TourProps } from 'ant-design-vue';
 
   const router = useRouter();
   const user = useUserStore();
@@ -120,6 +129,15 @@
   router.beforeEach((to, from, next) => {
     routerChange(bookmark.isPhone, to.path);
     next();
+  });
+  const tour = tourStore();
+  onMounted(() => {
+    const router = useRouter();
+    router.afterEach((to, from) => {
+      if (tourStore().open) {
+        tourStore().resetSteps();
+      }
+    });
   });
 </script>
 <style></style>

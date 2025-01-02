@@ -46,27 +46,52 @@
           :color="bookmark.theme === 'day' ? '#f6f7f9' : '#4e5262'"
         />
         <div class="header_menu_ul">
-          <div class="flex-center li" @click="router.push('/admin'), (menuVisible = false)" v-if="user.role === 'root'">
+          <div
+            class="flex-center li"
+            v-click-log="{ module: '个人中心', operation: `后台管理` }"
+            @click="router.push('/admin'), (menuVisible = false)"
+            v-if="user.role === 'root'"
+          >
             <svg-icon size="14" :src="icon.user_admin" />
             后台管理
           </div>
-          <div class="flex-center li" @click="$router.push('/manage/tagMg'), (menuVisible = false)">
+          <div
+            class="flex-center li"
+            v-click-log="{ module: '个人中心', operation: `标签管理` }"
+            @click="$router.push('/manage/tagMg'), (menuVisible = false)"
+          >
             <svg-icon size="14" :src="icon.manage_categoryBtn_tag" />
             标签管理
           </div>
-          <div class="flex-center li" @click="$router.push('/manage/bookmarkMg'), (menuVisible = false)">
+          <div
+            class="flex-center li"
+            v-click-log="{ module: '个人中心', operation: `书签管理` }"
+            @click="$router.push('/manage/bookmarkMg'), (menuVisible = false)"
+          >
             <svg-icon size="14" :src="icon.manage_categoryBtn_bookmark" />
             书签管理
           </div>
-          <div class="flex-center li" @click="$router.push('/help'), (menuVisible = false)">
+          <div
+            class="flex-center li"
+            v-click-log="{ module: '个人中心', operation: `帮助中心` }"
+            @click="$router.push('/help'), (menuVisible = false)"
+          >
             <svg-icon size="14" :src="icon.help_document" />
             帮助中心
           </div>
-          <div class="flex-center li" @click="(opinionsVisible = true), (menuVisible = false)">
+          <div
+            class="flex-center li"
+            v-click-log="{ module: '个人中心', operation: `意见反馈` }"
+            @click="(opinionsVisible = true), (menuVisible = false)"
+          >
             <svg-icon size="14" :src="icon.userCenter_OperationLog" />
             意见反馈
           </div>
-          <div class="flex-center li" @click="handleExitLogin">
+          <div
+            class="flex-center li"
+            v-click-log="{ module: '个人中心', operation: user.role === 'visitor' ? '登录/注册' : '退出登录' }"
+            @click="handleExitLogin"
+          >
             <svg-icon size="14" :src="icon.user_exit" />
             {{ user.role === 'visitor' ? '登录/注册' : '退出登录' }}
           </div>
@@ -204,8 +229,6 @@
     text-align: left;
     color: white !important;
   }
-
-
 
   .modal-content {
     margin: auto;

@@ -45,35 +45,60 @@
         <span class="person-menu-item-title">主题设置</span>
         <span class="person-menu-item-des">{{ ThemeName }}</span></div
       >
-      <div v-if="user.role === 'root'" class="person-menu-item" @click="router.push('/admin')">
+      <div
+        v-if="user.role === 'root'"
+        class="person-menu-item"
+        @click="router.push('/admin')"
+        v-click-log="{ module: '个人中心', operation: `后台管理` }"
+      >
         <span class="person-menu-item-title">后台管理</span>
         <span class="person-menu-item-des"
           >日志、用户管理等<svg-icon color="#999fa8" style="rotate: 180deg" :src="icon.arrow_left" size="14" /></span
       ></div>
-      <div class="person-menu-item" @click="$router.push('/manage/tagMg')">
+      <div
+        class="person-menu-item"
+        @click="$router.push('/manage/tagMg')"
+        v-click-log="{ module: '个人中心', operation: `标签管理` }"
+      >
         <span class="person-menu-item-title">标签管理</span>
         <span class="person-menu-item-des"
           ><svg-icon color="#999fa8" style="rotate: 180deg" :src="icon.arrow_left" size="14" /></span
       ></div>
-      <div class="person-menu-item" @click="$router.push('/manage/bookmarkMg')">
+      <div
+        class="person-menu-item"
+        @click="$router.push('/manage/bookmarkMg')"
+        v-click-log="{ module: '个人中心', operation: `书签管理` }"
+      >
         <span class="person-menu-item-title">书签管理</span>
         <span class="person-menu-item-des"
           ><svg-icon color="#999fa8" style="rotate: 180deg" :src="icon.arrow_left" size="14" /></span
       ></div>
     </div>
     <div class="person-menu">
-      <div class="person-menu-item" @click="$router.push('/opinions')">
+      <div
+        class="person-menu-item"
+        @click="$router.push('/opinions')"
+        v-click-log="{ module: '个人中心', operation: `意见反馈` }"
+      >
         <span class="person-menu-item-title">意见反馈</span>
         <span class="person-menu-item-des"
           ><svg-icon color="#999fa8" style="rotate: 180deg" :src="icon.arrow_left" size="14" /></span
       ></div>
-      <div class="person-menu-item" @click="$router.push('/help')">
+      <div
+        class="person-menu-item"
+        @click="$router.push('/help')"
+        v-click-log="{ module: '个人中心', operation: `帮助中心` }"
+      >
         <span class="person-menu-item-title">帮助中心</span>
         <span class="person-menu-item-des"
           ><svg-icon color="#999fa8" style="rotate: 180deg" :src="icon.arrow_left" size="14" /></span
       ></div>
     </div>
-    <div class="person-menu" @click="handleExitLogin">
+    <div
+      class="person-menu"
+      @click="handleExitLogin"
+      v-click-log="{ module: '个人中心', operation: user.role === 'visitor' ? '登录/注册' : '退出登录' }"
+    >
       <div class="person-menu-item" style="justify-content: center">
         <span class="person-menu-item-title">{{ user.role === 'visitor' ? '登录/注册' : '退出登录' }}</span></div
       >
