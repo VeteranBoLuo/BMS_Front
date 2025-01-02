@@ -98,7 +98,7 @@
     width: 100%;
   }
   .category-body {
-    height: calc(100% - 42px);
+    height: calc(100% - 50px);
     overflow-y: auto;
   }
   .category-item {

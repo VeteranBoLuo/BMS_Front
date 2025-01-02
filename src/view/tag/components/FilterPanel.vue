@@ -200,7 +200,7 @@
     .filter-panel {
       min-width: unset;
       width: 100%;
-      padding: 20px;
+      padding: 0 20px 20px 20px;
     }
 
     &.header-input {
