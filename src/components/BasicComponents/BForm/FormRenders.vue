@@ -9,18 +9,19 @@
       return true;
     }
     return option.value.toUpperCase().indexOf(value.toUpperCase()) > -1;
-
   }
   function genSelector(
     options: BaseOptions[],
     mode: 'multiple' | 'tags' | 'combobox' = 'combobox',
     placeholder = '请选择',
+    dropdownMatchSelectWidth = false,
   ) {
     return (
       <a-select
         filterOption={SelectionSearch}
         mode={mode}
         options={options}
+        dropdownMatchSelectWidth={dropdownMatchSelectWidth}
         placeholder={placeholder}
         showSearch={true}
         allowClear={true}
@@ -31,11 +32,7 @@
 
   const render = {
     // 基础下拉框
-    getSelector(
-      options: BaseOptions[],
-      mode: 'multiple' | 'tags' | 'combobox' = 'combobox',
-      placeholder = '请选择',
-    ) {
+    getSelector(options: BaseOptions[], mode: 'multiple' | 'tags' | 'combobox' = 'combobox', placeholder = '请选择') {
       return genSelector(options, mode, placeholder);
     },
 
