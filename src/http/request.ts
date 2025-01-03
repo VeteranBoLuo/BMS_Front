@@ -76,7 +76,7 @@ export const apiBasePost = async (url: string, data?: any, options?: AxiosReques
   return handleErrorResponse(res);
 };
 
-export const apiBaseGet = async (url: string, params: any, options?: AxiosRequestConfig) => {
+export const apiBaseGet = async (url: string, params?: any, options?: AxiosRequestConfig) => {
   const res = await request({
     url: url,
     method: 'get',

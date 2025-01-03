@@ -11,7 +11,7 @@
   import { nextTick, watch } from 'vue';
 
   const emit = defineEmits(['change']);
-  const props = withDefaults(defineProps<{ options: [] }>(), {
+  const props = withDefaults(defineProps<{ options: string[] }>(), {
     options: () => [],
   });
 

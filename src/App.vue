@@ -96,7 +96,7 @@
   }
 
   function getUserInfo() {
-    apiBaseGet('/api/user/getUserInfo', { id: localStorage.getItem('userId') })
+    apiBaseGet('/api/user/getUserInfo')
       .then((res) => {
         user.setUserInfo(res.data);
         bookmark.theme = res.data.theme ?? 'day';

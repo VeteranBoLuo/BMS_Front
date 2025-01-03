@@ -1,5 +1,5 @@
 <template>
-  <b-modal :mask-closable="false" title="意见反馈"  :visible="visible" @close="visible = false">
+  <b-modal :mask-closable="false" title="意见反馈"  v-model:visible="visible" @close="visible = false">
     <div :style="{ width: bookmark.isPhone ? '95%' : '450px' }">
       <BTabs :options="['反馈类型', '反馈历史']" v-model:activeTab="activeTab" />
       <div class="type" style="height: 330px" v-if="activeTab === '反馈类型'">
