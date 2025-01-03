@@ -1,5 +1,5 @@
 <template>
-  <b-modal :mask-closable="false" title="编辑资料" :visible="visible" @close="visible = false">
+  <b-modal :mask-closable="false" title="编辑资料" v-model:visible="visible" @close="visible = false">
     <div class="home-container">
       <div style="width: 100%" class="flex-justify-center">
         <div class="user_icon" @click="uploadImg" v-click-log="{ module: '我的信息', operation: `上传头像` }">

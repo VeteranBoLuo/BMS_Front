@@ -8,9 +8,21 @@
         </div>
         <div class="tag-attr-item" style="position: relative">
           <span class="tag-attr-label">图标</span>
-          <b-input v-model:value="tag.iconUrl">
+          <b-input v-model:value="tag.iconUrl" placeholder="支持svg代码、base64编码或者直接上传图标">
+            <template #prefix>
+              <svg-icon
+                title="获取图标"
+                :src="icon.file_down"
+                class="dom-hover-click"
+                size="20"
+                color="#5c82ff"
+                style="height: 32px"
+                @click.stop="downTagImg"
+              />
+            </template>
             <template #suffix>
               <svg-icon
+                title="上传图标"
                 :src="icon.file_upload"
                 class="dom-hover-click"
                 size="20"
@@ -74,6 +86,15 @@
       <b-button type="primary" @click="submit" v-click-log="{ module: '标签编辑', operation: `确定` }">确定 </b-button>
       <b-button @click="$router.back()" v-click-log="{ module: '标签编辑', operation: `返回` }">返回 </b-button>
     </b-space>
+    <b-modal title="图标复制示例" v-model:visible="tagImgTipsVisible" :show-footer="false" top="50%">
+      <div>
+        <p>1、点击<a href="https://icon-sets.iconify.design/" target="_blank">此链接</a>跳转至图标网搜索想的图标</p>
+        <p>2、根据下方图片示例复制图标代码</p>
+        <img @click="bookmark.refreshViewer(iconifyImg)" :src="iconifyImg" width="1152" height="552" />
+        <p>3、将图标代码粘贴至图标输入框</p>
+        <img src="@/assets/img/iconify教程2.jpg" />
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -90,7 +111,8 @@
   import BLoading from '@/components/BasicComponents/BLoading/BLoading.vue';
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
   import icon from '@/config/icon.ts';
-
+  import BModal from '@/components/BasicComponents/BModal/BModal.vue';
+  import iconifyImg from '@/assets/img/iconify教程.jpg';
   const bookmark = bookmarkStore();
   const user = useUserStore();
 
@@ -155,7 +177,10 @@
     }
     return [];
   }
-
+  const tagImgTipsVisible = ref(false);
+  function downTagImg() {
+    tagImgTipsVisible.value = true;
+  }
   function uploadTagImg() {
     const input = document.createElement('input');
     input.type = 'file';

@@ -27,8 +27,8 @@
       @input="handleInput"
       @enter="$emit('enter')"
       :style="{
-        paddingLeft: hasPrefixSlot ? '30px' : '11px',
-        paddingRight: hasSuffixSlot ? '30px' : '11px',
+        paddingLeft: hasPrefixSlot ? '35px' : '11px',
+        paddingRight: hasSuffixSlot ? '35px' : '11px',
       }"
       :autocomplete="autocomplete"
       :maxlength="maxlength"

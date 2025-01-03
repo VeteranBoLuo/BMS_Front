@@ -30,32 +30,38 @@
 
 <script lang="ts" setup>
   import BSpace from '@/components/BasicComponents/BSpace/BSpace.vue';
-  import { onMounted, onUnmounted, ref } from 'vue';
+  import { computed, onMounted, onUnmounted, ref, useAttrs } from 'vue';
 
   const props = withDefaults(
     defineProps<{
       title: string;
-      visible: boolean;
       maskClosable: boolean; // 点击遮罩层关闭
       showFooter: boolean; // 是否显示底部
       escClosable: boolean; // 按下esc关闭
+      top: string;
     }>(),
     {
       title: '默认标题',
-      visible: false,
       maskClosable: true,
       showFooter: true,
       escClosable: true,
+      top: '40%',
     },
   );
+  const visible = defineModel('visible');
   const emit = defineEmits(['ok', 'close']);
   const isOut = ref(false);
-
+  const attrs = useAttrs();
   function handleClose() {
     isOut.value = true;
     const timer = setTimeout(() => {
       isOut.value = false;
-      emit('close');
+      // 检查父组件是否监听了 'close' 事件
+      if (attrs.onClose) {
+        emit('close');
+      } else {
+        visible.value = false;
+      }
       clearTimeout(timer);
     }, 200);
   }
@@ -82,6 +88,10 @@
     document.removeEventListener('mouseup', closeMask);
     document.addEventListener('keydown', clickEsc);
   });
+
+  const cssTop = computed(() => {
+    return props.top;
+  });
 </script>
 
 <style lang="less" scoped>
@@ -96,7 +106,7 @@
   .modal-view {
     position: absolute;
     left: 50%;
-    top: 40%;
+    top: v-bind(cssTop);
     transform: translate(-50%, -50%);
     box-sizing: border-box;
     background-color: var(--menu-body-bg-color);
