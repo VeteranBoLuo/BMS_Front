@@ -11,14 +11,6 @@
       <login v-if="bookmark.isShowLogin" />
       <BViewer />
     </a-config-provider>
-    <a-tour
-      v-if="tour.open"
-      v-model:current="tour.current"
-      :open="tour.open"
-      :steps="tour.steps"
-      @close="tour.close"
-      @finish="tour.finish"
-    />
   </div>
 </template>
 <script setup lang="ts">
@@ -44,6 +36,7 @@
     bookmark.theme = theme;
   }
   window['fingerprint'] = fingerprint();
+  console.log(window['fingerprint'])
   getUserInfo();
   function getThemeStyle(theme) {
     document.documentElement.setAttribute('data-theme', theme);
@@ -128,15 +121,6 @@
   router.beforeEach((to, from, next) => {
     routerChange(bookmark.isPhone, to.path);
     next();
-  });
-  const tour = tourStore();
-  onMounted(() => {
-    const router = useRouter();
-    router.afterEach((to, from) => {
-      if (tourStore().open) {
-        tourStore().resetSteps();
-      }
-    });
   });
 </script>
 <style></style>
