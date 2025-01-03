@@ -157,7 +157,6 @@ export function fingerprint() {
   const mimeTypes = Array.from(navigatorInfo.mimeTypes);
   // 将各种浏览器属性组合成一个字符串数组
   const attributes = [
-    navigatorInfo.userAgent, // 用户代理字符串
     navigatorInfo.language, // 浏览器语言
     screenInfo.width, // 屏幕宽度
     screenInfo.height, // 屏幕高度

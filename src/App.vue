@@ -23,14 +23,13 @@
 </template>
 <script setup lang="ts">
   // 检查本地存储中是否有用户数据
-  import { bookmarkStore, useUserStore, tourStore } from '@/store';
-  import { createVNode, nextTick, onMounted, ref, watch } from 'vue';
+  import { bookmarkStore, useUserStore } from '@/store';
+  import { nextTick, onMounted, watch } from 'vue';
   import login from '@/view/login/index.vue';
   import BViewer from '@/components/Viewer/BViewer.vue';
   import { apiBaseGet } from '@/http/request';
   import { useRouter } from 'vue-router';
   import { fingerprint } from '@/utils/common';
-  import { TourProps } from 'ant-design-vue';
 
   const router = useRouter();
   const user = useUserStore();
@@ -44,7 +43,7 @@
   if (theme) {
     bookmark.theme = theme;
   }
-  window.fingerprint = fingerprint();
+  window['fingerprint'] = fingerprint();
   getUserInfo();
   function getThemeStyle(theme) {
     document.documentElement.setAttribute('data-theme', theme);

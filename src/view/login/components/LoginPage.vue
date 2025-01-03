@@ -71,7 +71,7 @@
       <a
         v-click-log="{ module: '登录', operation: `移动端预览` }"
         class="tips-text dom-hover"
-        style="left: 20px; font-size: 12px"
+        style="left: 20px; font-size: 12px;width: max-content"
         @click="viewPhoneVisible = true"
         >移动端预览</a
       >
