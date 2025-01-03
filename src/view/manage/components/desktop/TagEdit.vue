@@ -25,6 +25,7 @@
           <a-select
             :listHeight="350"
             mode="multiple"
+            :dropdownMatchSelectWidth="false"
             :max-tag-count="3"
             :options="tagOptions"
             show-search

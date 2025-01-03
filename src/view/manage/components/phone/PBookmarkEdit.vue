@@ -14,6 +14,7 @@
           <span class="tag-attr-label">相关标签</span>
           <a-select
             :listHeight="350"
+            :dropdownMatchSelectWidth="false"
             mode="multiple"
             :max-tag-count="3"
             :options="tagOptions"
