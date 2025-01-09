@@ -41,10 +41,31 @@
       </div>
     </div>
     <div class="person-menu">
-      <div class="person-menu-item">
+      <div class="person-menu-item" v-if="user.role !== 'root'">
         <span class="person-menu-item-title">主题设置</span>
         <span class="person-menu-item-des">{{ ThemeName }}</span></div
       >
+      <div v-else>
+        <div
+          style="
+            width: 100%;
+            font-size: 14px;
+            background-color: var(--phone-menu-item-bg-color);
+            height: 50px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            cursor: pointer;
+          "
+          class="flex-align-center-gap"
+          ><span
+            >当前进度 <a>{{ result.iteration }}</a> 次</span
+          >
+          <span
+            >下一次 <a>{{ result.nextDate }}</a></span
+          >
+        </div>
+      </div>
       <div
         v-if="user.role === 'root'"
         class="person-menu-item"
@@ -175,6 +196,44 @@
     bookmark.refreshViewer(user.headPicture || icon.navigation_user);
     menuVisible.value = false;
   }
+  function calculateIterationAndNextDate(initialDate, currentDateStr = new Date().toISOString().split('T')[0]) {
+    const initialDateTime = new Date(initialDate);
+    const currentDate = new Date(currentDateStr);
+    let interval = 3; // 初始间隔为3天
+
+    // 计算当前日期与初始日期之间的天数差
+    const timeDiff = currentDate - initialDateTime;
+    const diffDays = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+
+    // 计算是第几次
+    let iteration = 0;
+    let totalDays = 0;
+    while (totalDays + interval <= diffDays) {
+      totalDays += interval;
+      interval += 1; // 每次间隔增加1天
+      iteration += 1;
+    }
+
+    // 如果当前日期小于初始日期，则还没有开始
+    if (diffDays < 0) {
+      iteration = 0;
+      totalDays = 0;
+    }
+
+    // 计算下一次的日期
+    const nextDate = new Date(initialDateTime);
+    nextDate.setDate(initialDateTime.getDate() + totalDays + interval);
+
+    // 返回结果
+    return {
+      iteration: iteration,
+      nextDate: nextDate.toISOString().split('T')[0], // 格式化为YYYY-MM-DD
+    };
+  }
+
+  // 使用函数
+  const initialDate = '2025-01-09';
+  const result = calculateIterationAndNextDate(initialDate);
 </script>
 
 <style lang="less" scoped>
