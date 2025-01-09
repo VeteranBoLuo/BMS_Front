@@ -32,13 +32,23 @@
         </div>
       </div>
       <div class="handle-body">
-        <div class="handle-body-title-body">
+        <div class="handle-body-title-body" v-if="user.role !== 'root'">
           <div class="flex-center" style="height: 40px; color: var(--text-color); gap: 10px; font-size: 12px">
             <svg-icon size="14" :src="icon.theme" />
             主题模式
           </div>
           <div style="text-align: right; padding-right: 20px; color: #969ba2">
             {{ ThemeName }}
+          </div>
+        </div>
+        <div v-else>
+          <div style="width: 100%; padding-left: 12px; font-size: 14px;" class="flex-align-center-gap"
+            ><span
+              >进度 <a>{{ result.iteration }}</a> 次</span
+            >
+            <span
+              >下一次 <a>{{ result.nextDate }}</a></span
+            >
           </div>
         </div>
         <hr
@@ -116,6 +126,7 @@
   import userApi from '@/api/userApi.ts';
   import MyInfo from '@/view/configCenter/components/desktop/MyInfo.vue';
   import Opinions from '@/view/configCenter/components/desktop/Opinions.vue';
+
   const bookmark = bookmarkStore();
   const getPopupContainer = (trigger: HTMLElement) => {
     return document.getElementById('tag-container');
@@ -126,9 +137,11 @@
   const opinionsVisible = ref(false);
 
   const user = useUserStore();
+
   function getThemeStyle(theme) {
     document.documentElement.setAttribute('data-theme', theme);
   }
+
   function handleExitLogin() {
     menuVisible.value = false;
     if (user.role === 'visitor') {
@@ -180,6 +193,45 @@
     userVisible.value = true;
     menuVisible.value = false;
   }
+
+  function calculateIterationAndNextDate(initialDate, currentDateStr = new Date().toISOString().split('T')[0]) {
+    const initialDateTime = new Date(initialDate);
+    const currentDate = new Date(currentDateStr);
+    let interval = 3; // 初始间隔为3天
+
+    // 计算当前日期与初始日期之间的天数差
+    const timeDiff = currentDate - initialDateTime;
+    const diffDays = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+
+    // 计算是第几次
+    let iteration = 0;
+    let totalDays = 0;
+    while (totalDays + interval <= diffDays) {
+      totalDays += interval;
+      interval += 1; // 每次间隔增加1天
+      iteration += 1;
+    }
+
+    // 如果当前日期小于初始日期，则还没有开始
+    if (diffDays < 0) {
+      iteration = 0;
+      totalDays = 0;
+    }
+
+    // 计算下一次的日期
+    const nextDate = new Date(initialDateTime);
+    nextDate.setDate(initialDateTime.getDate() + totalDays + interval);
+
+    // 返回结果
+    return {
+      iteration: iteration,
+      nextDate: nextDate.toISOString().split('T')[0], // 格式化为YYYY-MM-DD
+    };
+  }
+
+  // 使用函数
+  const initialDate = '2025-01-09';
+  const result = calculateIterationAndNextDate(initialDate);
 </script>
 
 <style scoped lang="less">
@@ -189,12 +241,14 @@
     clip-path: circle(50% at 50% 50%);
     cursor: pointer;
   }
+
   .handle-body {
     border-radius: 8px;
     background-color: var(--user-body-bg-color);
     margin-top: 15px;
     padding: 5px;
     width: 220px;
+
     .handle-body-title-body {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -212,6 +266,7 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
+
     .li {
       height: 30px;
       cursor: pointer;
@@ -219,12 +274,14 @@
       border-radius: 4px;
       color: var(--text-color);
       gap: 10px;
+
       &:hover {
         background-color: var(--menu-item-h-bg-color);
         border-radius: 8px;
       }
     }
   }
+
   .user-icon-text {
     text-align: left;
     color: white !important;
@@ -245,9 +302,11 @@
     animation-duration: 0.6s;
     cursor: pointer;
   }
+
   @media (max-width: 600px) {
     .header_menu_ul {
     }
+
     .modal-content {
       height: 60%;
       width: 80%;

@@ -35,29 +35,13 @@
   if (theme) {
     bookmark.theme = theme;
   }
+  getThemeStyle(bookmark.theme);
+
   window['fingerprint'] = fingerprint();
   getUserInfo();
   function getThemeStyle(theme) {
     document.documentElement.setAttribute('data-theme', theme);
   }
-
-  watch(
-    () => bookmark.theme,
-    (val) => {
-      getThemeStyle(val);
-    },
-    {
-      immediate: true,
-    },
-  );
-
-  watch(
-    () => bookmark.isPhone,
-    (val) => {
-      routerChange(val, router.currentRoute.value.path);
-      setTransition(val);
-    },
-  );
 
   // 设置动画
   function setTransition(val) {
@@ -103,23 +87,33 @@
         getThemeStyle(bookmark.theme);
         localStorage.setItem('theme', bookmark.theme);
         if (res.status !== 200) {
-          router.push('/home');
-          localStorage.setItem('userId', '');
-          bookmark.isShowLogin = true;
+          handleUserLogout();
         }
       })
       .catch((e) => {
         console.error('接口错误：', e);
-        localStorage.setItem('userId', '');
         bookmark.theme = 'day';
-        router.push('/home');
-        bookmark.isShowLogin = true;
+        handleUserLogout();
       });
+  }
+  function handleUserLogout() {
+    localStorage.setItem('userId', '');
+    router.push('/home');
+    bookmark.isShowLogin = true;
   }
 
   router.beforeEach((to, from, next) => {
     routerChange(bookmark.isPhone, to.path);
     next();
   });
+
+  watch(
+    () => bookmark.isPhone,
+    (val) => {
+      routerChange(val, router.currentRoute.value.path);
+      setTransition(val);
+    },
+  );
+
 </script>
 <style></style>
