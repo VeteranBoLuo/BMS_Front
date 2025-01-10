@@ -71,7 +71,7 @@
 
   import tagAndBookmark from '@/assets/img/help/tag_bookmark_relation.jpg';
   import tagMg from '@/assets/img/help/tag_mg.jpg';
-  import tagAddBtn from '@/assets/img/help/tag_addbtn.jpg';
+  import tagAddBtn from '@/assets/img/help/tag_addBtn.jpg';
   import tagAddPage from '@/assets/img/help/tag_addPage.jpg';
   import tagTable from '@/assets/img/help/tag_table.jpg';
   import tagTree from '@/assets/img/help/tag_tree.jpg';
