@@ -115,5 +115,11 @@
     },
   );
 
+  watch(
+    () => bookmark.theme,
+    (val) => {
+      getThemeStyle(val);
+    },
+  );
 </script>
 <style></style>
