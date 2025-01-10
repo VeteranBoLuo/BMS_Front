@@ -87,7 +87,7 @@
   import router from '@/router';
 
   const bookmark = bookmarkStore();
-  const checkId = ref('标签管理');
+  const checkId = ref('');
   function logItem(item) {
     checkId.value = item.id;
     nextTick(() => {
