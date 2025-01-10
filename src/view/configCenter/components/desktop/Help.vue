@@ -150,7 +150,6 @@
         <p style="font-size: 12px">
         <p style="text-align: left">1、点击标签管理进入标签管理页面</p>
         <img src="${tagMg}"  alt="标签示例" class="bookmark-image"   width="80%" style="border: 1px solid;"/>
-        <p><i style="text-align: center;font-size: 12px">标签管理</i></p>
          <p style="text-align: left">2、点击新增进入添加标签页面</p>
         <img src="${tagAddBtn}"  alt="标签示例" class="bookmark-image"   width="80%" style="border: 1px solid;"/>
          <p style="text-align: left">3、标签图标可通过本地上传或粘贴图标的svg代码、base64代码等两种方式设置</p>
@@ -159,7 +158,7 @@
         <img src="${tagTable}"  alt="标签示例" class="bookmark-image"   width="80%" style="border: 1px solid;"/>
          <img src="${tagTree}"  alt="标签示例" class="bookmark-image"   width="80%" style="border: 1px solid;"/>
     </p>
-        <i style="text-align: center">标签管理示例</i>
+        <i style="text-align: center;font-size: 12px">标签管理示例</i>
       </div>
     </div>`,
       },
@@ -177,7 +176,7 @@
         <img src="${bookmarkTable}"  alt="书签示例" class="bookmark-image"   width="80%" style="border: 1px solid;"/>
         <img src="${bookmarkMainPage}"  alt="书签示例" class="bookmark-image"   width="80%" style="border: 1px solid;"/>
     </p>
-        <i>书签管理示例</i>
+        <i style="font-size: 12px">书签管理示例</i>
     </div>`,
       },
       {
