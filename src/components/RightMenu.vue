@@ -15,12 +15,7 @@
         >
           <div class="context-menu">
             <!-- 循环遍历菜单项，显示出来 -->
-            <div
-              @click="handleClick(label)"
-              class="context-menu-item menu-item"
-              v-for="label in menu"
-              :key="label"
-            >
+            <div @click="handleClick(label)" class="context-menu-item menu-item" v-for="label in menu" :key="label">
               {{ label }}
             </div>
           </div>
@@ -70,6 +65,11 @@
       showMenu.value = false;
     }
   }
+  function wheelChange(event) {
+    if (event.target?.className !== 'context-menu-item menu-item') {
+      showMenu.value = false;
+    }
+  }
 
   const containerRef = ref();
   const mouseX = ref(0);
@@ -78,15 +78,17 @@
     containerRef.value.addEventListener('contextmenu', (e) => {
       e.preventDefault(); // 阻止浏览器的默认行为
       mouseX.value = e.x;
-      mouseY.value = e.y;
+      mouseY.value = e.y + 5;
       showMenu.value = true;
     });
     window.addEventListener('click', clickListener, true);
     window.addEventListener('contextmenu', handleClose, true);
+    window.addEventListener('wheel', wheelChange, true);
   });
   onUnmounted(() => {
     window.removeEventListener('click', clickListener, true);
     window.removeEventListener('contextmenu', handleClose, true);
+    window.removeEventListener('wheel', wheelChange, true);
   });
 </script>
 <style lang="less">
