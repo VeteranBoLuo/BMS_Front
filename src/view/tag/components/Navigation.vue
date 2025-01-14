@@ -42,7 +42,7 @@
             id="bookmark-input"
             :placeholder="placeholder"
             @input="handleSearch"
-            @focus="placeholder = '可根据网站名称、描述搜索'"
+            @focus="placeholder = '可根据网站名称、描述和标签搜索'"
             @focusout="placeholder = 'Search...'"
             v-model:value="bookmark.bookmarkSearch"
           >
