@@ -25,7 +25,7 @@
       >
         <template #bodyCell="{ column, text, record }">
           <template v-if="column.dataIndex === 'name'">
-            <div style="display: flex; align-items: center; gap: 10px">
+            <div style="display: flex; align-items: center; gap: 10px" :title="text">
               <div class="card-img-container">
                 <img v-if="record.iconUrl" :src="record.iconUrl" height="20" width="20" @error="onErrorImg" alt="" />
               </div>
@@ -34,7 +34,13 @@
           </template>
           <template v-else-if="column.dataIndex === 'tagList'">
             <div class="text-hidden">
-              <span class="common-tag" style="margin-right: 10px" v-for="t in record.tagList" :key="t.id">
+              <span
+                :title="t.name"
+                class="common-tag"
+                style="margin-right: 10px"
+                v-for="t in record.tagList"
+                :key="t.id"
+              >
                 {{ t.name }}
               </span>
             </div>
@@ -84,31 +90,29 @@
 
   const bookmark = bookmarkStore();
   const loading = ref(false);
-  const tagColumns = computed(() => {
-    let columns = [
-      {
-        title: '书签',
-        dataIndex: 'name',
-        ellipsis: true,
-      },
-      {
-        title: '操作',
-        dataIndex: 'operation',
-        ellipsis: true,
-        width: 100,
-      },
-    ];
-    if (!bookmark.isPhone) {
-      {
-        columns.splice(1, 0, {
-          title: '关联标签',
-          dataIndex: 'tagList',
-          ellipsis: true,
-        });
-      }
-    }
-    return columns;
-  });
+  const tagColumns = ref([
+    {
+      title: '书签',
+      dataIndex: 'name',
+      ellipsis: true,
+    },
+    {
+      title: '网址',
+      dataIndex: 'url',
+      ellipsis: true,
+    },
+    {
+      title: '关联标签',
+      dataIndex: 'tagList',
+      ellipsis: true,
+    },
+    {
+      title: '操作',
+      dataIndex: 'operation',
+      ellipsis: true,
+      width: 100,
+    },
+  ]);
 
   const edit = (id: string) => {
     router.push({ path: `/manage/editBookmark/${id}` });

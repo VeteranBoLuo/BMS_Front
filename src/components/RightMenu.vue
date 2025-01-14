@@ -80,10 +80,10 @@
       mouseX.value = e.x;
       mouseY.value = e.y + 5;
       showMenu.value = true;
+      window.addEventListener('click', clickListener, true);
+      window.addEventListener('contextmenu', handleClose, true);
+      window.addEventListener('wheel', wheelChange, true);
     });
-    window.addEventListener('click', clickListener, true);
-    window.addEventListener('contextmenu', handleClose, true);
-    window.addEventListener('wheel', wheelChange, true);
   });
   onUnmounted(() => {
     window.removeEventListener('click', clickListener, true);

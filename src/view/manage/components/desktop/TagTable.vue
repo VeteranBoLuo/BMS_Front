@@ -31,8 +31,8 @@
           </template>
           <template v-else-if="column.dataIndex === 'associatedTagIds'">
             <div>
-              <div style="display: flex; align-items: center; gap: 10px" v-if="getTagName(text)">
-                <div class="common-tag" v-for="tag in getTagName(text)" :key="tag.id">
+              <div style="display: flex; align-items: center; gap: 10px">
+                <div :title="tag.name" class="common-tag" v-for="tag in record.associatedTagList" :key="tag.id">
                   {{ tag.name }}
                 </div>
               </div>
@@ -40,7 +40,7 @@
           </template>
           <template v-else-if="column.dataIndex === 'bookmarkList'">
             <div class="text-hidden">
-              <span class="common-tag" style="margin-right: 10px" v-for="b in record.bookmarkList" :key="b.id">
+              <span :title="b.name" class="common-tag" style="margin-right: 10px" v-for="b in record.bookmarkList" :key="b.id">
                 {{ b.name }}
               </span>
             </div>
