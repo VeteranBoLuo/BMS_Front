@@ -106,8 +106,10 @@
     if (handleType.value === 'add') {
       url = '/api/bookmark/addBookmark';
       params.userId = user.id;
+    } else {
+      params.iconUrl = null;
     }
-    apiBasePost(url, bookmarkData.value).then((res) => {
+    apiBasePost(url, params).then((res) => {
       if (res.status === 200) {
         message.success('保存成功');
         router.back();
