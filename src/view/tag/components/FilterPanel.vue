@@ -84,7 +84,6 @@
 
   const newName = ref('');
   const rightTagData = ref<TagInterface>();
-  const tour = tourStore();
   function handleTagMenu(menu, tag: TagInterface) {
     rightTagData.value = tag;
     if (menu === '重命名') {
@@ -146,31 +145,6 @@
       router.push({ path: `/home/${tag.id}` });
     }
   }
-  // function tourChange() {
-  //   tour.open = true;
-  //   tour.steps = [
-  //     {
-  //       title: 'Upload File',
-  //       description: 'Put your files here.',
-  //       target: () => document.getElementById('ref1'),
-  //       nextButtonProps: {
-  //         onClick: () => {
-  //           router.push('/help');
-  //         },
-  //       },
-  //     },
-  //     {
-  //       title: 'Save',
-  //       description: 'Save your changes.',
-  //       target: () => document.getElementById('ref2'),
-  //       prevButtonProps: {
-  //         onClick: () => {
-  //           router.push('/home');
-  //         },
-  //       },
-  //     },
-  //   ];
-  // }
 </script>
 
 <style lang="less" scoped>

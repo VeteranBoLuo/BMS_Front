@@ -13,7 +13,6 @@
   import { bookmarkStore } from '@/store';
   import { computed } from 'vue';
   import RightMenu from '@/components/RightMenu.vue';
-  import { TagInterface } from '@/config/bookmarkCfg.ts';
   import router from '@/router';
   import Alert from '@/components/BasicComponents/BModal/Alert.ts';
   import { apiBasePost } from '@/http/request.ts';

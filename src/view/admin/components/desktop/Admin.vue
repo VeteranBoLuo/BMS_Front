@@ -40,7 +40,7 @@
       icon: icon.navigation_user,
     },
     {
-      id: 'userOperation',
+      id: 'userOpinion',
       title: '用户反馈',
       icon: icon.userCenter_OperationLog,
     },
@@ -93,20 +93,6 @@
       align-items: center;
       gap: 5px;
       line-height: 100%;
-    }
-  }
-  @media (max-width: 600px) {
-    .admin-container {
-      display: flex;
-      gap: 10px;
-      padding: 5px;
-    }
-    .menu-body {
-      width: 100px;
-      overflow: hidden auto;
-    }
-    .admin-view-panel {
-      width: calc(100% - 110px);
     }
   }
 </style>

@@ -36,10 +36,10 @@
         url: '/userMg',
       },
       {
-        id: 'userOperation',
+        id: 'userOpinion',
         title: '用户反馈',
         icon: icon.userCenter_OperationLog,
-        url: '/userOperation',
+        url: '/userOpinion',
       },
     ],
   ];

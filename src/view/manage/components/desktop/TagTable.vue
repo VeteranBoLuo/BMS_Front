@@ -89,13 +89,6 @@
 
   const bookmark = bookmarkStore();
   const loading = ref(false);
-  function getTagName(tagIds) {
-    if (tagIds?.length > 0) {
-      return tagList.value.filter((data) => tagIds.includes(data.id));
-    } else {
-      return '';
-    }
-  }
   const tagColumns = computed(() => {
     let columns = [
       {

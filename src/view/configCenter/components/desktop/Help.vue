@@ -66,7 +66,7 @@
   import BList from '@/components/BasicComponents/BList/BList.vue';
   import icon from '@/config/icon.ts';
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
-  import { bookmarkStore, tourStore } from '@/store';
+  import { bookmarkStore } from '@/store';
   import BInput from '@/components/BasicComponents/BInput/BInput.vue';
 
   import 'viewerjs/dist/viewer.css'; //样式文件不要忘了
@@ -137,7 +137,6 @@
       bookmark.refreshViewer(e.target.src, {});
     }
   }
-  const tour = tourStore();
   onMounted(() => {
     setupClickListener();
   });

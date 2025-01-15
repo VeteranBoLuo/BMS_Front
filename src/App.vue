@@ -66,14 +66,14 @@
   // 手机端路由和电脑端不一样，切换不同尺寸设备后需要切换对应路由地址
   function routerChange(isPhone, path) {
     if (isPhone) {
-      if (['/admin/apiLog', '/admin/userMg', '/admin/userOperation', '/admin/operationLog'].includes(path)) {
+      if (['/admin/apiLog', '/admin/userMg', '/admin/userOpinion', '/admin/operationLog'].includes(path)) {
         router.push(path.replace('/admin', ''));
       }
     } else {
       if (path === '/admin') {
         router.push('/admin/operationLog');
       }
-      if (['/apiLog', '/userMg', '/userOperation', '/operationLog'].includes(path)) {
+      if (['/apiLog', '/userMg', '/userOpinion', '/operationLog'].includes(path)) {
         router.push('/admin' + path);
       }
     }

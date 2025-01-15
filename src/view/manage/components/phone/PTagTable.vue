@@ -3,7 +3,7 @@
     <PhoneListMg :list-data="tableData" title="标签管理" v-if="!loading" @add="router.push('/manage/editTag/add')">
       <template #item="{ data }">
         <svg-icon :src="data.iconUrl" />
-        <span>{{ data.name }}</span>
+        <span>{{ data['name'] }}</span>
         <div class="edit-tag-operation">
           <svg-icon
             title="编辑"

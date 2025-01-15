@@ -197,9 +197,4 @@
     color: var(--icon-color) !important;
   }
 
-  @media (max-width: 600px) {
-    .log-search-input {
-      width: calc(100% - 80px);
-    }
-  }
 </style>

@@ -1,68 +1,67 @@
 <template>
-  <div style="overflow: hidden; height: 100%; box-sizing: border-box">
-    <b-space style="width: 100%">
-      <b-input
-        v-model:value="searchValue"
-        placeholder="用户名或接口名..."
-        class="log-search-input"
-        @input="handleSearch"
+  <PhoneContainer title="用户反馈" @backClick="router.push('/admin')">
+    <div style="overflow: hidden; height: 100%; box-sizing: border-box">
+      <b-space style="width: 100%">
+        <b-input v-model:value="searchValue" placeholder="用户名..." @input="handleSearch">
+          <template #prefix>
+            <svg-icon :src="icon.navigation_search" size="16" />
+          </template>
+        </b-input>
+      </b-space>
+      <a-table
+        :data-source="logList"
+        :columns="logColumns"
+        row-key="id"
+        style="margin-top: 5px"
+        :scroll="{ y: bookmark.screenHeight - 250 }"
+        :pagination="false"
       >
-        <template #prefix>
-          <svg-icon :src="icon.navigation_search" size="16" />
-        </template>
-      </b-input>
-    </b-space>
-    <a-table
-      :data-source="logList"
-      :columns="logColumns"
-      row-key="id"
-      style="margin-top: 5px"
-      :scroll="{ y: bookmark.screenHeight - 250 }"
-      :pagination="false"
-    >
-      <template #expandedRowRender="{ record }">
-        <div style="max-height: 300px; overflow-y: auto; min-height: 120px; color: var(--text-color)">
-          <p>反馈内容：{{ record.content }}</p>
-          <p>反馈时间：{{ record.createTime }}</p>
-          反馈图片：
-          <div class="flex-align-center-gap">
-            <img
-              v-for="src in JSON.parse(record.imgArray)"
-              :src="src"
-              height="100"
-              width="100"
-              @click="bookmark.refreshViewer(src)"
-              alt=""
-            />
+        <template #expandedRowRender="{ record }">
+          <div style="max-height: 300px; overflow-y: auto; min-height: 120px; color: var(--text-color)">
+            <p>反馈内容：{{ record.content }}</p>
+            <p>反馈时间：{{ record.createTime }}</p>
+            反馈图片：
+            <div class="flex-align-center-gap">
+              <img
+                v-for="src in JSON.parse(record.imgArray)"
+                :src="src"
+                height="100"
+                width="100"
+                @click="bookmark.refreshViewer(src)"
+                alt=""
+              />
+            </div>
           </div>
-        </div>
-      </template>
-    </a-table>
-    <a-pagination
-      style="margin-top: 10px"
-      :current="currentPage"
-      :page-size="pageSize"
-      show-size-changer
-      size="small"
-      :total="total"
-      :show-total="() => `总计 ${total} 条`"
-      @change="onChange"
-    >
-      <template #buildOptionText="props">
-        <span>{{ props.value }}条/页</span>
-      </template>
-    </a-pagination>
-  </div>
+        </template>
+      </a-table>
+      <a-pagination
+        style="margin-top: 10px"
+        :current="currentPage"
+        :page-size="pageSize"
+        show-size-changer
+        size="small"
+        :total="total"
+        :show-total="() => `总计 ${total} 条`"
+        @change="onChange"
+      >
+        <template #buildOptionText="props">
+          <span>{{ props.value }}条/页</span>
+        </template>
+      </a-pagination>
+    </div>
+  </PhoneContainer>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
   import { computed, onMounted, ref } from 'vue';
   import { apiQueryPost } from '@/http/request.ts';
   import { bookmarkStore } from '@/store';
   import BInput from '@/components/BasicComponents/BInput/BInput.vue';
   import icon from '@/config/icon.ts';
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
+  import router from '@/router';
   import BSpace from '@/components/BasicComponents/BSpace/BSpace.vue';
+  import PhoneContainer from '@/components/phoneComponents/PhoneContainer/PhoneContainer.vue';
 
   const bookmark = bookmarkStore();
   const logList = ref([]);
@@ -77,16 +76,6 @@
       {
         title: '反馈内容',
         dataIndex: 'content',
-        ellipsis: true,
-      },
-      {
-        title: '反馈类型',
-        dataIndex: 'type',
-        ellipsis: true,
-      },
-      {
-        title: '反馈时间',
-        dataIndex: 'createTime',
         ellipsis: true,
       },
     ];
@@ -119,7 +108,7 @@
   const searchValue = ref('');
 
   function searchApiLog() {
-    apiQueryPost('/api/common/getOpinionList', {
+    apiQueryPost('/api/opinion/getOpinionList', {
       currentPage: currentPage.value,
       pageSize: pageSize.value,
       filters: {
@@ -139,10 +128,6 @@
 </script>
 
 <style lang="less" scoped>
-  .log-search-input {
-    width: 50%;
-  }
-
   :deep(.ant-table-container) {
     border: 1px solid var(--icon-color);
     border-radius: 8px;
@@ -182,7 +167,6 @@
   //:deep(.ant-select-selector) {
   //  transition: none !important;
   //}
-
   /*--分页背景调色--*/
   :deep(.ant-pagination) {
     color: var(--text-color);
@@ -198,11 +182,5 @@
 
   :deep(.ant-pagination-item-ellipsis) {
     color: var(--icon-color) !important;
-  }
-
-  @media (max-width: 600px) {
-    .log-search-input {
-      width: calc(100% - 80px);
-    }
   }
 </style>

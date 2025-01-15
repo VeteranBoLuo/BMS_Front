@@ -117,7 +117,7 @@
     }
     const params: any = cloneDeep(opinionData);
     params.imgArray = JSON.stringify(params.imgArray);
-    apiBasePost('/api/common/recordOpinion', params)
+    apiBasePost('/api/opinion/recordOpinion', params)
       .then((res) => {
         if (res.status === 200) {
           message.success('感谢您的反馈');
