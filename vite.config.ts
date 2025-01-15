@@ -2,8 +2,7 @@ import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import Components from 'unplugin-vue-components/vite';
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
-import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
+import { ElementPlusResolver, AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
 
 import path from 'path';
 export default defineConfig({
@@ -20,7 +19,7 @@ export default defineConfig({
     vueJsx(),
     vue(), //按需加载
     Components({
-      dirs: ['src/components/BasicComponents/*'], // 指定组件所在目录
+      dirs: ['src/components/BasicComponents/*'], // 按需加载的文件
       directoryAsNamespace: true,
       resolvers: [
         ElementPlusResolver(),
