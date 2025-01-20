@@ -5,7 +5,7 @@
       <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 20px">
         <b-input v-model:value="tableSearchValue" class="table-search-input" />
         <b-space :size="10">
-          <!--          <b-button type="success" @click="exportBookmark" v-if="user.role === 'root'">导出</b-button>-->
+          <b-button type="success" @click="exportBookmark" v-if="user.role === 'root'">导出</b-button>
           <b-button
             type="primary"
             @click="$router.push({ path: `/manage/editBookmark/add` })"
@@ -162,7 +162,7 @@
         标签名: item.name,
         网址: item.url,
         描述: item?.description,
-        关联书签: item?.tagList?.map((tag) => tag.name).join(','),
+        // 关联书签: item?.tagList?.map((tag) => tag.name).join(','),
       };
     });
     // 创建一个新的工作簿
@@ -175,7 +175,6 @@
       Math.max(...exportData.map((item) => item.网址.length)),
       Math.max(...exportData.map((item) => item.描述?.length)),
     ];
-
     worksheet['!cols'] = [{ wch: maxLen[0] }, { wch: maxLen[1] }, { wch: 50 }, { wch: 20 }];
     // 将工作表附加到工作簿，并将工作表命名为students
     XLSX.utils.book_append_sheet(workbook, worksheet, 'bookmark');

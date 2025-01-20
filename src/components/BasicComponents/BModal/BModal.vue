@@ -1,7 +1,7 @@
 <template>
   <Teleport to="body">
     <div v-show="visible" class="mask-container" @click.stop>
-      <div class="modal-view" :class="{ out: isOut }">
+      <div class="modal-view" id="modal-view" :class="{ out: isOut }">
         <span
           style="position: absolute; right: 20px; top: 20px; z-index: 99999; font-size: 20px"
           @click="handleClose"
@@ -65,12 +65,9 @@
       clearTimeout(timer);
     }, 200);
   }
-
   function closeMask(e) {
-    if (typeof e?.target?.className === 'string') {
-      if (props.maskClosable && e.target.className === 'mask-container') {
-        handleClose();
-      }
+    if (props.maskClosable && document.getElementById('modal-view').contains(e.target as HTMLElement)) {
+      handleClose();
     }
   }
 

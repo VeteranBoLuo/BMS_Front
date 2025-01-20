@@ -39,7 +39,6 @@
   const emit = defineEmits(['select']);
 
   function handleClick(e) {
-    showMenu.value = false;
     emit('select', e);
   }
   function handleClose() {
@@ -51,19 +50,15 @@
   }
 
   function handleEnter(el) {
-    el.style.height = 'auto';
     const h = el.clientHeight;
-    el.style.height = 0;
+    el.style.height = h + 'px';
     requestAnimationFrame(() => {
-      el.style.height = h + 'px';
       el.style.transition = '.2s';
     });
   }
 
-  function clickListener(e) {
-    if (e.target?.className !== 'context-menu') {
-      showMenu.value = false;
-    }
+  function clickListener() {
+    showMenu.value = false;
   }
   function wheelChange(event) {
     if (event.target?.className !== 'context-menu-item menu-item') {

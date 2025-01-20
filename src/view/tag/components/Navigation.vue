@@ -14,7 +14,7 @@
       ></b-input>
       <span class="search-back-span flex-center" @click="searchBackClick">返回</span>
     </div>
-    <div id="phone-navigation-container" class="flex-align-center">
+    <div id="navigation-container" class="flex-align-center">
       <div class="navigation-title">
         <svg-icon
           :src="icon.navigation_menu"
@@ -164,7 +164,7 @@
   function phoneSearchClick() {
     const search: any = document.getElementById('phone-navigation-search');
     search.style.transform = ' translateX(20px)';
-    const body: any = document.getElementById('phone-navigation-container');
+    const body: any = document.getElementById('navigation-container');
     body.style.transition = 'all 0.3s';
     body.style.transform = ' translateX(100%)';
     document.getElementById('navigation-phone-input').focus();
@@ -173,7 +173,7 @@
   function searchBackClick() {
     const search: any = document.getElementById('phone-navigation-search');
     search.style.transform = ' translateX(calc(-100%))';
-    const body: any = document.getElementById('phone-navigation-container');
+    const body: any = document.getElementById('navigation-container');
     body.style.transition = 'all 0.3s';
     body.style.transform = ' translateX(0)';
   }
@@ -302,10 +302,9 @@
     color: #000000;
   }
 
-  #phone-navigation-container {
+  #navigation-container {
     position: absolute;
     width: 100%;
-    transition: all 0.3s;
   }
 
   .phone-navigation-search {

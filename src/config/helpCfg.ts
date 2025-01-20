@@ -10,6 +10,7 @@ import bookmarkTable from '@/assets/img/help/bookmark_table.jpg';
 import bookmarkMainPage from '@/assets/img/help/bookmark_mainPage.jpg';
 import opinionMg from '@/assets/img/help/opinionMg.png';
 import { ref } from 'vue';
+import UpdateLogs from '@/view/configCenter/components/common/UpdateLogs.vue';
 
 export const listOptions = ref([
   {
@@ -112,5 +113,11 @@ export const listOptions = ref([
   <br/>
   <b style="font-size: 20px">感谢您对项目的支持与关注，您的意见是我不断进步的动力！</b></div>
     </div>`,
+  },
+  {
+    id: '更新日志',
+    title: '更新日志',
+    type: 'vue',
+    content: UpdateLogs,
   },
 ]);

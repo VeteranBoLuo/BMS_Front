@@ -13,7 +13,7 @@
       default: 'default',
     },
     type: {
-      type: String as PropType<'primary' | 'danger' | 'dashed' | 'function'>,
+      type: String as PropType<'primary' | 'danger' | 'success' | 'function'>,
       default: '',
     },
     danger: {
@@ -29,8 +29,8 @@
   const btnClass = computed(() => {
     if (props.type === 'primary') {
       return 'primary_btn';
-    } else if (props.type === 'dashed') {
-      return 'dashed_btn';
+    } else if (props.type === 'success') {
+      return 'success_btn';
     } else if (props.type === 'function') {
       return 'function_btn';
     } else {
@@ -72,11 +72,12 @@
       background-color: #ff7875;
     }
   }
-  .dashed_btn {
-    border: 2px dashed #d9d9d9;
+  .success_btn {
+    background-color: #ff5722;
+    color: white;
+    transition: all 0.3s;
     &:hover {
-      color: #fe2c55;
-      border-color: #fe2c55;
+      background-color: #ff7432;
     }
   }
   .default_btn {

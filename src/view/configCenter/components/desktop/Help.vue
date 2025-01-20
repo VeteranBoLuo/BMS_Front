@@ -55,8 +55,8 @@
           line-height: 2rem;
           flex-grow: 1;
         "
-        v-html="content"
-      />
+        ><component v-if="node?.['type'] === 'vue'" :is="node.content" /> <div v-else v-html="node.content"></div
+      ></div>
     </div>
   </div>
 </template>
@@ -70,7 +70,6 @@
   import BInput from '@/components/BasicComponents/BInput/BInput.vue';
 
   import 'viewerjs/dist/viewer.css'; //样式文件不要忘了
-  import router from '@/router';
   import { listOptions } from '@/config/helpCfg.ts';
 
   const bookmark = bookmarkStore();
@@ -93,22 +92,13 @@
     }
     return listOptions.value;
   });
-  function handleToBack() {
-    if (bookmark.isPhone) {
-      router.push('/personCenter');
-    } else {
-      router.push('/home');
-    }
-  }
-  const content = computed(() => {
+  const node = computed(() => {
     const item = listOptions.value.find((data) => data.id === checkId.value);
-    if (item) {
-      return item.content || '';
-    }
-    return helpInfo;
+    return item ?? helpInfo;
   });
 
-  const helpInfo = `<div class="help-document-intro">
+  const helpInfo = {
+    content: `<div class="help-document-intro">
     <h2>欢迎来到帮助中心</h2>
     <p>您好！感谢您使用【智汇云书签】。本帮助文档旨在为您提供详细的使用指南和解答常见问题，帮助您更高效地使用此平台。在这里，您可以找到关于以下方面的详细介绍：</p>
     <ul>
@@ -124,7 +114,8 @@
     </div>
     <p>虽然项目建立时间不长，但我保证，质量杠杠的，细节上也下了不少功夫，绝对会让你用得舒心！未来我还会不断升级它，比如加入导出导入书签、书签分享、书签同步与备份、团队协作、AI分析等功能，让书签管理更加灵活方便。敬请期待，更多实用功能正在路上，保证让你的书签管理体验更上一层楼！
     </p><p>感谢您的理解与支持！</p>
-  </div>`;
+  </div>`,
+  };
 
   function setupClickListener() {
     document.addEventListener('click', imgClick);

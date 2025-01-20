@@ -24,6 +24,8 @@ declare module 'vue' {
     ATable: typeof import('ant-design-vue/es')['Table']
     ATabPane: typeof import('ant-design-vue/es')['TabPane']
     ATabs: typeof import('ant-design-vue/es')['Tabs']
+    ATimeline: typeof import('ant-design-vue/es')['Timeline']
+    ATimelineItem: typeof import('ant-design-vue/es')['TimelineItem']
     ATooltip: typeof import('ant-design-vue/es')['Tooltip']
     ATour: typeof import('ant-design-vue/es')['Tour']
     ATransfer: typeof import('ant-design-vue/es')['Transfer']
