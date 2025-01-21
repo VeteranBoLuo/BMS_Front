@@ -21,6 +21,7 @@
   import { bookmarkStore, useUserStore } from '@/store';
   import router from '@/router';
   import { onMounted } from 'vue';
+  import { recordOperation } from '@/api/commonApi.ts';
 
   const bookmark = bookmarkStore();
   const props = defineProps({
@@ -49,6 +50,7 @@
       props.cardInfo.url = 'https://' + props.cardInfo.url;
     }
     window.open(props.cardInfo.url, '_blank');
+    recordOperation({ module: '首页', operation: `点击书签卡片${props.cardInfo.name}` });
   }
 
   function handleToTagPage(tag) {
@@ -93,7 +95,6 @@
     &:hover {
       box-shadow: 0 8px 8px rgba(59, 130, 246, 0.5);
       border: 2px solid var(--primary-h-color);
-
     }
   }
 
@@ -141,7 +142,6 @@
     display: flex;
     gap: 8px;
   }
-
 
   @media (max-width: 600px) {
     .card-body {

@@ -16,12 +16,12 @@
         class="help-title"
         style="position: relative; top: 10px"
         @click="checkId = ''"
-        v-click-log="{ module: '帮助中心', operation: `使用介绍` }"
-        >使用介绍</div
+        v-click-log="{ module: '帮助中心', operation: `导览` }"
+        >帮助中心</div
       >
       <div v-if="!bookmark.isPhone" :style="{ width: '150px' }">
-        <div class="help-title" @click="checkId = ''" v-click-log="{ module: '帮助中心', operation: `使用介绍` }"
-          >使用介绍</div
+        <div class="help-title" @click="checkId = ''" v-click-log="{ module: '帮助中心', operation: `导览` }"
+          >帮助中心</div
         >
         <BList style="font-size: 12px" :listOptions="viewOptions" @nodeClick="logItem" :check-id="checkId">
           <template #icon>

@@ -14,7 +14,7 @@
             :src="icon.table_edit"
             size="16"
             @click="edit(data.id)"
-            v-click-log="{ module: '书签管理', operation: `编辑` }"
+            v-click-log="{ module: '书签管理', operation: `点击编辑图标` }"
             class="dom-hover"
           />
           <svg-icon
@@ -22,7 +22,7 @@
             :src="icon.table_delete"
             size="16"
             @click="handleDeleteTag(data)"
-            v-click-log="{ module: '书签管理', operation: `删除` }"
+            v-click-log="{ module: '书签管理', operation: `点击删除图标` }"
             class="dom-hover"
           />
         </div>
@@ -81,6 +81,7 @@
       title: '提示',
       content: `请确认是否要删除标签【${bookmark.name}】？`,
       onOk() {
+        recordOperation({ module: '书签管理', operation: `删除书签【${bookmark.name}】` });
         apiBasePost('/api/bookmark/delBookmark', {
           id: bookmark.id,
         }).then((res) => {
@@ -107,6 +108,7 @@
   import * as XLSX from 'xlsx';
   import { cloneDeep } from 'lodash-es';
   import PhoneListMg from '@/components/phoneComponents/PhoneListMg.vue';
+  import {recordOperation} from "@/api/commonApi.ts";
   function exportBookmark() {
     // 随便声明一个结果
     const exportData = bookmarkList.value?.map((item: any) => {

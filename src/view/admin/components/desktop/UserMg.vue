@@ -16,6 +16,13 @@
         </template>
       </template>
     </a-table>
+    <p>
+      总计
+      <a>
+        {{ total }}
+      </a>
+      名用户
+    </p>
     <b-modal
       v-if="editVisible"
       title="编辑用户信息"
@@ -44,6 +51,7 @@
   import userApi from '@/api/userApi.ts';
   import BSpace from '@/components/BasicComponents/BSpace/BSpace.vue';
   import Alert from '@/components/BasicComponents/BModal/Alert.ts';
+
   const bookmark = bookmarkStore();
   const userList = ref([]);
   const userColumns = computed(() => {
@@ -136,10 +144,14 @@
       }
     });
   }
+
+  const total = ref(0);
+
   function init() {
     apiQueryPost('/api/user/getUserList').then((res) => {
       if (res.status) {
-        userList.value = res.data;
+        userList.value = res.data.items;
+        total.value = res.data.total;
       }
     });
   }
@@ -153,23 +165,28 @@
   :deep(.ant-select-selector .ant-select-selection-item) {
     background-color: unset !important;
   }
+
   :deep(.ant-table-container) {
     border: 1px solid var(--icon-color);
     border-radius: 8px;
     overflow: hidden;
   }
+
   :deep(.ant-table-wrapper .ant-table) {
     background-color: var(--background-color);
     color: var(--text-color);
   }
+
   :deep(.ant-table-cell-ellipsis) {
     background-color: var(--background-color) !important;
     color: var(--text-color) !important;
   }
+
   :deep(.ant-table-cell-scrollbar) {
     background-color: unset !important;
     display: none;
   }
+
   :deep(.ant-table-cell) {
     background-color: var(--background-color) !important;
     color: black;

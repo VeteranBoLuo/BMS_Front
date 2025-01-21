@@ -40,7 +40,13 @@
           </template>
           <template v-else-if="column.dataIndex === 'bookmarkList'">
             <div class="text-hidden">
-              <span :title="b.name" class="common-tag" style="margin-right: 10px" v-for="b in record.bookmarkList" :key="b.id">
+              <span
+                :title="b.name"
+                class="common-tag"
+                style="margin-right: 10px"
+                v-for="b in record.bookmarkList"
+                :key="b.id"
+              >
                 {{ b.name }}
               </span>
             </div>
@@ -50,7 +56,7 @@
               <svg-icon
                 title="编辑"
                 :src="icon.table_edit"
-                v-click-log="{ module: '标签管理', operation: `编辑标签` }"
+                v-click-log="{ module: '标签管理', operation: `点击编辑图标` }"
                 size="16"
                 @click="edit(record.id)"
                 class="dom-hover"
@@ -60,7 +66,7 @@
                 :src="icon.table_delete"
                 size="16"
                 @click="handleDeleteTag(record)"
-                v-click-log="{ module: '标签管理', operation: `删除标签` }"
+                v-click-log="{ module: '标签管理', operation: `点击删除图标` }"
                 class="dom-hover"
               />
             </div>

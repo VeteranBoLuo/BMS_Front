@@ -8,7 +8,7 @@
           <svg-icon
             title="编辑"
             :src="icon.table_edit"
-            v-click-log="{ module: '标签管理', operation: `编辑标签` }"
+            v-click-log="{ module: '标签管理', operation: `点击编辑图标` }"
             size="16"
             @click="edit(data.id)"
             class="dom-hover"
@@ -18,7 +18,7 @@
             :src="icon.table_delete"
             size="16"
             @click="handleDeleteTag(data)"
-            v-click-log="{ module: '标签管理', operation: `删除标签` }"
+            v-click-log="{ module: '标签管理', operation: `点击删除图标` }"
             class="dom-hover"
           />
         </div>
@@ -38,6 +38,7 @@
   import PhoneListMg from '@/components/phoneComponents/PhoneListMg.vue';
   import icon from '@/config/icon.ts';
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
+  import { recordOperation } from '@/api/commonApi.ts';
 
   const visible = defineModel<boolean>('visible');
 
@@ -53,6 +54,7 @@
       title: '提示',
       content: `请确认是否要删除标签【${tag.name}】？`,
       onOk() {
+        recordOperation({ module: '标签管理', operation: `删除标签【${tag.name}】` });
         apiBasePost('/api/bookmark/delTag', {
           id: tag.id,
         }).then((res) => {

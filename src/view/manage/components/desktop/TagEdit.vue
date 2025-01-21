@@ -18,6 +18,7 @@
                 color="#5c82ff"
                 style="height: 32px"
                 @click.stop="downTagImg"
+                v-click-log="{ module: '标签编辑', operation: '查看图标复制示例' }"
               />
             </template>
             <template #suffix>
@@ -27,6 +28,7 @@
                 class="dom-hover-click"
                 size="20"
                 style="height: 32px"
+                v-click-log="{ module: '标签编辑', operation: '上传图标' }"
                 @click.stop="uploadTagImg"
               />
             </template>
@@ -86,7 +88,13 @@
       <b-button type="primary" @click="submit" v-click-log="{ module: '标签编辑', operation: `确定` }">确定 </b-button>
       <b-button @click="$router.back()" v-click-log="{ module: '标签编辑', operation: `返回` }">返回 </b-button>
     </b-space>
-    <b-modal :esc-closable="false" title="图标复制示例" v-model:visible="tagImgTipsVisible" :show-footer="false" top="50%">
+    <b-modal
+      :esc-closable="false"
+      title="图标复制示例"
+      v-model:visible="tagImgTipsVisible"
+      :show-footer="false"
+      top="50%"
+    >
       <div>
         <p>1、点击<a href="https://icon-sets.iconify.design/" target="_blank">此链接</a>跳转至图标网搜索想的图标</p>
         <p>2、根据下方图片示例复制图标代码</p>

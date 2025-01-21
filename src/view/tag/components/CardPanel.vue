@@ -17,6 +17,7 @@
   import Alert from '@/components/BasicComponents/BModal/Alert.ts';
   import { apiBasePost } from '@/http/request.ts';
   import { message } from 'ant-design-vue';
+  import { recordOperation } from '@/api/commonApi.ts';
   const bookmark = bookmarkStore();
 
   const getBookList = computed(() => {
@@ -24,12 +25,13 @@
   });
 
   function rightMenuClick(type, item) {
+    recordOperation({ module: '首页', operation: `右键${type}书签${item.name}` });
     if (type === '编辑') {
       router.push({ path: `/manage/editBookmark/${item.id}` });
     } else {
       Alert.alert({
         title: '提示',
-        content: `请确认是否要删除标签【${item.name}】？`,
+        content: `请确认是否要删除书签【${item.name}】？`,
         onOk() {
           apiBasePost('/api/bookmark/delBookmark', {
             id: item.id,

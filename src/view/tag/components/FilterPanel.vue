@@ -21,7 +21,7 @@
                 </a-menu>
               </template>
               <span>
-                <svg-icon :src="icon.filter_panel_list" size="20"  />
+                <svg-icon :src="icon.filter_panel_list" size="20" />
               </span>
             </a-dropdown> </template
         ></b-input>
@@ -73,11 +73,13 @@
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
   import icon from '@/config/icon.ts';
   import BList from '@/components/BasicComponents/BList/BList.vue';
+  import { recordOperation } from '@/api/commonApi.ts';
 
   const tagName = ref('');
   const filterTagList = computed(() => {
     return bookmark.tagList.filter((item) => item.name.toUpperCase().indexOf(tagName.value.toUpperCase()) > -1);
   });
+
   const user = useUserStore();
   const bookmark = bookmarkStore();
   const router = useRouter();
@@ -85,6 +87,7 @@
   const newName = ref('');
   const rightTagData = ref<TagInterface>();
   function handleTagMenu(menu, tag: TagInterface) {
+    recordOperation({ module: '首页', operation: `右键${menu}标签${tag.name}` });
     rightTagData.value = tag;
     if (menu === '重命名') {
       tag.isRename = true;

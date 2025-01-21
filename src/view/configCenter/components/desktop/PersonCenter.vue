@@ -42,11 +42,11 @@
           </div>
         </div>
         <div v-else>
-          <div style="width: 100%; padding-left: 12px; font-size: 14px;" class="flex-align-center-gap"
-            ><span
+          <div style="width: 100%; padding-left: 12px; font-size: 14px" class="flex-align-center-gap">
+            <span style="color: var(--text-color)"
               >进度 <a>{{ result.iteration }}</a> 次</span
             >
-            <span
+            <span style="color: var(--text-color)"
               >下一次 <a>{{ result.nextDate }}</a></span
             >
           </div>
@@ -57,45 +57,13 @@
         />
         <div class="header_menu_ul">
           <div
+            v-for="menuItem in menuOptions"
             class="flex-center li"
-            v-click-log="{ module: '个人中心', operation: `后台管理` }"
-            @click="router.push('/admin'), (menuVisible = false)"
-            v-if="user.role === 'root'"
+            v-click-log="{ module: '个人中心', operation: menuItem.label }"
+            @click="menuItemClick(menuItem)"
           >
-            <svg-icon size="14" :src="icon.user_admin" />
-            后台管理
-          </div>
-          <div
-            class="flex-center li"
-            v-click-log="{ module: '个人中心', operation: `标签管理` }"
-            @click="$router.push('/manage/tagMg'), (menuVisible = false)"
-          >
-            <svg-icon size="14" :src="icon.manage_categoryBtn_tag" />
-            标签管理
-          </div>
-          <div
-            class="flex-center li"
-            v-click-log="{ module: '个人中心', operation: `书签管理` }"
-            @click="$router.push('/manage/bookmarkMg'), (menuVisible = false)"
-          >
-            <svg-icon size="14" :src="icon.manage_categoryBtn_bookmark" />
-            书签管理
-          </div>
-          <div
-            class="flex-center li"
-            v-click-log="{ module: '个人中心', operation: `帮助中心` }"
-            @click="$router.push('/help'), (menuVisible = false)"
-          >
-            <svg-icon size="14" :src="icon.help_document" />
-            帮助中心
-          </div>
-          <div
-            class="flex-center li"
-            v-click-log="{ module: '个人中心', operation: `意见反馈` }"
-            @click="(opinionsVisible = true), (menuVisible = false)"
-          >
-            <svg-icon size="14" :src="icon.userCenter_OperationLog" />
-            意见反馈
+            <svg-icon size="14" :src="menuItem.icon" />
+            {{ menuItem.label }}
           </div>
           <div
             class="flex-center li"
@@ -140,6 +108,62 @@
 
   function getThemeStyle(theme) {
     document.documentElement.setAttribute('data-theme', theme);
+  }
+
+  interface menuItemInterface {
+    label: string;
+    path?: string;
+    role?: string;
+    icon: string;
+  }
+
+  const options = ref<menuItemInterface[]>([
+    {
+      label: '后台管理',
+      path: '/admin',
+      role: 'root',
+      icon: icon.user_admin,
+    },
+    {
+      label: '标签管理',
+      path: '/manage/tagMg',
+      icon: icon.manage_categoryBtn_tag,
+    },
+    {
+      label: '书签管理',
+      path: '/manage/bookmarkMg',
+      icon: icon.manage_categoryBtn_bookmark,
+    },
+    {
+      label: '帮助中心',
+      path: '/help',
+      icon: icon.help_document,
+    },
+    {
+      label: '意见反馈',
+      icon: icon.userCenter_OperationLog,
+    },
+  ]);
+  const menuOptions = computed(() => {
+    if (user.role === 'root') {
+      return options.value;
+    }
+    return options.value.filter((item) => item.role !== 'root');
+  });
+
+  function menuItemClick(menuItem: menuItemInterface) {
+    menuVisible.value = false;
+    if (menuItem.path) {
+      router.push(menuItem.path);
+    } else {
+      switch (menuItem.label) {
+        case '意见反馈':
+          opinionsVisible.value = true;
+          break;
+        default:
+          break;
+      }
+    }
   }
 
   function handleExitLogin() {

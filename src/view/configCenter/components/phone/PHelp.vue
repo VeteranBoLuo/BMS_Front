@@ -3,8 +3,8 @@
     <div class="help-container">
       <b-input v-model:value="searchValue" placeholder="目录名..." style="width: 100%" />
       <div class="help-body">
-        <div class="help-title" @click="checkId = ''" v-click-log="{ module: '帮助中心', operation: `使用介绍` }"
-          >使用介绍</div
+        <div class="help-title" @click="checkId = ''" v-click-log="{ module: '帮助中心', operation: `导览` }"
+          >帮助中心</div
         >
         <div class="phone-help-menu">
           <div

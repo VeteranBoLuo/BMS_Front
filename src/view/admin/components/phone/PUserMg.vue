@@ -126,7 +126,7 @@
   function init() {
     apiQueryPost('/api/user/getUserList').then((res) => {
       if (res.status) {
-        userList.value = res.data;
+        userList.value = res.data.items;
       }
     });
   }
