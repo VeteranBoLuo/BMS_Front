@@ -8,6 +8,7 @@ import helpRouter from '@/router/modules/help';
 import adminRouter from '@/router/modules/admin';
 import manageRouter from '@/router/modules/manage.ts';
 import commonRouter from '@/router/modules/common.ts';
+import noteLibraryRouter from '@/router/modules/noteLibrary.ts';
 export interface AppRouteRecordRaw {
   name?: string;
   meta?: RouteMeta;
@@ -24,7 +25,7 @@ const routes: Array<RouteRecordRaw | any> = [
     name: '/',
     redirect: '/home',
     component: () => import('@/view/index.vue'),
-    children: [mainPageRouter, helpRouter, ...adminRouter, manageRouter],
+    children: [mainPageRouter, helpRouter, ...adminRouter, manageRouter, ...noteLibraryRouter],
   },
   {
     path: '/personCenter',

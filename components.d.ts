@@ -48,6 +48,7 @@ declare module 'vue' {
     BTree: typeof import('./src/components/BasicComponents/BTree/BTree.vue')['default']
     BUpload: typeof import('./src/components/BasicComponents/BUpload/BUpload.vue')['default']
     CodeDes: typeof import('./src/components/BasicComponents/CodeDes/CodeDes.vue')['default']
+    ElButton: typeof import('element-plus/es')['ElButton']
     FormRenders: typeof import('./src/components/BasicComponents/BForm/FormRenders.vue')['default']
     Message: typeof import('./src/components/BasicComponents/Message/Message.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

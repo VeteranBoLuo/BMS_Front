@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@antv/g2plot": "^2.4.31",
+    "@tinymce/tinymce-vue": "^6.1.0",
     "ant": "^0.2.0",
     "ant-design-vue": "^4.0.8",
     "axios": "^0.24.0",
@@ -23,6 +24,7 @@
     "lodash-es": "^4.17.21",
     "mysql": "^2.18.1",
     "pinia": "^2.1.7",
+    "tinymce": "^7.6.0",
     "typescript": "^5.7.2",
     "viewerjs": "^1.11.7",
     "vue": "^3.4.15",

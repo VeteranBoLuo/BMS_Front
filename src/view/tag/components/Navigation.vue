@@ -30,13 +30,28 @@
           v-if="bookmark.isPhone && router.currentRoute.value.fullPath.includes('home') && !bookmark.isFold"
           @click="foldClick"
         />
-        <template class="navigation-title-link" @click="handleToIndex">
+        <div class="navigation-title-link" @click="handleToIndex">
           <img src="../../../assets/icons/bookmark.svg" title="首页" width="25" height="25" alt="" />
           <span style="font-size: 18px">智汇云书签</span>
+        </div>
+      </div>
+      <div class="flex-align-center" style="gap: 30px; width: 140px">
+        <template v-if="user.role === 'root' && searchInputVisible">
+          <span
+            :style="{ color: router.currentRoute.value.path.includes('/home') ? '#615ced' : '' }"
+            style="font-size: 14px; cursor: pointer"
+            @click="router.push('/home')"
+            >书签</span
+          >
+          <span
+            :style="{ color: router.currentRoute.value.path.includes('/noteLibrary') ? '#615ced' : '' }"
+            style="font-size: 14px; cursor: pointer"
+            @click="router.push('/noteLibrary')"
+            >笔记</span
+          >
         </template>
       </div>
       <div class="navigation-body">
-        <div style="width: 140px" v-if="!bookmark.isPhone"></div>
         <div class="navigation-search-input" v-if="searchInputVisible">
           <b-input
             id="bookmark-input"
@@ -103,7 +118,7 @@
   });
 
   const searchInputVisible = computed(() => {
-    return !bookmark.isPhone && router.currentRoute.value.path.includes('home');
+    return !bookmark.isPhone && ['noteLibrary', 'home'].some((item) => router.currentRoute.value.path.includes(item));
   });
   const phoneSearchVisible = computed(() => {
     return bookmark.isPhone && router.currentRoute.value.path.includes('home') && bookmark.isFold;
@@ -231,9 +246,18 @@
       cursor: pointer;
     }
   }
+  .navigation-category {
+    height: 100%;
+    width: 140px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    padding-left: 20px;
+  }
 
   .navigation-body {
-    width: calc(100% - 260px);
+    flex-grow: 1;
+    padding-right: 40px;
     height: 100%;
     align-items: center;
     display: flex;
@@ -297,6 +321,11 @@
     }
   }
 
+  @media (max-width: 850px) {
+    .navigation-search-input {
+      width: 100%;
+    }
+  }
   .navigation-manage {
     background-color: #ffffff;
     color: #000000;

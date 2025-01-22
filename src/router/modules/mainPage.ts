@@ -17,7 +17,7 @@ const mainPageRouter: AppRouteRecordRaw = {
       component: () => import('@/view/tag/components/mainPage.vue'),
     },
     {
-      path: 'search/:value',
+      path: 'search/:value(.*)',
       component: () => import('@/view/tag/components/mainPage.vue'),
     },
     {
