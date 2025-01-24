@@ -1,16 +1,26 @@
 <template>
   <div style="width: 100%; height: 100%">
     <div class="note-header">
-      <div class="back-icon" @click="router.back()">
-        <SvgIcon :src="icon.note_detail_back" />
+      <div style="display: flex; align-items: center; gap: 20px">
+        <div class="back-icon" @click="router.back()">
+          <SvgIcon :src="icon.note_detail_back" />
+        </div>
+        <div contenteditable="true" class="note-header-title n-title" @input="handleInput" @paste="handlePaste">{{
+          note.title
+        }}</div>
+        <div style="color: #c0c0c0; font-size: 12px" v-if="!isStartEdit"> 最近修改 {{ updateTime }} </div>
+        <div style="color: #c0c0c0; font-size: 12px" v-else>
+          <span v-if="isCurrentSave">保存中...</span>
+          <span v-else>文档已实时保存</span>
+        </div>
       </div>
-      <div contenteditable="true" class="note-header-title n-title" @input="handleInput" @paste="handlePaste">{{
-        note.title
-      }}</div>
-      <div style="color: #c0c0c0; font-size: 12px" v-if="!isStartEdit"> 最近修改 {{ updateTime }} </div>
-      <div style="color: #c0c0c0; font-size: 12px" v-else>
-        <span v-if="isCurrentSave">保存中...</span>
-        <span v-else>文档已实时保存</span>
+      <div class="flex-align-center" style="gap: 20px">
+        <div class="note-header-title-icon" @click="delNote">
+          <SvgIcon :src="icon.note_detail_delete" />
+        </div>
+        <div class="note-header-title-icon" @click="saveFunc">
+          <SvgIcon :src="icon.note_detail_save" />
+        </div>
       </div>
     </div>
     <div style="display: flex; padding: 20px; box-sizing: border-box; height: 100%">
@@ -37,6 +47,8 @@
   import { cloneDeep } from 'lodash-es';
   import { apiBasePost } from '@/http/request.ts';
   import Catalog from '@/view/noteLibrary/components/Catalog.vue';
+  import Alert from '@/components/BasicComponents/BModal/Alert.ts';
+  import { message } from 'ant-design-vue';
   const note = reactive({
     id: '',
     title: '未命名文档',
@@ -122,6 +134,23 @@
     }, 500);
   }
 
+  function delNote() {
+    Alert.alert({
+      title: '提示',
+      content: `请确认是否要删除此笔记？`,
+      onOk() {
+        apiBasePost('/api/note/delNote', {
+          id: note.id,
+        }).then((res) => {
+          if (res.status) {
+            message.success('删除成功');
+            router.back();
+          }
+        });
+      },
+    });
+  }
+
   onMounted(() => {
     document.documentElement.setAttribute('data-theme', 'day');
     if (router.currentRoute.value.params.value !== 'add') {
@@ -158,11 +187,12 @@
   .note-header {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 20px;
     height: 60px;
     box-sizing: border-box;
     padding: 0 20px;
-    background-color: var(--background-color);
+    background-color: #fbfbfd;
     border-bottom: 1px solid #ccc;
   }
   .note-header-title {
@@ -185,6 +215,17 @@
       color: #aaa;
       content: '未命名文档';
     }
+  }
+  .note-header-title-icon {
+    background-color: white;
+    width: 36px;
+    height: 36px;
+    border: 1px solid #e8eaf2;
+    border-radius: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
   }
   .note-body-title {
     height: 50px;
