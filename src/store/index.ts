@@ -7,7 +7,10 @@ import Viewer from 'viewerjs';
 import { createVNode, nextTick, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { cloneDeep } from 'lodash-es';
-
+const getIframeDocument = () => {
+  const iframe: any = document.getElementsByClassName('tox-edit-area__iframe')[0];
+  return iframe?.contentDocument || iframe?.contentWindow?.document;
+};
 export const useUserStore = defineStore('user', {
   state: () => ({
     id: '',
@@ -168,6 +171,32 @@ export const domStore = defineStore('dom', {
     },
   getters: {},
   actions: {},
+});
+
+export const noteStore = defineStore('dom', {
+  state: () =>
+    <
+      {
+        headings?: { element: Element; text: string; level: number }[];
+      }
+    >{
+      headings: [],
+    },
+  getters: {},
+  actions: {
+    generateTOC() {
+      const iframeDoc = getIframeDocument();
+      if (!iframeDoc) return;
+
+      const hTags = iframeDoc.querySelectorAll('h1, h2, h3, h4, h5, h6');
+      this.headings = Array.from(hTags)
+        .filter((heading: any) => heading.innerText.trim() !== '' || heading.textContent.trim() !== '')
+        .map((heading: any, index) => {
+          const level = parseInt((heading.tagName as string).replace('H', ''), 10);
+          return { element: heading, text: heading.innerText || heading.textContent || '', level };
+        });
+    },
+  },
 });
 
 interface FormEditData {

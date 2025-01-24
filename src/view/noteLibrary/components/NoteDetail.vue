@@ -40,7 +40,7 @@
 
 <script lang="ts" setup>
   import TinyMac from '@/view/noteLibrary/TinyMac.vue';
-  import { onMounted, reactive, ref, watch } from 'vue';
+  import { onMounted, onUnmounted, reactive, ref, watch } from 'vue';
   import icon from '@/config/icon.ts';
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
   import router from '@/router';
@@ -49,6 +49,7 @@
   import Catalog from '@/view/noteLibrary/components/Catalog.vue';
   import Alert from '@/components/BasicComponents/BModal/Alert.ts';
   import { message } from 'ant-design-vue';
+  import { noteStore } from '@/store';
   const note = reactive({
     id: '',
     title: '未命名文档',
@@ -180,6 +181,10 @@
         },
       );
     }
+  });
+  const nStore = noteStore();
+  onUnmounted(() => {
+    nStore.headings = [];
   });
 </script>
 
