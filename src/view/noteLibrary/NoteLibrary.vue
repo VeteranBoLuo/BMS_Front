@@ -38,10 +38,14 @@
           v-html="extractAndConvertTags(note.content)"
         />
         <div style="margin-top: 10px; display: flex; gap: 10px">
-          <div style="background-color: #eeedff; padding: 2px 4px; border-radius: 6px; font-size: 14px; color: #8b88f2"
-            >示例笔记</div
+          <div
+            style="background-color: #eeedff; padding: 2px 4px; border-radius: 6px; font-size: 14px; color: #8b88f2"
+            @click.stop
+            >标签开发中</div
           >
-          <div style="background-color: #eeedff; padding: 2px 4px; border-radius: 6px; font-size: 14px; color: #8b88f2"
+          <div
+            style="background-color: #eeedff; padding: 2px 4px; border-radius: 6px; font-size: 14px; color: #8b88f2"
+            @click.stop
             >测试标签</div
           >
         </div>

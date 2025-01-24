@@ -36,7 +36,7 @@
         </div>
       </div>
       <div class="flex-align-center" style="gap: 30px; width: 140px">
-        <template v-if="user.role === 'root' && searchInputVisible">
+        <template v-if="searchInputVisible">
           <span
             :style="{ color: router.currentRoute.value.path.includes('/home') ? '#615ced' : '' }"
             style="font-size: 14px; cursor: pointer"
@@ -129,7 +129,7 @@
   });
 
   const searchInputVisible = computed(() => {
-    return !bookmark.isPhone && ['home', 'noteLibrary'].some((item) => router.currentRoute.value.path.includes(item));
+    return !bookmark.isPhone && ['home', 'noteLibrary','manage','help'].some((item) => router.currentRoute.value.path.includes(item));
   });
   const phoneSearchVisible = computed(() => {
     return bookmark.isPhone && router.currentRoute.value.path.includes('home') && bookmark.isFold;
