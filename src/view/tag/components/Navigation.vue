@@ -10,8 +10,10 @@
         @focusout="searchBackClick"
         @input="handleSearch"
       >
-        <template #prefix> <svg-icon color="#cccccc" :src="icon.navigation_search" size="16" /> </template
-      ></b-input>
+        <template #prefix>
+          <svg-icon color="#cccccc" :src="icon.navigation_search" size="16" />
+        </template>
+      </b-input>
       <span class="search-back-span flex-center" @click="searchBackClick">返回</span>
     </div>
     <div id="navigation-container" class="flex-align-center">
@@ -45,9 +47,21 @@
           >
           <span
             :style="{ color: router.currentRoute.value.path.includes('/noteLibrary') ? '#615ced' : '' }"
-            style="font-size: 14px; cursor: pointer"
+            style="font-size: 14px; cursor: pointer; display: flex; gap: 5px; align-items: center"
             @click="router.push('/noteLibrary')"
-            >笔记(BETA)</span
+            ><div>笔记</div
+            ><div
+              class="flex-align-center"
+              style="
+                height: 1rem;
+                font-size: 10px;
+                background-color: #ff4d4f;
+                color: white;
+                border-radius: 12px;
+                padding: 0 4px;
+              "
+              >Beta</div
+            ></span
           >
         </template>
       </div>
@@ -111,6 +125,7 @@
   import icon from '@/config/icon.ts';
   import ThemeSwitch from '@/components/tag/ThemeSwitch.vue';
   import PersonCenter from '@/view/configCenter/components/desktop/PersonCenter.vue';
+
   const user = useUserStore();
   const placeholder = ref('Search...');
 
@@ -129,7 +144,10 @@
   });
 
   const searchInputVisible = computed(() => {
-    return !bookmark.isPhone && ['home', 'noteLibrary','manage','help'].some((item) => router.currentRoute.value.path.includes(item));
+    return (
+      !bookmark.isPhone &&
+      ['home', 'noteLibrary', 'manage', 'help'].some((item) => router.currentRoute.value.path.includes(item))
+    );
   });
   const phoneSearchVisible = computed(() => {
     return bookmark.isPhone && router.currentRoute.value.path.includes('home') && bookmark.isFold;
@@ -257,6 +275,7 @@
       cursor: pointer;
     }
   }
+
   .navigation-category {
     height: 100%;
     width: 140px;
@@ -294,6 +313,7 @@
     padding: 2px;
     box-sizing: border-box;
     width: 220px;
+
     li {
       width: 100%;
       height: 30px;
@@ -310,6 +330,7 @@
       }
     }
   }
+
   .user-icon-text {
     text-align: left;
   }
@@ -319,6 +340,7 @@
     right: 25px;
     width: unset !important;
   }
+
   @media (max-width: 600px) {
     .navigation-title {
       gap: 20px;
@@ -327,6 +349,7 @@
         gap: 10px;
       }
     }
+
     .header_menu_ul {
       width: 180px;
     }
@@ -337,6 +360,7 @@
       width: 100%;
     }
   }
+
   .navigation-manage {
     background-color: #ffffff;
     color: #000000;
@@ -355,6 +379,7 @@
     display: flex;
     transition: all 0.3s;
     z-index: 9;
+
     .search-back-span {
       cursor: pointer;
       width: 60px;
