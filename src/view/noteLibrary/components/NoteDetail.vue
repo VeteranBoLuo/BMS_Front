@@ -32,7 +32,7 @@
         <!--        <div>-->
         <!--          <div class="tag-container"> <div class="note-tag">+ 自定义标签</div></div>-->
         <!--        </div>-->
-        <TinyMac v-model:value="note.content" style="flex-grow: 1" />
+        <TinyMac v-model:value="note.content" style="flex-grow: 1" :kye="router.currentRoute.value.params.value" />
       </div>
     </div>
   </div>
@@ -184,7 +184,7 @@
   });
   const nStore = noteStore();
   onUnmounted(() => {
-    // nStore.headings = [];
+    nStore.headings = [];
   });
 </script>
 
