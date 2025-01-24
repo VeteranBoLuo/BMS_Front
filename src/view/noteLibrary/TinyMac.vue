@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-  import { computed, nextTick, onMounted, reactive, ref, watch } from 'vue'; //全屏
+  import { computed, nextTick, onMounted,onUnmounted, reactive, ref, watch } from 'vue'; //全屏
   import tinymce from 'tinymce/tinymce';
   // import "tinymce/skins/content/default/content.css";
   import Editor from '@tinymce/tinymce-vue';
@@ -123,6 +123,7 @@
     setup: function (editor) {
       editor.on('init', function () {
         console.log('init');
+        // 停用缓存才会生效
         note.generateTOC();
       });
     },
@@ -216,6 +217,12 @@
   defineExpose({
     handleSetContent,
     handleGetContent,
+  });
+
+  onUnmounted(() => {
+    if (tinymce.get(tinymceId.value)) {
+      tinymce.get(tinymceId.value).remove();
+    }
   });
 </script>
 
