@@ -226,6 +226,10 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    transition: border-color 0.1s linear;
+    &:hover {
+      border-color: var(--primary-color);
+    }
   }
   .note-body-title {
     height: 50px;
@@ -249,10 +253,11 @@
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    height: 25px;
-    width: 25px;
+    height: 30px;
+    width: 30px;
     cursor: pointer;
-    border: 1px solid #edeef5;
+    border: 1px solid #e8eaf2;
+    transition: border-color 0.1s linear;
     &:hover {
       border-color: var(--primary-color);
     }
