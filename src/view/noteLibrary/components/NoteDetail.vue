@@ -15,10 +15,10 @@
         </div>
       </div>
       <div class="flex-align-center" style="gap: 20px">
-        <div class="note-header-title-icon" @click="delNote">
+        <div class="note-header-title-icon" @click="delNote" title="删除">
           <SvgIcon :src="icon.note_detail_delete" />
         </div>
-        <div class="note-header-title-icon" @click="saveFunc">
+        <div class="note-header-title-icon" @click="saveFunc" title="保存">
           <SvgIcon :src="icon.note_detail_save" />
         </div>
       </div>
