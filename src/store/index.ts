@@ -185,10 +185,12 @@ export const noteStore = defineStore('note', {
   getters: {},
   actions: {
     generateTOC() {
+      console.log('generateTOC');
       const iframeDoc = getIframeDocument();
       if (!iframeDoc) return;
 
       const hTags = iframeDoc.querySelectorAll('h1, h2, h3, h4, h5, h6');
+      console.log('hTags', hTags);
       this.headings = Array.from(hTags)
         .filter((heading: any) => heading.innerText.trim() !== '' || heading.textContent.trim() !== '')
         .map((heading: any, index) => {
