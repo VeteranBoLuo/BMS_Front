@@ -122,7 +122,8 @@
     content_css: '/tinymce/skins/content/default/content.css', //以css文件方式自定义可编辑区域的css样式，css文件需自己创建并引入
     setup: function (editor) {
       editor.on('init', function () {
-          note.generateTOC();
+        console.log('init');
+        note.generateTOC();
       });
     },
     //图片上传  -实列 具体请根据官网补充-
