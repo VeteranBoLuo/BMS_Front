@@ -77,6 +77,11 @@
         router.push('/admin' + path);
       }
     }
+    if (path.includes('noteLibrary')) {
+      getThemeStyle('day');
+    } else {
+      getThemeStyle(bookmark.theme);
+    }
   }
 
   function getUserInfo() {
@@ -84,7 +89,11 @@
       .then((res) => {
         user.setUserInfo(res.data);
         bookmark.theme = res.data.theme ?? 'day';
-        getThemeStyle(bookmark.theme);
+        if (router.currentRoute.value.path.includes('noteLibrary')) {
+          getThemeStyle('day');
+        } else {
+          getThemeStyle(bookmark.theme);
+        }
         localStorage.setItem('theme', bookmark.theme);
         if (res.status !== 200) {
           handleUserLogout();
@@ -121,5 +130,15 @@
       getThemeStyle(val);
     },
   );
+
+  const isFirefox = typeof InstallTrigger !== 'undefined';
+  if (isFirefox) {
+    const style = document.createElement('style');
+    style.innerHTML = `
+        * {
+          scrollbar-width: thin;
+        }
+      `;
+    document.head.appendChild(style);
+  }
 </script>
-<style></style>

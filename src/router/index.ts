@@ -32,6 +32,11 @@ const routes: Array<RouteRecordRaw | any> = [
     name: 'personCenter',
     component: () => import('@/view/configCenter/components/phone/PPersonCenter.vue'),
   },
+  {
+    path: '/noteLibrary/:value(.*)',
+    name: 'NoteDetail',
+    component: () => import('@/view/noteLibrary/components/NoteDetail.vue'),
+  },
   ...commonRouter,
   loginRouter,
   statusRouter,

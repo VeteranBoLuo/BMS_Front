@@ -47,12 +47,19 @@
             :style="{ color: router.currentRoute.value.path.includes('/noteLibrary') ? '#615ced' : '' }"
             style="font-size: 14px; cursor: pointer"
             @click="router.push('/noteLibrary')"
-            >笔记</span
+            >笔记(BETA)</span
           >
         </template>
       </div>
       <div class="navigation-body">
-        <div class="navigation-search-input" v-if="searchInputVisible">
+        <div
+          class="navigation-search-input"
+          v-if="searchInputVisible"
+          :style="{
+            opacity: router.currentRoute.value.path.includes('/noteLibrary') ? '0' : '1',
+            pointerEvents: router.currentRoute.value.path.includes('/noteLibrary') ? 'none' : '',
+          }"
+        >
           <b-input
             id="bookmark-input"
             :placeholder="placeholder"
@@ -78,7 +85,11 @@
             <svg-icon size="30" :src="icon.navigation_phone_search" @click="phoneSearchClick" />
           </div>
           <!--  主题切换        -->
-          <ThemeSwitch />
+          <ThemeSwitch
+            :style="{
+              opacity: router.currentRoute.value.path.includes('/noteLibrary') ? '0' : '1',
+            }"
+          />
           <!--移动端个人中心       -->
           <div :class="['navigation-icon']" v-if="bookmark.isPhone" @click="handleToPhoneUserCenter">
             <svg-icon size="30" :src="user.headPicture || icon.navigation_user" class="dom-hover" />
@@ -118,7 +129,7 @@
   });
 
   const searchInputVisible = computed(() => {
-    return !bookmark.isPhone && ['noteLibrary', 'home'].some((item) => router.currentRoute.value.path.includes(item));
+    return !bookmark.isPhone && ['home', 'noteLibrary'].some((item) => router.currentRoute.value.path.includes(item));
   });
   const phoneSearchVisible = computed(() => {
     return bookmark.isPhone && router.currentRoute.value.path.includes('home') && bookmark.isFold;

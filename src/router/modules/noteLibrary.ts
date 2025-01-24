@@ -1,6 +1,6 @@
 import { AppRouteRecordRaw } from '@/router';
 
-const noteLibraryRouter: AppRouteRecordRaw = [
+const noteLibraryRouter: AppRouteRecordRaw[] = [
   {
     meta: {
       title: '笔记库',
@@ -10,11 +10,6 @@ const noteLibraryRouter: AppRouteRecordRaw = [
     path: '/noteLibrary',
     name: 'noteLibrary',
     component: () => import('@/view/noteLibrary/NoteLibrary.vue'),
-  },
-  {
-    path: '/noteLibrary/:value(.*)',
-    name: 'NoteDetail',
-    component: () => import('@/view/noteLibrary/components/NoteDetail.vue'),
   },
 ];
 

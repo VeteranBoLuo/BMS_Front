@@ -1,12 +1,11 @@
 <template>
   <div style="overflow: auto">
-    <editor v-model="myValue" :init="init" :enabled="enabled" :id="tinymceId"></editor>
+    <editor v-model="myValue" :init="init" :id="tinymceId"></editor>
   </div>
 </template>
 
 <script setup>
-  import { computed, reactive, watch, ref, nextTick, onMounted } from 'vue'; //全屏
-
+  import { computed, nextTick, onMounted, reactive, ref, watch } from 'vue'; //全屏
   import tinymce from 'tinymce/tinymce';
   // import "tinymce/skins/content/default/content.css";
   import Editor from '@tinymce/tinymce-vue';
@@ -16,7 +15,6 @@
   import 'tinymce/plugins/image';
   import 'tinymce/plugins/table';
   import 'tinymce/plugins/lists'; // 列表插件
-  import 'tinymce/plugins/wordcount'; // 文字计数
   import 'tinymce/plugins/preview'; // 预览
   import 'tinymce/plugins/emoticons'; // emoji表情
   import 'tinymce/plugins/emoticons/js/emojis.js'; //必须引入这个文件才有表情图库
@@ -33,13 +31,11 @@
   import 'tinymce/plugins/visualblocks'; //显示元素范围
   import 'tinymce/plugins/visualchars'; //显示不可见字符
   import 'tinymce/plugins/charmap'; // 特殊符号
-  import 'tinymce/plugins/nonbreaking'; //插入不间断空格
   import 'tinymce/plugins/insertdatetime'; //插入日期时间
   import 'tinymce/plugins/importcss'; //引入自定义样式的css文件
   import 'tinymce/plugins/accordion'; // 可折叠数据手风琴模式
   import 'tinymce/plugins/anchor'; //锚点
   import 'tinymce/plugins/fullscreen';
-  import axios from 'axios';
   import { apiBasePost } from '@/http/request';
 
   const emits = defineEmits(['update:modelValue', 'setHtml']);
@@ -51,39 +47,14 @@
         return '';
       },
     },
-    baseUrl: {
-      type: String,
-      default: '',
-    },
-    enabled: {
-      type: Boolean,
-      default: true,
-    },
     // 编辑器初始可编辑状态
     editable_root: {
       type: Boolean,
       default: true,
     },
-    plugins: {
-      type: [String, Array],
-      default:
-        'importcss  searchreplace autolink directionality code visualblocks visualchars fullscreen image link codesample table charmap nonbreaking anchor insertdatetime advlist lists wordcount charmap  emoticons accordion',
-    },
-    knwlgId: {
-      type: String,
-    },
-    toolbar: {
-      type: [String, Array, Boolean],
-      default:
-        'undo redo |blocks fontfamily fontsize| forecolor backcolor removeformat | accordion accordionremove |  bold italic underline strikethrough ltr rtl  | align numlist bullist | link image | table | lineheight outdent indent | charmap emoticons | anchor codesample',
-    },
     readonly: {
       type: Boolean,
       default: false,
-    },
-    minHeight: {
-      type: Number,
-      default: 600,
     },
   });
   const loading = ref(false);
@@ -94,18 +65,20 @@
     selector: '#' + tinymceId.value, //富文本编辑器的id,
     language_url: '/tinymce/langs/zh_CN.js', // 语言包的路径，具体路径看自己的项目
     language: 'zh_CN',
-    skin_url: '/tinymce/skins/ui/tinymce-5-dark', // skin路径，具体路径看自己的项目
+    skin_url: '/tinymce/skins/ui/oxide', // skin路径，具体路径看自己的项目
     editable_root: props.editable_root,
     branding: false, // 是否禁用“Powered by TinyMCE”
     height: '100%',
     promotion: false, //去掉 upgrade
     // toolbar_sticky: true,
     // toolbar_sticky_offset: 100,
-    menubar: 'edit view insert format tools',
+    menubar: '', //'edit view insert format tools',
     paste_data_images: true, //允许粘贴图像
     image_dimensions: false, //去除宽高属性
-    plugins: props.plugins, //这里的数据是在props里面就定义好了的
-    toolbar: props.toolbar, //这里的数据是在props里面就定义好了的
+    plugins:
+      'importcss quickbars  searchreplace autolink directionality code visualblocks visualchars fullscreen image link codesample table charmap nonbreaking anchor insertdatetime advlist lists charmap  emoticons accordion',
+    toolbar:
+      'undo redo| forecolor backcolor removeformat | blocks fontfamily fontsize| bold italic underline strikethrough  | align numlist bullist lineheight   outdent indent| link image table  | codesample emoticons ',
     // 取消图片资源路径转换
     convert_urls: false,
     // table边框位0是否展示网格线
@@ -113,8 +86,10 @@
     // 超链接默认打开方式
     link_default_target: '_blank',
     link_context_toolbar: true,
+    contextmenu: 'bold copy paste remove',
     // 默认快捷菜单
-    quickbars_insert_toolbar: 'image codesample table',
+    quickbars_insert_toolbar: false,
+    placeholder: '输入内容',
     // 选中图片的快捷提示
     quickbars_image_toolbar: 'alignleft aligncenter alignright | rotateleft rotateright | imageoptions',
     editimage_toolbar: 'rotateleft rotateright | flipv fliph | editimage imageoptions',
@@ -127,7 +102,11 @@
     noneditable_class: 'mceNonEditable',
     toolbar_mode: 'wrap', // 工具栏模式 floating / sliding / scrolling / wrap
     // 默认样式
-    content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:16px }p {margin:3px; line-height:24px;}',
+    content_style: `body {font-family:Helvetica,Arial,sans-serif; font-size:16px;}
+    p {line-height:1rem}
+    body::-webkit-scrollbar {
+      display: none;
+    }`,
     image_advtab: true,
     importcss_append: true,
     paste_webkit_styles: 'all',
@@ -136,12 +115,15 @@
     paste_auto_cleanup_on_paste: false,
     file_picker_types: 'file',
     // 选中文字的快捷提示
-    quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
+    quickbars_selection_toolbar: 'forecolor backcolor removeformat | bold italic underline strikethrough | quicklink  blockquote codesample',
     // 编辑器高度自适应
+    content_css: '/tinymce/skins/content/default/content.css', //以css文件方式自定义可编辑区域的css样式，css文件需自己创建并引入
     setup: function (editor) {
       editor.on('init', function () {
-        editor.getContainer().querySelector('.tox-toolbar').style.marginLeft = '10px';
-        editor.getContainer().querySelector('.tox-menubar').style.marginLeft = '10px';
+        nextTick(() => {
+          // editor.getContainer().querySelector('.tox-toolbar').style.marginLeft = '10px';
+          // editor.getContainer().querySelector('.tox-menubar').style.marginLeft = '10px';
+        });
       });
     },
     //图片上传  -实列 具体请根据官网补充-
@@ -156,7 +138,7 @@
         }
         const formData = new FormData();
         formData.append('file', file);
-        apiBasePost('/api/noteLibrary/uploadFile', formData, {
+        apiBasePost('/api/note/uploadFile', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
@@ -208,7 +190,18 @@
   );
 
   //初始化编辑器
-  onMounted(() => {});
+  onMounted(() => {
+    setTimeout(() => {
+      const iframe = document.getElementsByClassName('tox-edit-area__iframe')[0];
+      const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+      const style = iframeDocument.createElement('style');
+      style.innerHTML = `
+          * {
+          scrollbar-width: none;
+        }`;
+      iframeDocument.head.appendChild(style);
+    }, 500);
+  });
 
   // 设置值
   const handleSetContent = (content) => {
@@ -228,12 +221,13 @@
 
 <style lang="less" scoped>
   :deep(.tox-tinymce) {
-    border: 1px solid #dcdfe6;
+    border: none;
     border-radius: 0px;
 
     .tox-statusbar {
       display: none;
     }
+
     .tox-edit-area::before {
       border: none !important;
     }

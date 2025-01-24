@@ -20,13 +20,6 @@
       color: color,
     }"
   />
-  <Icon
-    v-else-if="iconType === 'component'"
-    :width="size"
-    :height="size"
-    :color="color"
-    :icon="extractIconValue(src)"
-  />
   <span
     v-else-if="iconType === 'css'"
     :style="[extractContentWithinBraces(src), { fontSize: size + 'px', color: color }]"
@@ -68,9 +61,6 @@
     } else if (isCss(props.src)) {
       // css图片
       return 'css';
-    } else if (props.src?.includes('icon')) {
-      // iconify图标组件
-      return 'component';
     } else if (props.src?.includes('<svg')) {
       // svg图片
       return 'svg';
@@ -121,7 +111,6 @@
     const match = str.match(regex);
     return match ? match[1] : str;
   }
-
 </script>
 <style lang="less" scoped>
   .icon-base64 {
