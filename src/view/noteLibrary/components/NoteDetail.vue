@@ -184,7 +184,7 @@
   });
   const nStore = noteStore();
   onUnmounted(() => {
-    nStore.headings = [];
+    // nStore.headings = [];
   });
 </script>
 
