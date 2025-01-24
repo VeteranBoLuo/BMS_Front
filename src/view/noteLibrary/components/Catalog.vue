@@ -10,7 +10,7 @@
         :style="{ paddingLeft: `${heading.level * 16}px` }"
       >
         <span class="toc-line" v-if="activeHeading === index"></span>
-        <span class="text-hidden">{{ heading.text }}</span>
+        <span class="text-hidden" style="font-size: 14px">{{ heading.text }}</span>
       </div>
     </div>
   </div>
@@ -56,10 +56,12 @@
     position: relative;
     display: flex;
     align-items: center;
+    color: #585a73;
   }
 
   .toc-item.active {
     font-weight: bold;
+    color: #615ced;
   }
 
   .toc-line {

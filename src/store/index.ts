@@ -173,7 +173,7 @@ export const domStore = defineStore('dom', {
   actions: {},
 });
 
-export const noteStore = defineStore('dom', {
+export const noteStore = defineStore('note', {
   state: () =>
     <
       {
