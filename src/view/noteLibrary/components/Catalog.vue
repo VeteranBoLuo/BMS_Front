@@ -1,6 +1,6 @@
 <template>
   <div class="toc-container">
-    <div style="border-left: 1px solid #e8eaf2;margin: 10px;box-sizing: border-box">
+    <div style="border-left: 1px solid #e8eaf2; margin: 10px; box-sizing: border-box">
       <div
         v-for="(heading, index) in headings"
         :key="index"
@@ -17,7 +17,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, onMounted, watch } from 'vue';
+  import { ref, onMounted, watch, nextTick } from 'vue';
 
   const props = defineProps<{
     content: string;
@@ -37,11 +37,11 @@
 
     const hTags = iframeDoc.querySelectorAll('h1, h2, h3, h4, h5, h6');
     headings.value = Array.from(hTags)
-        .filter((heading: any) => heading.innerText.trim() !== '' || heading.textContent.trim() !== '')
-        .map((heading: any, index) => {
-          const level = parseInt((heading.tagName as string).replace('H', ''), 10);
-          return { element: heading, text: heading.innerText || heading.textContent || '', level };
-        });
+      .filter((heading: any) => heading.innerText.trim() !== '' || heading.textContent.trim() !== '')
+      .map((heading: any, index) => {
+        const level = parseInt((heading.tagName as string).replace('H', ''), 10);
+        return { element: heading, text: heading.innerText || heading.textContent || '', level };
+      });
   };
 
   const scrollToHeading = (index: number) => {
@@ -52,7 +52,11 @@
     }
   };
 
-  onMounted(() => {});
+  onMounted(() => {
+    setTimeout(() => {
+      generateTOC();
+    }, 200);
+  });
 
   watch(
     () => props.content,
