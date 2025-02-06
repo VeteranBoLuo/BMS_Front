@@ -32,7 +32,7 @@
         <!--        <div>-->
         <!--          <div class="tag-container"> <div class="note-tag">+ 自定义标签</div></div>-->
         <!--        </div>-->
-        <TinyMac v-model:value="note.content" style="flex-grow: 1"  />
+        <TinyMac v-model:value="note.content" style="flex-grow: 1" :noteId="note.id" @setNoteId="setNoteId" />
       </div>
     </div>
   </div>
@@ -56,6 +56,10 @@
     lastTitle: '未命名文档',
     content: '',
   });
+
+  function setNoteId(id) {
+    note.id = id;
+  }
   function handleInput(event) {
     const text = event.target.innerText;
     if (text === '\n' || !text) {

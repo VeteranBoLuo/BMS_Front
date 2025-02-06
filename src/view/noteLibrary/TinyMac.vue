@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-  import { computed, nextTick, onMounted,onUnmounted, reactive, ref, watch } from 'vue'; //全屏
+  import { computed, nextTick, onMounted, onUnmounted, reactive, ref, watch } from 'vue'; //全屏
   import tinymce from 'tinymce/tinymce';
   // import "tinymce/skins/content/default/content.css";
   import Editor from '@tinymce/tinymce-vue';
@@ -39,7 +39,7 @@
   import { apiBasePost } from '@/http/request';
   import { noteStore } from '@/store';
 
-  const emits = defineEmits(['update:modelValue', 'setHtml']);
+  const emits = defineEmits(['update:modelValue', 'setHtml', 'setNoteId']);
   //这里我选择将数据定义在props里面，方便在不同的页面也可以配置出不同的编辑器，当然也可以直接在组件中直接定义
   const props = defineProps({
     value: {
@@ -56,6 +56,10 @@
     readonly: {
       type: Boolean,
       default: false,
+    },
+    noteId: {
+      type: String,
+      default: '',
     },
   });
   const loading = ref(false);
@@ -138,6 +142,7 @@
         }
         const formData = new FormData();
         formData.append('file', file);
+        formData.append('noteId', props.noteId);
         apiBasePost('/api/note/uploadFile', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
@@ -147,6 +152,9 @@
           },
         })
           .then((res) => {
+            if (res.data.noteId) {
+              emits('setNoteId', res.data.noteId);
+            }
             resolve(res.data.url);
           })
           .catch();
