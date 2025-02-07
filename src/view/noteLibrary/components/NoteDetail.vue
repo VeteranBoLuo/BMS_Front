@@ -5,9 +5,10 @@
         <div class="back-icon" @click="router.back()">
           <SvgIcon :src="icon.note_detail_back" />
         </div>
-        <div contenteditable="true" class="note-header-title n-title" @input="handleInput" @paste="handlePaste">{{
-          note.title
-        }}</div>
+        <div class="note-header-title n-title" contenteditable="true" id="note-header-title" @focusout="titleBlur">
+          <!--          {{ note.title }}-->
+          <!--          <a-input v-model:value="note.title" @focusout="inputBlur" placeholder="请输入标题"  />-->
+        </div>
         <div style="color: #c0c0c0; font-size: 12px" v-if="!isStartEdit"> 最近修改 {{ updateTime }} </div>
         <div style="color: #c0c0c0; font-size: 12px" v-else>
           <span v-if="isCurrentSave">保存中...</span>
@@ -26,9 +27,9 @@
     <div style="display: flex; padding: 20px; box-sizing: border-box; height: 100%">
       <Catalog :content="note.content" />
       <div class="note-body-header footer-center">
-        <div contenteditable="true" class="note-body-title n-title" @input="handleInput" @paste="handlePaste">{{
-          note.title
-        }}</div>
+        <div class="note-body-title n-title">
+          <a-input v-model:value="note.title" @focusout="inputBlur" placeholder="请输入标题" />
+        </div>
         <!--        <div>-->
         <!--          <div class="tag-container"> <div class="note-tag">+ 自定义标签</div></div>-->
         <!--        </div>-->
@@ -40,7 +41,7 @@
 
 <script lang="ts" setup>
   import TinyMac from '@/view/noteLibrary/TinyMac.vue';
-  import { onMounted, onUnmounted, reactive, ref, watch } from 'vue';
+  import { nextTick, onMounted, onUnmounted, reactive, ref, watch } from 'vue';
   import icon from '@/config/icon.ts';
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
   import router from '@/router';
@@ -50,6 +51,7 @@
   import Alert from '@/components/BasicComponents/BModal/Alert.ts';
   import { message } from 'ant-design-vue';
   import { noteStore } from '@/store';
+  import BInput from '@/components/BasicComponents/BInput/BInput.vue';
   const note = reactive({
     id: '',
     title: '未命名文档',
@@ -60,39 +62,38 @@
   function setNoteId(id) {
     note.id = id;
   }
-  function handleInput(event) {
-    const text = event.target.innerText;
-    if (text === '\n' || !text) {
-      document.getElementsByClassName('n-title')[0].innerText = note.lastTitle;
-      document.getElementsByClassName('n-title')[1].innerText = note.lastTitle;
-      note.title = note.lastTitle;
-      return;
-    }
-    if (note.title !== event.target.innerText) {
-      note.title = event.target.innerText;
-      note.lastTitle = cloneDeep(event.target.innerText);
-      saveFunc();
-    }
+  function inputBlur() {
+    nextTick(() => {
+      if (!note.title) {
+        note.title = note.lastTitle;
+        document.getElementById('note-header-title').innerText = note.title;
+        return;
+      }
+      if (note.title !== note.lastTitle) {
+        document.getElementById('note-header-title').innerText = note.title;
+        note.lastTitle = cloneDeep(note.title);
+        saveFunc();
+      }
+    });
   }
-  function handlePaste(event) {
-    // 阻止默认的粘贴行为
-    event.preventDefault();
 
-    // 获取粘贴的纯文本内容
-    const text = event.clipboardData.getData('text/plain');
-
-    // 获取光标位置
-    const selection = window.getSelection();
-    if (!selection.rangeCount) return;
-
-    // 删除当前选中的内容并插入纯文本
-    selection.deleteFromDocument();
-    selection.getRangeAt(0).insertNode(document.createTextNode(text));
-
-    // 调整光标位置
-    selection.collapseToEnd();
-    saveFunc();
+  function titleBlur() {
+    nextTick(() => {
+      const title = document.getElementById('note-header-title');
+      const text = title.innerText;
+      if (!text || text === '\n') {
+        note.title = note.lastTitle;
+        title.innerText = note.lastTitle;
+        return;
+      }
+      if (text !== note.lastTitle) {
+        note.title = text;
+        note.lastTitle = cloneDeep(note.title);
+        saveFunc();
+      }
+    });
   }
+
   const content = ref('');
   const isStartEdit = ref(false);
   const isCurrentSave = ref(false);
@@ -166,6 +167,8 @@
         .then((res) => {
           if (res.status === 200) {
             Object.assign(note, res.data);
+            note.lastTitle = cloneDeep(note.title);
+            document.getElementById('note-header-title').innerText = note.title;
             updateTime.value = res.data.updateTime ?? res.data.createTime;
           }
         })
@@ -242,20 +245,22 @@
     }
   }
   .note-body-title {
-    height: 50px;
-    padding: 0 15px;
-    display: flex;
-    align-items: center;
-    border-radius: 6px;
-    box-sizing: border-box;
-    outline: none;
-    border: 1px solid transparent;
-    transition: border-color 0.1s linear;
-    font-size: 25px;
-    font-weight: 600;
-    &:empty:before {
-      color: #aaa;
-      content: '请输入标题';
+    .ant-input {
+      height: 50px;
+      padding: 0 15px;
+      display: flex;
+      align-items: center;
+      border-radius: 6px;
+      box-sizing: border-box;
+      outline: none;
+      transition: border-color 0.1s linear;
+      font-weight: 600;
+      border: none;
+      box-shadow: unset !important;
+      font-size: 25px;
+      &:focus {
+        border: none;
+      }
     }
   }
   .back-icon {
