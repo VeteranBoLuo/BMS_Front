@@ -5,7 +5,7 @@
         >{{ item.label }}
         <span style="font-size: 14px; color: #a0a0a0">{{ item.time }}</span>
         <div style="margin-bottom: -10px">
-          <p v-for="(li, index) in item.list" style="font-size: 12px">{{ ++index }}、{{ li }}</p>
+          <p v-for="(li, index) in item.list" style="font-size: 12px"> {{ index + 1 }}、{{ li }} </p>
         </div>
       </a-timeline-item>
     </a-timeline>
@@ -39,11 +39,19 @@
       time: '2025-01-20',
     },
     {
-      label: '重大更新，',
+      label: '新增笔记模块，优化项目性能',
       time: '2025-01-24',
-      list: ['新增笔记模块', '优化项目性能'],
+      list: [
+        '引入全新的笔记模块，用户现在可以在应用内轻松创建、编辑和管理个人笔记;支持富文本编辑器；允许用户添加格式化文本、图片和列表',
+        '提供标签系统，方便用户对笔记进行分类和搜索',
+        '优化数据加载机制，减少初始加载时间和内存占用；增加缓存策略，加速重复操作的响应速度',
+      ],
     },
   ];
 </script>
 
-<style lang="less"></style>
+<style lang="less" scoped>
+  :deep(.ant-timeline .ant-timeline-item-tail) {
+    background-color: var(--timeline-line-bg-color);
+  }
+</style>
