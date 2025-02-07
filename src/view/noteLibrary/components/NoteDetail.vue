@@ -91,6 +91,7 @@
 
     // 调整光标位置
     selection.collapseToEnd();
+    saveFunc();
   }
   const content = ref('');
   const isStartEdit = ref(false);
