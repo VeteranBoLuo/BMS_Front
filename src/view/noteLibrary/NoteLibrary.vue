@@ -2,7 +2,7 @@
   <div style="padding: 20px; width: 100%; border-top: 1px solid #ccc">
     <div class="flex-align-center" style="justify-content: space-between; padding: 0 20px">
       <div style="font-weight: 500; font-size: 20px">笔记库</div>
-      <b-button type="primary" style="border-radius: 20px" @click="router.push('/noteLibrary/add')">
+      <b-button type="primary" style="border-radius: 20px" @click="router.push('/noteLibrary/add')" v-click-log="{ module: '笔记', operation: '新建笔记' }">
         + 新建笔记
       </b-button>
     </div>

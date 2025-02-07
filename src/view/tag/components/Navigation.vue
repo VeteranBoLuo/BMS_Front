@@ -42,12 +42,14 @@
           <span
             :style="{ color: router.currentRoute.value.path.includes('/home') ? '#615ced' : '' }"
             style="font-size: 14px; cursor: pointer"
+            v-click-log="{ module: '首页', operation: '跳转首页' }"
             @click="router.push('/home')"
             >书签</span
           >
           <span
             :style="{ color: router.currentRoute.value.path.includes('/noteLibrary') ? '#615ced' : '' }"
             style="font-size: 14px; cursor: pointer; display: flex; gap: 5px; align-items: center"
+            v-click-log="{ module: '首页', operation: '跳转笔记模块' }"
             @click="router.push('/noteLibrary')"
             ><div>笔记</div
             ><div

@@ -16,10 +16,20 @@
         </div>
       </div>
       <div class="flex-align-center" style="gap: 20px">
-        <div class="note-header-title-icon" @click="delNote" title="删除">
+        <div
+          class="note-header-title-icon"
+          @click="delNote"
+          title="删除"
+          v-click-log="{ module: '笔记详情', operation: '删除笔记' }"
+        >
           <SvgIcon :src="icon.note_detail_delete" />
         </div>
-        <div class="note-header-title-icon" @click="saveFunc" title="保存">
+        <div
+          class="note-header-title-icon"
+          @click="clickSaveNote"
+          title="保存"
+          v-click-log="{ module: '笔记详情', operation: '保存笔记' }"
+        >
           <SvgIcon :src="icon.note_detail_save" />
         </div>
       </div>
@@ -108,7 +118,7 @@
     const seconds = now.getSeconds().toString().padStart(2, '0');
     updateTime.value = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   }
-  async function saveNote() {
+  async function saveNote(isMsg?: boolean) {
     isStartEdit.value = true;
     isCurrentSave.value = true;
     const params: any = cloneDeep(note);
@@ -126,18 +136,26 @@
       setTimeout(() => {
         isStartEdit.value = false;
         timer.value = null;
+        if (isMsg) {
+          message.success('保存成功');
+        }
         setUpdateTime();
         clearTimeout(timer.value);
       }, 500);
     }
   }
+
+  function clickSaveNote() {
+    saveFunc(true);
+  }
+
   const timer = ref(null);
-  function saveFunc() {
+  function saveFunc(isMsg?: boolean) {
     if (timer.value) {
       clearTimeout(timer.value);
     }
     timer.value = setTimeout(() => {
-      saveNote();
+      saveNote(isMsg);
     }, 500);
   }
 
