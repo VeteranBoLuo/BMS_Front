@@ -224,7 +224,7 @@
     box-sizing: border-box;
     padding: 0 20px;
     background-color: #fbfbfd;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #edf2fa;
   }
   .note-header-title {
     padding: 0 10px;

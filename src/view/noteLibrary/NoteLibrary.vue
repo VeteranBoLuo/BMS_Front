@@ -1,5 +1,5 @@
 <template>
-  <div style="padding: 20px; width: 100%; border-top: 1px solid #ccc">
+  <div style="padding: 20px; width: 100%; border-top: 1px solid #edf2fa">
     <div class="flex-align-center" style="justify-content: space-between; padding: 0 20px">
       <div style="font-weight: 500; font-size: 20px">笔记库</div>
       <b-button type="primary" style="border-radius: 20px" @click="router.push('/noteLibrary/add')" v-click-log="{ module: '笔记', operation: '新建笔记' }">
@@ -14,6 +14,7 @@
           height: 300px;
           border-radius: 8px;
           box-shadow: 0px 0px 10px #edf2fa;
+          border: 1px solid #edf2fa;
           padding: 20px;
           box-sizing: border-box;
         "
