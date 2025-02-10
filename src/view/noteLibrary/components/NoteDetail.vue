@@ -1,15 +1,15 @@
 <template>
   <div style="width: 100%; height: 100%">
     <div class="note-header">
-      <div style="display: flex; align-items: center; gap: 20px">
+      <div style="display: flex; align-items: center" :style="{ gap: bookmark.isPhone ? '0' : '20px' }">
         <div class="back-icon" @click="router.back()">
           <SvgIcon :src="icon.note_detail_back" />
         </div>
-        <div class="note-header-title n-title" contenteditable="true" id="note-header-title" @focusout="titleBlur">
+        <div v-if="!bookmark.isPhone" class="note-header-title n-title" contenteditable="true" id="note-header-title" @focusout="titleBlur">
           <!--          {{ note.title }}-->
           <!--          <a-input v-model:value="note.title" @focusout="inputBlur" placeholder="请输入标题"  />-->
         </div>
-        <div style="color: #c0c0c0; font-size: 12px" v-if="!isStartEdit"> 最近修改 {{ updateTime }} </div>
+        <div style="color: #c0c0c0; font-size: 12px" v-if="!isStartEdit" :style="{ marginLeft: bookmark.isPhone ? '20px' : '0' }"> 最近修改 {{ updateTime }} </div>
         <div style="color: #c0c0c0; font-size: 12px" v-else>
           <span v-if="isCurrentSave">保存中...</span>
           <span v-else>文档已实时保存</span>
@@ -43,7 +43,13 @@
         <!--        <div>-->
         <!--          <div class="tag-container"> <div class="note-tag">+ 自定义标签</div></div>-->
         <!--        </div>-->
-        <TinyMac v-model:value="note.content" style="flex-grow: 1" :noteId="note.id" @setNoteId="setNoteId" @saveData="saveFunc(true)"/>
+        <TinyMac
+          v-model:value="note.content"
+          style="flex-grow: 1"
+          :noteId="note.id"
+          @setNoteId="setNoteId"
+          @saveData="saveFunc(true)"
+        />
       </div>
     </div>
   </div>
@@ -60,7 +66,8 @@
   import Catalog from '@/view/noteLibrary/components/Catalog.vue';
   import Alert from '@/components/BasicComponents/BModal/Alert.ts';
   import { message } from 'ant-design-vue';
-  import { noteStore } from '@/store';
+  import { bookmarkStore, noteStore } from '@/store';
+  const bookmark = bookmarkStore();
   import BInput from '@/components/BasicComponents/BInput/BInput.vue';
   const note = reactive({
     id: '',
@@ -184,7 +191,6 @@
     }
   };
 
-
   onMounted(() => {
     document.documentElement.setAttribute('data-theme', 'day');
     document.addEventListener('keydown', handleKeyDown);
@@ -196,7 +202,9 @@
           if (res.status === 200) {
             Object.assign(note, res.data);
             note.lastTitle = cloneDeep(note.title);
-            document.getElementById('note-header-title').innerText = note.title;
+            if(!bookmark.isPhone){
+              document.getElementById('note-header-title').innerText = note.title;
+            }
             updateTime.value = res.data.updateTime ?? res.data.createTime;
           }
         })
@@ -326,6 +334,11 @@
       padding: 2px 6px;
       background-color: #edeff5;
       border-radius: 4px;
+    }
+  }
+  @media (max-width: 600px) {
+    .note-body-header {
+      width: 90%;
     }
   }
 </style>

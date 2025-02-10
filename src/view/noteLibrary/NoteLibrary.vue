@@ -1,6 +1,36 @@
 <template>
   <div style="padding: 20px; width: 100%; border-top: 1px solid #edf2fa">
-    <div class="flex-align-center" style="justify-content: space-between; padding: 0 20px">
+    <div
+      v-if="bookmark.isPhone"
+      style="
+        position: fixed;
+        left: 0;
+        top: 0;
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+        height: 60px;
+        box-sizing: border-box;
+      "
+    >
+      <div class="flex-align-center-gap" style="gap: 20px">
+        <div class="back-icon" @click="router.back()">
+          <SvgIcon :src="icon.note_detail_back" />
+        </div>
+        <div style="font-weight: 500; font-size: 20px">笔记库</div>
+      </div>
+      <b-button
+        type="primary"
+        style="border-radius: 20px"
+        @click="router.push('/noteLibrary/add')"
+        v-click-log="{ module: '笔记', operation: '新建笔记' }"
+      >
+        + 新建笔记
+      </b-button>
+    </div>
+    <div v-else class="flex-align-center" style="justify-content: space-between; padding: 0 20px">
       <div style="font-weight: 500; font-size: 20px">笔记库</div>
       <b-button
         type="primary"
@@ -72,7 +102,8 @@
   import { apiBasePost } from '@/http/request.ts';
   import { onMounted, ref } from 'vue';
   import BButton from '@/components/BasicComponents/BButton/BButton.vue';
-
+  import { bookmarkStore } from '@/store';
+  const bookmark = bookmarkStore();
   const noteList = ref([]);
   apiBasePost('/api/note/queryNoteList').then((res) => {
     if (res.status === 200) {
@@ -120,5 +151,22 @@
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 30px;
     overflow: auto;
+  }
+  @media (max-width: 600px) {
+    .note-library-body {
+      padding: 0;
+      margin-top: 20px;
+      height: calc(100% - 40px);
+    }
+  }
+  .back-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+    border: 1px solid #e8eaf2;
   }
 </style>

@@ -77,6 +77,13 @@
           >日志、用户管理等<svg-icon color="#999fa8" style="rotate: 180deg" :src="icon.arrow_left" size="14" /></span
       ></div>
       <div
+          class="person-menu-item"
+          @click="router.push('/noteLibrary')"
+          v-click-log="{ module: '个人中心', operation: `笔记库` }"
+      >
+        <span class="person-menu-item-title">笔记库</span>
+       </div>
+      <div
         class="person-menu-item"
         @click="$router.push('/manage/tagMg')"
         v-click-log="{ module: '个人中心', operation: `标签管理` }"
