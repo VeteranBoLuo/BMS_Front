@@ -157,7 +157,8 @@
     .note-library-body {
       padding: 0;
       margin-top: 20px;
-      height: calc(100% - 40px);
+      height: calc(100% - 40px)!important;
+      overflow: auto;
     }
   }
   .back-icon {
