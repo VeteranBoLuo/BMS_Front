@@ -39,7 +39,7 @@
   import { apiBasePost } from '@/http/request';
   import { noteStore } from '@/store';
 
-  const emits = defineEmits(['update:modelValue', 'setHtml', 'setNoteId']);
+  const emits = defineEmits(['update:modelValue', 'setHtml', 'setNoteId','saveData']);
   //这里我选择将数据定义在props里面，方便在不同的页面也可以配置出不同的编辑器，当然也可以直接在组件中直接定义
   const props = defineProps({
     value: {
@@ -128,6 +128,10 @@
       editor.on('init', function () {
         // 停用缓存才会生效
         note.generateTOC();
+      });
+      // 添加自定义快捷键
+      editor.addShortcut('meta+s', 'Save shortcut', function () {
+        emits('saveData');
       });
     },
     //图片上传  -实列 具体请根据官网补充-

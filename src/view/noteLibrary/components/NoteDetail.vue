@@ -43,7 +43,7 @@
         <!--        <div>-->
         <!--          <div class="tag-container"> <div class="note-tag">+ 自定义标签</div></div>-->
         <!--        </div>-->
-        <TinyMac v-model:value="note.content" style="flex-grow: 1" :noteId="note.id" @setNoteId="setNoteId" />
+        <TinyMac v-model:value="note.content" style="flex-grow: 1" :noteId="note.id" @setNoteId="setNoteId" @saveData="saveFunc(true)"/>
       </div>
     </div>
   </div>
