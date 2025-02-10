@@ -46,7 +46,7 @@
         <TinyMac
 
           v-model:value="note.content"
-          style="height: calc(100% - 100px)"
+          style="flex-grow: 1"
           :noteId="note.id"
           @setNoteId="setNoteId"
           @saveData="saveFunc(true)"

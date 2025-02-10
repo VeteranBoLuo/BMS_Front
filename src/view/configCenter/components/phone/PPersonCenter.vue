@@ -77,6 +77,7 @@
           >日志、用户管理等<svg-icon color="#999fa8" style="rotate: 180deg" :src="icon.arrow_left" size="14" /></span
       ></div>
       <div
+          v-if="user.role === 'root'"
           class="person-menu-item"
           @click="router.push('/noteLibrary')"
           v-click-log="{ module: '个人中心', operation: `笔记库` }"
