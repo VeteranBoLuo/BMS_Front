@@ -16,7 +16,7 @@
 <script setup lang="ts">
   // 检查本地存储中是否有用户数据
   import { bookmarkStore, useUserStore } from '@/store';
-  import { nextTick, watch } from 'vue';
+  import { nextTick, onMounted, watch } from 'vue';
   import login from '@/view/login/index.vue';
   import BViewer from '@/components/Viewer/BViewer.vue';
   import { apiBaseGet } from '@/http/request';
@@ -141,4 +141,22 @@
       `;
     document.head.appendChild(style);
   }
+
+  onMounted(() => {
+    /iphone|ipod|ipad/i.test(navigator.appVersion) &&
+      document.addEventListener(
+        'blur',
+        (event) => {
+          // 当页面没出现滚动条时才执行，因为有滚动条时，不会出现这问题
+          // input textarea 标签才执行，因为 a 等标签也会触发 blur 事件
+          if (
+            document.documentElement.offsetHeight <= document.documentElement.clientHeight &&
+            ['input', 'textarea'].includes(event.target.localName)
+          ) {
+            document.body.scrollIntoView(); // 回顶部
+          }
+        },
+        true,
+      );
+  });
 </script>

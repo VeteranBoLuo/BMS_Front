@@ -73,7 +73,7 @@
     skin_url: '/tinymce/skins/ui/oxide', // skin路径，具体路径看自己的项目
     editable_root: props.editable_root,
     branding: false, // 是否禁用“Powered by TinyMCE”
-    height: '100%',
+    height: 'calc(100% - 20px)',
     promotion: false, //去掉 upgrade
     // toolbar_sticky: true,
     // toolbar_sticky_offset: 100,
