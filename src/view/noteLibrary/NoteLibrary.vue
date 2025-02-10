@@ -2,7 +2,12 @@
   <div style="padding: 20px; width: 100%; border-top: 1px solid #edf2fa">
     <div class="flex-align-center" style="justify-content: space-between; padding: 0 20px">
       <div style="font-weight: 500; font-size: 20px">笔记库</div>
-      <b-button type="primary" style="border-radius: 20px" @click="router.push('/noteLibrary/add')" v-click-log="{ module: '笔记', operation: '新建笔记' }">
+      <b-button
+        type="primary"
+        style="border-radius: 20px"
+        @click="router.push('/noteLibrary/add')"
+        v-click-log="{ module: '笔记', operation: '新建笔记' }"
+      >
         + 新建笔记
       </b-button>
     </div>
@@ -82,7 +87,7 @@
     tempElement.innerHTML = htmlContent;
 
     // 获取所有的<h>和<p>标签
-    const allowedTags = ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
+    const allowedTags = ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li'];
     const extractedContent = Array.from(tempElement.querySelectorAll('*'))
       .filter((el) => allowedTags.includes(el.tagName.toLowerCase()))
       .map((el) => {

@@ -176,8 +176,18 @@
     });
   }
 
+  const handleKeyDown = (event) => {
+    // 检查是否按下了ctrl+s
+    if (event.ctrlKey && event.key === 's') {
+      event.preventDefault(); // 阻止默认的保存行为
+      saveFunc(true);
+    }
+  };
+
+
   onMounted(() => {
     document.documentElement.setAttribute('data-theme', 'day');
+    document.addEventListener('keydown', handleKeyDown);
     if (router.currentRoute.value.params.value !== 'add') {
       apiBasePost('/api/note/getNoteDetail', {
         id: router.currentRoute.value.params.value,
@@ -210,6 +220,7 @@
   });
   const nStore = noteStore();
   onUnmounted(() => {
+    document.removeEventListener('keydown', handleKeyDown);
     nStore.headings = [];
   });
 </script>
