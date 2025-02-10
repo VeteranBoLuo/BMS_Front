@@ -82,6 +82,8 @@
           v-click-log="{ module: '个人中心', operation: `笔记库` }"
       >
         <span class="person-menu-item-title">笔记库</span>
+        <span class="person-menu-item-des"
+        ><svg-icon color="#999fa8" style="rotate: 180deg" :src="icon.arrow_left" size="14" /></span>
        </div>
       <div
         class="person-menu-item"

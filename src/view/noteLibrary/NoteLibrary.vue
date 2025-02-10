@@ -1,5 +1,5 @@
 <template>
-  <div style="padding: 20px; width: 100%; border-top: 1px solid #edf2fa">
+  <div style="padding: 20px; width: 100%;height: 100%; border-top: 1px solid #edf2fa;box-sizing: border-box">
     <div
       v-if="bookmark.isPhone"
       style="
@@ -143,9 +143,10 @@
   });
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
   .note-library-body {
     width: 100%;
+    height: 100%;
     padding: 20px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
