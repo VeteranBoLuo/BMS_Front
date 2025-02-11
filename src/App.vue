@@ -77,11 +77,7 @@
         router.push('/admin' + path);
       }
     }
-    if (path.includes('noteLibrary')) {
-      getThemeStyle('day');
-    } else {
-      getThemeStyle(bookmark.theme);
-    }
+    getThemeStyle(bookmark.theme);
   }
 
   function getUserInfo() {
@@ -89,11 +85,7 @@
       .then((res) => {
         user.setUserInfo(res.data);
         bookmark.theme = res.data.theme ?? 'day';
-        if (router.currentRoute.value.path.includes('noteLibrary')) {
-          getThemeStyle('day');
-        } else {
-          getThemeStyle(bookmark.theme);
-        }
+        getThemeStyle(bookmark.theme);
         localStorage.setItem('theme', bookmark.theme);
         if (res.status !== 200) {
           handleUserLogout();

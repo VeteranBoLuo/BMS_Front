@@ -16,6 +16,13 @@
         </template>
       </template>
     </a-table>
+    <p>
+      总计
+      <a>
+        {{ total }}
+      </a>
+      名用户
+    </p>
     <b-modal
       v-if="editVisible"
       title="编辑用户信息"
@@ -123,10 +130,13 @@
       }
     });
   }
+  const total = ref(0);
+
   function init() {
     apiQueryPost('/api/user/getUserList').then((res) => {
       if (res.status) {
         userList.value = res.data.items;
+        total.value = res.data.total;
       }
     });
   }

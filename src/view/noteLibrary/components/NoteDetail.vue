@@ -56,7 +56,17 @@
         </div>
       </div>
     </div>
-    <div style="display: flex; padding: 20px; box-sizing: border-box; height: 100%; position: fixed; top: 60px;width: 100%">
+    <div
+      style="
+        display: flex;
+        padding: 20px;
+        box-sizing: border-box;
+        height: 100%;
+        position: fixed;
+        top: 60px;
+        width: 100%;
+      "
+    >
       <Catalog :content="note.content" />
       <div class="note-body-header footer-center">
         <div class="note-body-title n-title">
@@ -214,7 +224,6 @@
   };
 
   onMounted(() => {
-    document.documentElement.setAttribute('data-theme', 'day');
     document.addEventListener('keydown', handleKeyDown);
     if (router.currentRoute.value.params.value !== 'add') {
       apiBasePost('/api/note/getNoteDetail', {
@@ -265,8 +274,8 @@
     width: 100%;
     box-sizing: border-box;
     padding: 0 20px;
-    background-color: #fbfbfd;
-    border-bottom: 1px solid #edf2fa;
+    background-color: var(--note-header-bg-color);
+    border-bottom: 1px solid var(--notePage-topBody-border-color);
     position: fixed;
     top: 0;
   }
@@ -301,6 +310,7 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    color: #222222;
     transition: border-color 0.1s linear;
     &:hover {
       border-color: var(--primary-color);
@@ -312,10 +322,12 @@
       padding: 0 15px;
       display: flex;
       align-items: center;
-      border-radius: 6px;
+      border-radius: 0;
       box-sizing: border-box;
       outline: none;
       transition: border-color 0.1s linear;
+      background-color: var(--bl-input-bg-color);
+      color: var(--bl-input-color);
       font-weight: 600;
       border: none;
       box-shadow: unset !important;

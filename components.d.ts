@@ -15,6 +15,8 @@ declare module 'vue' {
     AInput: typeof import('ant-design-vue/es')['Input']
     AMenu: typeof import('ant-design-vue/es')['Menu']
     AMenuItem: typeof import('ant-design-vue/es')['MenuItem']
+    APagination: typeof import('ant-design-vue/es')['Pagination']
+    ASelect: typeof import('ant-design-vue/es')['Select']
     ATable: typeof import('ant-design-vue/es')['Table']
     ATooltip: typeof import('ant-design-vue/es')['Tooltip']
     BAlert: typeof import('./src/components/BasicComponents/BModal/BAlert.vue')['default']

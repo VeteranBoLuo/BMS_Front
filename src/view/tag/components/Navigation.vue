@@ -101,11 +101,7 @@
             <svg-icon size="30" :src="icon.navigation_phone_search" @click="phoneSearchClick" />
           </div>
           <!--  主题切换        -->
-          <ThemeSwitch
-            :style="{
-              opacity: router.currentRoute.value.path.includes('/noteLibrary') ? '0' : '1',
-            }"
-          />
+          <ThemeSwitch />
           <!--移动端个人中心       -->
           <div :class="['navigation-icon']" v-if="bookmark.isPhone" @click="handleToPhoneUserCenter">
             <svg-icon size="30" :src="user.headPicture || icon.navigation_user" class="dom-hover" />

@@ -37,9 +37,9 @@
   import 'tinymce/plugins/anchor'; //锚点
   import 'tinymce/plugins/fullscreen';
   import { apiBasePost } from '@/http/request';
-  import { noteStore } from '@/store';
+  import { bookmarkStore, noteStore } from '@/store';
 
-  const emits = defineEmits(['update:modelValue', 'setHtml', 'setNoteId','saveData']);
+  const emits = defineEmits(['update:modelValue', 'setHtml', 'setNoteId', 'saveData']);
   //这里我选择将数据定义在props里面，方便在不同的页面也可以配置出不同的编辑器，当然也可以直接在组件中直接定义
   const props = defineProps({
     value: {
@@ -65,6 +65,20 @@
   const loading = ref(false);
   const tinymceId = ref('vue-tinymce-' + +new Date() + ((Math.random() * 1000).toFixed(0) + ''));
   const note = noteStore();
+  const contentStyle = computed(() => {
+    if (bookmark.theme === 'day') {
+      return `body {font-family:Helvetica,Arial,sans-serif; font-size:16px;}
+    p {line-height:1rem}
+    body::-webkit-scrollbar {
+      display: none;
+    }`;
+    }
+    return `body {font-family:Helvetica,Arial,sans-serif; font-size:16px;background-color:#2b2b2b; color:white;}
+    p {line-height:1rem}
+    body::-webkit-scrollbar {
+      display: none;
+    }`;
+  });
   //定义一个对象 init初始化
   const init = reactive({
     selector: '#' + tinymceId.value, //富文本编辑器的id,
@@ -83,7 +97,7 @@
     plugins:
       'importcss quickbars  searchreplace autolink directionality code visualblocks visualchars fullscreen image link codesample table charmap nonbreaking anchor insertdatetime advlist lists charmap  emoticons accordion',
     toolbar:
-      'undo redo| forecolor backcolor removeformat | blocks fontfamily fontsize| bold italic underline strikethrough  | align numlist bullist lineheight   outdent indent| link image table  | codesample emoticons ',
+      'undo redo| forecolor backcolor removeformat | blocks fontfamily fontsize| bold italic underline strikethrough  align numlist bullist |  lineheight   outdent indent| link image table  | codesample emoticons ',
     // 取消图片资源路径转换
     convert_urls: false,
     // table边框位0是否展示网格线
@@ -107,11 +121,7 @@
     noneditable_class: 'mceNonEditable',
     toolbar_mode: 'wrap', // 工具栏模式 floating / sliding / scrolling / wrap
     // 默认样式
-    content_style: `body {font-family:Helvetica,Arial,sans-serif; font-size:16px;}
-    p {line-height:1rem}
-    body::-webkit-scrollbar {
-      display: none;
-    }`,
+    content_style: contentStyle,
     image_advtab: true,
     importcss_append: true,
     paste_webkit_styles: 'all',
@@ -200,6 +210,8 @@
     },
     { immediate: true },
   );
+  const bookmark = bookmarkStore();
+
 
   //初始化编辑器
   onMounted(() => {
@@ -248,6 +260,15 @@
 
     .tox-edit-area::before {
       border: none !important;
+    }
+    .tox-toolbar {
+      background-color: var(--tox-toolbar-bg);
+    }
+    .tox-editor-header {
+      background-color: var(--tox-toolbar-bg) !important;
+    }
+    .tox-toolbar__group {
+      gap: var(--tox-toolbar__group-gap) !important;
     }
   }
 </style>

@@ -1,5 +1,13 @@
 <template>
-  <div style="padding: 20px; width: 100%;height: 100%; border-top: 1px solid #edf2fa;box-sizing: border-box">
+  <div
+    style="
+      padding: 20px;
+      width: 100%;
+      height: 100%;
+      border-top: 1px solid var(--notePage-topBody-border-color);
+      box-sizing: border-box;
+    "
+  >
     <div
       v-if="bookmark.isPhone"
       style="
@@ -45,14 +53,8 @@
       <div
         v-for="note in noteList"
         @click="router.push(`/noteLibrary/${note.id}`)"
-        style="
-          height: 300px;
-          border-radius: 8px;
-          box-shadow: 0px 0px 10px #edf2fa;
-          border: 1px solid #edf2fa;
-          padding: 20px;
-          box-sizing: border-box;
-        "
+        class="note-card"
+        :style="{ boxShadow: bookmark.theme === 'day' ? 'rgb(237, 242, 250) 0px 0px 10px' : 'unset' }"
       >
         <div
           style="
@@ -70,7 +72,8 @@
           >{{ note.title }}</div
         >
         <div
-          style="font-size: 12px; line-height: 1rem; color: rgb(102, 102, 102); height: 180px; overflow: hidden"
+          :style="{ color: bookmark.theme === 'day' ? 'rgb(102, 102, 102)' : '#ccc' }"
+          style="font-size: 12px; line-height: 1rem; height: 180px; overflow: hidden"
           v-html="extractAndConvertTags(note.content)"
         />
         <div style="margin-top: 10px; display: flex; gap: 10px">
@@ -85,9 +88,11 @@
             >测试标签</div
           >
         </div>
-        <div style="color: rgb(102, 102, 102); font-size: 12px; margin-top: 10px">{{
-          note.updateTime ?? note.createTime
-        }}</div>
+        <div
+          :style="{ color: bookmark.theme === 'day' ? 'rgb(102, 102, 102)' : '#ccc' }"
+          style="font-size: 12px; margin-top: 10px"
+          >{{ note.updateTime ?? note.createTime }}</div
+        >
       </div>
     </div>
   </div>
@@ -139,7 +144,7 @@
     return extractedContent;
   };
   onMounted(() => {
-    document.documentElement.setAttribute('data-theme', 'day');
+    // document.documentElement.setAttribute('data-theme', 'day');
   });
 </script>
 
@@ -152,6 +157,13 @@
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 30px;
     overflow: auto;
+  }
+  .note-card {
+    height: 300px;
+    border-radius: 8px;
+    border: 1px solid #edf2fa;
+    padding: 20px;
+    box-sizing: border-box;
   }
   @media (max-width: 600px) {
     .note-library-body {
