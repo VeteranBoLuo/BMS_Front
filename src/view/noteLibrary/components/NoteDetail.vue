@@ -1,15 +1,37 @@
 <template>
-  <div style="width: 100%; height: 100%;box-sizing: border-box">
+  <div
+    style="
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      position: fixed !important;
+      top: 0 !important;
+      display: flex;
+      flex-direction: column;
+    "
+  >
     <div class="note-header">
       <div style="display: flex; align-items: center" :style="{ gap: bookmark.isPhone ? '0' : '20px' }">
         <div class="back-icon" @click="router.back()">
           <SvgIcon :src="icon.note_detail_back" />
         </div>
-        <div v-if="!bookmark.isPhone" class="note-header-title n-title" contenteditable="true" id="note-header-title" @focusout="titleBlur">
+        <div
+          v-if="!bookmark.isPhone"
+          class="note-header-title n-title"
+          contenteditable="true"
+          id="note-header-title"
+          @focusout="titleBlur"
+        >
           <!--          {{ note.title }}-->
           <!--          <a-input v-model:value="note.title" @focusout="inputBlur" placeholder="请输入标题"  />-->
         </div>
-        <div style="color: #c0c0c0; font-size: 12px" v-if="!isStartEdit" :style="{ marginLeft: bookmark.isPhone ? '20px' : '0' }"> 最近修改 {{ updateTime }} </div>
+        <div
+          style="color: #c0c0c0; font-size: 12px"
+          v-if="!isStartEdit"
+          :style="{ marginLeft: bookmark.isPhone ? '20px' : '0' }"
+        >
+          最近修改 {{ updateTime }}
+        </div>
         <div style="color: #c0c0c0; font-size: 12px" v-else>
           <span v-if="isCurrentSave">保存中...</span>
           <span v-else>文档已实时保存</span>
@@ -34,7 +56,7 @@
         </div>
       </div>
     </div>
-    <div style="display: flex; padding: 20px; box-sizing: border-box; height: 100%">
+    <div style="display: flex; padding: 20px; box-sizing: border-box; height: 100%; position: fixed; top: 60px;width: 100%">
       <Catalog :content="note.content" />
       <div class="note-body-header footer-center">
         <div class="note-body-title n-title">
@@ -44,7 +66,6 @@
         <!--          <div class="tag-container"> <div class="note-tag">+ 自定义标签</div></div>-->
         <!--        </div>-->
         <TinyMac
-
           v-model:value="note.content"
           style="flex-grow: 1"
           :noteId="note.id"
@@ -203,7 +224,7 @@
           if (res.status === 200) {
             Object.assign(note, res.data);
             note.lastTitle = cloneDeep(note.title);
-            if(!bookmark.isPhone){
+            if (!bookmark.isPhone) {
               document.getElementById('note-header-title').innerText = note.title;
             }
             updateTime.value = res.data.updateTime ?? res.data.createTime;
@@ -241,10 +262,13 @@
     justify-content: space-between;
     gap: 20px;
     height: 60px;
+    width: 100%;
     box-sizing: border-box;
     padding: 0 20px;
     background-color: #fbfbfd;
     border-bottom: 1px solid #edf2fa;
+    position: fixed;
+    top: 0;
   }
   .note-header-title {
     padding: 0 10px;
