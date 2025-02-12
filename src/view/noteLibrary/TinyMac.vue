@@ -73,7 +73,7 @@
       display: none;
     }`;
     }
-    return `body {font-family:Helvetica,Arial,sans-serif; font-size:16px;background-color:#2b2b2b; color:white;}
+    return `body {font-family:Helvetica,Arial,sans-serif; font-size:16px;background-color:#222222; color:white;}
     p {line-height:1rem}
     body::-webkit-scrollbar {
       display: none;
@@ -212,7 +212,6 @@
   );
   const bookmark = bookmarkStore();
 
-
   //初始化编辑器
   onMounted(() => {
     setTimeout(() => {
@@ -266,6 +265,7 @@
     }
     .tox-editor-header {
       background-color: var(--tox-toolbar-bg) !important;
+      border: 1px solid var(--tox-toolbar-header-border-color) !important;
     }
     .tox-toolbar__group {
       gap: var(--tox-toolbar__group-gap) !important;
