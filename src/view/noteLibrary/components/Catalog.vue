@@ -7,7 +7,7 @@
         @click="() => scrollToHeading(index)"
         :class="{ active: activeHeading === index }"
         class="toc-item"
-        :style="{ paddingLeft: `${heading.level * 16}px` }"
+        :style="{ paddingLeft: `${heading.level * 16}px`, color: bookmark.theme === 'day' ? '#585a73' : '#ccc' }"
       >
         <span class="toc-line" v-if="activeHeading === index"></span>
         <span class="text-hidden" style="font-size: 14px">{{ heading.text }}</span>
@@ -18,8 +18,8 @@
 
 <script lang="ts" setup>
   import { ref, watch } from 'vue';
-  import { noteStore } from '@/store';
-
+  import { bookmarkStore, noteStore } from '@/store';
+  const bookmark = bookmarkStore();
   const props = defineProps<{
     content: string;
   }>();
@@ -56,12 +56,11 @@
     position: relative;
     display: flex;
     align-items: center;
-    color: #585a73;
   }
 
   .toc-item.active {
     font-weight: bold;
-    color: #615ced;
+    color: #615ced!important;
   }
 
   .toc-line {
