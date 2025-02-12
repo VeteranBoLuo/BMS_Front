@@ -191,6 +191,9 @@
 
   const timer = ref(null);
   function saveFunc(isMsg?: boolean) {
+    if (!['admin', 'roo2t'].includes(user.role)) {
+      return;
+    }
     if (timer.value) {
       clearTimeout(timer.value);
     }
