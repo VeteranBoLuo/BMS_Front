@@ -266,6 +266,7 @@
     .tox-editor-header {
       background-color: var(--tox-toolbar-bg) !important;
       border: 1px solid var(--tox-toolbar-header-border-color) !important;
+      border-radius: 6px;
     }
     .tox-toolbar__group {
       gap: var(--tox-toolbar__group-gap) !important;
