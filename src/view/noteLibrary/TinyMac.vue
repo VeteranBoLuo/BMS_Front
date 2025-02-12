@@ -86,6 +86,8 @@
     language: 'zh_CN',
     skin_url: '/tinymce/skins/ui/oxide', // skin路径，具体路径看自己的项目
     editable_root: props.editable_root,
+    // 只读
+    readonly: props.readonly,
     branding: false, // 是否禁用“Powered by TinyMCE”
     height: 'calc(100% - 20px)',
     promotion: false, //去掉 upgrade

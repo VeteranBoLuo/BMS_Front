@@ -79,6 +79,7 @@
           v-model:value="note.content"
           style="flex-grow: 1"
           :noteId="note.id"
+          :readonly="!['admin', 'root'].includes(user.role)"
           @setNoteId="setNoteId"
           @saveData="saveFunc(true)"
         />
@@ -98,9 +99,9 @@
   import Catalog from '@/view/noteLibrary/components/Catalog.vue';
   import Alert from '@/components/BasicComponents/BModal/Alert.ts';
   import { message } from 'ant-design-vue';
-  import { bookmarkStore, noteStore } from '@/store';
+  import { bookmarkStore, noteStore, useUserStore } from '@/store';
   const bookmark = bookmarkStore();
-  import BInput from '@/components/BasicComponents/BInput/BInput.vue';
+  const user = useUserStore();
   const note = reactive({
     id: '',
     title: '未命名文档',
