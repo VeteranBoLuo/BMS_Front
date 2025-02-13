@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-  import { computed, nextTick, onMounted, onUnmounted, reactive, ref, watch } from 'vue'; //全屏
+  import { computed, nextTick, onMounted, reactive, ref, watch } from 'vue'; //全屏
   import tinymce from 'tinymce/tinymce';
   import Editor from '@tinymce/tinymce-vue';
   import 'tinymce/icons/default/icons';
@@ -67,13 +67,17 @@
     p {line-height:1rem}
     body::-webkit-scrollbar {
       display: none;
-    }`;
+    }
+}
+    `;
     }
     return `body {font-family:Helvetica,Arial,sans-serif; font-size:16px;background-color:#222222; color:white;}
     p {line-height:1rem}
     body::-webkit-scrollbar {
       display: none;
-    }`;
+    }
+   .mce-content-body[data-mce-placeholder]:not(.mce-visualblocks)::before {
+  color: #666666 !important;`;
   });
 
   const handleImageUpload = (blobInfo, progress) => {
@@ -135,6 +139,7 @@
     paste_merge_formats: true,
     nonbreaking_force_tab: false,
     paste_auto_cleanup_on_paste: false,
+    quickbars_insert_toolbar: '',    // 禁用换行菜单
     file_picker_types: 'file',
     quickbars_selection_toolbar:
       'forecolor backcolor removeformat | bold italic underline strikethrough | quicklink  blockquote codesample',
@@ -205,9 +210,10 @@
       }
     }, 500);
   }
+
   //初始化编辑器
   onMounted(() => {
-    const isFirefox = typeof InstallTrigger !== 'undefined';
+    const isFirefox = typeof window?.InstallTrigger !== 'undefined';
     if (isFirefox) {
       setFirefoxScroll();
     }
@@ -217,7 +223,7 @@
 <style lang="less" scoped>
   :deep(.tox-tinymce) {
     border: none;
-    border-radius: 0px;
+    border-radius: 0;
 
     .tox-statusbar {
       display: none;
@@ -226,14 +232,17 @@
     .tox-edit-area::before {
       border: none !important;
     }
+
     .tox-toolbar {
       background-color: var(--tox-toolbar-bg);
     }
+
     .tox-editor-header {
       background-color: var(--tox-toolbar-bg) !important;
       border: 1px solid var(--tox-toolbar-header-border-color) !important;
       border-radius: 6px;
     }
+
     .tox-toolbar__group {
       gap: var(--tox-toolbar__group-gap) !important;
     }

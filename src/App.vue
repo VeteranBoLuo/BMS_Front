@@ -140,7 +140,13 @@
     },
   );
 
-  const isFirefox = typeof InstallTrigger !== 'undefined';
+  // 添加类型声明
+  declare global {
+    interface Window {
+      InstallTrigger?: any;
+    }
+  }
+  const isFirefox = typeof window?.InstallTrigger !== 'undefined';
   if (isFirefox) {
     const style = document.createElement('style');
     style.innerHTML = `
