@@ -189,18 +189,28 @@
   );
   const bookmark = bookmarkStore();
 
-  //初始化编辑器
-  onMounted(() => {
+  function setFirefoxScroll() {
     setTimeout(() => {
-      const iframe = document.getElementsByClassName('tox-edit-area__iframe')[0];
-      const iframeDocument = iframe?.contentDocument || iframe?.contentWindow?.document;
-      const style = iframeDocument.createElement('style');
-      style.innerHTML = `
+      try {
+        const iframe = document.getElementsByClassName('tox-edit-area__iframe')[0];
+        const iframeDocument = iframe?.contentDocument || iframe?.contentWindow?.document;
+        const style = iframeDocument.createElement('style');
+        style.innerHTML = `
           * {
           scrollbar-width: none;
         }`;
-      iframeDocument.head.appendChild(style);
+        iframeDocument.head.appendChild(style);
+      } catch (e) {
+        setFirefoxScroll();
+      }
     }, 500);
+  }
+  //初始化编辑器
+  onMounted(() => {
+    const isFirefox = typeof InstallTrigger !== 'undefined';
+    if (isFirefox) {
+      setFirefoxScroll();
+    }
   });
 </script>
 
