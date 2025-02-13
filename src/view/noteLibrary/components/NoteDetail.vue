@@ -32,9 +32,8 @@
         >
           最近修改 {{ updateTime }}
         </div>
-        <div style="color: #c0c0c0; font-size: 12px" v-else>
-          <span v-if="isCurrentSave">保存中...</span>
-          <span v-else>文档已实时保存</span>
+        <div v-else style="color: #c0c0c0; font-size: 12px" :style="{ marginLeft: bookmark.isPhone ? '20px' : '0' }">
+          <span>保存中...</span>
         </div>
       </div>
       <div class="flex-align-center" style="gap: 20px">
