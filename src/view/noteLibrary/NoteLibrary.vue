@@ -129,7 +129,6 @@
   .note-library-body {
     width: 100%;
     height: 100%;
-    min-height: calc(100vh - 100px);
     padding: 20px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
