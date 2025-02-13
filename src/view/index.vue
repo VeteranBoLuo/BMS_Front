@@ -15,11 +15,11 @@
   import { bookmarkStore } from '@/store';
   import { useRoute } from 'vue-router';
   import { computed } from 'vue';
+
   const route = useRoute();
   const bookmark = bookmarkStore();
-  console.log(route)
-  bookmark.screenWidth = window.innerWidth;
 
+  bookmark.screenWidth = window.innerWidth;
   window.onresize = () => {
     bookmark.screenWidth = window.innerWidth;
     bookmark.screenHeight = window.innerHeight;

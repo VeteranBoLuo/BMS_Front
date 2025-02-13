@@ -23,8 +23,9 @@
               <span>
                 <svg-icon :src="icon.filterPanel.list" size="20" />
               </span>
-            </a-dropdown> </template
-        ></b-input>
+            </a-dropdown>
+          </template>
+        </b-input>
       </template>
       <template #item="{ item }">
         <RightMenu
@@ -46,7 +47,7 @@
             <span class="text-hidden" style="width: calc(100% - 28px)">{{ item.name }}</span>
           </div>
         </RightMenu>
-        <b-input class="edit-input" v-else v-model:value="newName">
+        <b-input v-else class="edit-input" v-model:value="newName">
           <template #suffix>
             <svg-icon
               :src="icon.filterPanel.check"
@@ -62,13 +63,13 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, createVNode, ref, watch } from 'vue';
+  import { computed, ref } from 'vue';
   import { apiBasePost } from '@/http/request';
-  import { bookmarkStore, tourStore, useUserStore } from '@/store';
+  import { bookmarkStore, useUserStore } from '@/store';
   import { useRouter } from 'vue-router';
   import RightMenu from '@/components/RightMenu.vue';
   import { TagInterface } from '@/config/bookmarkCfg';
-  import { message, TourProps } from 'ant-design-vue';
+  import { message } from 'ant-design-vue';
   import Alert from '@/components/BasicComponents/BModal/Alert';
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
   import icon from '@/config/icon.ts';
@@ -77,7 +78,7 @@
 
   const tagName = ref('');
   const filterTagList = computed(() => {
-    return bookmark.tagList.filter((item) => item.name.toUpperCase().indexOf(tagName.value.toUpperCase()) > -1);
+    return bookmark.tagList.filter((item) => item.name.toUpperCase().includes(tagName.value.toUpperCase()));
   });
 
   const user = useUserStore();
@@ -86,36 +87,39 @@
 
   const newName = ref('');
   const rightTagData = ref<TagInterface>();
+
   function handleTagMenu(menu, tag: TagInterface) {
     recordOperation({ module: '首页', operation: `右键${menu}标签${tag.name}` });
     rightTagData.value = tag;
-    if (menu === '重命名') {
-      tag.isRename = true;
-      newName.value = tag.name;
-    } else if (menu === '编辑') {
-      router.push(`/manage/editTag/${tag.id}`);
-    } else if (menu === '删除') {
-      Alert.alert({
-        title: '提示',
-        content: `请确认是否要删除标签【${tag.name}】？`,
-        onOk() {
-          apiBasePost('/api/bookmark/delTag', {
-            id: tag.id,
-          }).then((res) => {
-            if (res.status == 200) {
-              message.success('删除成功');
-              if (tag.id === router.currentRoute.value.params?.id) {
-                bookmark.type = 'all';
-              }
-              bookmark.refreshTag();
-            }
-          });
-        },
-      });
-    } else {
-      router.push(`/manage/editBookmark/add/${tag.id}`);
-    }
+    const actions = {
+      重命名: () => {
+        tag.isRename = true;
+        newName.value = tag.name;
+      },
+      编辑: () => router.push(`/manage/editTag/${tag.id}`),
+      删除: () => handleDeleteTag(tag),
+      添加书签: () => router.push(`/manage/editBookmark/add/${tag.id}`),
+    };
+    actions[menu]?.();
   }
+
+  const handleDeleteTag = (tag: TagInterface) => {
+    Alert.alert({
+      title: '提示',
+      content: `请确认是否要删除标签【${tag.name}】？`,
+      onOk() {
+        apiBasePost('/api/bookmark/delTag', { id: tag.id }).then((res) => {
+          if (res.status === 200) {
+            message.success('删除成功');
+            if (tag.id === router.currentRoute.value.params?.id) {
+              bookmark.type = 'all';
+            }
+            bookmark.refreshTag();
+          }
+        });
+      },
+    });
+  };
 
   function handleRename(tag: TagInterface) {
     if (newName.value) {
@@ -132,13 +136,8 @@
     }
   }
 
-  function addBookmark() {
-    router.push('/manage/editBookmark/add');
-  }
-
-  function addTag() {
-    router.push('/manage/editTag/add');
-  }
+  const addBookmark = () => router.push('/manage/editBookmark/add');
+  const addTag = () => router.push('/manage/editTag/add');
 
   function handleClickTag(tag: TagInterface) {
     if (tag.id === router.currentRoute.value.params?.id) {
@@ -186,6 +185,7 @@
 
     .category-item {
       width: 100%;
+
       &:hover {
         background-color: unset;
       }

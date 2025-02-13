@@ -11,10 +11,12 @@
   import { computed, onMounted, watch } from 'vue';
   import { bookmarkStore, useUserStore } from '@/store';
   import { apiBasePost, apiQueryPost } from '@/http/request';
-  import { useRoute, useRouter } from 'vue-router';
+  import { useRoute, useRouter } from 'vue-router'
+
   const bookmark = bookmarkStore();
   const router = useRouter();
   const roure = useRoute();
+
   // 处理滚动条滚动到顶部
   const scrollToTop = () => {
     const dom = document.getElementById('view-panel');
@@ -49,10 +51,10 @@
     }
   };
 
-  const watchedId = computed(() => router.currentRoute.value.params?.id);
+  const watchedId = computed(() => roure.params?.id);
   const watchedRefreshKey = computed(() => bookmark.refreshKey);
   watch(
-    () => [watchedId, watchedRefreshKey],
+    () => [watchedId.value, watchedRefreshKey.value],
     async () => {
       if (bookmark.type === 'normal') {
         const tag = bookmark.tagList?.find((item) => item.id === roure.params?.id);
@@ -82,18 +84,11 @@
     },
   );
 
-  watch(
-    () => bookmark.refreshTagKey,
-    () => {
-      queryTagList();
-    },
-  );
+  watch(() => bookmark.refreshTagKey, queryTagList);
 
   function queryTagList() {
     apiQueryPost('/api/bookmark/queryTagList', {
-      filters: {
-        userId: localStorage.getItem('userId'),
-      },
+      filters: { userId },
     }).then((res) => {
       if (res.status === 200) {
         bookmark.tagList = res.data;
@@ -125,12 +120,12 @@
     }
     bookmark.type = 'all';
     // 带有tagId刷新页面时
-    if (router.currentRoute.value.params?.id) {
+    if (roure.params?.id) {
       bookmark.type = 'normal';
-    } else if (router.currentRoute.value.params?.value) {
+    } else if (roure.params?.value) {
       // 带有search刷新页面时
       bookmark.type = 'search';
-      bookmark.bookmarkSearch = router.currentRoute.value.params.value;
+      bookmark.bookmarkSearch = roure.params.value;
     }
     queryTagList();
   });

@@ -1,29 +1,7 @@
 <template>
-  <div
-    style="
-      padding: 20px;
-      width: 100%;
-      height: 100%;
-      border-top: 1px solid var(--notePage-topBody-border-color);
-      box-sizing: border-box;
-    "
-  >
-    <div
-      v-if="bookmark.isPhone"
-      style="
-        position: fixed;
-        left: 0;
-        top: 0;
-        display: flex;
-        width: 100%;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 20px;
-        height: 60px;
-        box-sizing: border-box;
-      "
-    >
-      <div class="flex-align-center-gap" style="gap: 20px">
+  <div class="note-library-container">
+    <div class="note-library-header" v-if="bookmark.isPhone">
+      <div class="header-content">
         <div class="back-icon" @click="router.back()">
           <SvgIcon :src="icon.noteDetail.back" />
         </div>
@@ -56,42 +34,20 @@
         class="note-card"
         :style="{ boxShadow: bookmark.theme === 'day' ? 'rgb(237, 242, 250) 0px 0px 10px' : 'unset' }"
       >
+        <div class="note-title" :title="note.title">{{ note.title }}</div>
         <div
-          style="
-            font-size: 16px;
-            font-weight: 600;
-            line-height: 24px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            flex: 1 1 0%;
-            margin-right: 8px;
-            cursor: pointer;
-          "
-          :title="note.title"
-          >{{ note.title }}</div
-        >
-        <div
+          class="note-content"
           :style="{ color: bookmark.theme === 'day' ? 'rgb(102, 102, 102)' : '#ccc' }"
-          style="font-size: 12px; line-height: 1rem; height: 180px; overflow: hidden"
           v-html="extractAndConvertTags(note.content)"
         />
-        <div style="margin-top: 10px; display: flex; gap: 10px">
-          <div
-            style="background-color: #eeedff; padding: 2px 4px; border-radius: 6px; font-size: 14px; color: #8b88f2"
-            @click.stop
-            >标签开发中</div
-          >
-          <div
-            style="background-color: #eeedff; padding: 2px 4px; border-radius: 6px; font-size: 14px; color: #8b88f2"
-            @click.stop
-            >测试标签</div
-          >
+        <div class="note-tags">
+          <div class="b-tag" @click.stop>标签开发中</div>
+          <div class="b-tag" @click.stop>测试标签</div>
         </div>
         <div
           :style="{ color: bookmark.theme === 'day' ? 'rgb(102, 102, 102)' : '#ccc' }"
           style="font-size: 12px; margin-top: 10px"
-          >{{ note.updateTime ?? note.createTime }}</div
+          >{{ note['updateTime'] ?? note['createTime'] }}</div
         >
       </div>
     </div>
@@ -99,13 +55,11 @@
 </template>
 
 <script lang="ts" setup>
-  import BList from '@/components/BasicComponents/BList/BList.vue';
   import icon from '@/config/icon.ts';
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
-  import RightMenu from '@/components/RightMenu.vue';
   import router from '@/router';
   import { apiBasePost } from '@/http/request.ts';
-  import { onMounted, ref } from 'vue';
+  import { ref } from 'vue';
   import BButton from '@/components/BasicComponents/BButton/BButton.vue';
   import { bookmarkStore } from '@/store';
   const bookmark = bookmarkStore();
@@ -116,7 +70,7 @@
     }
   });
 
-  // 提取<h>和<p>标签并转换为<p>标签
+  // 提取<h>和<p>标签等并转换为<p>标签
   const extractAndConvertTags = (htmlContent: string) => {
     // 创建一个临时的DOM元素
     const tempElement = document.createElement('div');
@@ -143,12 +97,36 @@
 
     return extractedContent;
   };
-  onMounted(() => {
-    // document.documentElement.setAttribute('data-theme', 'day');
-  });
 </script>
 
 <style lang="less" scoped>
+  .note-library-container {
+    padding: 20px;
+    width: 100%;
+    height: 100%;
+    border-top: 1px solid var(--notePage-topBody-border-color);
+    box-sizing: border-box;
+  }
+
+  .note-library-header {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 60px;
+    padding: 0 20px;
+    box-sizing: border-box;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+  }
   .note-library-body {
     width: 100%;
     height: 100%;
@@ -165,6 +143,41 @@
     padding: 20px;
     box-sizing: border-box;
   }
+
+  .note-title {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1 1 0%;
+    margin-right: 8px;
+    cursor: pointer;
+  }
+
+  .note-content {
+    color: #666;
+    font-size: 12px;
+    line-height: 1rem;
+    height: 180px;
+    overflow: hidden;
+  }
+
+  .note-tags {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+
+    .b-tag {
+      background-color: #eeedff;
+      padding: 2px 4px;
+      border-radius: 6px;
+      font-size: 14px;
+      color: #8b88f2;
+    }
+  }
+
   @media (max-width: 600px) {
     .note-library-body {
       padding: 0;
