@@ -11,7 +11,7 @@
         @input="handleSearch"
       >
         <template #prefix>
-          <svg-icon color="#cccccc" :src="icon.navigation_search" size="16" />
+          <svg-icon color="#cccccc" :src="icon.navigation.search" size="16" />
         </template>
       </b-input>
       <span class="search-back-span flex-center" @click="searchBackClick">返回</span>
@@ -19,17 +19,17 @@
     <div id="navigation-container" class="flex-align-center">
       <div class="navigation-title">
         <svg-icon
-          :src="icon.navigation_menu"
+          :src="icon.navigation.menu"
           size="25"
           class="dom-hover"
-          v-if="bookmark.isPhone && router.currentRoute.value.fullPath.includes('home') && bookmark.isFold"
+          v-if="bookmark.isPhone && route.path.includes('home') && bookmark.isFold"
           @click="foldClick"
         />
         <svg-icon
-          :src="icon.navigation_close"
+          :src="icon.navigation.close"
           size="25"
           class="dom-hover"
-          v-if="bookmark.isPhone && router.currentRoute.value.fullPath.includes('home') && !bookmark.isFold"
+          v-if="bookmark.isPhone && route.path.includes('home') && !bookmark.isFold"
           @click="foldClick"
         />
         <div class="navigation-title-link" @click="handleToIndex">
@@ -39,20 +39,19 @@
       </div>
       <div class="flex-align-center" style="gap: 30px; width: 140px">
         <template v-if="searchInputVisible">
-          <span
-            :style="{ color: router.currentRoute.value.path.includes('/home') ? '#615ced' : '' }"
+          <div
+            :style="{ color: route.path.includes('/home') ? '#615ced' : '' }"
             style="font-size: 14px; cursor: pointer"
             v-click-log="{ module: '首页', operation: '跳转首页' }"
             @click="router.push('/home')"
-            >书签</span
+            >书签</div
           >
-          <span
-            :style="{ color: router.currentRoute.value.path.includes('/noteLibrary') ? '#615ced' : '' }"
+          <div
+            :style="{ color: route.path.includes('/noteLibrary') ? '#615ced' : '' }"
             style="font-size: 14px; cursor: pointer; display: flex; gap: 5px; align-items: center"
             v-click-log="{ module: '首页', operation: '跳转笔记模块' }"
             @click="router.push('/noteLibrary')"
-            ><div>笔记</div
-            ><div
+            >笔记<div
               class="flex-align-center"
               style="
                 height: 1rem;
@@ -63,7 +62,7 @@
                 padding: 0 4px;
               "
               >Beta</div
-            ></span
+            ></div
           >
         </template>
       </div>
@@ -72,8 +71,8 @@
           class="navigation-search-input"
           v-if="searchInputVisible"
           :style="{
-            opacity: router.currentRoute.value.path.includes('/noteLibrary') ? '0' : '1',
-            pointerEvents: router.currentRoute.value.path.includes('/noteLibrary') ? 'none' : '',
+            opacity: route.path.includes('/noteLibrary') ? 0 : 1,
+            pointerEvents: route.path.includes('/noteLibrary') ? 'none' : 'auto',
           }"
         >
           <b-input
@@ -85,7 +84,7 @@
             v-model:value="bookmark.bookmarkSearch"
           >
             <template #prefix>
-              <svg-icon :src="icon.navigation_search" size="16" />
+              <svg-icon :src="icon.navigation.search" size="16" />
             </template>
             <template #suffix>
               <div>/</div>
@@ -98,13 +97,13 @@
           :style="{ marginLeft: searchInputVisible ? '20px' : 'auto' }"
         >
           <div v-if="phoneSearchVisible" class="flex-align-center dom-hover">
-            <svg-icon size="30" :src="icon.navigation_phone_search" @click="phoneSearchClick" />
+            <svg-icon size="30" :src="icon.navigation.phone_search" @click="phoneSearchClick" />
           </div>
           <!--  主题切换        -->
           <ThemeSwitch />
           <!--移动端个人中心       -->
           <div :class="['navigation-icon']" v-if="bookmark.isPhone" @click="handleToPhoneUserCenter">
-            <svg-icon size="30" :src="user.headPicture || icon.navigation_user" class="dom-hover" />
+            <svg-icon size="30" :src="user.headPicture || icon.navigation.user" class="dom-hover" />
           </div>
           <!--pc端个人中心       -->
           <PersonCenter v-else />
@@ -123,7 +122,9 @@
   import icon from '@/config/icon.ts';
   import ThemeSwitch from '@/components/tag/ThemeSwitch.vue';
   import PersonCenter from '@/view/configCenter/components/desktop/PersonCenter.vue';
+  import { useRoute } from 'vue-router';
 
+  const route = useRoute();
   const user = useUserStore();
   const placeholder = ref('Search...');
 
@@ -142,13 +143,10 @@
   });
 
   const searchInputVisible = computed(() => {
-    return (
-      !bookmark.isPhone &&
-      ['home', 'noteLibrary', 'manage', 'help'].some((item) => router.currentRoute.value.path.includes(item))
-    );
+    return !bookmark.isPhone && ['home', 'noteLibrary', 'manage', 'help'].some((item) => route.path.includes(item));
   });
   const phoneSearchVisible = computed(() => {
-    return bookmark.isPhone && router.currentRoute.value.path.includes('home') && bookmark.isFold;
+    return bookmark.isPhone && route.path.includes('home') && bookmark.isFold;
   });
 
   const bookmark = bookmarkStore();
@@ -226,7 +224,7 @@
   }
 
   const pagePath = computed(() => {
-    return router.currentRoute.value.path;
+    return route.path;
   });
   onMounted(() => {
     document.addEventListener('keydown', function (event) {

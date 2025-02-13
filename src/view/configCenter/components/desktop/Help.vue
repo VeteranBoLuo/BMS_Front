@@ -7,7 +7,7 @@
       id="ref2"
     >
       <template #prefix>
-        <svg-icon color="#cccccc" :src="icon.navigation_search" size="16" />
+        <svg-icon color="#cccccc" :src="icon.navigation.search" size="16" />
       </template>
     </b-input>
     <div class="help-body">

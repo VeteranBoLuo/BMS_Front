@@ -35,7 +35,7 @@
         <a-form-item label="" name="userName">
           <b-input theme="day" height="40px" v-model:value="formData.userName" placeholder="账号">
             <template #prefix>
-              <svg-icon :src="icon.navigation_user" size="16" />
+              <svg-icon :src="icon.navigation.user" size="16" />
             </template>
           </b-input>
         </a-form-item>
@@ -51,7 +51,7 @@
               v-model:value="formData.password"
             >
               <template #prefix>
-                <svg-icon :src="icon.login_password" size="16" />
+                <svg-icon :src="icon.login.password" size="16" />
               </template>
             </b-input>
           </span>

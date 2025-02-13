@@ -36,7 +36,7 @@
             placeholder="邮箱"
           >
             <template #prefix>
-              <svg-icon :src="icon.login_email" size="16" />
+              <svg-icon :src="icon.login.email" size="16" />
             </template>
           </b-input>
         </a-form-item>
@@ -65,7 +65,7 @@
             placeholder="新密码"
           >
             <template #prefix>
-              <svg-icon :src="icon.login_password" size="16" />
+              <svg-icon :src="icon.login.password" size="16" />
             </template>
           </b-input>
         </a-form-item>
@@ -80,7 +80,7 @@
             @blur="validateFun('rPassword')"
           >
             <template #prefix>
-              <svg-icon :src="icon.login_password" size="16" />
+              <svg-icon :src="icon.login.password" size="16" />
             </template>
           </b-input>
         </a-form-item>
@@ -88,7 +88,7 @@
           <span class="flex-center">
             <b-input :maxlength="6" theme="day" height="40px" placeholder="验证码" v-model:value="formData.code">
               <template #prefix>
-                <svg-icon :src="icon.login_code" size="16" />
+                <svg-icon :src="icon.login.code" size="16" />
               </template>
               <template #suffix>
                 <span style="color: var(--primary-text)" class="dom-hover">获取验证码</span>

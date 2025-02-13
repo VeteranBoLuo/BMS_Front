@@ -13,7 +13,7 @@
     <div class="note-header">
       <div style="display: flex; align-items: center" :style="{ gap: bookmark.isPhone ? '0' : '20px' }">
         <div class="back-icon" @click="router.back()">
-          <SvgIcon :src="icon.note_detail_back" />
+          <SvgIcon :src="icon.noteDetail.back" />
         </div>
         <div
           v-if="!bookmark.isPhone"
@@ -44,7 +44,7 @@
           title="删除"
           v-click-log="{ module: '笔记详情', operation: '删除笔记' }"
         >
-          <SvgIcon :src="icon.note_detail_delete" />
+          <SvgIcon :src="icon.noteDetail.delete" />
         </div>
         <div
           class="note-header-title-icon"
@@ -52,7 +52,7 @@
           title="保存"
           v-click-log="{ module: '笔记详情', operation: '保存笔记' }"
         >
-          <SvgIcon :src="icon.note_detail_save" />
+          <SvgIcon :src="icon.noteDetail.save" />
         </div>
       </div>
     </div>

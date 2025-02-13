@@ -8,7 +8,7 @@
         @input="handleSearch"
       >
         <template #prefix>
-          <svg-icon :src="icon.navigation_search" size="16" />
+          <svg-icon :src="icon.navigation.search" size="16" />
         </template>
       </b-input>
     </b-space>

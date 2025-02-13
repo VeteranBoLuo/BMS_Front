@@ -5,7 +5,7 @@
       backgroundImage: bgVisible,
     }"
   >
-    <Navigation v-if="!bookmark.isPhone || router.currentRoute.value.path.includes('home')" />
+    <Navigation v-if="!bookmark.isPhone || route.path.includes('home')" />
     <router-view style="position: fixed; top: 60px; height: calc(100% - 60px); width: 100%; box-sizing: border-box" />
   </div>
 </template>
@@ -13,10 +13,11 @@
 <script lang="ts" setup>
   import Navigation from '@/view/tag/components/Navigation.vue';
   import { bookmarkStore } from '@/store';
-  import router from '@/router';
+  import { useRoute } from 'vue-router';
   import { computed } from 'vue';
+  const route = useRoute();
   const bookmark = bookmarkStore();
-
+  console.log(route)
   bookmark.screenWidth = window.innerWidth;
 
   window.onresize = () => {
@@ -25,7 +26,7 @@
   };
 
   const bgVisible = computed(() => {
-    if (bookmark.isPhone || router.currentRoute.value.name === 'NoteDetail') {
+    if (bookmark.isPhone || route.name === 'NoteDetail') {
       return 'unset';
     }
     return '';

@@ -11,9 +11,43 @@
   import { computed, onMounted, watch } from 'vue';
   import { bookmarkStore, useUserStore } from '@/store';
   import { apiBasePost, apiQueryPost } from '@/http/request';
-  import { useRouter } from 'vue-router';
+  import { useRoute, useRouter } from 'vue-router';
   const bookmark = bookmarkStore();
   const router = useRouter();
+  const roure = useRoute();
+  // 处理滚动条滚动到顶部
+  const scrollToTop = () => {
+    const dom = document.getElementById('view-panel');
+    dom?.scrollTo(0, 0);
+  };
+
+  // 获取书签列表
+  const fetchBookmarkList = async (type: string, params?: Record<string, any>) => {
+    const res = await apiQueryPost('/api/bookmark/getBookmarkList', {
+      filters: {
+        userId,
+        type,
+        ...params,
+      },
+    });
+    if (res.status === 200) {
+      bookmark.bookmarkList = res.data.items;
+    }
+  };
+
+  // 缓存图片
+  const cacheImages = async () => {
+    if (bookmark.bookmarkList) {
+      await apiBasePost(
+        '/api/common/analyzeImgUrl',
+        bookmark.bookmarkList?.map((data: any) => ({
+          url: data.url,
+          id: data.id,
+          noCache: !data.iconUrl,
+        })),
+      );
+    }
+  };
 
   const watchedId = computed(() => router.currentRoute.value.params?.id);
   const watchedRefreshKey = computed(() => bookmark.refreshKey);
@@ -21,69 +55,27 @@
     () => [watchedId, watchedRefreshKey],
     async () => {
       if (bookmark.type === 'normal') {
-        const tag = bookmark.tagList?.find((item) => item.id === router.currentRoute.value.params?.id);
+        const tag = bookmark.tagList?.find((item) => item.id === roure.params?.id);
         bookmark.tagData = tag;
         if (tag) {
-          const userId = localStorage.getItem('userId');
-          const tagId = tag.id;
-          const normalRes = await apiQueryPost('/api/bookmark/getBookmarkList', {
-            filters: {
-              userId,
-              tagId,
-              type: 'normal',
-            },
-          });
-          if (normalRes.status === 200) {
-            bookmark.bookmarkList = normalRes.data.items;
-          }
+          await fetchBookmarkList('normal', { tagId: tag.id });
           if (bookmark.isPhone) {
             bookmark.isFold = true;
           }
         }
-        const dom = document.getElementById('view-panel');
-        dom.scrollTop = 0;
       } else if (bookmark.type === 'all') {
         bookmark.tagData = null;
-        const allRes = await apiQueryPost('/api/bookmark/getBookmarkList', {
-          filters: {
-            userId: localStorage.getItem('userId'),
-            type: 'all',
-          },
-        });
-        if (allRes.status === 200) {
-          bookmark.bookmarkList = allRes.data.items;
-          bookmark.tagData = null;
-        }
+        await fetchBookmarkList('all');
+      } else if (bookmark.type === 'search' && bookmark.bookmarkSearch) {
+        bookmark.tagData = null;
+        await fetchBookmarkList('search', { value: bookmark.bookmarkSearch });
       } else {
         bookmark.tagData = null;
-        if (bookmark.bookmarkSearch) {
-          const searchRes = await apiQueryPost('/api/bookmark/getBookmarkList', {
-            filters: {
-              type: 'search',
-              userId: localStorage.getItem('userId'),
-              value: bookmark.bookmarkSearch,
-            },
-          });
-          if (searchRes.status === 200) {
-            bookmark.bookmarkList = searchRes.data.items;
-          }
-        } else {
-          bookmark.type = 'all';
-          bookmark.refreshData();
-        }
+        bookmark.type = 'all';
+        bookmark.refreshData();
       }
-
-      // 缓存图片
-      await apiBasePost(
-        '/api/common/analyzeImgUrl',
-        bookmark.bookmarkList?.map((data: any) => {
-          return {
-            url: data.url,
-            id: data.id,
-            noCache: !data.iconUrl,
-          };
-        }),
-      );
+      scrollToTop();
+      await cacheImages();
     },
     {
       deep: true,

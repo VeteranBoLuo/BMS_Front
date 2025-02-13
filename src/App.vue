@@ -16,7 +16,7 @@
 <script setup lang="ts">
   // 检查本地存储中是否有用户数据
   import { bookmarkStore, useUserStore } from '@/store';
-  import { nextTick, watch } from 'vue';
+  import { nextTick, onMounted, watch } from 'vue';
   import login from '@/view/login/index.vue';
   import BViewer from '@/components/Viewer/BViewer.vue';
   import { apiBaseGet } from '@/http/request';
@@ -27,19 +27,50 @@
   const user = useUserStore();
   const bookmark = bookmarkStore();
 
-  if (!localStorage.getItem('userId')) {
-    bookmark.isShowLogin = true;
-  }
-  // 页面加载前需要提前预设置主题，否则如果后台查询是黑夜主题，但是页面默认是白色的，页面会从白到黑闪一下，这种情况就需要提前设置为黑色
-  const theme = localStorage.getItem('theme');
-  if (theme) {
-    bookmark.theme = theme;
-  }
-  getThemeStyle(bookmark.theme);
+  // 初始化主题和登录状态
+  onMounted(() => {
+    initApp();
+  });
 
-  window['fingerprint'] = fingerprint();
-  getUserInfo();
-  function getThemeStyle(theme) {
+  function initApp() {
+    // 检查本地存储中的用户数据
+    if (!localStorage.getItem('userId')) {
+      bookmark.isShowLogin = true;
+    }
+
+    // 页面加载前需要提前预设置主题，否则如果后台查询是黑夜主题，但是页面默认是白色的，页面会从白到黑闪一下，这种情况就需要提前设置为黑色
+    const theme = localStorage.getItem('theme');
+    if (theme) {
+      bookmark.theme = theme;
+    }
+    applyTheme(bookmark.theme);
+
+    // 设置指纹
+    window['fingerprint'] = fingerprint();
+
+    // 获取用户信息
+    getUserInfo();
+  }
+
+  async function getUserInfo() {
+    try {
+      const res = await apiBaseGet('/api/user/getUserInfo');
+      user.setUserInfo(res.data);
+      bookmark.theme = res.data.theme || 'day';
+      applyTheme(bookmark.theme);
+      localStorage.setItem('theme', bookmark.theme);
+      if (res.status !== 200) {
+        handleUserLogout();
+      }
+    } catch (error) {
+      console.error('获取用户信息失败：', error);
+      bookmark.theme = 'day';
+      handleUserLogout();
+    }
+  }
+
+  // 应用主题样式
+  function applyTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
   }
 
@@ -64,7 +95,7 @@
   }
 
   // 手机端路由和电脑端不一样，切换不同尺寸设备后需要切换对应路由地址
-  function routerChange(isPhone, path) {
+  function handleRouteChange(isPhone: boolean, path: string) {
     if (isPhone) {
       if (['/admin/apiLog', '/admin/userMg', '/admin/userOpinion', '/admin/operationLog'].includes(path)) {
         router.push(path.replace('/admin', ''));
@@ -77,26 +108,10 @@
         router.push('/admin' + path);
       }
     }
-    getThemeStyle(bookmark.theme);
+    applyTheme(bookmark.theme);
   }
 
-  function getUserInfo() {
-    apiBaseGet('/api/user/getUserInfo')
-      .then((res) => {
-        user.setUserInfo(res.data);
-        bookmark.theme = res.data.theme ?? 'day';
-        getThemeStyle(bookmark.theme);
-        localStorage.setItem('theme', bookmark.theme);
-        if (res.status !== 200) {
-          handleUserLogout();
-        }
-      })
-      .catch((e) => {
-        console.error('接口错误：', e);
-        bookmark.theme = 'day';
-        handleUserLogout();
-      });
-  }
+
   function handleUserLogout() {
     localStorage.setItem('userId', '');
     router.push('/home');
@@ -104,22 +119,24 @@
   }
 
   router.beforeEach((to, from, next) => {
-    routerChange(bookmark.isPhone, to.path);
+    handleRouteChange(bookmark.isPhone, to.path);
     next();
   });
 
+  // 监听设备类型变化
   watch(
     () => bookmark.isPhone,
     (val) => {
-      routerChange(val, router.currentRoute.value.path);
+      handleRouteChange(val, router.currentRoute.value.path);
       setTransition(val);
     },
   );
 
+  // 监听主题变化
   watch(
     () => bookmark.theme,
     (val) => {
-      getThemeStyle(val);
+      applyTheme(val);
     },
   );
 

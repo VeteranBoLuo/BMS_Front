@@ -11,7 +11,7 @@
             img-id="viewUserImg"
             @click="zoomImage"
             size="50"
-            :src="user.headPicture || icon.navigation_user"
+            :src="user.headPicture || icon.navigation.user"
             class="dom-hover"
           />
         </div>
@@ -177,11 +177,11 @@
   });
   ref<Viewer>();
   function zoomImage() {
-    const src = user.headPicture || icon.navigation_user;
-    if (src === icon.navigation_user) {
+    const src = user.headPicture || icon.navigation.user;
+    if (src === icon.navigation.user) {
       return;
     }
-    bookmark.refreshViewer(user.headPicture || icon.navigation_user);
+    bookmark.refreshViewer(user.headPicture || icon.navigation.user);
     menuVisible.value = false;
   }
 </script>

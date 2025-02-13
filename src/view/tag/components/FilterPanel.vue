@@ -21,7 +21,7 @@
                 </a-menu>
               </template>
               <span>
-                <svg-icon :src="icon.filter_panel_list" size="20" />
+                <svg-icon :src="icon.filterPanel.list" size="20" />
               </span>
             </a-dropdown> </template
         ></b-input>
@@ -49,7 +49,7 @@
         <b-input class="edit-input" v-else v-model:value="newName">
           <template #suffix>
             <svg-icon
-              :src="icon.filter_panel_check"
+              :src="icon.filterPanel.check"
               size="18"
               @click="handleRename(<TagInterface>item)"
               class="dom-hover"

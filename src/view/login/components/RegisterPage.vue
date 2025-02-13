@@ -34,7 +34,7 @@
             @blur="validateFun('userName')"
           >
             <template #prefix>
-              <svg-icon :src="icon.navigation_user" size="16" />
+              <svg-icon :src="icon.navigation.user" size="16" />
             </template>
           </b-input>
         </a-form-item>
@@ -64,7 +64,7 @@
               v-model:value="formData.password"
             >
               <template #prefix>
-                <svg-icon :src="icon.login_password" size="16" />
+                <svg-icon :src="icon.login.password" size="16" />
               </template>
             </b-input>
           </span>
@@ -82,7 +82,7 @@
         >
           <b-input height="40px" theme="day" v-model:value="formData.email" placeholder="邮箱" @blur="validateFun">
             <template #prefix>
-              <svg-icon :src="icon.login_email" size="16" />
+              <svg-icon :src="icon.login.email" size="16" />
             </template>
           </b-input>
         </a-form-item>

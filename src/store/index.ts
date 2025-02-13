@@ -18,7 +18,7 @@ export const useUserStore = defineStore('user', {
     alias: '默认昵称',
     password: '',
     role: 'user',
-    headPicture: icon.navigation_user,
+    headPicture: icon.navigation.user,
     email: '',
     tagTotal: 0,
     bookmarkTotal: 0,
@@ -35,7 +35,7 @@ export const useUserStore = defineStore('user', {
       this.alias = val.alias ?? '默认昵称';
       this.password = val.password ?? '';
       this.role = val.role ?? 'visitor';
-      this.headPicture = val.headPicture ?? icon.navigation_user;
+      this.headPicture = val.headPicture ?? icon.navigation.user;
       this.email = val.email ?? '';
       this.tagTotal = val.tagTotal ?? 0;
       this.bookmarkTotal = val.bookmarkTotal ?? 0;
@@ -51,7 +51,7 @@ export const useUserStore = defineStore('user', {
       this.alias = '默认昵称';
       this.password = '';
       this.role = 'visitor';
-      this.headPicture = icon.navigation_user;
+      this.headPicture = icon.navigation.user;
       this.email = '';
       this.tagTotal = 0;
       this.bookmarkTotal = 0;

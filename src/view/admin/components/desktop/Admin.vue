@@ -27,22 +27,22 @@
     {
       id: 'operationLog',
       title: '操作日志',
-      icon: icon.userCenter_OperationLog,
+      icon: icon.userCenter.operationLog,
     },
     {
       id: 'apiLog',
       title: 'api日志',
-      icon: icon.userCenter_log,
+      icon: icon.userCenter.log,
     },
     {
       id: 'userMg',
       title: '用户管理',
-      icon: icon.navigation_user,
+      icon: icon.navigation.user,
     },
     {
       id: 'userOpinion',
       title: '用户反馈',
-      icon: icon.userCenter_OperationLog,
+      icon: icon.userCenter.operationLog,
     },
   ]);
 

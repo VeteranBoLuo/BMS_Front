@@ -4,7 +4,7 @@
       <div class="edit-list-container">
         <b-input v-model:value="searchValue" class="table-search-input" :placeholder="placeholder">
           <template #prefix>
-            <svg-icon color="#cccccc" :src="icon.navigation_search" size="16" />
+            <svg-icon color="#cccccc" :src="icon.navigation.search" size="16" />
           </template>
         </b-input>
         <div class="list-body">

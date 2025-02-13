@@ -3,7 +3,7 @@
     <div class="home-container">
       <div style="width: 100%" class="flex-justify-center">
         <div class="user_icon" @click="uploadImg" v-click-log="{ module: '我的信息', operation: `上传头像` }">
-          <svg-icon :src="headPicture || icon.navigation_user" :size="80" />
+          <svg-icon :src="headPicture || icon.navigation.user" :size="80" />
         </div>
       </div>
       <div class="home-user-body">

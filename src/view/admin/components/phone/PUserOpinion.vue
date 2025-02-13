@@ -4,7 +4,7 @@
       <b-space style="width: 100%">
         <b-input v-model:value="searchValue" placeholder="用户名..." @input="handleSearch">
           <template #prefix>
-            <svg-icon :src="icon.navigation_search" size="16" />
+            <svg-icon :src="icon.navigation.search" size="16" />
           </template>
         </b-input>
       </b-space>

@@ -39,9 +39,9 @@
     return props.operation[props.options.status];
   });
   const iconOptions = {
-    0: icon.navigation_sun,
-    1: icon.navigation_close,
-    2: icon.navigation_sun,
+    0: icon.navigation.sun,
+    1: icon.navigation.close,
+    2: icon.navigation.sun,
   };
   const statusIcon = computed(() => {
     return iconOptions[props.options.status];

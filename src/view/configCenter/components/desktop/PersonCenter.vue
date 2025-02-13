@@ -12,7 +12,7 @@
             img-id="viewUserImg"
             @click="zoomImage"
             size="40"
-            :src="user.headPicture || icon.navigation_user"
+            :src="user.headPicture || icon.navigation.user"
             class="dom-hover"
           />
         </div>
@@ -67,7 +67,7 @@
       </div>
     </template>
     <div :class="['navigation-icon']">
-      <svg-icon size="30" :src="user.headPicture || icon.navigation_user" class="dom-hover" />
+      <svg-icon size="30" :src="user.headPicture || icon.navigation.user" class="dom-hover" />
     </div>
     <my-info v-if="userVisible" v-model:visible="userVisible" />
     <Opinions v-if="opinionsVisible" v-model:visible="opinionsVisible" />
@@ -131,7 +131,7 @@
     },
     {
       label: '意见反馈',
-      icon: icon.userCenter_OperationLog,
+      icon: icon.userCenter.operationLog,
     },
   ]);
   const menuOptions = computed(() => {
@@ -195,11 +195,11 @@
   });
 
   function zoomImage() {
-    const src = user.headPicture || icon.navigation_user;
-    if (src === icon.navigation_user) {
+    const src = user.headPicture || icon.navigation.user;
+    if (src === icon.navigation.user) {
       return;
     }
-    bookmark.refreshViewer(user.headPicture || icon.navigation_user);
+    bookmark.refreshViewer(user.headPicture || icon.navigation.user);
     menuVisible.value = false;
   }
 

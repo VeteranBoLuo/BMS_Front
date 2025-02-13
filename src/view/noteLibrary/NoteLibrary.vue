@@ -25,7 +25,7 @@
     >
       <div class="flex-align-center-gap" style="gap: 20px">
         <div class="back-icon" @click="router.back()">
-          <SvgIcon :src="icon.note_detail_back" />
+          <SvgIcon :src="icon.noteDetail.back" />
         </div>
         <div style="font-weight: 500; font-size: 20px">笔记库</div>
       </div>
