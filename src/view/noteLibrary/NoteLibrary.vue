@@ -134,6 +134,7 @@
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 30px;
     overflow: auto;
+    box-sizing: border-box;
   }
   .note-card {
     height: 300px;
