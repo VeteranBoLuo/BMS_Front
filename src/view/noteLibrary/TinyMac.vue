@@ -148,7 +148,7 @@
     editable_root: props.editable_root,
     readonly: props.readonly,
     plugins:
-      'importcss quickbars searchreplace autolink directionality code visualblocks visualchars fullscreen image link codesample table charmap nonbreaking anchor insertdatetime advlist lists charmap emoticons',
+      'importcss quickbars searchreplace autolink  code visualblocks visualchars fullscreen image link codesample table charmap nonbreaking  insertdatetime advlist lists charmap emoticons',
     toolbar:
       'undo redo| forecolor backcolor removeformat | blocks fontfamily fontsize| bold italic underline strikethrough  align numlist bullist |  lineheight   outdent indent| link image table  | codesample emoticons',
     setup: function (editor) {
