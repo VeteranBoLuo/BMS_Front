@@ -178,11 +178,6 @@
     }
   }
 
-  @media (max-width: 600px) {
-    .note-library-body {
-      padding: 0;
-    }
-  }
   .back-icon {
     display: flex;
     align-items: center;
