@@ -116,7 +116,6 @@
     height: 60px;
     padding: 0 20px;
     box-sizing: border-box;
-    background-color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -130,6 +129,7 @@
   .note-library-body {
     width: 100%;
     height: 100%;
+    min-height: 400px;
     padding: 20px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
