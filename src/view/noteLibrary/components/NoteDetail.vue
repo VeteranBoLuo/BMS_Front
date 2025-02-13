@@ -191,7 +191,7 @@
 
   const timer = ref(null);
   function saveFunc(isMsg?: boolean) {
-    if (!['admin', 'roo2t'].includes(user.role)) {
+    if (!['admin', 'root'].includes(user.role)) {
       return;
     }
     if (timer.value) {
