@@ -38,7 +38,7 @@
         </div>
       </div>
       <div class="flex-align-center" style="gap: 30px; width: 140px">
-        <template v-if="searchInputVisible">
+        <template v-if="navigationFucVisible">
           <div
             :style="{ color: route.path.includes('/home') ? '#615ced' : '' }"
             style="font-size: 14px; cursor: pointer"
@@ -94,7 +94,7 @@
         <div
           style="display: flex; align-items: center; gap: 15px; width: 120px"
           :class="{ 'phone-top-menu': bookmark.isPhone }"
-          :style="{ marginLeft: searchInputVisible ? '20px' : 'auto' }"
+          :style="{ marginLeft: navigationFucVisible ? '20px' : 'auto' }"
         >
           <div v-if="phoneSearchVisible" class="flex-align-center dom-hover">
             <svg-icon size="30" :src="icon.navigation.phone_search" @click="phoneSearchClick" />
@@ -142,8 +142,12 @@
     });
   });
 
-  const searchInputVisible = computed(() => {
+  const navigationFucVisible = computed(() => {
     return !bookmark.isPhone && ['home', 'noteLibrary', 'manage', 'help'].some((item) => route.path.includes(item));
+  });
+
+  const searchInputVisible = computed(() => {
+    return !bookmark.isPhone && ['home'].some((item) => route.path.includes(item));
   });
   const phoneSearchVisible = computed(() => {
     return bookmark.isPhone && route.path.includes('home') && bookmark.isFold;
