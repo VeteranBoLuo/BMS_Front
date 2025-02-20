@@ -141,11 +141,9 @@
       // 这里可以添加其他你希望在输入框失去焦点时执行的代码
     });
   });
-
   const navigationFucVisible = computed(() => {
     return !bookmark.isPhone && ['home', 'noteLibrary', 'manage', 'help'].some((item) => route.path.includes(item));
   });
-
   const searchInputVisible = computed(() => {
     return !bookmark.isPhone && ['home'].some((item) => route.path.includes(item));
   });
