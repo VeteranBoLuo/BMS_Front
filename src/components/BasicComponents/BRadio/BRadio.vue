@@ -31,7 +31,6 @@
 </script>
 
 <style lang="less">
-  @import '@/assets/css/index';
   .bl-radio-group {
     display: flex;
     flex-wrap: wrap;

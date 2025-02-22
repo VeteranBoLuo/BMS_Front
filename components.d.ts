@@ -19,6 +19,8 @@ declare module 'vue' {
     APagination: typeof import('ant-design-vue/es')['Pagination']
     ASelect: typeof import('ant-design-vue/es')['Select']
     ATable: typeof import('ant-design-vue/es')['Table']
+    ATimeline: typeof import('ant-design-vue/es')['Timeline']
+    ATimelineItem: typeof import('ant-design-vue/es')['TimelineItem']
     ATooltip: typeof import('ant-design-vue/es')['Tooltip']
     ATransfer: typeof import('ant-design-vue/es')['Transfer']
     BAlert: typeof import('./src/components/BasicComponents/BModal/BAlert.vue')['default']

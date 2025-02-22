@@ -81,7 +81,6 @@
 </script>
 
 <style lang="less">
-  @import 'src/assets/css/theme';
 
   .card-body {
     border: 2px solid var(--card-border-color);
