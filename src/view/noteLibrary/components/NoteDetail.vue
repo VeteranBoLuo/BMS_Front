@@ -12,7 +12,7 @@
   >
     <div class="note-header">
       <div style="display: flex; align-items: center" :style="{ gap: bookmark.isPhone ? '0' : '20px' }">
-        <div class="back-icon" @click="router.back()">
+        <div class="back-icon" @click="router.push('/noteLibrary')">
           <SvgIcon :src="icon.noteDetail.back" />
         </div>
         <div
@@ -171,6 +171,7 @@
     if (res.status === 200) {
       if (res.data.id) {
         note.id = res.data.id;
+        router.push(`/noteLibrary/${note.id}`).then();
       }
       setTimeout(() => {
         isStartEdit.value = false;
