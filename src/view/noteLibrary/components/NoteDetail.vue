@@ -18,7 +18,7 @@
         <div
           v-if="!bookmark.isPhone"
           class="note-header-title n-title"
-          :contenteditable="user.id === note.createBy"
+          :contenteditable="user.id === note.createBy || router.currentRoute.value.params.value === 'add'"
           id="note-header-title"
           @focusout="titleBlur"
         >
@@ -70,7 +70,7 @@
       <div class="note-body-header footer-center">
         <div class="note-body-title n-title">
           <a-input
-            :disabled="user.id !== note.createBy && !note.id"
+            :disabled="user.id !== note.createBy && router.currentRoute.value.params.value !== 'add'"
             v-model:value="note.title"
             @focusout="inputBlur"
             placeholder="请输入标题"
@@ -83,7 +83,7 @@
           v-model:value="note.content"
           style="flex-grow: 1"
           :noteId="note.id"
-          :readonly="user.id !== note.createBy && !note.id"
+          :readonly="user.id !== note.createBy && router.currentRoute.value.params.value !== 'add'"
           @setNoteId="setNoteId"
           @saveData="saveFunc(true)"
         />
@@ -250,7 +250,7 @@
           }
         })
         .finally(() => {
-          if (user.id !== note.createBy && !note.id) {
+          if (user.id !== note.createBy) {
             setTimeout(() => {
               bookmark.isShowLogin = false;
               document.documentElement.setAttribute('data-theme', 'day');
