@@ -12,7 +12,7 @@
   >
     <div class="note-header">
       <div style="display: flex; align-items: center" :style="{ gap: bookmark.isPhone ? '0' : '20px' }">
-        <div class="back-icon" @click="router.push('/noteLibrary')">
+        <div class="back-icon" @click="router.back()">
           <SvgIcon :src="icon.noteDetail.back" />
         </div>
         <div
