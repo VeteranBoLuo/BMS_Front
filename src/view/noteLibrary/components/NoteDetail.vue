@@ -70,7 +70,7 @@
       <div class="note-body-header footer-center">
         <div class="note-body-title n-title">
           <a-input
-            :disabled="user.id !== note.createBy"
+            :disabled="user.id !== note.createBy && !note.id"
             v-model:value="note.title"
             @focusout="inputBlur"
             placeholder="请输入标题"
@@ -83,7 +83,7 @@
           v-model:value="note.content"
           style="flex-grow: 1"
           :noteId="note.id"
-          :readonly="user.id !== note.createBy"
+          :readonly="user.id !== note.createBy && !note.id"
           @setNoteId="setNoteId"
           @saveData="saveFunc(true)"
         />
@@ -250,7 +250,7 @@
           }
         })
         .finally(() => {
-          if (user.id !== note.createBy) {
+          if (user.id !== note.createBy && !note.id) {
             setTimeout(() => {
               bookmark.isShowLogin = false;
               document.documentElement.setAttribute('data-theme', 'day');
