@@ -12,13 +12,13 @@
   >
     <div class="note-header">
       <div style="display: flex; align-items: center" :style="{ gap: bookmark.isPhone ? '0' : '20px' }">
-        <div class="back-icon" @click="router.back()">
+        <div class="back-icon" @click="back">
           <SvgIcon :src="icon.noteDetail.back" />
         </div>
         <div
           v-if="!bookmark.isPhone"
           class="note-header-title n-title"
-          :contenteditable="user.id === note.createBy || router.currentRoute.value.params.value === 'add'"
+          :contenteditable="!readonly"
           id="note-header-title"
           @focusout="titleBlur"
         >
@@ -69,21 +69,17 @@
       <Catalog :content="note.content" />
       <div class="note-body-header footer-center">
         <div class="note-body-title n-title">
-          <a-input
-            :disabled="user.id !== note.createBy && router.currentRoute.value.params.value !== 'add'"
-            v-model:value="note.title"
-            @focusout="inputBlur"
-            placeholder="请输入标题"
-          />
+          <a-input :disabled="readonly" v-model:value="note.title" @focusout="inputBlur" placeholder="请输入标题" />
         </div>
         <!--        <div>-->
         <!--          <div class="tag-container"> <div class="note-tag">+ 自定义标签</div></div>-->
         <!--        </div>-->
         <TinyMac
+          v-if="isReady"
           v-model:value="note.content"
           style="flex-grow: 1"
           :noteId="note.id"
-          :readonly="user.id !== note.createBy && router.currentRoute.value.params.value !== 'add'"
+          :readonly="readonly"
           @setNoteId="setNoteId"
           @saveData="saveFunc(true)"
         />
@@ -94,7 +90,7 @@
 
 <script lang="ts" setup>
   import TinyMac from '@/view/noteLibrary/TinyMac.vue';
-  import { nextTick, onMounted, onUnmounted, reactive, ref, watch } from 'vue';
+  import { computed, nextTick, onMounted, onUnmounted, reactive, ref, watch } from 'vue';
   import icon from '@/config/icon.ts';
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
   import router from '@/router';
@@ -113,10 +109,20 @@
     content: '',
     createBy: '',
   });
-
+  const nodeType = ref<'normal' | 'add' | 'share'>('normal');
   function setNoteId(id) {
     note.id = id;
   }
+
+  const readonly = computed(() => {
+    if (nodeType.value === 'share') {
+      return true;
+    } else if (nodeType.value === 'add') {
+      return false;
+    } else {
+      return userId !== note.createBy;
+    }
+  });
   function inputBlur() {
     nextTick(() => {
       if (!note.title) {
@@ -233,6 +239,17 @@
     }
   };
 
+  function back() {
+    if (nodeType.value === 'add') {
+      router.push('/noteLibrary');
+    } else if (nodeType.value === 'share') {
+      router.push('/home');
+    } else {
+      router.back();
+    }
+  }
+  const userId = localStorage.getItem('userId');
+  const isReady = ref(false);
   onMounted(() => {
     document.addEventListener('keydown', handleKeyDown);
     if (router.currentRoute.value.params.value !== 'add') {
@@ -250,11 +267,18 @@
           }
         })
         .finally(() => {
-          if (user.id !== note.createBy) {
-            setTimeout(() => {
-              bookmark.isShowLogin = false;
-              document.documentElement.setAttribute('data-theme', 'day');
-            }, 300);
+          isReady.value = true;
+          if (userId !== note.createBy) {
+            nodeType.value = 'share';
+            const observer = new MutationObserver(() => {
+              const el: any = document.querySelector('.tox-editor-header');
+              if (el) {
+                el.style.display = 'none';
+                observer.disconnect();
+              }
+            });
+            const config = { childList: true, subtree: true };
+            observer.observe(document.body, config);
           }
           watch(
             () => note.content,
@@ -264,6 +288,8 @@
           );
         });
     } else {
+      isReady.value = true;
+      nodeType.value = 'add';
       setUpdateTime();
       watch(
         () => note.content,

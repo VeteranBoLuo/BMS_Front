@@ -2,7 +2,7 @@
   <div class="note-library-container">
     <div class="note-library-header" v-if="bookmark.isPhone">
       <div class="header-content">
-        <div class="back-icon" @click="router.back()">
+        <div class="back-icon" @click="back">
           <SvgIcon :src="icon.noteDetail.back" />
         </div>
         <div style="font-weight: 500; font-size: 20px">笔记库</div>
@@ -97,6 +97,13 @@
 
     return extractedContent;
   };
+  function back() {
+    if (bookmark.isPhone) {
+      router.push('/personCenter');
+    } else {
+      router.back();
+    }
+  }
 </script>
 
 <style lang="less" scoped>

@@ -91,7 +91,7 @@
     `;
   });
   const toolBar = computed(() => {
-    if (!['admin', 'root'].includes(user.role)) {
+    if (props.readonly) {
       return false;
     } else {
       return String(
