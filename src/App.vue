@@ -33,11 +33,6 @@
   });
 
   function initApp() {
-    // 检查本地存储中的用户数据
-    if (!localStorage.getItem('userId')) {
-      bookmark.isShowLogin = true;
-    }
-
     // 页面加载前需要提前预设置主题，否则如果后台查询是黑夜主题，但是页面默认是白色的，页面会从白到黑闪一下，这种情况就需要提前设置为黑色
     const theme = localStorage.getItem('theme');
     if (theme) {
@@ -111,11 +106,12 @@
     applyTheme(bookmark.theme);
   }
 
-
   function handleUserLogout() {
     localStorage.setItem('userId', '');
-    router.push('/home');
-    bookmark.isShowLogin = true;
+    if (router.currentRoute.value.matched[0].path !== '/noteLibrary/:value(.*)') {
+      router.push('/home');
+      bookmark.isShowLogin = true;
+    }
   }
 
   router.beforeEach((to, from, next) => {

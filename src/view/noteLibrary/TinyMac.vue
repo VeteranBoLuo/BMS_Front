@@ -33,7 +33,7 @@
   import 'tinymce/plugins/importcss'; //引入自定义样式的css文件
   import 'tinymce/plugins/fullscreen';
   import { apiBasePost } from '@/http/request';
-  import { bookmarkStore, noteStore } from '@/store';
+  import { bookmarkStore, noteStore, useUserStore } from '@/store';
 
   const emits = defineEmits(['update:modelValue', 'setHtml', 'setNoteId', 'saveData']);
   //这里我选择将数据定义在props里面，方便在不同的页面也可以配置出不同的编辑器，当然也可以直接在组件中直接定义
@@ -61,33 +61,43 @@
   const loading = ref(false);
   const tinymceId = ref('vue-tinymce-' + +new Date() + ((Math.random() * 1000).toFixed(0) + ''));
   const note = noteStore();
+  const user = useUserStore();
   const contentStyle = computed(() => {
     if (bookmark.theme === 'day') {
       return `body {font-family:Helvetica,Arial,sans-serif; font-size:16px;}
-    p {line-height:1rem}
-    body::-webkit-scrollbar {
-      display: none;
-    }
-}
-    `;
+      p {line-height:1rem}
+      body::-webkit-scrollbar {
+        display: none;
+      }
+  }
+      `;
     }
     return `body {font-family:Helvetica,Arial,sans-serif; font-size:16px;background-color:#222222; color:white;}
-    p {line-height:1rem}
-    body::-webkit-scrollbar {
-      display: none;
+      p {line-height:1rem}
+      body::-webkit-scrollbar {
+        display: none;
+      }
+     .mce-content-body[data-mce-placeholder]:not(.mce-visualblocks)::before {
+    color: #666666 !important;}
+    .mce-content-body *[contentEditable=false]{
+    background-color: #1e1f22 !important;
+    text-shadow:unset;
+    color:white;
     }
-   .mce-content-body[data-mce-placeholder]:not(.mce-visualblocks)::before {
-  color: #666666 !important;}
-  .mce-content-body *[contentEditable=false]{
-  background-color: #1e1f22 !important;
-  text-shadow:unset;
-  color:white;
+  .token.operator, .token.entity, .token.url, .language-css .token.string, .style .token.string{
+  color:unset;
+  background-color: unset !important;
   }
-.token.operator, .token.entity, .token.url, .language-css .token.string, .style .token.string{
-color:unset;
-background-color: unset !important;
-}
-  `;
+    `;
+  });
+  const toolBar = computed(() => {
+    if (!['admin', 'root'].includes(user.role)) {
+      return false;
+    } else {
+      return String(
+        'undo redo| forecolor backcolor removeformat | blocks fontfamily fontsize| bold italic underline strikethrough  align numlist bullist |  lineheight   outdent indent| link image table  | codesample emoticons',
+      );
+    }
   });
 
   const handleImageUpload = (blobInfo, progress) => {
@@ -164,8 +174,7 @@ background-color: unset !important;
     readonly: props.readonly,
     plugins:
       'importcss quickbars searchreplace autolink  code visualblocks visualchars fullscreen image link codesample table charmap nonbreaking  insertdatetime advlist lists charmap emoticons',
-    toolbar:
-      'undo redo| forecolor backcolor removeformat | blocks fontfamily fontsize| bold italic underline strikethrough  align numlist bullist |  lineheight   outdent indent| link image table  | codesample emoticons',
+    toolbar: toolBar.value,
     setup: function (editor) {
       editor.on('init', function () {
         // 停用缓存才会生效
@@ -211,9 +220,9 @@ background-color: unset !important;
         const iframeDocument = iframe?.contentDocument || iframe?.contentWindow?.document;
         const style = iframeDocument.createElement('style');
         style.innerHTML = `
-          * {
-          scrollbar-width: none;
-        }`;
+            * {
+            scrollbar-width: none;
+          }`;
         iframeDocument.head.appendChild(style);
       } catch (e) {
         setFirefoxScroll();

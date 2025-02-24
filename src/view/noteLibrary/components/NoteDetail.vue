@@ -18,7 +18,7 @@
         <div
           v-if="!bookmark.isPhone"
           class="note-header-title n-title"
-          contenteditable="true"
+          :contenteditable="user.id === note.createBy"
           id="note-header-title"
           @focusout="titleBlur"
         >
@@ -69,7 +69,12 @@
       <Catalog :content="note.content" />
       <div class="note-body-header footer-center">
         <div class="note-body-title n-title">
-          <a-input v-model:value="note.title" @focusout="inputBlur" placeholder="请输入标题" />
+          <a-input
+            :disabled="user.id !== note.createBy"
+            v-model:value="note.title"
+            @focusout="inputBlur"
+            placeholder="请输入标题"
+          />
         </div>
         <!--        <div>-->
         <!--          <div class="tag-container"> <div class="note-tag">+ 自定义标签</div></div>-->
@@ -78,7 +83,7 @@
           v-model:value="note.content"
           style="flex-grow: 1"
           :noteId="note.id"
-          :readonly="!['admin', 'root'].includes(user.role)"
+          :readonly="user.id !== note.createBy"
           @setNoteId="setNoteId"
           @saveData="saveFunc(true)"
         />
@@ -106,6 +111,7 @@
     title: '未命名文档',
     lastTitle: '未命名文档',
     content: '',
+    createBy: '',
   });
 
   function setNoteId(id) {
@@ -244,6 +250,12 @@
           }
         })
         .finally(() => {
+          if (user.id !== note.createBy) {
+            setTimeout(() => {
+              bookmark.isShowLogin = false;
+              document.documentElement.setAttribute('data-theme', 'day');
+            }, 300);
+          }
           watch(
             () => note.content,
             () => {
