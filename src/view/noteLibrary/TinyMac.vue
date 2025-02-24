@@ -77,7 +77,17 @@
       display: none;
     }
    .mce-content-body[data-mce-placeholder]:not(.mce-visualblocks)::before {
-  color: #666666 !important;`;
+  color: #666666 !important;}
+  .mce-content-body *[contentEditable=false]{
+  background-color: #1e1f22 !important;
+  text-shadow:unset;
+  color:white;
+  }
+.token.operator, .token.entity, .token.url, .language-css .token.string, .style .token.string{
+color:unset;
+background-color: unset !important;
+}
+  `;
   });
 
   const handleImageUpload = (blobInfo, progress) => {
@@ -139,7 +149,7 @@
     paste_merge_formats: true,
     nonbreaking_force_tab: false,
     paste_auto_cleanup_on_paste: false,
-    quickbars_insert_toolbar: '',    // 禁用换行菜单
+    quickbars_insert_toolbar: '', // 禁用换行菜单
     file_picker_types: 'file',
     quickbars_selection_toolbar:
       'forecolor backcolor removeformat | bold italic underline strikethrough | quicklink  blockquote codesample',
