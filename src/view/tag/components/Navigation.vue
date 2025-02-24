@@ -37,7 +37,7 @@
           <span style="font-size: 18px">智汇云书签</span>
         </div>
       </div>
-      <div class="flex-align-center" style="gap: 30px; width: 140px">
+      <div class="navigation-tab flex-align-center" style="gap: 30px; width: 140px">
         <template v-if="navigationFucVisible">
           <div
             :style="{ color: route.path.includes('/home') ? '#615ced' : '' }"
@@ -66,7 +66,7 @@
           >
         </template>
       </div>
-      <div class="navigation-body">
+      <div class="navigation-search-body">
         <div
           class="navigation-search-input"
           v-if="searchInputVisible"
@@ -91,23 +91,23 @@
             </template>
           </b-input>
         </div>
-        <div
-          style="display: flex; align-items: center; gap: 15px; width: 140px; justify-content: flex-end"
-          :class="{ 'phone-top-menu': bookmark.isPhone }"
-          :style="{ marginLeft: searchInputVisible ? '0' : 'auto' }"
-        >
-          <div v-if="phoneSearchVisible" class="flex-align-center dom-hover">
-            <svg-icon size="30" :src="icon.navigation.phone_search" @click="phoneSearchClick" />
-          </div>
-          <!--  主题切换        -->
-          <ThemeSwitch />
-          <!--移动端个人中心       -->
-          <div :class="['navigation-icon']" v-if="bookmark.isPhone" @click="handleToPhoneUserCenter">
-            <svg-icon size="30" :src="user.headPicture || icon.navigation.user" class="dom-hover" />
-          </div>
-          <!--pc端个人中心       -->
-          <PersonCenter v-else />
+      </div>
+      <div
+        class="navigation-right-menu"
+        :class="{ 'phone-top-menu': bookmark.isPhone }"
+        :style="{ marginLeft: searchInputVisible ? '0' : 'auto' }"
+      >
+        <div v-if="phoneSearchVisible" class="flex-align-center dom-hover">
+          <svg-icon size="30" :src="icon.navigation.phone_search" @click="phoneSearchClick" />
         </div>
+        <!--  主题切换        -->
+        <ThemeSwitch />
+        <!--移动端个人中心       -->
+        <div :class="['navigation-icon']" v-if="bookmark.isPhone" @click="handleToPhoneUserCenter">
+          <svg-icon size="30" :src="user.headPicture || icon.navigation.user" class="dom-hover" />
+        </div>
+        <!--pc端个人中心       -->
+        <PersonCenter v-else />
       </div>
     </div>
   </div>
@@ -283,17 +283,25 @@
     padding-left: 20px;
   }
 
-  .navigation-body {
-    flex-grow: 1;
-    padding-right: 45px;
+  .navigation-search-body {
     height: 100%;
     align-items: center;
     display: flex;
+    width: calc(100% - 220px - 140px - 140px - 40px);
   }
 
   .navigation-search-input {
     margin: auto;
     width: 400px;
+  }
+  .navigation-right-menu{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 140px;
+    justify-content: flex-end;
+    position: absolute;
+    right: 40px;
   }
 
   .navigation-icon {
