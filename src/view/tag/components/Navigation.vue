@@ -92,9 +92,9 @@
           </b-input>
         </div>
         <div
-          style="display: flex; align-items: center; gap: 15px; width: 120px"
+          style="display: flex; align-items: center; gap: 15px; width: 140px; justify-content: flex-end"
           :class="{ 'phone-top-menu': bookmark.isPhone }"
-          :style="{ marginLeft: searchInputVisible ? '20px' : 'auto' }"
+          :style="{ marginLeft: searchInputVisible ? '0' : 'auto' }"
         >
           <div v-if="phoneSearchVisible" class="flex-align-center dom-hover">
             <svg-icon size="30" :src="icon.navigation.phone_search" @click="phoneSearchClick" />
@@ -285,7 +285,7 @@
 
   .navigation-body {
     flex-grow: 1;
-    padding-right: 40px;
+    padding-right: 45px;
     height: 100%;
     align-items: center;
     display: flex;
