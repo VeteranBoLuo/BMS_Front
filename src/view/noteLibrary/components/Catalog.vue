@@ -44,7 +44,7 @@
 
 <style scoped>
   .toc-container {
-    width: 260px;
+    width: 300px;
     height: calc(100% - 60px);
     overflow: auto;
     box-sizing: border-box;
