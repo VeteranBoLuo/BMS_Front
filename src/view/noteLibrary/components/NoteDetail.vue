@@ -109,7 +109,7 @@
     content: '',
     createBy: '',
   });
-  const nodeType = ref<'normal' | 'add' | 'share'>('normal');
+  const nodeType = ref<'edit' | 'add' | 'share'>('edit');
   function setNoteId(id) {
     note.id = id;
   }
@@ -176,6 +176,7 @@
     delete params.lastTitle;
     let res;
     if (params.id) {
+      delete params.createBy;
       res = await apiBasePost('/api/note/updateNote', params);
     } else {
       res = await apiBasePost('/api/note/addNote', params);
