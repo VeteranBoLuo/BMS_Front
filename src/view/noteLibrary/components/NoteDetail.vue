@@ -115,7 +115,9 @@
   }
 
   const readonly = computed(() => {
-    if (nodeType.value === 'share') {
+    if (user.role === 'root') {
+      return false;
+    } else if (nodeType.value === 'share') {
       return true;
     } else if (nodeType.value === 'add') {
       return false;
