@@ -17,8 +17,9 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, watch } from 'vue';
+  import { nextTick, ref, watch } from 'vue';
   import { bookmarkStore, noteStore } from '@/store';
+  import { customTimer } from '@/utils/common.ts';
   const bookmark = bookmarkStore();
   const props = defineProps<{
     content: string;
@@ -26,11 +27,15 @@
   const note = noteStore();
   const activeHeading = ref<number | null>(null);
 
-  const scrollToHeading = (index: number) => {
+  const scrollToHeading = async (index: number) => {
+    activeHeading.value = index;
+    // 平板和手机
+    if (bookmark.screenWidth < 1500) {
+      await customTimer(100);
+    }
     const heading = note.headings[index];
     if (heading) {
       heading.element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      activeHeading.value = index;
     }
   };
 
@@ -60,7 +65,7 @@
 
   .toc-item.active {
     font-weight: bold;
-    color: #615ced!important;
+    color: #615ced !important;
   }
 
   .toc-line {
@@ -69,5 +74,30 @@
     width: 2px;
     height: 1.5rem;
     background-color: #615ced;
+  }
+  @media (max-width: 1919px) {
+    .toc-container {
+      width: 280px;
+    }
+  }
+  @media (max-width: 1500px) {
+    .toc-container {
+      width: 250px;
+    }
+  }
+  @media (max-width: 1200px) {
+    .toc-container {
+      width: 200px;
+    }
+  }
+  @media (max-width: 1000px) {
+    .toc-container {
+      width: 170px;
+    }
+  }
+  @media (max-width: 800px) {
+    .toc-container {
+      width: 150px;
+    }
   }
 </style>

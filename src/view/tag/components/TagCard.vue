@@ -22,6 +22,7 @@
   import router from '@/router';
   import { onMounted } from 'vue';
   import { recordOperation } from '@/api/commonApi.ts';
+  import icon from '@/config/icon.ts';
 
   const bookmark = bookmarkStore();
   const props = defineProps({
@@ -46,7 +47,7 @@
   });
 
   function toNewPage() {
-    if (!props.cardInfo.url.includes('https') || !props.cardInfo.url.includes('http')) {
+    if (['https', 'http'].some((str) => !props.cardInfo.url.includes(str))) {
       props.cardInfo.url = 'https://' + props.cardInfo.url;
     }
     window.open(props.cardInfo.url, '_blank');
@@ -73,15 +74,13 @@
       // 监听图片加载错误事件
       imgElement.onerror = function () {
         // 设置默认图片
-        this.src =
-          'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIwLjhlbSIgaGVpZ2h0PSIwLjhlbSIgdmlld0JveD0iMCAwIDIwIDIwIj48cGF0aCBmaWxsPSIjNWI1YjViIiBkPSJNMTAgMjBhMTAgMTAgMCAxIDEgMC0yMGExMCAxMCAwIDAgMSAwIDIwbTcuNzUtOGE4IDggMCAwIDAgMC00aC0zLjgyYTI5IDI5IDAgMCAxIDAgNHptLS44MiAyaC0zLjIyYTE0LjQgMTQuNCAwIDAgMS0uOTUgMy41MUE4LjAzIDguMDMgMCAwIDAgMTYuOTMgMTRtLTguODUtMmgzLjg0YTI0LjYgMjQuNiAwIDAgMCAwLTRIOC4wOGEyNC42IDI0LjYgMCAwIDAgMCA0bS4yNSAyYy40MSAyLjQgMS4xMyA0IDEuNjcgNHMxLjI2LTEuNiAxLjY3LTR6bS02LjA4LTJoMy44MmEyOSAyOSAwIDAgMSAwLTRIMi4yNWE4IDggMCAwIDAgMCA0bS44MiAyYTguMDMgOC4wMyAwIDAgMCA0LjE3IDMuNTFjLS40Mi0uOTYtLjc0LTIuMTYtLjk1LTMuNTF6bTEzLjg2LThhOC4wMyA4LjAzIDAgMCAwLTQuMTctMy41MWMuNDIuOTYuNzQgMi4xNi45NSAzLjUxem0tOC42IDBoMy4zNGMtLjQxLTIuNC0xLjEzLTQtMS42Ny00UzguNzQgMy42IDguMzMgNk0zLjA3IDZoMy4yMmMuMi0xLjM1LjUzLTIuNTUuOTUtMy41MUE4LjAzIDguMDMgMCAwIDAgMy4wNyA2Ii8+PC9zdmc+';
+        this.src = icon.nullImg;
       };
     }
   });
 </script>
 
 <style lang="less">
-
   .card-body {
     border: 2px solid var(--card-border-color);
     height: 150px;
