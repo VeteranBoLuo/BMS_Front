@@ -92,14 +92,16 @@
   // 手机端路由和电脑端不一样，切换不同尺寸设备后需要切换对应路由地址
   function handleRouteChange(isPhone: boolean, path: string) {
     if (isPhone) {
-      if (['/admin/apiLog', '/admin/userMg', '/admin/userOpinion', '/admin/operationLog'].includes(path)) {
+      if (
+        ['/admin/apiLog', '/admin/userMg', '/admin/userOpinion', '/admin/operationLog', '/admin/imageMg'].includes(path)
+      ) {
         router.push(path.replace('/admin', ''));
       }
     } else {
       if (path === '/admin') {
         router.push('/admin/operationLog');
       }
-      if (['/apiLog', '/userMg', '/userOpinion', '/operationLog'].includes(path)) {
+      if (['/apiLog', '/userMg', '/userOpinion', '/operationLog', '/imageMg'].includes(path)) {
         router.push('/admin' + path);
       }
     }

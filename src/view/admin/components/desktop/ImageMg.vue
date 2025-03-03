@@ -1,17 +1,17 @@
 <template>
   <div style="overflow: hidden; height: 100%; box-sizing: border-box">
     <b-space style="width: 100%">
-      <b-input v-model:value="searchValue" placeholder="用户名或ip..." class="log-search-input" @input="handleSearch">
+      <b-input v-model:value="searchValue" placeholder="文件名" class="log-search-input" @input="handleSearch">
         <template #prefix>
           <svg-icon :src="icon.navigation.search" size="16" />
         </template>
       </b-input>
       <a-select style="width: 100px" :options="imgOptions" v-model:value="imgType" />
-      <b-button @click="clearApiLogs" type="primary">清空</b-button>
+      <b-button @click="clearApiImages" type="primary">清空</b-button>
     </b-space>
     <a-table
       :data-source="allImg[imgType]"
-      :columns="logColumns"
+      :columns="imageColumns"
       row-key="id"
       style="margin-top: 5px"
       :scroll="{ y: bookmark.screenHeight - 250 }"
@@ -30,7 +30,7 @@
 
 <script lang="ts" setup>
   import { computed, onMounted, ref } from 'vue';
-  import {apiBaseGet, apiBasePost, apiQueryPost} from '@/http/request.ts';
+  import { apiBaseGet, apiBasePost, apiQueryPost } from '@/http/request.ts';
   import { bookmarkStore } from '@/store';
   import BInput from '@/components/BasicComponents/BInput/BInput.vue';
   import icon from '@/config/icon.ts';
@@ -46,7 +46,7 @@
     { label: '已失效', value: 'unUsedImages' },
   ];
 
-  const logColumns = computed(() => {
+  const imageColumns = computed(() => {
     return [
       {
         title: '名称',
@@ -70,10 +70,10 @@
       currentPage.value = page;
     }
     pageSize.value = newPageSize;
-    searchApiLog();
+    searchApiImage();
   };
 
-  function clearApiLogs() {
+  function clearApiImages() {
     Alert.alert({
       title: '提示',
       content: `请确认是否要清空图片？`,
@@ -83,7 +83,7 @@
         }).then((res) => {
           if (res.status === 200) {
             message.success('日志清空成功');
-            searchApiLog();
+            searchApiImage();
           }
         });
       },
@@ -96,22 +96,22 @@
       clearTimeout(timer.value);
     }
     timer.value = setTimeout(() => {
-      searchApiLog();
+      searchApiImage();
     }, 500);
   }
 
   const searchValue = ref('');
   const imgType = ref('usedImages');
   const allImg = ref({});
-  function searchApiLog() {
-    apiQueryPost('/api/common/getImages').then((res) => {
+  function searchApiImage() {
+    apiBasePost('/api/common/getImages', { name: searchValue.value }).then((res) => {
       if (res.status === 200) {
         allImg.value = res.data.items;
       }
     });
   }
   onMounted(() => {
-    searchApiLog();
+    searchApiImage();
   });
 </script>
 
