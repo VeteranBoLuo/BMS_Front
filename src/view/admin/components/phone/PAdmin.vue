@@ -41,6 +41,12 @@
         icon: icon.userCenter.operationLog,
         url: '/userOpinion',
       },
+      {
+        id: 'imageMg',
+        title: '图片管理',
+        icon: icon.userCenter.imgMg,
+        url: '/imageMg',
+      },
     ],
   ];
   function clickItem(item) {

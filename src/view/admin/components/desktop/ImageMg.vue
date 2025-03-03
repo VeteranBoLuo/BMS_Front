@@ -1,0 +1,167 @@
+<template>
+  <div style="overflow: hidden; height: 100%; box-sizing: border-box">
+    <b-space style="width: 100%">
+      <b-input v-model:value="searchValue" placeholder="用户名或ip..." class="log-search-input" @input="handleSearch">
+        <template #prefix>
+          <svg-icon :src="icon.navigation.search" size="16" />
+        </template>
+      </b-input>
+      <a-select style="width: 100px" :options="imgOptions" v-model:value="imgType" />
+      <b-button @click="clearApiLogs" type="primary">清空</b-button>
+    </b-space>
+    <a-table
+      :data-source="allImg[imgType]"
+      :columns="logColumns"
+      row-key="id"
+      style="margin-top: 5px"
+      :scroll="{ y: bookmark.screenHeight - 250 }"
+      :pagination="false"
+    >
+    </a-table>
+    <p>
+      总计
+      <a>
+        {{ allImg?.[imgType]?.length ?? 0 }}
+      </a>
+      张图片
+    </p>
+  </div>
+</template>
+
+<script lang="ts" setup>
+  import { computed, onMounted, ref } from 'vue';
+  import {apiBaseGet, apiBasePost, apiQueryPost} from '@/http/request.ts';
+  import { bookmarkStore } from '@/store';
+  import BInput from '@/components/BasicComponents/BInput/BInput.vue';
+  import icon from '@/config/icon.ts';
+  import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
+  import BButton from '@/components/BasicComponents/BButton/BButton.vue';
+  import Alert from '@/components/BasicComponents/BModal/Alert.ts';
+  import { message } from 'ant-design-vue';
+  import BSpace from '@/components/BasicComponents/BSpace/BSpace.vue';
+  const bookmark = bookmarkStore();
+
+  const imgOptions = [
+    { label: '使用中', value: 'usedImages' },
+    { label: '已失效', value: 'unUsedImages' },
+  ];
+
+  const logColumns = computed(() => {
+    return [
+      {
+        title: '名称',
+        dataIndex: 'name',
+        ellipsis: true,
+      },
+      {
+        title: '类型',
+        dataIndex: 'extension',
+        ellipsis: true,
+      },
+    ];
+  });
+
+  const currentPage = ref<number>(1);
+  const pageSize = ref<number>(10);
+  const onChange = (page: number, newPageSize: number) => {
+    if (newPageSize !== pageSize.value) {
+      currentPage.value = 1;
+    } else {
+      currentPage.value = page;
+    }
+    pageSize.value = newPageSize;
+    searchApiLog();
+  };
+
+  function clearApiLogs() {
+    Alert.alert({
+      title: '提示',
+      content: `请确认是否要清空图片？`,
+      onOk() {
+        apiBasePost('/api/common/clearImages', {
+          images: allImg.value[imgType.value],
+        }).then((res) => {
+          if (res.status === 200) {
+            message.success('日志清空成功');
+            searchApiLog();
+          }
+        });
+      },
+    });
+  }
+
+  const timer = ref();
+  function handleSearch() {
+    if (timer.value) {
+      clearTimeout(timer.value);
+    }
+    timer.value = setTimeout(() => {
+      searchApiLog();
+    }, 500);
+  }
+
+  const searchValue = ref('');
+  const imgType = ref('usedImages');
+  const allImg = ref({});
+  function searchApiLog() {
+    apiQueryPost('/api/common/getImages').then((res) => {
+      if (res.status === 200) {
+        allImg.value = res.data.items;
+      }
+    });
+  }
+  onMounted(() => {
+    searchApiLog();
+  });
+</script>
+
+<style lang="less" scoped>
+  .log-search-input {
+    width: 50%;
+  }
+  :deep(.ant-table-container) {
+    border: 1px solid var(--icon-color);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  :deep(.ant-table-wrapper .ant-table) {
+    background-color: var(--background-color);
+    color: var(--text-color);
+  }
+  :deep(.ant-table-cell-ellipsis) {
+    background-color: var(--background-color) !important;
+    color: var(--text-color) !important;
+  }
+  :deep(.ant-table-cell-scrollbar) {
+    background-color: unset !important;
+    display: none;
+  }
+  :deep(.ant-table-cell) {
+    background-color: var(--background-color) !important;
+    color: black;
+  }
+  :deep(.ant-select-dropdown-placement-topLeft) {
+    min-width: 100px !important;
+    transition: none !important;
+  }
+  :deep(.ant-select-selector .ant-select-selection-item) {
+    background-color: unset !important;
+    transition: none !important;
+  }
+  //:deep(.ant-select-selector) {
+  //  transition: none !important;
+  //}
+  /*--分页背景调色--*/
+  :deep(.ant-pagination) {
+    color: var(--text-color);
+  }
+  :deep(.ant-pagination-item a) {
+    color: var(--text-color);
+  }
+  :deep(.ant-pagination-item-active a) {
+    color: #4e4b46;
+  }
+  :deep(.ant-pagination-item-ellipsis) {
+    color: var(--icon-color) !important;
+  }
+</style>

@@ -72,7 +72,7 @@
           <a-input :disabled="readonly" v-model:value="note.title" @focusout="inputBlur" placeholder="请输入标题" />
         </div>
         <!--        <div>-->
-        <!--          <div class="tag-container"> <div class="note-tag">+ 自定义标签</div></div>-->
+        <!--          <div class="home-container"> <div class="note-home">+ 自定义标签</div></div>-->
         <!--        </div>-->
         <TinyMac
           v-if="isReady"

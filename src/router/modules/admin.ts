@@ -27,6 +27,10 @@ const adminRouter: AppRouteRecordRaw[] = [
         path: 'userOpinion',
         component: () => import('@/view/admin/components/desktop/UserOpinion.vue'),
       },
+      {
+        path: 'ImageMg',
+        component: () => import('@/view/admin/components/desktop/ImageMg.vue'),
+      },
     ],
   },
   {
@@ -44,6 +48,10 @@ const adminRouter: AppRouteRecordRaw[] = [
   {
     path: 'userOpinion',
     component: () => import('@/view/admin/components/phone/PUserOpinion.vue'),
+  },
+  {
+    path: 'ImageMg',
+    component: () => import('@/view/admin/components/phone/PImageMg.vue'),
   },
 ];
 

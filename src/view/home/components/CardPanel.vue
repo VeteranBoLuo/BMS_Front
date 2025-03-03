@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts" setup>
-  import TagCard from '@/view/tag/components/TagCard.vue';
+  import TagCard from '@/view/home/components/TagCard.vue';
   import { bookmarkStore } from '@/store';
   import { computed } from 'vue';
   import RightMenu from '@/components/RightMenu.vue';

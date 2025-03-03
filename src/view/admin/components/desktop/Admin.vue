@@ -44,6 +44,11 @@
       title: '用户反馈',
       icon: icon.userCenter.operationLog,
     },
+    {
+      id: 'imageMg',
+      title: '图片管理',
+      icon: icon.userCenter.imgMg,
+    },
   ]);
 
   function nodeClick(menu: any) {

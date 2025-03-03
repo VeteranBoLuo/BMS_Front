@@ -10,15 +10,15 @@ const mainPageRouter: AppRouteRecordRaw = {
   children: [
     {
       path: '',
-      component: () => import('@/view/tag/components/mainPage.vue'),
+      component: () => import('@/view/home/Home.vue'),
     },
     {
       path: ':id',
-      component: () => import('@/view/tag/components/mainPage.vue'),
+      component: () => import('@/view/home/Home.vue'),
     },
     {
       path: 'search/:value(.*)',
-      component: () => import('@/view/tag/components/mainPage.vue'),
+      component: () => import('@/view/home/Home.vue'),
     },
     {
       path: 'edit',

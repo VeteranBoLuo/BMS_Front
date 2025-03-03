@@ -64,13 +64,13 @@
 
 <script lang="ts" setup>
   import { computed, ref } from 'vue';
-  import { apiBasePost } from '@/http/request';
+  import { apiBasePost } from '@/http/request.ts';
   import { bookmarkStore, useUserStore } from '@/store';
   import { useRouter } from 'vue-router';
   import RightMenu from '@/components/RightMenu.vue';
-  import { TagInterface } from '@/config/bookmarkCfg';
+  import { TagInterface } from '@/config/bookmarkCfg.ts';
   import { message } from 'ant-design-vue';
-  import Alert from '@/components/BasicComponents/BModal/Alert';
+  import Alert from '@/components/BasicComponents/BModal/Alert.ts';
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
   import icon from '@/config/icon.ts';
   import BList from '@/components/BasicComponents/BList/BList.vue';

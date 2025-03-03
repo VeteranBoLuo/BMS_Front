@@ -6,12 +6,12 @@
 </template>
 
 <script lang="ts" setup>
-  import FilterPanel from '@/view/tag/components/FilterPanel.vue';
-  import ViewPanel from '@/view/tag/components/ViewPanel.vue';
+  import FilterPanel from '@/view/home/FilterPanel.vue';
+  import ViewPanel from '@/view/home/ViewPanel.vue';
   import { computed, onMounted, watch } from 'vue';
   import { bookmarkStore, useUserStore } from '@/store';
-  import { apiBasePost, apiQueryPost } from '@/http/request';
-  import { useRoute, useRouter } from 'vue-router'
+  import { apiBasePost, apiQueryPost } from '@/http/request.ts';
+  import { useRoute, useRouter } from 'vue-router';
 
   const bookmark = bookmarkStore();
   const router = useRouter();

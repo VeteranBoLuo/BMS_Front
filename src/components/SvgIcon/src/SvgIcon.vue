@@ -105,7 +105,7 @@
   // 获取iconify组件的图标名称
   function extractIconValue(str: string) {
     if (!str) {
-      return 'mdi:tag-outline';
+      return 'mdi:home-outline';
     }
     const regex = /icon="([^"]+)"/;
     const match = str.match(regex);
