@@ -110,7 +110,7 @@
 
   function handleUserLogout() {
     localStorage.setItem('userId', '');
-    if (router.currentRoute.value.matched[0].path !== '/noteLibrary/:value(.*)') {
+    if (router.currentRoute.value.matched?.[0]?.path !== '/noteLibrary/:value(.*)') {
       router.push('/home');
       bookmark.isShowLogin = true;
     }
