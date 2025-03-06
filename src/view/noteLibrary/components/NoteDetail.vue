@@ -1,79 +1,21 @@
 <template>
-  <div
-    style="
-      width: 100%;
-      height: 100%;
-      box-sizing: border-box;
-      position: fixed !important;
-      top: 0 !important;
-      display: flex;
-      flex-direction: column;
-    "
-  >
-    <div class="note-header">
-      <div style="display: flex; align-items: center" :style="{ gap: bookmark.isPhone ? '0' : '20px' }">
-        <div class="back-icon" @click="back">
-          <SvgIcon :src="icon.noteDetail.back" />
-        </div>
-        <div
-          v-if="!bookmark.isPhone"
-          class="note-header-title n-title"
-          :contenteditable="!readonly"
-          id="note-header-title"
-          @focusout="titleBlur"
-        >
-          <!--          {{ note.title }}-->
-          <!--          <a-input v-model:value="note.title" @focusout="inputBlur" placeholder="请输入标题"  />-->
-        </div>
-        <div
-          style="color: #c0c0c0; font-size: 12px"
-          v-if="!isStartEdit"
-          :style="{ marginLeft: bookmark.isPhone ? '20px' : '0' }"
-        >
-          最近修改 {{ updateTime }}
-        </div>
-        <div v-else style="color: #c0c0c0; font-size: 12px" :style="{ marginLeft: bookmark.isPhone ? '20px' : '0' }">
-          <span>保存中...</span>
-        </div>
-      </div>
-      <div class="flex-align-center" style="gap: 20px">
-        <div
-          class="note-header-title-icon"
-          @click="delNote"
-          title="删除"
-          v-click-log="{ module: '笔记详情', operation: '删除笔记' }"
-        >
-          <SvgIcon :src="icon.noteDetail.delete" />
-        </div>
-        <div
-          class="note-header-title-icon"
-          @click="clickSaveNote"
-          title="保存"
-          v-click-log="{ module: '笔记详情', operation: '保存笔记' }"
-        >
-          <SvgIcon :src="icon.noteDetail.save" />
-        </div>
-      </div>
-    </div>
-    <div
-      style="
-        display: flex;
-        padding: 20px;
-        box-sizing: border-box;
-        height: 100%;
-        position: fixed;
-        top: 60px;
-        width: 100%;
-      "
-    >
+  <div class="note-container">
+    <NoteHeader
+      :updateTime="updateTime"
+      :nodeType="nodeType"
+      :readonly="readonly"
+      :isStartEdit="isStartEdit"
+      @focusout="titleBlur"
+      @del="delNote"
+      @save="clickSaveNote"
+      @saveTag="clickSaveNote"
+    />
+    <div class="note-body">
       <Catalog v-if="!bookmark.isPhone" :content="note.content" />
       <div class="note-body-header footer-center">
         <div class="note-body-title n-title">
           <a-input :disabled="readonly" v-model:value="note.title" @focusout="inputBlur" placeholder="请输入标题" />
         </div>
-        <!--        <div>-->
-        <!--          <div class="home-container"> <div class="note-home">+ 自定义标签</div></div>-->
-        <!--        </div>-->
         <TinyMac
           v-if="isReady"
           v-model:value="note.content"
@@ -90,7 +32,7 @@
 
 <script lang="ts" setup>
   import TinyMac from '@/view/noteLibrary/TinyMac.vue';
-  import { computed, nextTick, onMounted, onUnmounted, reactive, ref, watch } from 'vue';
+  import { computed, nextTick, onMounted, onUnmounted, provide, reactive, ref, watch } from 'vue';
   import icon from '@/config/icon.ts';
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
   import router from '@/router';
@@ -100,6 +42,7 @@
   import Alert from '@/components/BasicComponents/BModal/Alert.ts';
   import { message } from 'ant-design-vue';
   import { bookmarkStore, noteStore, useUserStore } from '@/store';
+  import NoteHeader from '@/view/noteLibrary/components/NoteHeader.vue';
   const bookmark = bookmarkStore();
   const user = useUserStore();
   const note = reactive({
@@ -107,8 +50,11 @@
     title: '未命名文档',
     lastTitle: '未命名文档',
     content: '',
+    tags: '',
     createBy: '',
   });
+
+  provide('note', note);
   const nodeType = ref<'edit' | 'add' | 'share'>('edit');
   function setNoteId(id) {
     note.id = id;
@@ -214,7 +160,7 @@
     }
     timer.value = setTimeout(() => {
       saveNote(isMsg);
-    }, 500);
+    }, 300);
   }
 
   function delNote() {
@@ -310,56 +256,14 @@
 </script>
 
 <style lang="less">
-  .note-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    height: 60px;
+  .note-container {
     width: 100%;
+    height: 100%;
     box-sizing: border-box;
-    padding: 0 20px;
-    background-color: var(--note-header-bg-color);
-    border-bottom: 1px solid var(--notePage-topBody-border-color);
-    position: fixed;
-    top: 0;
-  }
-  .note-header-title {
-    padding: 0 10px;
-    height: 28px;
+    position: fixed !important;
+    top: 0 !important;
     display: flex;
-    align-items: center;
-    border-radius: 6px;
-    box-sizing: border-box;
-    outline: none;
-    border: 1px solid transparent;
-    transition: border-color 0.1s linear;
-    &:hover {
-      border-color: rgba(0, 0, 0, 0.1) !important;
-    }
-    &:focus {
-      border-color: #615ced !important;
-    }
-    &:empty:before {
-      color: #aaa;
-      content: '未命名文档';
-    }
-  }
-  .note-header-title-icon {
-    background-color: white;
-    width: 36px;
-    height: 36px;
-    border: 1px solid #e8eaf2;
-    border-radius: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    color: #222222;
-    transition: border-color 0.1s linear;
-    &:hover {
-      border-color: var(--primary-color);
-    }
+    flex-direction: column;
   }
   .note-body-title {
     .ant-input {
@@ -381,6 +285,15 @@
         border: none;
       }
     }
+  }
+  .note-body {
+    display: flex;
+    padding: 20px;
+    box-sizing: border-box;
+    height: 100%;
+    position: fixed;
+    top: 60px;
+    width: 100%;
   }
   .back-icon {
     display: flex;

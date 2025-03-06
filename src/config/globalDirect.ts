@@ -2,14 +2,14 @@ import { apiBasePost } from '@/http/request';
 
 export default function (app) {
   app.directive('drag', (el, binding) => {
-    // 定义一个变量target来存储元素或者绑定的值
-    let target: any = null;
-
-    // 如果绑定了一个值，则将target设置为这个值，否则设置为el本身（即被拖拽的元素）
-    target = binding.value ? binding.value : el;
+    /*
+     * 如果绑定了一个值，则将target设置为这个值，否则设置为el本身（即被拖拽的元素）,传值主要用于只能按住元素上某个图标这种来拖动整个
+     * 元素的场景，此时需要把v-drag写在图标上，但是需要被拖动的元素需要传值给v-drag="拖动的元素"
+     * */
+    const target = binding.value ? binding.value : el;
 
     // 要实现拖动改变位置还需设置元素为绝对定位
-    // target.style.position = 'absolute';
+    target.style.position = 'fixed';
 
     // 为元素添加鼠标按下事件监听，用于开始拖拽
     el.onmousedown = (e) => {
@@ -27,10 +27,22 @@ export default function (app) {
         // 拖拽时要清空元素的外边距，否则位置会错乱
         target.style.margin = '0';
         // 计算移动后的位置，并设置元素的新位置
-        const l = e.clientX - disX;
-        const t = e.clientY - disY;
-        if (l > 5 && t > 5) {
-          // 判断移动的距离是否超过10像素，避免过于微小的移动
+        let l = e.clientX - disX;
+        let t = e.clientY - disY;
+        const screenWidth = window.innerWidth;
+        const screenHeight = window.innerHeight;
+        const elementWidth = target.offsetWidth;
+        const elementHeight = target.offsetHeight;
+
+        const maxLeft = screenWidth - elementWidth;
+        const maxTop = screenHeight - elementHeight;
+
+        // 使用Math.max和Math.min方法来确保元素不会被拖出屏幕
+        l = Math.max(0, Math.min(l, maxLeft));
+        t = Math.max(0, Math.min(t, maxTop));
+
+        if (l > 5 || t > 5) {
+          // 判断移动的距离是否超过5像素，避免过于微小的移动
           target.style.left = l + 'px';
           target.style.top = t + 'px';
         }

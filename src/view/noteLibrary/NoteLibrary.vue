@@ -40,9 +40,11 @@
           :style="{ color: bookmark.theme === 'day' ? 'rgb(102, 102, 102)' : '#ccc' }"
           v-html="extractAndConvertTags(note.content)"
         />
-        <div class="note-tags">
-          <div class="b-tag" @click.stop>标签开发中</div>
-          <div class="b-tag" @click.stop>测试标签</div>
+        <div class="note-tags" v-if="getTags(note)">
+          <div class="b-tag" v-for="tag in getTags(note)" @click.stop>{{ tag }}</div>
+        </div>
+        <div class="note-tags" v-else style="font-size: 12px">_</div>
+        <div>
         </div>
         <div
           :style="{ color: bookmark.theme === 'day' ? 'rgb(102, 102, 102)' : '#ccc' }"
@@ -59,7 +61,7 @@
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
   import router from '@/router';
   import { apiBasePost } from '@/http/request.ts';
-  import { ref } from 'vue';
+  import { computed, ref } from 'vue';
   import BButton from '@/components/BasicComponents/BButton/BButton.vue';
   import { bookmarkStore } from '@/store';
   const bookmark = bookmarkStore();
@@ -69,6 +71,13 @@
       noteList.value = res.data ?? [];
     }
   });
+
+  const getTags = function (note) {
+    if (note.tags) {
+      return JSON.parse(note.tags);
+    }
+    return '';
+  };
 
   // 提取<h>和<p>标签等并转换为<p>标签
   const extractAndConvertTags = (htmlContent: string) => {
@@ -179,8 +188,12 @@
     .b-tag {
       background-color: #eeedff;
       padding: 2px 4px;
+      min-width: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       border-radius: 6px;
-      font-size: 14px;
+      font-size: 12px;
       color: #8b88f2;
     }
   }

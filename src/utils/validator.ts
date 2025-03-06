@@ -13,8 +13,10 @@ export function checkEndCondition(objects: endCondition[]) {
   for (let obj of objects) {
     // 如果对象满足结束程序条件
     if (obj.endCondition) {
-      const type = obj.type || 'warning';
-      AntMessage[type](obj.message);
+      if (obj.message) {
+        const type = obj.type || 'warning';
+        AntMessage[type](obj.message);
+      }
       // 返回true
       return true;
     }
