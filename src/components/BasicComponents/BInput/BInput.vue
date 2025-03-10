@@ -3,7 +3,7 @@
     <textarea
       v-if="type === 'textarea'"
       :id="id"
-      :rows="4"
+      :rows="rows"
       class="b_textarea"
       :value="value"
       @input="handleInput"
@@ -57,6 +57,7 @@
       autocomplete: 'off' | 'on' | 'new-password';
       height: string;
       theme: string;
+      rows: number;
       maxlength: number | string;
     }>(),
     {
@@ -67,6 +68,7 @@
       height: '32px',
       theme: '',
       maxlength: '',
+      rows: 4,
     },
   );
   const value = defineModel('value');

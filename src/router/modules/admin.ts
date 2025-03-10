@@ -31,6 +31,10 @@ const adminRouter: AppRouteRecordRaw[] = [
         path: 'imageMg',
         component: () => import('@/view/admin/components/desktop/ImageMg.vue'),
       },
+      {
+        path: 'simpleSql',
+        component: () => import('@/view/admin/SimpleSql.vue'),
+      },
     ],
   },
   {

@@ -49,6 +49,11 @@
       title: '图片管理',
       icon: icon.userCenter.imgMg,
     },
+    {
+      id: 'simpleSql',
+      title: 'simpleSql',
+      icon: icon.userCenter.sql,
+    },
   ]);
 
   function nodeClick(menu: any) {

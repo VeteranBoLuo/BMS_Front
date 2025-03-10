@@ -2,10 +2,12 @@
   <BModal v-model:visible="visible" title="笔记标签配置" :mask-closable="false" @ok="saveTag">
     <div class="config-container">
       <div class="flex-align-center-gap">
-        <b-input :maxlength="5" placeholder="请输入标签，最多可关联3个标签" v-model:value="tagValue" /><b-button
-          @click="setTag"
-          >{{ currentTag !== -1 ? '更新' : '添加' }}</b-button
-        >
+        <b-input
+          :maxlength="5"
+          placeholder="请输入标签，最多可关联3个标签"
+          v-model:value="tagValue"
+          @keydown.enter="setTag"
+        /><b-button @click="setTag">{{ currentTag !== -1 ? '更新' : '添加' }}</b-button>
       </div>
       <VueDraggable v-model="tagList" class="note-tag-list" :animation="150">
         <div class="note-tag" v-for="tag in tagList" @click="tagUpdate(tag)" :key="tag">
@@ -90,7 +92,6 @@
     visible.value = false;
     emit('saveTag');
   }
-
 
   onMounted(() => {
     if (note.tags) {

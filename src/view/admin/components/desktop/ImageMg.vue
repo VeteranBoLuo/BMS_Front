@@ -7,7 +7,7 @@
         </template>
       </b-input>
       <a-select style="width: 100px" :options="imgOptions" v-model:value="imgType" />
-      <b-button @click="clearApiImages" type="primary">清空</b-button>
+      <b-button @click="clearApiImages" type="primary">清理</b-button>
     </b-space>
     <a-table
       :data-source="allImg[imgType]"
@@ -17,6 +17,27 @@
       :scroll="{ y: bookmark.screenHeight - 250 }"
       :pagination="false"
     >
+      <template #bodyCell="{ column, text, record }">
+        <template v-if="column.dataIndex === 'img'">
+          <div
+            style="
+              width: 40px;
+              height: 40px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              padding: 0.125rem;
+              background-color: rgb(255, 255, 255);
+              border-radius: 0.5rem;
+              flex-shrink: 0;
+            "
+            class="dom-hover"
+            @click="bookmark.refreshViewer('http://127.0.0.1:9001/uploads/' + record.fullFileName)"
+          >
+            <svg-icon size="40" title="点击预览" :src="getImgFullUrl(record.fullFileName)"
+          /></div>
+        </template>
+      </template>
     </a-table>
     <p>
       总计
@@ -49,6 +70,11 @@
   const imageColumns = computed(() => {
     return [
       {
+        title: '图片',
+        dataIndex: 'img',
+        width: 200,
+      },
+      {
         title: '名称',
         dataIndex: 'name',
         ellipsis: true,
@@ -76,7 +102,7 @@
   function clearApiImages() {
     Alert.alert({
       title: '提示',
-      content: `请确认是否要清空图片？`,
+      content: `请确认是否要清理图片？`,
       onOk() {
         apiBasePost('/api/common/clearImages', {
           images: allImg.value[imgType.value],
@@ -109,6 +135,10 @@
         allImg.value = res.data.items;
       }
     });
+  }
+
+  function getImgFullUrl(fullFileName) {
+    return `${window.location.protocol}//localhost:9001/uploads/${fullFileName}`;
   }
   onMounted(() => {
     searchApiImage();
