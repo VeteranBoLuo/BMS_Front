@@ -136,9 +136,8 @@
       }
     });
   }
-
   function getImgFullUrl(fullFileName) {
-    return `${window.location.protocol}//boluo66.top/uploads/${fullFileName}`;
+    return `${window.location.protocol}//${import.meta.env.VITE_HOST_URL}/uploads/${fullFileName}`;
   }
   onMounted(() => {
     searchApiImage();
