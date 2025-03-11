@@ -138,7 +138,7 @@
   }
 
   function getImgFullUrl(fullFileName) {
-    return `${window.location.protocol}//localhost:9001/uploads/${fullFileName}`;
+    return `${window.location.protocol}//boluo66.top/uploads/${fullFileName}`;
   }
   onMounted(() => {
     searchApiImage();
