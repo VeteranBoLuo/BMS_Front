@@ -110,6 +110,7 @@
   const route = useRoute();
   function handleUserLogout() {
     localStorage.setItem('userId', '');
+    console.log(route.name)
     if (route.name !== 'NoteDetail') {
       router.push('/home');
       bookmark.isShowLogin = true;
