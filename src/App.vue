@@ -38,8 +38,6 @@
     if (theme) {
       bookmark.theme = theme;
     }
-    applyTheme(bookmark.theme);
-
     // 设置指纹
     window['fingerprint'] = fingerprint();
 
@@ -52,7 +50,6 @@
       const res = await apiBaseGet('/api/user/getUserInfo');
       user.setUserInfo(res.data);
       bookmark.theme = res.data.theme || 'day';
-      applyTheme(bookmark.theme);
       localStorage.setItem('theme', bookmark.theme);
       if (res.status !== 200) {
         handleUserLogout();

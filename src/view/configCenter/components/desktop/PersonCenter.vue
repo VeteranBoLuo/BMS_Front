@@ -170,7 +170,6 @@
           bookmark.type = 'all';
           bookmark.refreshTag();
           router.push('/home');
-          console.log('out');
           // 获取游客信息
           userApi.getUserInfoById({ id: localStorage.getItem('userId') }).then((res: any) => {
             if (res.status === 'visitor') {
