@@ -260,6 +260,7 @@
       background-color: var(--tox-toolbar-bg) !important;
       border: 1px solid var(--tox-toolbar-header-border-color) !important;
       border-radius: 6px;
+      min-height: 90px;
     }
 
     .tox-toolbar__group {
