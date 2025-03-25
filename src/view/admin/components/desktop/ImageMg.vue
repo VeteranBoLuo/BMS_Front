@@ -32,7 +32,7 @@
               flex-shrink: 0;
             "
             class="dom-hover"
-            @click="bookmark.refreshViewer('http://127.0.0.1:9001/uploads/' + record.fullFileName)"
+            @click="bookmark.refreshViewer(getImgFullUrl(record.fullFileName))"
           >
             <svg-icon size="40" title="点击预览" :src="getImgFullUrl(record.fullFileName)"
           /></div>
