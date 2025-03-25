@@ -20,7 +20,7 @@
   import login from '@/view/login/index.vue';
   import BViewer from '@/components/Viewer/BViewer.vue';
   import { apiBaseGet } from '@/http/request';
-  import { useRouter } from 'vue-router';
+  import { useRoute, useRouter } from 'vue-router';
   import { fingerprint } from '@/utils/common';
 
   const router = useRouter();
@@ -107,10 +107,10 @@
     }
     applyTheme(bookmark.theme);
   }
-
+  const route = useRoute();
   function handleUserLogout() {
     localStorage.setItem('userId', '');
-    if (router.currentRoute.value.matched?.[0]?.path !== '/noteLibrary/:value(.*)') {
+    if (route.name !== 'NoteDetail') {
       router.push('/home');
       bookmark.isShowLogin = true;
     }
