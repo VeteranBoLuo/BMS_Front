@@ -107,14 +107,14 @@
     }
     applyTheme(bookmark.theme);
   }
-  const route = useRoute();
   function handleUserLogout() {
     localStorage.setItem('userId', '');
-    console.log(route.name)
-    if (route.name !== 'NoteDetail') {
-      router.push('/home');
-      bookmark.isShowLogin = true;
-    }
+    router.isReady().then(() => {
+      if (router.currentRoute.value.name !== 'NoteDetail') {
+        router.push('/home');
+        bookmark.isShowLogin = true;
+      }
+    });
   }
 
   router.beforeEach((to, from, next) => {
