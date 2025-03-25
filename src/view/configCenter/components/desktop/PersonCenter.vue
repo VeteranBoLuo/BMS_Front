@@ -96,9 +96,6 @@
 
   const user = useUserStore();
 
-  function getThemeStyle(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
-  }
 
   interface menuItemInterface {
     label: string;
@@ -173,12 +170,12 @@
           bookmark.type = 'all';
           bookmark.refreshTag();
           router.push('/home');
+          console.log('out');
           // 获取游客信息
-          userApi.getUserInfoById({ id: localStorage.getItem('userId') }).then((res) => {
-            if (res.status === 200) {
+          userApi.getUserInfoById({ id: localStorage.getItem('userId') }).then((res: any) => {
+            if (res.status === 'visitor') {
               user.setUserInfo(res.data);
               bookmark.theme = res.data.theme;
-              getThemeStyle(res.data.theme);
               localStorage.setItem('theme', res.data.theme);
             }
           });
@@ -207,7 +204,6 @@
     userVisible.value = true;
     menuVisible.value = false;
   }
-
 </script>
 
 <style scoped lang="less">
