@@ -114,6 +114,9 @@
   const user = useUserStore();
   const viewPhoneVisible = ref(false);
   async function handleLogin() {
+    if (disable.value) {
+      return;
+    }
     await formDataRef.value.validate();
     userApi
       .validateUser(formData.value)
@@ -239,6 +242,10 @@
       }
     },
   );
+
+  defineExpose({
+    handleLogin,
+  });
 </script>
 
 <style lang="less" scoped>

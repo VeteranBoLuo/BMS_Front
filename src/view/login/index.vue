@@ -2,11 +2,11 @@
   <teleport to="body">
     <div class="index-container">
       <div class="index-view">
-        <LoginPage v-model:title="title" v-model:formData="formData" />
+        <LoginPage ref="login" v-model:title="title" v-model:formData="formData" />
         <!------------注册------------->
-        <RegisterPage v-model:title="title" @update:success="registerSuccess" />
+        <RegisterPage ref="register" v-model:title="title" @update:success="registerSuccess" />
         <!------------重置------------->
-        <ResetPage v-model:title="title" />
+        <ResetPage ref="reset" v-model:title="title" />
       </div>
     </div>
   </teleport>
@@ -37,17 +37,32 @@
   }
 
   onMounted(() => {
-    document.addEventListener('keydown', clickEsc);
+    document.addEventListener('keydown', clickEvent);
     localStorage.setItem('userId', '');
   });
 
   onUnmounted(() => {
-    document.addEventListener('keydown', clickEsc);
+    document.addEventListener('keydown', clickEvent);
   });
 
-  function clickEsc(e) {
+  const login = ref();
+  const register = ref();
+  const reset = ref();
+  const handlers = {
+    登录: { ref: login, method: 'handleLogin' },
+    注册: { ref: register, method: 'handleRegister' },
+    重置: { ref: reset, method: 'handleReset' },
+  };
+
+  function clickEvent(e) {
     if (e.keyCode === 27) {
       bookmark.isShowLogin = false;
+    }
+    if (e.key === 'Enter') {
+      const handler = handlers[title.value];
+      if (handler?.ref.value && handler?.method) {
+        handler.ref.value[handler.method]();
+      }
     }
   }
 </script>

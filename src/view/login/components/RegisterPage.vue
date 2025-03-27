@@ -126,6 +126,9 @@
   const registerRef = ref();
   const emit = defineEmits(['update:success']);
   async function handleRegister() {
+    if (disable.value) {
+      return;
+    }
     await validateFun();
     formData.role = 'admin';
     userApi.registerUser(formData).then((res: any) => {
@@ -138,6 +141,10 @@
       }
     });
   }
+
+  defineExpose({
+    handleRegister,
+  });
 </script>
 
 <style lang="less" scoped>

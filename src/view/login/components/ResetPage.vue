@@ -118,13 +118,23 @@
     code: '',
   });
   const bookmark = bookmarkStore();
-  computed(() => {
+  const disable = computed(() => {
     return !formData.password || !formData.rPassword || !formData.email;
   });
   const resetRef = ref();
   async function validateFun(names: any) {
     await resetRef.value.validate(names);
   }
+
+  function handleReset() {
+    if (disable.value) {
+      return;
+    }
+  }
+
+  defineExpose({
+    handleReset,
+  });
 </script>
 <style lang="less" scoped>
   :deep(:-webkit-autofill) {
