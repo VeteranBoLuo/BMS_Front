@@ -177,10 +177,6 @@
   });
   ref<Viewer>();
   function zoomImage() {
-    const src = user.headPicture || icon.navigation.user;
-    if (src === icon.navigation.user) {
-      return;
-    }
     bookmark.refreshViewer(user.headPicture || icon.navigation.user);
     menuVisible.value = false;
   }
