@@ -1,10 +1,12 @@
 import { AppRouteRecordRaw } from '@/router';
+import { RoleEnum } from '@/config/bookmarkCfg.ts';
 
 const commonRouter: AppRouteRecordRaw[] = [
   {
     meta: {
       keepAlive: true,
       requireAuth: true,
+      roles: [RoleEnum.Root, RoleEnum.ADMIN, RoleEnum.VISITOR],
     },
     path: '/opinions',
     name: 'opinions',
@@ -14,6 +16,7 @@ const commonRouter: AppRouteRecordRaw[] = [
     meta: {
       keepAlive: true,
       requireAuth: true,
+      roles: [RoleEnum.Root, RoleEnum.ADMIN, RoleEnum.VISITOR],
     },
     path: '/myInfo',
     name: 'myInfo',

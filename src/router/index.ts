@@ -9,6 +9,7 @@ import adminRouter from '@/router/modules/admin';
 import manageRouter from '@/router/modules/manage.ts';
 import commonRouter from '@/router/modules/common.ts';
 import noteLibraryRouter from '@/router/modules/noteLibrary.ts';
+import { RoleEnum } from '@/config/bookmarkCfg.ts';
 export interface AppRouteRecordRaw {
   name?: string;
   meta?: RouteMeta;
@@ -21,6 +22,9 @@ export interface AppRouteRecordRaw {
 
 const routes: Array<RouteRecordRaw | any> = [
   {
+    meta: {
+      roles: [RoleEnum.Root, RoleEnum.ADMIN, RoleEnum.VISITOR],
+    },
     path: '/',
     name: '/',
     redirect: '/home',
@@ -28,18 +32,24 @@ const routes: Array<RouteRecordRaw | any> = [
     children: [mainPageRouter, helpRouter, ...adminRouter, manageRouter, ...noteLibraryRouter],
   },
   {
+    meta: {
+      roles: [RoleEnum.Root, RoleEnum.ADMIN, RoleEnum.VISITOR],
+    },
     path: '/personCenter',
     name: 'personCenter',
     component: () => import('@/view/configCenter/components/phone/PPersonCenter.vue'),
   },
   {
+    meta: {
+      roles: [RoleEnum.Root, RoleEnum.ADMIN, RoleEnum.VISITOR],
+    },
     path: '/noteLibrary/:value(.*)',
     name: 'NoteDetail',
     component: () => import('@/view/noteLibrary/components/NoteDetail.vue'),
   },
   ...commonRouter,
   loginRouter,
-  statusRouter,
+  ...statusRouter,
 ];
 
 const router = createRouter({

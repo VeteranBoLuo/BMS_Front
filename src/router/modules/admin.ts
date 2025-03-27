@@ -1,4 +1,5 @@
 import { AppRouteRecordRaw } from '@/router';
+import { RoleEnum } from '@/config/bookmarkCfg.ts';
 
 const adminRouter: AppRouteRecordRaw[] = [
   {
@@ -6,6 +7,7 @@ const adminRouter: AppRouteRecordRaw[] = [
       title: '后台管理',
       keepAlive: true,
       requireAuth: true,
+      roles: [RoleEnum.Root],
     },
     path: '/admin',
     name: 'admin',

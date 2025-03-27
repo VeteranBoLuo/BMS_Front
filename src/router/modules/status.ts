@@ -1,9 +1,23 @@
 import { AppRouteRecordRaw } from '@/router';
+import { RoleEnum } from '@/config/bookmarkCfg.ts';
 
-const statusRouter: AppRouteRecordRaw = {
-  path: '/:catchAll(.*)',
-  name: 'not-found',
-  component: () => import('@/components/PageResponse/404.vue'),
-};
+const statusRouter: AppRouteRecordRaw[] = [
+  {
+    path: '/:catchAll(.*)',
+    name: 'not-found',
+    meta: {
+      roles: [RoleEnum.Root, RoleEnum.ADMIN, RoleEnum.VISITOR],
+    },
+    component: () => import('@/components/PageResponse/404.vue'),
+  },
+  {
+    path: '/403',
+    name: 'not-role',
+    meta: {
+      roles: [RoleEnum.Root, RoleEnum.ADMIN, RoleEnum.VISITOR],
+    },
+    component: () => import('@/components/PageResponse/403.vue'),
+  },
+];
 
 export default statusRouter;

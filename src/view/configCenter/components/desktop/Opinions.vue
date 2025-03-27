@@ -110,7 +110,6 @@
   }
 
   function submit() {
-    visible.value = false;
     if (opinionData.content.length < 6) {
       message.warning('请输入不少于6字的问题描述');
       return;

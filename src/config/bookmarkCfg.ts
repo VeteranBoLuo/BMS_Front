@@ -13,3 +13,11 @@ export type BaseOptions = {
   label: string;
   value: any;
 };
+
+export enum RoleEnum {
+  VISITOR = 'visitor',
+
+  Root = 'root',
+
+  ADMIN = 'admin',
+}

@@ -1,4 +1,5 @@
 import { AppRouteRecordRaw } from '@/router';
+import { RoleEnum } from '@/config/bookmarkCfg.ts';
 
 const mainPageRouter: AppRouteRecordRaw = {
   path: 'home',
@@ -6,6 +7,7 @@ const mainPageRouter: AppRouteRecordRaw = {
     title: '首页',
     keepAlive: true,
     requireAuth: true,
+    roles: [RoleEnum.Root, RoleEnum.ADMIN, RoleEnum.VISITOR],
   },
   children: [
     {

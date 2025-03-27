@@ -1,10 +1,12 @@
 import { AppRouteRecordRaw } from '@/router';
+import { RoleEnum } from '@/config/bookmarkCfg.ts';
 
 const manageRouter: AppRouteRecordRaw = {
   meta: {
     title: '数据管理',
     keepAlive: true,
     requireAuth: true,
+    roles: [RoleEnum.Root, RoleEnum.ADMIN, RoleEnum.VISITOR],
   },
   path: '/manage',
   name: 'manage',
@@ -25,12 +27,12 @@ const manageRouter: AppRouteRecordRaw = {
       component: () => import('@/view/manage/BookmarkMg.vue'),
     },
     {
-      name:'bookmarkEditMg',
+      name: 'bookmarkEditMg',
       path: 'editBookmark/:id',
       component: () => import('@/view/manage/BookmarkEditMg.vue'),
     },
     {
-      name:'bookmarkEditMgAddByTag',
+      name: 'bookmarkEditMgAddByTag',
       path: 'editBookmark/add/:tagId', // 新增时，自动关联tag
       component: () => import('@/view/manage/BookmarkEditMg.vue'),
     },
