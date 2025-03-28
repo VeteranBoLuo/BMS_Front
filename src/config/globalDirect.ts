@@ -63,8 +63,19 @@ export default function (app) {
   });
 
   app.directive('click-log', (el, binding) => {
+    let isMouseDown = false;
     el.onmousedown = () => {
-      apiBasePost('/api/common/recordOperationLogs', binding.value).then(() => {});
+      isMouseDown = true;
+    };
+    el.onmouseup = () => {
+      if (isMouseDown) {
+        apiBasePost('/api/common/recordOperationLogs', binding.value).then(() => {});
+      }
+      isMouseDown = false;
+    };
+    // 如果鼠标按下后移出元素再释放，也需要重置状态
+    el.onmouseleave = () => {
+      isMouseDown = false;
     };
   });
 }

@@ -1,6 +1,12 @@
 <template>
   <div class="filter-panel">
-    <b-list class="header-input" :list-options="filterTagList" :node-type="{ id: 'id', title: 'name' }">
+    <b-list
+      draggable
+      class="header-input"
+      v-model:listOptions="filterTagList"
+      v-model:dragList="bookmark.tagList"
+      :node-type="{ id: 'id', title: 'name' }"
+    >
       <template #input>
         <b-input placeholder="请输入标签名" v-model:value="tagName" id="ref1">
           <template #suffix>

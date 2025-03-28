@@ -4,37 +4,41 @@
       <b-input v-model:value="searchValue" :placeholder="placeholder" v-if="searchFilter" />
     </slot>
     <div class="category-body" :style="{ marginTop: hasInputSlot ? '10px' : '' }">
-      <div :key="item[nodeType.id]" v-for="item in viewList" @click="nodeClick(item)">
-        <slot name="item" :item="item">
-          <div
-            class="category-item"
-            :title="item[nodeType.title]"
-            :style="{
-              backgroundColor:
-                String(nodeCheckId) === String(item[nodeType.id])
-                  ? 'var(--category-item-ba-color)'
-                  : '',
-            }"
-          >
-            <slot name="icon" :item="item"> </slot>
-            <span
-              class="text-hidden"
-              :style="{ width: hasIconSlot ? 'calc(100% - 28px)' : '100%' }"
+      <VueDraggable :disabled="!draggable" :animation="200" ref="el" v-model="dragList" @end="onEnd">
+        <div :key="item[nodeType.id]" v-for="item in listOptions" @click="nodeClick(item)">
+          <slot name="item" :item="item">
+            <div
+              class="category-item"
+              :title="item[nodeType.title]"
+              :style="{
+                backgroundColor:
+                  String(nodeCheckId) === String(item[nodeType.id]) ? 'var(--category-item-ba-color)' : '',
+              }"
             >
-              <slot name="title" :item="item">
-                {{ item[nodeType.title] }}
-              </slot>
-            </span>
-          </div>
-        </slot>
-      </div>
+              <slot name="icon" :item="item"> </slot>
+              <span class="text-hidden" :style="{ width: hasIconSlot ? 'calc(100% - 28px)' : '100%' }">
+                <slot name="title" :item="item">
+                  {{ item[nodeType.title] }}
+                </slot>
+              </span>
+            </div>
+          </slot>
+        </div>
+      </VueDraggable>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
   import BInput from '@/components/BasicComponents/BInput/BInput.vue';
+  import { VueDraggable } from 'vue-draggable-plus';
   import { computed, ref, watch, useSlots } from 'vue';
+  import { bookmarkStore } from '@/store';
+  import { TagInterface } from '@/config/bookmarkCfg.ts';
+  import { apiBasePost, apiQueryPost } from '@/http/request.ts';
+  import { message } from 'ant-design-vue';
+
+  const dragList = defineModel('dragList');
 
   const props = withDefaults(
     defineProps<{
@@ -44,8 +48,8 @@
       };
       checkId: string | number;
       placeholder: string;
-      listOptions: any;
       searchFilter: boolean; // 启动自带input过滤功能
+      draggable: boolean;
     }>(),
     {
       nodeType: () => ({
@@ -55,17 +59,36 @@
       placeholder: '请输入',
       checkId: '',
       searchFilter: false,
+      draggable: false,
     },
   );
-  const searchValue = ref('');
-  const viewList = computed<{ [key: string]: any }[]>(() => {
-    if (!searchValue.value || props.searchFilter === false) {
-      return props.listOptions;
+  const bookmark = bookmarkStore();
+  const userId = localStorage?.getItem('userId');
+
+  async function onEnd(e: any) {
+    try {
+      const sortedTags =
+        bookmark.tagList?.map((tag: TagInterface, index: number) => ({
+          name: tag.name,
+          sort: index,
+          id: tag.id,
+        })) || [];
+
+      const updateResponse = await apiBasePost('/api/bookmark/updateTagSort', { tags: sortedTags });
+      if (updateResponse.status === 200) {
+        const queryResponse = await apiQueryPost('/api/bookmark/queryTagList', {
+          filters: { userId },
+        });
+        if (queryResponse.status === 200) {
+          bookmark.tagList = queryResponse.data;
+        }
+      }
+    } catch (error) {
+      console.error('Error updating tag sort:', error);
     }
-    return props.listOptions.filter((item: any) => {
-      return item[props.nodeType.title].toUpperCase().includes(searchValue.value.toUpperCase());
-    });
-  });
+  }
+  const searchValue = ref('');
+  const listOptions = defineModel('listOptions');
   const emit = defineEmits(['node-click']);
   const nodeCheckId = ref(props.checkId);
   function nodeClick(item) {

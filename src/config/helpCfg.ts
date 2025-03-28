@@ -56,6 +56,7 @@ export const listOptions = ref([
          <p style="text-align: left">4、新增成功后可在标签管理页面和首页查看</p>
         <img src="${tagTable}"  alt="标签示例" class="bookmark-image"   width="80%" style="border: 1px solid;"/>
          <img src="${tagTree}"  alt="标签示例" class="bookmark-image"   width="80%" style="border: 1px solid;"/>
+          <p style="text-align: left;font-size: 12px">注：标签列表可通过拖拽排序</p>
     </p>
         <i style="text-align: center;font-size: 12px">标签管理示例</i>
       </div>
