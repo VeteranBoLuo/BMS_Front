@@ -174,7 +174,7 @@
 
 
 
-### 网站地址
+### 网站详情
 **[智汇云书签](https://boluo66.top/)**
 ###
 **[**更新日志**](https://boluo66.top/#/manage/updateLogs)**
