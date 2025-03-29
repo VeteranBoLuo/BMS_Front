@@ -112,8 +112,7 @@
   function handleUserLogout() {
     localStorage.setItem('userId', '');
     router.isReady().then(() => {
-      if (router.currentRoute.value.name !== 'NoteDetail') {
-        router.push('/home');
+      if (router.currentRoute.value.name !== 'NoteDetail' && router.currentRoute.value.name !== 'updateLogs') {
         bookmark.isShowLogin = true;
       }
     });
