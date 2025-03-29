@@ -115,10 +115,4 @@ export const listOptions = ref([
   <b style="font-size: 20px">感谢您对项目的支持与关注，您的意见是我不断进步的动力！</b></div>
     </div>`,
   },
-  {
-    id: '更新日志',
-    title: '更新日志',
-    type: 'vue',
-    content: UpdateLogs,
-  },
 ]);
