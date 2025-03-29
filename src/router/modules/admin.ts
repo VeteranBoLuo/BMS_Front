@@ -18,6 +18,10 @@ const adminRouter: AppRouteRecordRaw[] = [
         component: () => import('@/view/admin/components/desktop/ApiLog.vue'),
       },
       {
+        path: 'attackLog',
+        component: () => import('@/view/admin/components/desktop/attackLog.vue'),
+      },
+      {
         path: 'operationLog',
         component: () => import('@/view/admin/components/desktop/OperationLog.vue'),
       },

@@ -35,6 +35,11 @@
       icon: icon.userCenter.log,
     },
     {
+      id: 'attackLog',
+      title: '攻击日志',
+      icon: icon.userCenter.log,
+    },
+    {
       id: 'userMg',
       title: '用户管理',
       icon: icon.navigation.user,
