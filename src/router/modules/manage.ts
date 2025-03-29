@@ -36,6 +36,11 @@ const manageRouter: AppRouteRecordRaw = {
       path: 'editBookmark/add/:tagId', // 新增时，自动关联tag
       component: () => import('@/view/manage/BookmarkEditMg.vue'),
     },
+    {
+      name: 'updateLogs',
+      path: 'updateLogs', // 新增时，自动关联tag
+      component: () => import('@/view/configCenter/components/common/updateLogs.vue'),
+    },
   ],
 };
 

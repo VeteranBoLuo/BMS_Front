@@ -1,20 +1,23 @@
 <template>
-  <div class="phone-container no-scrollbar">
-    <div class="phone-navigation">
-      <slot name="navigation">
-        <span
-          style="position: absolute; left: 0; top: 30px; transform: translateY(-50%)"
-          class="flex-align-center dom-hover"
-          @click="backClick"
-        >
-          <svg-icon :src="icon.arrow_left" size="25" />
-        </span>
-        <span>{{ title }}</span>
-      </slot>
+  <div>
+    <div class="phone-container no-scrollbar" v-if="bookmark.isPhone">
+      <div class="phone-navigation">
+        <slot name="navigation">
+          <span
+            style="position: absolute; left: 0; top: 30px; transform: translateY(-50%)"
+            class="flex-align-center dom-hover"
+            @click="backClick"
+          >
+            <svg-icon :src="icon.arrow_left" size="25" />
+          </span>
+          <span>{{ title }}</span>
+        </slot>
+      </div>
+      <div class="phone-body">
+        <slot name="default" />
+      </div>
     </div>
-    <div class="phone-body">
-      <slot name="default" />
-    </div>
+    <slot name="default" v-else />
   </div>
 </template>
 
