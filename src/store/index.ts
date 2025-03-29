@@ -97,7 +97,7 @@ export const bookmarkStore = defineStore('bookmark', {
       }
     >{
       tagData: {
-        associatedTagList: [], // 当前选中标签详情
+        relatedTagList: [], // 当前选中标签详情
       },
       tagList: [], // 标签列表
       bookmarkList: [], // 书签列表
@@ -147,7 +147,7 @@ export const bookmarkStore = defineStore('bookmark', {
     },
     reset() {
       this.tagData = {
-        associatedTagList: [],
+        relatedTagList: [],
       };
       this.tagList = [];
       this.bookmarkList = [];

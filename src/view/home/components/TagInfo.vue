@@ -3,14 +3,14 @@
     <template v-if="bookmark.type === 'normal' && bookmark.tagData">
       <div class="category-title">{{ bookmark.tagData?.name || '智汇云书签' }}</div>
       <div class="category-content">
-        {{ bookmark.tagData.associatedTagList?.length }} 个相关书签，{{ bookmark.tagData.bookmarkList?.length }}
+        {{ bookmark.tagData.relatedTagList?.length }} 个相关书签，{{ bookmark.tagData.bookmarkList?.length }}
         个关联标签
       </div>
       <div class="category-tag">
         <div
           class="category-tag-item dom-hover"
           @click="handleToTagPage(tag)"
-          v-for="tag in bookmark.tagData?.associatedTagList"
+          v-for="tag in bookmark.tagData?.relatedTagList"
           >{{ tag.name }}</div
         >
       </div>

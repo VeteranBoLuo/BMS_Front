@@ -29,10 +29,10 @@
               {{ text }}
             </span>
           </template>
-          <template v-else-if="column.dataIndex === 'associatedTagIds'">
+          <template v-else-if="column.dataIndex === 'relatedTagIds'">
             <div>
               <div style="display: flex; align-items: center; gap: 10px">
-                <div :title="tag.name" class="common-tag" v-for="tag in record.associatedTagList" :key="tag.id">
+                <div :title="tag.name" class="common-tag" v-for="tag in record.relatedTagList" :key="tag.id">
                   {{ tag.name }}
                 </div>
               </div>
@@ -116,7 +116,7 @@
           0,
           {
             title: '相关标签',
-            dataIndex: 'associatedTagIds',
+            dataIndex: 'relatedTagIds',
             ellipsis: true,
           },
           {

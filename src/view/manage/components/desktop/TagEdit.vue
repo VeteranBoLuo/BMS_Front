@@ -44,7 +44,7 @@
             :options="tagOptions"
             show-search
             :filter-option="SelectionSearch"
-            v-model:value="tag.associatedTagIds"
+            v-model:value="tag.relatedTagIds"
           />
         </div>
         <div class="tag-attr-item">
@@ -269,7 +269,7 @@
         id: tag.value.id,
       },
     });
-    tag.value.associatedTagIds = relatedRes.data?.map((data) => data.id);
+    tag.value.relatedTagIds = relatedRes.data?.map((data) => data.id);
     loading.value = false;
   });
 </script>
