@@ -10,8 +10,11 @@
     >
       <template #expandedRowRender="{ record }">
         <div style="max-height: 300px; overflow-y: auto; min-height: 120px; color: var(--text-color)">
+          <div>攻击类型：{{ record.attackType }}</div>
           <div>攻击时间：{{ record.createdAt }}</div>
-          <div>攻击者：{{ record.userAgent }}</div>
+          <div>攻击者userAgent：{{ record.userAgent }}</div>
+          <div>请求方法：{{ record.requestMethod }}</div>
+          <div>请求地址：{{ record.requestPath }}</div>
           <div>
             攻击载荷：
             <pre>{{ record.payload }}</pre>
