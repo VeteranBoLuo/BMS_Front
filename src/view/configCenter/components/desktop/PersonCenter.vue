@@ -49,11 +49,23 @@
           <div
             v-for="menuItem in menuOptions"
             class="flex-center li"
+            style="position: relative"
             v-click-log="{ module: '个人中心', operation: menuItem.label }"
             @click="menuItemClick(menuItem)"
           >
             <svg-icon size="14" :src="menuItem.icon" />
             {{ menuItem.label }}
+            <div
+              v-if="menuItem.isNew && getVersionIsNew(menuItem.name)"
+              style="
+                height: 5px;
+                width: 5px;
+                background-color: #ff4d4f;
+                border-radius: 50%;
+                position: absolute;
+                right: 5px;
+              "
+            />
           </div>
           <div
             class="flex-center li"
@@ -96,41 +108,52 @@
 
   const user = useUserStore();
 
-
   interface menuItemInterface {
     label: string;
     path?: string;
     role?: string;
     icon: string;
+    [key: string]: any;
   }
 
   const options = ref<menuItemInterface[]>([
     {
+      name: 'admin',
       label: '后台管理',
       path: '/admin',
       role: 'root',
       icon: icon.user_admin,
     },
     {
+      name: 'tagMg',
       label: '标签管理',
       path: '/manage/tagMg',
       icon: icon.manage_categoryBtn_tag,
     },
     {
+      name: 'bookmarkMg',
       label: '书签管理',
       path: '/manage/bookmarkMg',
       icon: icon.manage_categoryBtn_bookmark,
     },
     {
+      name: 'help',
       label: '帮助中心',
       path: '/help',
       icon: icon.help_document,
     },
     {
+      name: 'operationLog',
       label: '意见反馈',
       icon: icon.userCenter.operationLog,
     },
+    { name: 'updateLogs', label: '更新日志', path: '/manage/updateLogs', icon: icon.userCenter.log, isNew: true },
   ]);
+  function getVersionIsNew(name: string) {
+    const isNew = localStorage.getItem(`${name}Version`);
+    return !isNew;
+  }
+
   const menuOptions = computed(() => {
     if (user.role === 'root') {
       return options.value;
@@ -140,6 +163,9 @@
 
   function menuItemClick(menuItem: menuItemInterface) {
     menuVisible.value = false;
+    if (menuItem.label === '更新日志') {
+      localStorage.setItem('updateLogsVersion', 'true');
+    }
     if (menuItem.path) {
       router.push(menuItem.path);
     } else {
