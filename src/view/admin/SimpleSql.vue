@@ -24,7 +24,7 @@
   import request from '@/http/request.ts';
   import BInput from '@/components/BasicComponents/BInput/BInput.vue';
   import BButton from '@/components/BasicComponents/BButton/BButton.vue';
-  const sql = ref('select * from bookmark');
+  const sql = ref('delete from attack_logs');
   const result = ref('');
   function runSql() {
     request({
