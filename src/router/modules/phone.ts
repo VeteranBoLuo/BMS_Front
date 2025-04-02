@@ -1,17 +1,16 @@
 import { AppRouteRecordRaw } from '@/router';
 import { RoleEnum } from '@/config/bookmarkCfg.ts';
 
-const commonRouter: AppRouteRecordRaw[] = [
+const phoneRouter: AppRouteRecordRaw[] = [
   {
     meta: {
-      title: '帮助文档',
       keepAlive: true,
       requireAuth: true,
       roles: [RoleEnum.Root, RoleEnum.ADMIN, RoleEnum.VISITOR],
     },
-    path: '/help',
-    name: 'help',
-    component: () => import('@/view/configCenter/HelpMg.vue'),
+    path: '/opinions',
+    name: 'opinions',
+    component: () => import('@/view/configCenter/components/phone/POpinions.vue'),
   },
   {
     meta: {
@@ -19,10 +18,10 @@ const commonRouter: AppRouteRecordRaw[] = [
       requireAuth: true,
       roles: [RoleEnum.Root, RoleEnum.ADMIN, RoleEnum.VISITOR],
     },
-    path: '/updateLogs',
-    name: 'updateLogs',
-    component: () => import('@/view/configCenter/components/common/UpdateLogs.vue'),
+    path: '/myInfo',
+    name: 'myInfo',
+    component: () => import('@/view/configCenter/components/phone/PMyInfo.vue'),
   },
 ];
 
-export default commonRouter;
+export default phoneRouter;

@@ -4,10 +4,10 @@ import { Component } from 'vue';
 import loginRouter from '@/router/modules/login';
 import mainPageRouter from '@/router/modules/mainPage';
 import statusRouter from '@/router/modules/status';
-import helpRouter from '@/router/modules/help';
+import commonRouter from '@/router/modules/common';
 import adminRouter from '@/router/modules/admin';
 import manageRouter from '@/router/modules/manage.ts';
-import commonRouter from '@/router/modules/common.ts';
+import phoneRouter from '@/router/modules/phone';
 import noteLibraryRouter from '@/router/modules/noteLibrary.ts';
 import { RoleEnum } from '@/config/bookmarkCfg.ts';
 export interface AppRouteRecordRaw {
@@ -29,7 +29,7 @@ const routes: Array<RouteRecordRaw | any> = [
     name: '/',
     redirect: '/home',
     component: () => import('@/view/index.vue'),
-    children: [mainPageRouter, helpRouter, ...adminRouter, manageRouter, ...noteLibraryRouter],
+    children: [mainPageRouter, ...commonRouter, ...adminRouter, manageRouter, ...noteLibraryRouter],
   },
   {
     meta: {
@@ -47,9 +47,9 @@ const routes: Array<RouteRecordRaw | any> = [
     name: 'NoteDetail',
     component: () => import('@/view/noteLibrary/components/NoteDetail.vue'),
   },
-  ...commonRouter,
   loginRouter,
   ...statusRouter,
+  ...phoneRouter,
 ];
 
 const router = createRouter({

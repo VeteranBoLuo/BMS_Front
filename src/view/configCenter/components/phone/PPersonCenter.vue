@@ -104,7 +104,7 @@
       ></div>
       <div
           class="person-menu-item"
-          @click="$router.push('/manage/updateLogs')"
+          @click="$router.push('/updateLogs')"
           v-click-log="{ module: '更新日志', operation: `更新日志` }"
       >
         <span class="person-menu-item-title">更新日志</span>
