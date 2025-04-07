@@ -147,7 +147,7 @@
       label: '意见反馈',
       icon: icon.userCenter.operationLog,
     },
-    { name: 'updateLogs', label: '更新日志', path: 'updateLogs', icon: icon.userCenter.log, isNew: true },
+    { name: 'updateLogs', label: '更新日志', path: '/updateLogs', icon: icon.userCenter.log, isNew: true },
   ]);
   function getVersionIsNew(name: string) {
     const isNew = localStorage.getItem(`${name}Version`);
