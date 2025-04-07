@@ -53,13 +53,13 @@
         ellipsis: true,
       },
       {
-        title: '攻击载荷',
-        dataIndex: 'payload',
+        title: '请求地址',
+        dataIndex: 'requestPath',
         ellipsis: true,
       },
       {
-        title: '攻击者',
-        dataIndex: 'userAgent',
+        title: '攻击载荷',
+        dataIndex: 'payload',
         ellipsis: true,
       },
       {

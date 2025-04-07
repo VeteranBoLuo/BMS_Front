@@ -46,10 +46,13 @@ request.interceptors.response.use((config) => {
 export const apiQueryPost = async (
   url: string,
   data?: {
-    pageSize?: number;
-    currentPage?: number;
+    pageSize?: number; // 每页数量
+    currentPage?: number; // 当前页码
     level?: number;
-    filters?: any;
+    order?: {
+      [key: string]: 'DESC' | 'ASC';
+    }; // 排序对象，属性名和属性分别是字段名和排序方法（ASC/DESC）
+    filters?: any; // 通过指定条件筛选数据
   },
   options?: AxiosRequestConfig,
 ) => {
@@ -61,6 +64,7 @@ export const apiQueryPost = async (
       currentPage: data?.currentPage ?? 1,
       level: data?.level ?? 0,
       filters: data?.filters ?? {},
+      order: data?.order ?? {},
     },
     ...options,
   });
