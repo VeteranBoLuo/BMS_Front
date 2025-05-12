@@ -262,6 +262,11 @@
       border-radius: 6px;
       min-height: 90px;
     }
+    @media (max-width: 600px) {
+      .tox-editor-header {
+        display: none;
+      }
+    }
 
     .tox-toolbar__group {
       gap: var(--tox-toolbar__group-gap) !important;

@@ -1,6 +1,6 @@
 <template>
   <div class="toc-container">
-    <div style="border-left: 1px solid #e8eaf2; margin: 10px; box-sizing: border-box">
+    <div :class="[bookmark.isPhone ? 'phone-catalog' : 'catalog']" v-if="!bookmark.isPhone || isShowPhoneCategory">
       <div
         v-for="(heading, index) in note.headings"
         :key="index"
@@ -13,6 +13,9 @@
         <span class="text-hidden" style="font-size: 14px">{{ heading.text }}</span>
       </div>
     </div>
+    <div v-if="bookmark.isPhone" class="folder" title="目录" @click="getCategory">
+      <svg-icon :src="icon.noteDetail.catalogue" size="24" />
+    </div>
   </div>
 </template>
 
@@ -20,6 +23,8 @@
   import { nextTick, ref, watch } from 'vue';
   import { bookmarkStore, noteStore } from '@/store';
   import { customTimer } from '@/utils/common.ts';
+  import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
+  import icon from '@/config/icon.ts';
   const bookmark = bookmarkStore();
   const props = defineProps<{
     content: string;
@@ -38,6 +43,31 @@
       heading.element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
+
+  const isShowPhoneCategory = ref(false);
+  function getCategory() {
+    isShowPhoneCategory.value = !isShowPhoneCategory.value;
+  }
+
+  function closeCategory(e: any) {
+    console.log('e', e.target);
+    const topDom = document.querySelector('.toc-container');
+
+    if (!topDom?.contains(e.target)) {
+      isShowPhoneCategory.value = false;
+    }
+  }
+
+  watch(
+    () => isShowPhoneCategory.value,
+    (val) => {
+      if (val) {
+        document.addEventListener('click', closeCategory);
+      } else {
+        document.removeEventListener('click', closeCategory);
+      }
+    },
+  );
 
   watch(
     () => props.content,
@@ -74,6 +104,29 @@
     width: 2px;
     height: 1.5rem;
     background-color: #615ced;
+  }
+  .folder {
+    position: fixed;
+    left: 2px;
+    top: 25%;
+    color: white;
+    cursor: pointer;
+    z-index: 999;
+  }
+  .catalog {
+    border-left: 1px solid #e8eaf2;
+    margin: 10px;
+    box-sizing: border-box;
+  }
+  .phone-catalog {
+    left: 30px;
+    position: fixed;
+    z-index: 999;
+    background: white;
+    width: 200px;
+    border-radius: 8px;
+    max-height: 50%;
+    overflow-y: auto;
   }
   @media (max-width: 1919px) {
     .toc-container {

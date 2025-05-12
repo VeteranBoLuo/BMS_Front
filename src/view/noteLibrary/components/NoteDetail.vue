@@ -11,7 +11,7 @@
       @saveTag="clickSaveNote"
     />
     <div class="note-body">
-      <Catalog v-if="!bookmark.isPhone" :content="note.content" />
+      <Catalog :content="note.content" />
       <div class="note-body-header footer-center">
         <div class="note-body-title n-title">
           <a-input :disabled="readonly" v-model:value="note.title" @focusout="inputBlur" placeholder="请输入标题" />
