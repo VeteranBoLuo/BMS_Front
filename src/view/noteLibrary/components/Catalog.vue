@@ -106,7 +106,7 @@
   }
   .folder {
     position: fixed;
-    left: 2px;
+    left: 5px;
     top: 25%;
     color: white;
     cursor: pointer;
