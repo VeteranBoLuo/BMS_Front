@@ -7,14 +7,14 @@
         @click="() => scrollToHeading(index)"
         :class="{ active: activeHeading === index }"
         class="toc-item"
-        :style="{ paddingLeft: `${heading.level * 16}px`, color: bookmark.theme === 'day' ? '#585a73' : '#ccc' }"
+        :style="{ paddingLeft: `${heading.level * 16}px` }"
       >
         <span class="toc-line" v-if="activeHeading === index"></span>
         <span class="text-hidden" style="font-size: 14px">{{ heading.text }}</span>
       </div>
     </div>
-    <div v-if="bookmark.isPhone" class="folder" title="目录" @click="getCategory">
-      <svg-icon :src="icon.noteDetail.catalogue" size="24" />
+    <div v-if="bookmark.isPhone && note.headings.length > 0" class="folder" title="目录" @click="getCategory">
+      <svg-icon :src="icon.noteDetail.catalogue" size="24" style="color: var(--text-color)" />
     </div>
   </div>
 </template>
@@ -50,9 +50,7 @@
   }
 
   function closeCategory(e: any) {
-    console.log('e', e.target);
     const topDom = document.querySelector('.toc-container');
-
     if (!topDom?.contains(e.target)) {
       isShowPhoneCategory.value = false;
     }
@@ -91,6 +89,7 @@
     position: relative;
     display: flex;
     align-items: center;
+    color: var(--catalog-color);
   }
 
   .toc-item.active {
@@ -120,13 +119,25 @@
   }
   .phone-catalog {
     left: 30px;
+    top: 50%;
+    transform: translateY(-50%);
     position: fixed;
     z-index: 999;
     background: white;
     width: 200px;
     border-radius: 8px;
+    box-shadow:
+      0 6px 16px 0 rgba(0, 0, 0, 0.08),
+      0 3px 6px -4px rgba(0, 0, 0, 0.12),
+      0 9px 28px 8px rgba(0, 0, 0, 0.05);
     max-height: 50%;
     overflow-y: auto;
+    .toc-item {
+      color: #666666 !important;
+    }
+    .toc-item.active {
+      color: #615ced !important;
+    }
   }
   @media (max-width: 1919px) {
     .toc-container {

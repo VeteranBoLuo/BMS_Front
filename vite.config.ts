@@ -34,6 +34,8 @@ export default defineConfig({
   // 根据mode加载不同的.env文件
   envDir: './',
   server: {
+    host: '0.0.0.0',
+    port: 5173,
     proxy: {
       '/api': {
         target: 'http://127.0.0.1:9001',

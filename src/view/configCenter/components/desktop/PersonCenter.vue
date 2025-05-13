@@ -56,15 +56,8 @@
             <svg-icon size="14" :src="menuItem.icon" />
             {{ menuItem.label }}
             <div
-              v-if="menuItem.isNew && getVersionIsNew(menuItem.name)"
-              style="
-                height: 5px;
-                width: 5px;
-                background-color: #ff4d4f;
-                border-radius: 50%;
-                position: absolute;
-                right: 5px;
-              "
+              v-if="getVersionIsNew(menuItem)"
+              class="update-point"
             />
           </div>
           <div
@@ -147,11 +140,14 @@
       label: '意见反馈',
       icon: icon.userCenter.operationLog,
     },
-    { name: 'updateLogs', label: '更新日志', path: '/updateLogs', icon: icon.userCenter.log, isNew: true },
+    { name: 'updateLogs', label: '更新日志', path: '/updateLogs', icon: icon.userCenter.log, version: '1.0' },
   ]);
-  function getVersionIsNew(name: string) {
-    const isNew = localStorage.getItem(`${name}Version`);
-    return !isNew;
+  function getVersionIsNew(menu: any) {
+    if (menu.version) {
+      const version = localStorage.getItem(`${menu.name}Version`);
+      return version !== menu.version;
+    }
+    return false;
   }
 
   const menuOptions = computed(() => {
@@ -163,8 +159,8 @@
 
   function menuItemClick(menuItem: menuItemInterface) {
     menuVisible.value = false;
-    if (menuItem.label === '更新日志') {
-      localStorage.setItem('updateLogsVersion', 'true');
+    if (menuItem.version) {
+      localStorage.setItem(`${menuItem.name}Version`, menuItem.version);
     }
     if (menuItem.path) {
       router.push(menuItem.path);
@@ -294,6 +290,14 @@
     animation-name: zoom;
     animation-duration: 0.6s;
     cursor: pointer;
+  }
+  .update-point{
+    height: 5px;
+    width: 5px;
+    background-color: #ff4d4f;
+    border-radius: 50%;
+    position: absolute;
+    right: 5px;
   }
 
   @media (max-width: 600px) {

@@ -18,18 +18,34 @@
     </div>
     <div v-else class="flex-align-center" style="justify-content: space-between; padding: 0 20px">
       <div style="font-weight: 500; font-size: 20px">笔记库</div>
-      <b-button
-        type="primary"
-        style="border-radius: 20px"
-        @click="router.push('/noteLibrary/add')"
-        v-click-log="{ module: '笔记', operation: '新建笔记' }"
-      >
-        + 新建笔记
-      </b-button>
+      <div class="handle-btn-group">
+        <b-button class="noteType-select" @click="filterVisible = !filterVisible">
+          {{ viewNoteFilter
+          }}<svg-icon :src="icon.arrow_left" :style="{ rotate: filterVisible ? '-90deg' : '90deg' }" />
+          <div class="filter-container" :style="{ display: filterVisible ? '' : 'none' }">
+            <div class="filter-item" @click="viewNote('all')" :isFocus="noteType === 'all' ? true : false"
+              >全部笔记</div
+            >
+            <div class="filter-item" @click="viewNote('null')" :isFocus="noteType === 'null'">无标签笔记</div>
+            <div style="width: 100%; height: 1px; background: #f0f0f0">-</div>
+            <div v-for="item in allTags" class="filter-item" @click="viewNote(item)" :isFocus="noteType === item"
+              ># {{ item }}</div
+            >
+          </div>
+        </b-button>
+        <b-button
+          type="primary"
+          style="border-radius: 20px"
+          @click="router.push('/noteLibrary/add')"
+          v-click-log="{ module: '笔记', operation: '新建笔记' }"
+        >
+          + 新建笔记
+        </b-button>
+      </div>
     </div>
     <div class="note-library-body">
       <div
-        v-for="note in noteList"
+        v-for="note in viewNoteList"
         @click="router.push(`/noteLibrary/${note.id}`)"
         class="note-card"
         :style="{ boxShadow: bookmark.theme === 'day' ? 'rgb(237, 242, 250) 0px 0px 10px' : 'unset' }"
@@ -44,8 +60,7 @@
           <div class="b-tag" v-for="tag in getTags(note)" @click.stop>{{ tag }}</div>
         </div>
         <div class="note-tags" v-else style="font-size: 12px">_</div>
-        <div>
-        </div>
+        <div> </div>
         <div
           :style="{ color: bookmark.theme === 'day' ? 'rgb(102, 102, 102)' : '#ccc' }"
           style="font-size: 12px; margin-top: 10px"
@@ -69,8 +84,44 @@
   apiBasePost('/api/note/queryNoteList').then((res) => {
     if (res.status === 200) {
       noteList.value = res.data ?? [];
+      noteList.value.forEach((data) => {
+        const tags = JSON.parse(data.tags);
+        if (tags) {
+          tags.forEach((tag) => {
+            if (!allTags.value.includes(tag)) {
+              allTags.value.push(tag);
+            }
+          });
+        }
+      });
     }
   });
+
+  const viewNoteList = computed(() => {
+    if (noteType.value === 'all') {
+      return noteList.value;
+    }
+    if (noteType.value === 'null') {
+      return noteList.value.filter((item) => !item.tags);
+    }
+    return noteList.value.filter((item) => JSON.parse(item.tags)?.includes(noteType.value));
+  });
+
+  const viewNoteFilter = computed(() => {
+    if (noteType.value === 'all') {
+      return '全部笔记';
+    }
+    if (noteType.value === 'null') {
+      return '无标签笔记';
+    }
+    return noteType.value;
+  });
+  function viewNote(type?: 'all' | 'null' | string) {
+    noteType.value = type;
+  }
+
+  const noteType = ref('all');
+  const allTags = ref([]);
 
   const getTags = function (note) {
     if (note.tags) {
@@ -78,6 +129,8 @@
     }
     return '';
   };
+
+  const filterVisible = ref(false);
 
   // 提取<h>和<p>标签等并转换为<p>标签
   const extractAndConvertTags = (htmlContent: string) => {
@@ -212,5 +265,48 @@
     width: 30px;
     cursor: pointer;
     border: 1px solid #e8eaf2;
+  }
+  .handle-btn-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .noteType-select {
+    position: relative;
+    border-radius: 36px !important;
+    border: 1px solid #e8eaf2 !important;
+    display: flex;
+    gap: 5px;
+  }
+  .filter-container {
+    width: 200px;
+    height: 200px;
+    padding: 5px;
+    background: var(--menu-cintainer-bg-color);
+    box-shadow: 1px 1px 5px #4d5264;
+    position: absolute;
+    top: 32px;
+    right: 0;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    overflow-y: auto;
+  }
+  .filter-item {
+    text-align: left;
+    padding-left: 10px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    width: 100%;
+    height: 36px;
+    &:hover {
+      background: #eeedff;
+      color: #605ce5;
+    }
+  }
+  [isFocus='true'] {
+    background: #eeedff;
+    color: #605ce5;
   }
 </style>
