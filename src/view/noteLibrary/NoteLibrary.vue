@@ -316,9 +316,11 @@
     border-radius: 8px;
     width: 100%;
     height: 36px;
-    &:hover {
-      background: #eeedff;
-      color: #605ce5;
+    @media (min-width: 600px) {
+      &:hover {
+        background: #eeedff;
+        color: #605ce5;
+      }
     }
   }
   [isFocus='true'] {
