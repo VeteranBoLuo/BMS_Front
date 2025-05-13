@@ -7,14 +7,30 @@
         </div>
         <div style="font-weight: 500; font-size: 20px">笔记库</div>
       </div>
-      <b-button
-        type="primary"
-        style="border-radius: 20px"
-        @click="router.push('/noteLibrary/add')"
-        v-click-log="{ module: '笔记', operation: '新建笔记' }"
-      >
-        + 新建笔记
-      </b-button>
+      <div class="handle-btn-group">
+        <b-button class="noteType-select" @click="filterVisible = !filterVisible">
+          {{ viewNoteFilter
+          }}<svg-icon :src="icon.arrow_left" :style="{ rotate: filterVisible ? '-90deg' : '90deg' }" />
+          <div class="filter-container" :style="{ display: filterVisible ? '' : 'none' }">
+            <div class="filter-item" @click="viewNote('all')" :isFocus="noteType === 'all' ? true : false"
+            >全部笔记</div
+            >
+            <div class="filter-item" @click="viewNote('null')" :isFocus="noteType === 'null'">无标签笔记</div>
+            <div style="width: 100%; height: 1px; background: #f0f0f0">-</div>
+            <div v-for="item in allTags" class="filter-item" @click="viewNote(item)" :isFocus="noteType === item"
+            ># {{ item }}</div
+            >
+          </div>
+        </b-button>
+        <b-button
+            type="primary"
+            style="border-radius: 20px"
+            @click="router.push('/noteLibrary/add')"
+            v-click-log="{ module: '笔记', operation: '新建笔记' }"
+        >
+          + 新建笔记
+        </b-button>
+      </div>
     </div>
     <div v-else class="flex-align-center" style="justify-content: space-between; padding: 0 20px">
       <div style="font-weight: 500; font-size: 20px">笔记库</div>
