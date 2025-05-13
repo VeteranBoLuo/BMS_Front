@@ -61,7 +61,9 @@
   }
 
   const readonly = computed(() => {
-    if (user.role === 'root') {
+    if (bookmark.isPhone) {
+      return true;
+    } else if (user.role === 'root') {
       return false;
     } else if (nodeType.value === 'share') {
       return true;

@@ -264,6 +264,7 @@
     }
     @media (max-width: 600px) {
       .tox-editor-header {
+        display: none;
       }
     }
 
