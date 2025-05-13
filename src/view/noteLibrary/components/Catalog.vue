@@ -118,12 +118,11 @@
     box-sizing: border-box;
   }
   .phone-catalog {
-    left: 30px;
-    top: 50%;
-    transform: translateY(-50%);
     position: fixed;
+    top: 25%;
+    left: 30px;
     z-index: 999;
-    background: white;
+    background: var(--menu-cintainer-bg-color);
     width: 200px;
     border-radius: 8px;
     box-shadow:
@@ -132,9 +131,6 @@
       0 9px 28px 8px rgba(0, 0, 0, 0.05);
     max-height: 50%;
     overflow-y: auto;
-    .toc-item {
-      color: #666666 !important;
-    }
     .toc-item.active {
       color: #615ced !important;
     }
