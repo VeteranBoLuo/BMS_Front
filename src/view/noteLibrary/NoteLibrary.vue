@@ -7,57 +7,11 @@
         </div>
         <div style="font-weight: 500; font-size: 20px">笔记库</div>
       </div>
-      <div class="handle-btn-group">
-        <b-button class="noteType-select" @click="filterVisible = !filterVisible">
-          {{ viewNoteFilter
-          }}<svg-icon :src="icon.arrow_left" :style="{ rotate: filterVisible ? '-90deg' : '90deg' }" />
-          <div class="filter-container" :style="{ display: filterVisible ? '' : 'none' }">
-            <div class="filter-item" @click="viewNote('all')" :isFocus="noteType === 'all' ? true : false"
-              >全部笔记</div
-            >
-            <div class="filter-item" @click="viewNote('null')" :isFocus="noteType === 'null'">无标签笔记</div>
-            <div style="width: 100%; height: 1px; background: #f0f0f0; flex-shrink: 0"></div>
-            <div v-for="item in allTags" class="filter-item" @click="viewNote(item)" :isFocus="noteType === item"
-              ># {{ item }}</div
-            >
-          </div>
-        </b-button>
-        <b-button
-          type="primary"
-          style="border-radius: 20px"
-          @click="router.push('/noteLibrary/add')"
-          v-click-log="{ module: '笔记', operation: '新建笔记' }"
-        >
-          + 新建笔记
-        </b-button>
-      </div>
+      <TagFilterSelector :allTags="allTags" v-model:noteType="noteType"/>
     </div>
     <div v-else class="flex-align-center" style="justify-content: space-between; padding: 0 20px">
       <div style="font-weight: 500; font-size: 20px">笔记库</div>
-      <div class="handle-btn-group">
-        <b-button class="noteType-select" @click="filterVisible = !filterVisible">
-          {{ viewNoteFilter
-          }}<svg-icon :src="icon.arrow_left" :style="{ rotate: filterVisible ? '-90deg' : '90deg' }" />
-          <div class="filter-container" :style="{ display: filterVisible ? '' : 'none' }">
-            <div class="filter-item" @click="viewNote('all')" :isFocus="noteType === 'all' ? true : false"
-              >全部笔记</div
-            >
-            <div class="filter-item" @click="viewNote('null')" :isFocus="noteType === 'null'">无标签笔记</div>
-            <div style="width: 100%; height: 1px; background: #f0f0f0; flex-shrink: 0"></div>
-            <div v-for="item in allTags" class="filter-item" @click="viewNote(item)" :isFocus="noteType === item"
-              ># {{ item }}</div
-            >
-          </div>
-        </b-button>
-        <b-button
-          type="primary"
-          style="border-radius: 20px"
-          @click="router.push('/noteLibrary/add')"
-          v-click-log="{ module: '笔记', operation: '新建笔记' }"
-        >
-          + 新建笔记
-        </b-button>
-      </div>
+      <TagFilterSelector :allTags="allTags" v-model:noteType="noteType"/>
     </div>
     <div class="note-library-body">
       <div
@@ -95,6 +49,7 @@
   import { computed, ref } from 'vue';
   import BButton from '@/components/BasicComponents/BButton/BButton.vue';
   import { bookmarkStore } from '@/store';
+  import TagFilterSelector from '@/view/noteLibrary/TagFilterSelector.vue';
   const bookmark = bookmarkStore();
   const noteList = ref([]);
   apiBasePost('/api/note/queryNoteList').then((res) => {
@@ -145,8 +100,6 @@
     }
     return '';
   };
-
-  const filterVisible = ref(false);
 
   // 提取<h>和<p>标签等并转换为<p>标签
   const extractAndConvertTags = (htmlContent: string) => {
@@ -281,50 +234,5 @@
     width: 30px;
     cursor: pointer;
     border: 1px solid #e8eaf2;
-  }
-  .handle-btn-group {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .noteType-select {
-    position: relative;
-    border-radius: 36px !important;
-    border: 1px solid #e8eaf2 !important;
-    display: flex;
-    gap: 5px;
-  }
-  .filter-container {
-    width: 200px;
-    height: 200px;
-    padding: 5px;
-    background: var(--menu-cintainer-bg-color);
-    box-shadow: 1px 1px 5px #4d5264;
-    position: absolute;
-    top: 32px;
-    right: 0;
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    overflow-y: auto;
-  }
-  .filter-item {
-    text-align: left;
-    padding-left: 10px;
-    box-sizing: border-box;
-    border-radius: 8px;
-    width: 100%;
-    height: 36px;
-    @media (min-width: 600px) {
-      &:hover {
-        background: #eeedff;
-        color: #605ce5;
-      }
-    }
-  }
-  [isFocus='true'] {
-    background: #eeedff;
-    color: #605ce5;
   }
 </style>
