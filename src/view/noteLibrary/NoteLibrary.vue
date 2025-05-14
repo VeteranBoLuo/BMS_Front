@@ -49,7 +49,7 @@
   import { computed, ref } from 'vue';
   import BButton from '@/components/BasicComponents/BButton/BButton.vue';
   import { bookmarkStore } from '@/store';
-  import TagFilterSelector from '@/view/noteLibrary/TagFilterSelector.vue';
+  import TagFilterSelector from '@/view/noteLibrary/components/TagFilterSelector.vue';
   const bookmark = bookmarkStore();
   const noteList = ref([]);
   apiBasePost('/api/note/queryNoteList').then((res) => {
