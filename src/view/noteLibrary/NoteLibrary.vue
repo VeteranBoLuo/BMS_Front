@@ -173,6 +173,7 @@
     gap: 30px;
     overflow: auto;
     box-sizing: border-box;
+    align-content: start;
   }
   .note-card {
     height: 300px;

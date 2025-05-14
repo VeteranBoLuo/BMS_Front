@@ -45,7 +45,7 @@ const routes: Array<RouteRecordRaw | any> = [
     },
     path: '/noteLibrary/:value(.*)',
     name: 'NoteDetail',
-    component: () => import('@/view/noteLibrary/components/NoteDetail.vue'),
+    component: () => import('@/view/noteLibrary/NoteDetail.vue'),
   },
   loginRouter,
   ...statusRouter,
