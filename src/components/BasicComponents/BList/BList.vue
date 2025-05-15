@@ -123,14 +123,12 @@
   .category-body {
     height: calc(100% - 50px);
     overflow-y: auto;
-    padding-right: 2px;
+    --scrollbar-width: 0;
     &::-webkit-scrollbar {
-      width: 0 !important;
+      width: var(--scrollbar-width);
     }
-  }
-  .category-body:hover {
-    &::-webkit-scrollbar {
-      width: 3px !important;
+    &:hover {
+      --scrollbar-width: 3px;
     }
   }
   .category-item {
