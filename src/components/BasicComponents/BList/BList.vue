@@ -115,7 +115,7 @@
   );
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
   .list-container {
     height: 100%;
     width: 100%;
@@ -123,6 +123,15 @@
   .category-body {
     height: calc(100% - 50px);
     overflow-y: auto;
+    padding-right: 2px;
+    &::-webkit-scrollbar {
+      width: 0 !important;
+    }
+  }
+  .category-body:hover {
+    &::-webkit-scrollbar {
+      width: 3px !important;
+    }
   }
   .category-item {
     margin: 5px 0;
