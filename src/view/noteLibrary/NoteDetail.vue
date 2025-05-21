@@ -14,7 +14,13 @@
       <Catalog :content="note.content" />
       <div class="note-body-header footer-center">
         <div class="note-body-title n-title">
-          <a-input :disabled="readonly" v-model:value="note.title" @change="inputBlur" placeholder="请输入标题" />
+          <a-input
+            :disabled="readonly"
+            v-model:value="note.title"
+            @change="inputBlur"
+            @focusout="focusout"
+            placeholder="请输入标题"
+          />
         </div>
         <TinyMac
           v-if="isReady"
@@ -73,17 +79,20 @@
   });
   function inputBlur() {
     nextTick(() => {
-      if (!note.title) {
-        note.title = note.lastTitle;
-        document.getElementById('note-header-title').innerText = note.title;
-        return;
-      }
-      if (note.title !== note.lastTitle) {
+      if (note.title && note.title !== note.lastTitle) {
         document.getElementById('note-header-title').innerText = note.title;
         note.lastTitle = cloneDeep(note.title);
         saveFunc();
       }
     });
+  }
+
+  function focusout() {
+    if (!note.title) {
+      note.title = note.lastTitle;
+      document.getElementById('note-header-title').innerText = note.title;
+      return;
+    }
   }
 
   function titleBlur() {

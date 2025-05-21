@@ -7,11 +7,11 @@
         </div>
         <div style="font-weight: 500; font-size: 20px">笔记库</div>
       </div>
-      <TagFilterSelector :allTags="allTags" v-model:noteType="noteType"/>
+      <TagFilterSelector :allTags="allTags" v-model:noteType="noteType" />
     </div>
     <div v-else class="flex-align-center" style="justify-content: space-between; padding: 0 20px">
       <div style="font-weight: 500; font-size: 20px">笔记库</div>
-      <TagFilterSelector :allTags="allTags" v-model:noteType="noteType"/>
+      <TagFilterSelector :allTags="allTags" v-model:noteType="noteType" />
     </div>
     <div class="note-library-body">
       <div
@@ -47,7 +47,6 @@
   import router from '@/router';
   import { apiBasePost } from '@/http/request.ts';
   import { computed, ref } from 'vue';
-  import BButton from '@/components/BasicComponents/BButton/BButton.vue';
   import { bookmarkStore } from '@/store';
   import TagFilterSelector from '@/view/noteLibrary/components/TagFilterSelector.vue';
   const bookmark = bookmarkStore();
@@ -56,7 +55,7 @@
     if (res.status === 200) {
       noteList.value = res.data ?? [];
       noteList.value.forEach((data) => {
-        const tags = JSON.parse(data.tags);
+        const tags = data.tags ? JSON.parse(data.tags) : null;
         if (tags) {
           tags.forEach((tag) => {
             if (!allTags.value.includes(tag)) {
@@ -75,7 +74,7 @@
     if (noteType.value === 'null') {
       return noteList.value.filter((item) => !item.tags);
     }
-    return noteList.value.filter((item) => JSON.parse(item.tags)?.includes(noteType.value));
+    return noteList.value.filter((item) => item.tags && JSON.parse(item.tags)?.includes(noteType.value));
   });
 
   const viewNoteFilter = computed(() => {
