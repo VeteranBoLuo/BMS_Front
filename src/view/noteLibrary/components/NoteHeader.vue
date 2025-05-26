@@ -41,6 +41,7 @@
         <SvgIcon :src="icon.noteDetail.delete" />
       </div>
       <div
+        v-if="!bookmark.isPhone"
         class="note-header-title-icon"
         @click="$emit('save')"
         title="保存"

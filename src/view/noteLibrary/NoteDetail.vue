@@ -22,25 +22,14 @@
             placeholder="请输入标题"
           />
         </div>
-        <TinyMac
-          v-if="isReady"
-          v-model:value="note.content"
-          style="flex-grow: 1"
-          :noteId="note.id"
-          :readonly="readonly"
-          @setNoteId="setNoteId"
-          @saveData="saveFunc(true)"
-        />
+        <editor v-model:content="note.content" />
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-  import TinyMac from '@/view/noteLibrary/TinyMac.vue';
   import { computed, nextTick, onMounted, onUnmounted, provide, reactive, ref, watch } from 'vue';
-  import icon from '@/config/icon.ts';
-  import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
   import router from '@/router';
   import { cloneDeep } from 'lodash-es';
   import { apiBasePost } from '@/http/request.ts';
@@ -49,13 +38,14 @@
   import { message } from 'ant-design-vue';
   import { bookmarkStore, noteStore, useUserStore } from '@/store';
   import NoteHeader from '@/view/noteLibrary/components/NoteHeader.vue';
+  import Editor from '@/view/noteLibrary/Editor.vue';
   const bookmark = bookmarkStore();
   const user = useUserStore();
   const note = reactive({
     id: '',
     title: '未命名文档',
     lastTitle: '未命名文档',
-    content: '',
+    content: '<p><br></p>',
     tags: '',
     createBy: '',
   });
@@ -182,7 +172,7 @@
         }).then((res) => {
           if (res.status) {
             message.success('删除成功');
-            router.back();
+            router.push('/noteLibrary');
           }
         });
       },
@@ -251,7 +241,8 @@
       setUpdateTime();
       watch(
         () => note.content,
-        () => {
+        (value, oldValue, onCleanup) => {
+          console.log('value' + value, 'oldValue:', oldValue);
           saveFunc();
         },
       );
