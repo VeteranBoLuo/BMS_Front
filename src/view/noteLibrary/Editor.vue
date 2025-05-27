@@ -168,4 +168,7 @@
   .w-e-text-container [data-slate-editor] {
     min-height: calc(100% - 15px) !important;
   }
+  .w-e-text-container [data-slate-editor] pre > code {
+    text-shadow: unset !important;
+  }
 </style>
