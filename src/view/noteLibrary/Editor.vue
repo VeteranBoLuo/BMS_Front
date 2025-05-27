@@ -42,12 +42,6 @@
     autoFocus: false,
     readOnly: props.readonly,
     MENU_CONF: {
-      color: {
-        colors: ['red', 'red', 'red'],
-      },
-      bgColor: {
-        colors: ['red', 'red', 'red'],
-      },
       uploadImage: {
         maxFileSize: 200 * 1024 * 1024, // 200MB（需与后端同步）
         customUpload(file, insertFn) {
@@ -135,12 +129,6 @@
 
   const handleCreated = (editor: Editor) => {
     editorRef.value = editor; // 记录 editor 实例，重要！
-    // 在此处访问 Toolbar 配置
-    nextTick(() => {
-      const toolbar = DomEditor.getToolbar(editorRef.value);
-      const curToolbarConfig = toolbar.getConfig();
-      console.log(curToolbarConfig.toolbarKeys); // 当前菜单排序和分组
-    });
   };
 </script>
 

@@ -241,8 +241,7 @@
       setUpdateTime();
       watch(
         () => note.content,
-        (value, oldValue, onCleanup) => {
-          console.log('value' + value, 'oldValue:', oldValue);
+        () => {
           saveFunc();
         },
       );
