@@ -6,6 +6,7 @@
       :readonly="readonly"
       :isStartEdit="isStartEdit"
       @focusout="titleBlur"
+      :content="note.content"
       @del="delNote"
       @save="clickSaveNote"
       @saveTag="clickSaveNote"
@@ -22,7 +23,7 @@
             placeholder="请输入标题"
           />
         </div>
-        <editor v-model:content="note.content" />
+        <editor  v-model:content="note.content" />
       </div>
     </div>
   </div>

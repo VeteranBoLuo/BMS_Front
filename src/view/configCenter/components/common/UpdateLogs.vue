@@ -65,8 +65,9 @@
       list: ['笔记新增小屏幕页面专用目录弹窗', '笔记管理新增标签过滤功能'],
     },
     {
-      label: '笔记模块核心编辑器由tinymce替换为wangeditor',
+      label: '笔记模块优化',
       time: '2025-05-26',
+      list: ['笔记模块核心编辑器由tinymce替换为wangeditor ', '笔记可导出为PDF文件'],
     },
   ];
 </script>

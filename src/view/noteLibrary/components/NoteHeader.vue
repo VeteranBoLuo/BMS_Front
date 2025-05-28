@@ -34,6 +34,14 @@
       </div>
       <div
         class="note-header-title-icon"
+        @click="exportToPDF"
+        title="导出为PDF"
+        v-click-log="{ module: '笔记详情', operation: '导出为PDF' }"
+      >
+        <SvgIcon :src="icon.noteDetail.export" />
+      </div>
+      <div
+        class="note-header-title-icon"
         @click="$emit('del')"
         title="删除"
         v-click-log="{ module: '笔记详情', operation: '删除笔记' }"
@@ -61,9 +69,16 @@
   import router from '@/router';
   import { ref } from 'vue';
   import NoteTagConfig from '@/view/noteLibrary/components/NoteTagConfig.vue';
+  import { generatePDF } from '@/utils/htmlToPdf.ts';
 
   const props = withDefaults(
-    defineProps<{ updateTime: string; nodeType: 'edit' | 'add' | 'share'; readonly: boolean; isStartEdit: boolean }>(),
+    defineProps<{
+      updateTime: string;
+      nodeType: 'edit' | 'add' | 'share';
+      readonly: boolean;
+      isStartEdit: boolean;
+      content: string;
+    }>(),
     {},
   );
 
@@ -82,6 +97,11 @@
   function updateTag() {
     tagConfDlgVisible.value = true;
   }
+
+  // 在setup中添加
+  const exportToPDF = async () => {
+    generatePDF('pdf', '.w-e-text-container [data-slate-editor]');
+  };
 </script>
 
 <style lang="less">
