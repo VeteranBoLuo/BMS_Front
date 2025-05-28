@@ -1,5 +1,5 @@
 import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
+import JsPDF from 'jspdf';
 
 interface PDFOptions {
   orientation?: 'p' | 'l';
@@ -12,17 +12,16 @@ export async function generatePDF(title: string, selector: string, options: PDFO
     const target = document.querySelector(selector) as HTMLElement;
     if (!target) throw new Error('Target element not found');
 
-    // 动态计算DPI和缩放比例[3,5](@ref)
     const scale = options.scale || window.devicePixelRatio * 2;
     const canvas = await html2canvas(target, {
       scale,
       useCORS: true,
       logging: false,
       backgroundColor: '#FFFFFF',
-      dpi: 300, // 固定打印级DPI[6](@ref)
+      dpi: 300,
     });
 
-    const pdf = new jsPDF(options.orientation || 'p', 'pt', 'a4');
+    const pdf = new JsPDF(options.orientation || 'p', 'pt', 'a4');
     const pageWidth = 595.28; // A4宽度(单位:pt)
     const pageHeight = 841.89; // A4高度
 
