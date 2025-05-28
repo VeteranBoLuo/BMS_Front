@@ -18,7 +18,6 @@ export async function generatePDF(title: string, selector: string, options: PDFO
       useCORS: true,
       logging: false,
       backgroundColor: '#FFFFFF',
-      dpi: 300,
     });
 
     const pdf = new JsPDF(options.orientation || 'p', 'pt', 'a4');
