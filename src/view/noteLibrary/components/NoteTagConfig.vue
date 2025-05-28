@@ -7,15 +7,27 @@
           placeholder="请输入标签，最多可关联3个标签"
           v-model:value="tagValue"
           @keydown.enter="setTag"
-        /><b-button @click="setTag">{{ currentTag !== -1 ? '更新' : '添加' }}</b-button>
+        />
+        <b-button @click="setTag">{{ currentTag !== -1 ? '更新' : '添加新' }}标签</b-button>
+        <div class="tag-selector-container">
+          <b-button @click="tagSelectorVisible = !tagSelectorVisible">选择已有标签</b-button>
+          <div class="tag-selector" v-if="tagSelectorVisible">
+            <div v-for="item in allTags" class="filter-item" @click="setTag(item)"># {{ item }}</div>
+          </div>
+        </div>
       </div>
-      <VueDraggable v-model="tagList" class="note-tag-list" :animation="150">
+      <VueDraggable
+        v-model="tagList"
+        class="note-tag-list"
+        :animation="150"
+        style="border: 1px solid; padding: 4px; border-radius: 8px"
+      >
         <div class="note-tag" v-for="tag in tagList" @click="tagUpdate(tag)" :key="tag">
           <div>{{ tag }}</div>
           <svg-icon :src="icon.common.close" class="dom-hover-click" @click.stop="delTag(tag)" />
         </div>
       </VueDraggable>
-      <div style="font-size: 12px; color: var(--desc-color); margin-top: 10px">点击标签文本即可重新编辑标签</div>
+      <div style="font-size: 12px; color: var(--desc-color); margin-top: 10px">点击标签文本即可重新编辑选中标签</div>
     </div>
   </BModal>
 </template>
@@ -29,23 +41,25 @@
   import { VueDraggable } from 'vue-draggable-plus';
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
   import icon from '@/config/icon.ts';
+  import { apiBasePost } from '@/http/request.ts';
 
   const visible = defineModel('visible');
 
   const tagList = ref<any>([]);
   const tagValue = ref('');
-  function setTag() {
+  function setTag(value?: string) {
+    const TagValue = typeof value === 'string' ? value : tagValue.value;
     const condition: endCondition[] = [
       {
         endCondition: currentTag.value === -1 && tagList.value.length >= 3,
         message: '最多只能关联3个标签！',
       },
       {
-        endCondition: !tagValue.value,
+        endCondition: !TagValue,
         message: '内容不能为空！',
       },
       {
-        endCondition: checkUnique(),
+        endCondition: checkUnique(TagValue),
         message: '标签已经存在！',
       },
     ];
@@ -53,12 +67,14 @@
       return;
     }
     if (currentTag.value === -1) {
-      tagList.value.push(tagValue.value);
+      console.log('TagValue', TagValue);
+      tagList.value.push(TagValue);
     } else {
-      tagList.value[currentTag.value] = tagValue.value;
+      tagList.value[currentTag.value] = TagValue;
     }
     tagValue.value = '';
     currentTag.value = -1;
+    tagSelectorVisible.value = false;
   }
   const currentTag = ref(-1);
   function tagUpdate(tag) {
@@ -75,14 +91,14 @@
     tagList.value.splice(tagList.value.indexOf(tag), 1);
   }
 
-  function checkUnique() {
+  function checkUnique(value) {
     if (currentTag.value !== -1) {
-      if (tagList.value.includes(tagValue.value)) {
-        return tagList.value.indexOf(tagValue.value) !== currentTag.value;
+      if (tagList.value.includes(value)) {
+        return tagList.value.indexOf(value) !== currentTag.value;
       }
       return false;
     }
-    return tagList.value.includes(tagValue.value);
+    return tagList.value.includes(value);
   }
 
   const note: any = inject('note');
@@ -93,16 +109,52 @@
     emit('saveTag');
   }
 
+  const allTags = ref([]);
   onMounted(() => {
     if (note.tags) {
       tagList.value = JSON.parse(note.tags);
     }
+    apiBasePost('/api/note/queryNoteList').then((res) => {
+      if (res.status === 200) {
+        let noteList = res.data ?? [];
+        noteList.forEach((data) => {
+          const tags = data.tags ? JSON.parse(data.tags) : null;
+          if (tags) {
+            tags.forEach((tag) => {
+              if (!allTags.value.includes(tag)) {
+                allTags.value.push(tag);
+              }
+            });
+          }
+        });
+      }
+    });
   });
+
+  const tagSelectorVisible = ref(false);
+  function closeSelector(e: any) {
+    const topDom = document.querySelector('.tag-selector-container');
+
+    if (!topDom?.contains(e.target)) {
+      tagSelectorVisible.value = false;
+    }
+  }
+  watch(
+    () => tagSelectorVisible.value,
+    (val) => {
+      if (val) {
+        document.addEventListener('click', closeSelector, true);
+      } else {
+        document.removeEventListener('click', closeSelector, true);
+      }
+    },
+  );
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
   .config-container {
     height: 100px;
+    width: 600px;
   }
   .note-tag-list {
     margin-top: 20px;
@@ -123,5 +175,38 @@
     font-size: 14px;
     box-sizing: border-box;
     color: var(--text-color);
+  }
+  .tag-selector-container {
+    //padding: 4px;
+    //border-radius: 4px;
+    //width: 160px;
+    //border: 1px solid;
+    position: relative;
+  }
+  .tag-selector {
+    position: absolute;
+    top: 36px;
+    left: 0;
+    border-radius: 4px;
+    overflow: hidden;
+    background: var(--menu-cintainer-bg-color);
+    width: max-content;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .filter-item {
+    text-align: left;
+    padding: 0 10px;
+    box-sizing: border-box;
+    width: 100%;
+    height: 24px;
+    cursor: pointer;
+    @media (min-width: 600px) {
+      &:hover {
+        background: #eeedff;
+        color: #605ce5;
+      }
+    }
   }
 </style>

@@ -60,7 +60,6 @@
   import { bookmarkStore } from '@/store';
   import router from '@/router';
   import { ref } from 'vue';
-  import BModal from '@/components/BasicComponents/BModal/BModal.vue';
   import NoteTagConfig from '@/view/noteLibrary/components/NoteTagConfig.vue';
 
   const props = withDefaults(

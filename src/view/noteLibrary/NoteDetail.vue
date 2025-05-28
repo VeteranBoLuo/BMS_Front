@@ -230,8 +230,7 @@
           }
           watch(
             () => note.content,
-            (value, oldValue, onCleanup) => {
-              console.log('update', 'value:' + value, 'oldValue:' + oldValue);
+            () => {
               saveFunc();
             },
           );
@@ -242,8 +241,7 @@
       setUpdateTime();
       watch(
         () => note.content,
-        (value, oldValue, onCleanup) => {
-          console.log('add', 'value:' + value, 'oldValue:' + oldValue);
+        () => {
           saveFunc();
         },
       );
