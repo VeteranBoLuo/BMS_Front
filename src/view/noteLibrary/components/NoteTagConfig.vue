@@ -184,12 +184,13 @@
     position: relative;
   }
   .tag-selector {
+    padding: 4px 0;
     position: absolute;
     top: 36px;
     left: 0;
     border-radius: 4px;
     overflow: hidden;
-    background: var(--menu-cintainer-bg-color);
+    background: var(--user-body-bg-color);
     width: max-content;
     display: flex;
     flex-direction: column;
