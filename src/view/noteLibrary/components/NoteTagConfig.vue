@@ -4,7 +4,7 @@
       <div class="flex-align-center-gap">
         <b-input
           :maxlength="5"
-          placeholder="请输入标签，最多可关联3个标签"
+          placeholder="请输入标签"
           v-model:value="tagValue"
           @keydown.enter="setTag"
         />
@@ -155,6 +155,9 @@
   .config-container {
     height: 100px;
     width: 600px;
+    @media (max-width: 600px) {
+      width: 100%;
+    }
   }
   .note-tag-list {
     margin-top: 20px;
@@ -186,6 +189,7 @@
   .tag-selector {
     padding: 4px 0;
     position: absolute;
+    z-index: 1;
     top: 36px;
     left: 0;
     border-radius: 4px;

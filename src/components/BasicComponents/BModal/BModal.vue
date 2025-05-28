@@ -112,6 +112,7 @@
     width: max-content;
     min-width: 400px;
     min-height: 100px;
+    max-width: 90%;
     display: grid;
     z-index: 1000;
     animation: in-animation 0.3s ease;
