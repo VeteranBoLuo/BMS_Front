@@ -43,7 +43,7 @@ const routes: Array<RouteRecordRaw | any> = [
     meta: {
       roles: [RoleEnum.Root, RoleEnum.ADMIN, RoleEnum.VISITOR],
     },
-    path: '/noteLibrary/:value(.*)',
+    path: '/noteLibrary/:id(.*)',
     name: 'NoteDetail',
     component: () => import('@/view/noteLibrary/NoteDetail.vue'),
   },

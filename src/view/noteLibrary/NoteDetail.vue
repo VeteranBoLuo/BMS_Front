@@ -1,31 +1,34 @@
 <template>
   <div class="note-container">
-    <NoteHeader
-      :updateTime="updateTime"
-      :nodeType="nodeType"
-      :readonly="readonly"
-      :isStartEdit="isStartEdit"
-      @focusout="titleBlur"
-      :content="note.content"
-      @del="delNote"
-      @save="clickSaveNote"
-      @saveTag="clickSaveNote"
-    />
-    <div class="note-body">
-      <Catalog :content="note.content" />
-      <div class="note-body-header footer-center">
-        <div class="note-body-title n-title">
-          <a-input
-            :disabled="readonly"
-            v-model:value="note.title"
-            @change="inputBlur"
-            @focusout="focusout"
-            placeholder="请输入标题"
-          />
+    <div v-show="isReady">
+      <NoteHeader
+        :updateTime="updateTime"
+        :nodeType="nodeType"
+        :readonly="readonly"
+        :isStartEdit="isStartEdit"
+        @focusout="titleBlur"
+        :content="note.content"
+        @del="delNote"
+        @save="clickSaveNote"
+        @saveTag="clickSaveNote"
+      />
+      <div class="note-body">
+        <Catalog :content="note.content" />
+        <div class="note-body-header footer-center">
+          <div class="note-body-title n-title">
+            <a-input
+              :disabled="readonly"
+              v-model:value="note.title"
+              @change="inputBlur"
+              @focusout="focusout"
+              placeholder="请输入标题"
+            />
+          </div>
+          <editor v-model:content="note.content" />
         </div>
-        <editor  v-model:content="note.content" />
       </div>
     </div>
+    <note-loading v-show="!isReady" class="absolute-center" />
   </div>
 </template>
 
@@ -40,6 +43,7 @@
   import { bookmarkStore, noteStore, useUserStore } from '@/store';
   import NoteHeader from '@/view/noteLibrary/components/NoteHeader.vue';
   import Editor from '@/view/noteLibrary/Editor.vue';
+  import NoteLoading from '@/view/noteLibrary/components/NoteLoading.vue';
   const bookmark = bookmarkStore();
   const user = useUserStore();
   const note = reactive({
@@ -198,12 +202,14 @@
     }
   }
   const userId = localStorage.getItem('userId');
-  const isReady = ref(false);
+  const isReady = ref(true);
+
   onMounted(() => {
     document.addEventListener('keydown', handleKeyDown);
-    if (router.currentRoute.value.params.value !== 'add') {
+    if (router.currentRoute.value.params.id !== 'add') {
+      isReady.value = false;
       apiBasePost('/api/note/getNoteDetail', {
-        id: router.currentRoute.value.params.value,
+        id: router.currentRoute.value.params.id,
       })
         .then((res) => {
           if (res.status === 200) {
