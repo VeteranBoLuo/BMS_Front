@@ -1,44 +1,46 @@
 <template>
-  <div class="note-library-container">
-    <div class="note-library-header" v-if="bookmark.isPhone">
-      <div class="header-content">
-        <div class="back-icon" @click="back">
-          <SvgIcon :src="icon.noteDetail.back" />
+  <b-loading :loading="loading">
+    <div class="note-library-container">
+      <div class="note-library-header" v-if="bookmark.isPhone">
+        <div class="header-content">
+          <div class="back-icon" @click="back">
+            <SvgIcon :src="icon.noteDetail.back" />
+          </div>
+          <div style="font-weight: 500; font-size: 20px" @click="init">笔记库</div>
         </div>
-        <div style="font-weight: 500; font-size: 20px">笔记库</div>
+        <TagFilterSelector :allTags="allTags" v-model:noteType="noteType" />
       </div>
-      <TagFilterSelector :allTags="allTags" v-model:noteType="noteType" />
-    </div>
-    <div v-else class="flex-align-center" style="justify-content: space-between; padding: 0 20px">
-      <div style="font-weight: 500; font-size: 20px">笔记库</div>
-      <TagFilterSelector :allTags="allTags" v-model:noteType="noteType" />
-    </div>
-    <div class="note-library-body">
-      <div
-        v-for="note in viewNoteList"
-        @click="router.push(`/noteLibrary/${note.id}`)"
-        class="note-card"
-        :style="{ boxShadow: bookmark.theme === 'day' ? 'rgb(237, 242, 250) 0px 0px 10px' : 'unset' }"
-      >
-        <div class="note-title" :title="note.title">{{ note.title }}</div>
+      <div v-else class="flex-align-center" style="justify-content: space-between; padding: 0 20px">
+        <div style="font-weight: 500; font-size: 20px; cursor: pointer" @click="init">笔记库</div>
+        <TagFilterSelector :allTags="allTags" v-model:noteType="noteType" />
+      </div>
+      <div class="note-library-body">
         <div
-          class="note-content"
-          :style="{ color: bookmark.theme === 'day' ? 'rgb(102, 102, 102)' : '#ccc' }"
-          v-html="extractAndConvertTags(note.content)"
-        />
-        <div class="note-tags" v-if="getTags(note)">
-          <div class="b-tag" v-for="tag in getTags(note)" @click.stop>{{ tag }}</div>
-        </div>
-        <div class="note-tags" v-else style="font-size: 12px">_</div>
-        <div> </div>
-        <div
-          :style="{ color: bookmark.theme === 'day' ? 'rgb(102, 102, 102)' : '#ccc' }"
-          style="font-size: 12px; margin-top: 10px"
-          >{{ note['updateTime'] ?? note['createTime'] }}</div
+          v-for="note in viewNoteList"
+          @click="router.push(`/noteLibrary/${note.id}`)"
+          class="note-card"
+          :style="{ boxShadow: bookmark.theme === 'day' ? 'rgb(237, 242, 250) 0px 0px 10px' : 'unset' }"
         >
+          <div class="note-title" :title="note.title">{{ note.title }}</div>
+          <div
+            class="note-content"
+            :style="{ color: bookmark.theme === 'day' ? 'rgb(102, 102, 102)' : '#ccc' }"
+            v-html="extractAndConvertTags(note.content)"
+          />
+          <div class="note-tags" v-if="getTags(note)">
+            <div class="b-tag" v-for="tag in getTags(note)" @click.stop="noteType = tag">{{ tag }}</div>
+          </div>
+          <div class="note-tags" v-else style="font-size: 12px">_</div>
+          <div> </div>
+          <div
+            :style="{ color: bookmark.theme === 'day' ? 'rgb(102, 102, 102)' : '#ccc' }"
+            style="font-size: 12px; margin-top: 10px"
+            >{{ note['updateTime'] ?? note['createTime'] }}</div
+          >
+        </div>
       </div>
     </div>
-  </div>
+  </b-loading>
 </template>
 
 <script lang="ts" setup>
@@ -49,23 +51,34 @@
   import { computed, ref } from 'vue';
   import { bookmarkStore } from '@/store';
   import TagFilterSelector from '@/view/noteLibrary/components/TagFilterSelector.vue';
+  import BLoading from '@/components/BasicComponents/BLoading/BLoading.vue';
   const bookmark = bookmarkStore();
   const noteList = ref([]);
-  apiBasePost('/api/note/queryNoteList').then((res) => {
-    if (res.status === 200) {
-      noteList.value = res.data ?? [];
-      noteList.value.forEach((data) => {
-        const tags = data.tags ? JSON.parse(data.tags) : null;
-        if (tags) {
-          tags.forEach((tag) => {
-            if (!allTags.value.includes(tag)) {
-              allTags.value.push(tag);
+  const loading = ref(false);
+  init();
+  function init() {
+    loading.value = true;
+    apiBasePost('/api/note/queryNoteList')
+      .then((res) => {
+        if (res.status === 200) {
+          noteList.value = res.data ?? [];
+          noteList.value.forEach((data) => {
+            const tags = data.tags ? JSON.parse(data.tags) : null;
+            if (tags) {
+              tags.forEach((tag) => {
+                if (!allTags.value.includes(tag)) {
+                  allTags.value.push(tag);
+                }
+              });
             }
           });
         }
+      })
+      .finally(() => {
+        loading.value = false;
+        noteType.value = 'all';
       });
-    }
-  });
+  }
 
   const viewNoteList = computed(() => {
     if (noteType.value === 'all') {
@@ -76,19 +89,6 @@
     }
     return noteList.value.filter((item) => item.tags && JSON.parse(item.tags)?.includes(noteType.value));
   });
-
-  const viewNoteFilter = computed(() => {
-    if (noteType.value === 'all') {
-      return '全部笔记';
-    }
-    if (noteType.value === 'null') {
-      return '无标签笔记';
-    }
-    return noteType.value;
-  });
-  function viewNote(type?: 'all' | 'null' | string) {
-    noteType.value = type;
-  }
 
   const noteType = ref('all');
   const allTags = ref([]);
@@ -217,6 +217,7 @@
       border-radius: 6px;
       font-size: 12px;
       color: #8b88f2;
+      cursor: pointer;
     }
   }
 

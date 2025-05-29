@@ -27,6 +27,7 @@ declare module 'vue' {
     ATooltip: typeof import('ant-design-vue/es')['Tooltip']
     ATransfer: typeof import('ant-design-vue/es')['Transfer']
     BAlert: typeof import('./src/components/BasicComponents/BModal/BAlert.vue')['default']
+    BaseLoading: typeof import('./src/components/BasicComponents/BLoading/BaseLoading.vue')['default']
     BButton: typeof import('./src/components/BasicComponents/BButton/BButton.vue')['default']
     BCard: typeof import('./src/components/BasicComponents/BCard/BCard.vue')['default']
     BCheckbox: typeof import('./src/components/BasicComponents/BCheckbox/BCheckbox.vue')['default']

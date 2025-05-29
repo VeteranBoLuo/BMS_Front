@@ -28,7 +28,7 @@
         </div>
       </div>
     </div>
-    <b-loading :loading="!isReady"  />
+    <b-loading :loading="!isReady" style="z-index: -1" />
   </div>
 </template>
 
@@ -43,7 +43,7 @@
   import { bookmarkStore, noteStore, useUserStore } from '@/store';
   import NoteHeader from '@/view/noteLibrary/components/NoteHeader.vue';
   import Editor from '@/view/noteLibrary/Editor.vue';
-  import BLoading from "@/components/BasicComponents/BLoading/BLoading.vue";
+  import BLoading from '@/components/BasicComponents/BLoading/BLoading.vue';
   const bookmark = bookmarkStore();
   const user = useUserStore();
   const note = reactive({
