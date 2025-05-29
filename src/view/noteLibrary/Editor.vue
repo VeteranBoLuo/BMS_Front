@@ -166,9 +166,9 @@
     }
   }
   .w-e-text-container [data-slate-editor] {
-    min-height: calc(100% - 15px) !important;
     background-color: var(--background-color) !important;
     color: var(--text-color);
+    padding: 0 10px 20px 10px!important;
   }
   .w-e-text-container [data-slate-editor] pre > code {
     text-shadow: unset !important;
