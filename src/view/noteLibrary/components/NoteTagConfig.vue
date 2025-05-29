@@ -2,12 +2,7 @@
   <BModal v-model:visible="visible" title="笔记标签配置" :mask-closable="false" @ok="saveTag">
     <div class="config-container">
       <div class="flex-align-center-gap">
-        <b-input
-          :maxlength="5"
-          placeholder="请输入标签"
-          v-model:value="tagValue"
-          @keydown.enter="setTag"
-        />
+        <b-input :maxlength="5" placeholder="请输入标签" v-model:value="tagValue" @keydown.enter="setTag" />
         <b-button @click="setTag">{{ currentTag !== -1 ? '更新' : '添加新' }}标签</b-button>
         <div class="tag-selector-container">
           <b-button @click="tagSelectorVisible = !tagSelectorVisible">选择已有标签</b-button>
@@ -16,12 +11,7 @@
           </div>
         </div>
       </div>
-      <VueDraggable
-        v-model="tagList"
-        class="note-tag-list"
-        :animation="150"
-        style="border: 1px solid; padding: 4px; border-radius: 8px"
-      >
+      <VueDraggable v-model="tagList" class="note-tag-list" :animation="150">
         <div class="note-tag" v-for="tag in tagList" @click="tagUpdate(tag)" :key="tag">
           <div>{{ tag }}</div>
           <svg-icon :src="icon.common.close" class="dom-hover-click" @click.stop="delTag(tag)" />
@@ -160,10 +150,12 @@
     }
   }
   .note-tag-list {
+    height: 28px;
     margin-top: 20px;
     display: flex;
     gap: 10px;
-    height: 28px;
+    padding: 4px;
+    border-radius: 8px;
   }
   .note-tag {
     cursor: move;
@@ -196,9 +188,11 @@
     overflow: hidden;
     background: var(--user-body-bg-color);
     width: max-content;
+    min-width: 114px;
     display: flex;
     flex-direction: column;
     gap: 5px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
   }
   .filter-item {
     text-align: left;
