@@ -1,15 +1,19 @@
 <template>
   <div class="loader-container" :style="{ opacity: loading ? '0.6' : '1' }">
     <slot> </slot>
-    <div  v-if="loading">
-      <note-loading/>
+    <div v-if="loading">
+      <div class="loading absolute-center">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-  import NoteLoading from "@/view/noteLibrary/components/NoteLoading.vue";
-
   const props = defineProps({
     loading: {
       type: Boolean,
@@ -23,27 +27,61 @@
     position: absolute;
     height: 100%;
     width: 100%;
+    z-index: -1;
   }
-  /* HTML: <div class="loader"></div> */
-  .loader {
-    position: absolute;
-    top: calc(50% - 20px);
-    left: calc(50% - 20px);
-    width: 40px;
-    --b: 8px;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    padding: 1px;
-    background: conic-gradient(#0000 10%, var(--text-color)) content-box;
-    -webkit-mask: repeating-conic-gradient(#0000 0deg, #000 1deg 20deg, #0000 21deg 36deg),
-      radial-gradient(farthest-side, #0000 calc(100% - var(--b) - 1px), #000 calc(100% - var(--b)));
-    -webkit-mask-composite: destination-in;
-    mask-composite: intersect;
-    animation: l4 1s infinite steps(10);
+
+  .loading {
+    --speed-of-animation: 0.9s;
+    --gap: 6px;
+    --first-color: #4c86f9;
+    --second-color: #49a84c;
+    --third-color: #f6bb02;
+    --fourth-color: #f6bb02;
+    --fifth-color: #2196f3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    gap: 6px;
+    height: 100px;
   }
-  @keyframes l4 {
-    to {
-      transform: rotate(1turn);
+
+  .loading span {
+    width: 4px;
+    height: 50px;
+    background: var(--first-color);
+    animation: scale var(--speed-of-animation) ease-in-out infinite;
+  }
+
+  .loading span:nth-child(2) {
+    background: var(--second-color);
+    animation-delay: -0.8s;
+  }
+
+  .loading span:nth-child(3) {
+    background: var(--third-color);
+    animation-delay: -0.7s;
+  }
+
+  .loading span:nth-child(4) {
+    background: var(--fourth-color);
+    animation-delay: -0.6s;
+  }
+
+  .loading span:nth-child(5) {
+    background: var(--fifth-color);
+    animation-delay: -0.5s;
+  }
+
+  @keyframes scale {
+    0%,
+    40%,
+    100% {
+      transform: scaleY(0.05);
+    }
+
+    20% {
+      transform: scaleY(1);
     }
   }
 </style>

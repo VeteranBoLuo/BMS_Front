@@ -28,7 +28,7 @@
         </div>
       </div>
     </div>
-    <note-loading v-show="!isReady" class="absolute-center" />
+    <b-loading :loading="!isReady"  />
   </div>
 </template>
 
@@ -43,7 +43,7 @@
   import { bookmarkStore, noteStore, useUserStore } from '@/store';
   import NoteHeader from '@/view/noteLibrary/components/NoteHeader.vue';
   import Editor from '@/view/noteLibrary/Editor.vue';
-  import NoteLoading from '@/view/noteLibrary/components/NoteLoading.vue';
+  import BLoading from "@/components/BasicComponents/BLoading/BLoading.vue";
   const bookmark = bookmarkStore();
   const user = useUserStore();
   const note = reactive({
