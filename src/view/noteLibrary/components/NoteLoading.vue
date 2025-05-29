@@ -1,5 +1,5 @@
 <template>
-  <div class="loading">
+  <div class="loading absolute-center">
     <span></span>
     <span></span>
     <span></span>

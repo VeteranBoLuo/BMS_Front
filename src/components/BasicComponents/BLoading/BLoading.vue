@@ -1,11 +1,15 @@
 <template>
-  <div class="loader-container" :style="{ opacity: loading ? '0.4' : '1' }">
+  <div class="loader-container" :style="{ opacity: loading ? '0.6' : '1' }">
     <slot> </slot>
-    <div class="loader" v-if="loading"></div>
+    <div  v-if="loading">
+      <note-loading/>
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+  import NoteLoading from "@/view/noteLibrary/components/NoteLoading.vue";
+
   const props = defineProps({
     loading: {
       type: Boolean,
