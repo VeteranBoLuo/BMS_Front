@@ -3,7 +3,7 @@
     class="loader-container"
     :style="{ opacity: loading ? '0.6' : '1', zIndex: hasSlotContent  ? 'auto' : '-1' }"
   >
-    <div ref="slotContainerRef">
+    <div ref="slotContainerRef" style="height: 100%">
       <slot></slot>
     </div>
     <div v-if="loading">
