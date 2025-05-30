@@ -193,6 +193,7 @@
     padding: 0 40px;
     position: absolute;
     top: 20px;
+    left: 15px;
     box-sizing: border-box;
   }
   .edit-tag-operation {

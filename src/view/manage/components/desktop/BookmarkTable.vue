@@ -233,6 +233,7 @@
     padding: 0 40px;
     position: absolute;
     top: 20px;
+    left: 15px;
   }
   .edit-tag-operation {
     display: flex;

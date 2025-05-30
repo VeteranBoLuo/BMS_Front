@@ -1,6 +1,11 @@
 <template>
-  <div class="loader-container" :style="{ opacity: loading ? '0.6' : '1' }">
-    <slot> </slot>
+  <div
+    class="loader-container"
+    :style="{ opacity: loading ? '0.6' : '1', zIndex: hasSlotContent  ? 'auto' : '-1' }"
+  >
+    <div ref="slotContainerRef">
+      <slot></slot>
+    </div>
     <div v-if="loading">
       <div class="loading absolute-center">
         <span></span>
@@ -14,11 +19,25 @@
 </template>
 
 <script lang="ts" setup>
+import {nextTick, onMounted, ref} from 'vue';
+
   const props = defineProps({
     loading: {
       type: Boolean,
       default: false,
     },
+  });
+
+  const slotContainerRef = ref<HTMLElement>();
+  const hasSlotContent = ref<boolean>(false);
+
+  onMounted(() => {
+    nextTick(() => {
+      console.log(slotContainerRef.value)
+      if (slotContainerRef.value) {
+        hasSlotContent.value = slotContainerRef.value.children.length > 0;
+      }
+    });
   });
 </script>
 

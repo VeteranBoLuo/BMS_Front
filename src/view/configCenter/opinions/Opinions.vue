@@ -54,27 +54,27 @@
         <div v-show="!loading">
           <div v-if="opinionHistory.length > 0" class="opinion-history-container">
             <div v-for="(item, index) in opinionHistory" class="opinion-history-item" :key="index">
-            <span
-            >反馈内容： <span style="color: coral">{{ item.content }}</span></span
-            >
+              <span
+                >反馈内容： <span style="color: coral">{{ item.content }}</span></span
+              >
               <span>反馈类型：{{ item.type }}</span>
               <span>
-              反馈图片：
-              <span class="flex-align-center-gap" v-if="JSON.parse(item.imgArray).length > 0">
-                <img
+                反馈图片：
+                <span class="flex-align-center-gap" v-if="JSON.parse(item.imgArray).length > 0">
+                  <img
                     v-for="src in JSON.parse(item.imgArray)"
                     :src="src"
                     height="100"
                     width="100"
                     @click="bookmark.refreshViewer(src)"
                     alt=""
-                />
-              </span>
-              <span v-else>-</span></span
+                  />
+                </span>
+                <span v-else>-</span></span
               >
               <span>反馈时间：{{ item.createTime }}</span>
               <span
-              >开发者答复：<span style="color: coral">{{ item.replay }}</span></span
+                >开发者答复：<span style="color: coral">{{ item.replay }}</span></span
               >
             </div>
           </div>
