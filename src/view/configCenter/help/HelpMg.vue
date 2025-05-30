@@ -5,8 +5,8 @@
 
 <script lang="ts" setup>
   import { bookmarkStore } from '@/store';
-  import PHelp from '@/view/configCenter/components/phone/PHelp.vue';
-  import Help from '@/view/configCenter/components/desktop/Help.vue';
+  import PHelp from '@/view/configCenter/help/PHelp.vue';
+  import Help from '@/view/configCenter/Help.vue';
   const bookmark = bookmarkStore();
 </script>
 

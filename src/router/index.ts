@@ -37,7 +37,7 @@ const routes: Array<RouteRecordRaw | any> = [
     },
     path: '/personCenter',
     name: 'personCenter',
-    component: () => import('@/view/configCenter/components/phone/PPersonCenter.vue'),
+    component: () => import('@/view/configCenter/personCenter/PPersonCenter.vue'),
   },
   {
     meta: {

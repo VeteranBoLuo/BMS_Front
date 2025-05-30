@@ -121,7 +121,7 @@
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
   import icon from '@/config/icon.ts';
   import ThemeSwitch from '@/components/tag/ThemeSwitch.vue';
-  import PersonCenter from '@/view/configCenter/components/desktop/PersonCenter.vue';
+  import PersonCenter from '@/view/configCenter/personCenter/PersonCenter.vue';
   import { useRoute } from 'vue-router';
 
   const route = useRoute();

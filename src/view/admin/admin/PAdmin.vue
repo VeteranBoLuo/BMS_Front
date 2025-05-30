@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts" setup>
-  import icon from '@/config/icon';
+  import icon from '@/config/icon.ts';
   import { bookmarkStore } from '@/store';
   import PhoneContainer from '@/components/phoneComponents/PhoneContainer/PhoneContainer.vue';
   import PhoneMenu from '@/components/phoneComponents/PhoneMenu/PhoneMenu.vue';

@@ -10,7 +10,7 @@ const phoneRouter: AppRouteRecordRaw[] = [
     },
     path: '/opinions',
     name: 'opinions',
-    component: () => import('@/view/configCenter/components/phone/POpinions.vue'),
+    component: () => import('@/view/configCenter/opinions/POpinions.vue'),
   },
   {
     meta: {
@@ -20,7 +20,7 @@ const phoneRouter: AppRouteRecordRaw[] = [
     },
     path: '/myInfo',
     name: 'myInfo',
-    component: () => import('@/view/configCenter/components/phone/PMyInfo.vue'),
+    component: () => import('@/view/configCenter/myInfo/PMyInfo.vue'),
   },
 ];
 

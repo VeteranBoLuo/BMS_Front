@@ -133,7 +133,7 @@
   import Alert from '@/components/BasicComponents/BModal/Alert.ts';
   import { computed, ref } from 'vue';
   import userApi from '@/api/userApi.ts';
-  import MyInfo from '@/view/configCenter/components/desktop/MyInfo.vue';
+  import MyInfo from '@/view/configCenter/myInfo/MyInfo.vue';
   import Viewer from '@/components/Viewer/BViewer.vue';
   import PhoneContainer from '@/components/phoneComponents/PhoneContainer/PhoneContainer.vue';
 

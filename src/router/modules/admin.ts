@@ -15,53 +15,53 @@ const adminRouter: AppRouteRecordRaw[] = [
     children: [
       {
         path: 'apiLog',
-        component: () => import('@/view/admin/components/desktop/ApiLog.vue'),
+        component: () => import('@/view/admin/components/apiLog/ApiLog.vue'),
       },
       {
         path: 'attackLog',
-        component: () => import('@/view/admin/components/desktop/AttackLog.vue'),
+        component: () => import('@/view/admin/components/attackLog/AttackLog.vue'),
       },
       {
         path: 'operationLog',
-        component: () => import('@/view/admin/components/desktop/OperationLog.vue'),
+        component: () => import('@/view/admin/components/operationLog/OperationLog.vue'),
       },
       {
         path: 'userMg',
-        component: () => import('@/view/admin/components/desktop/UserMg.vue'),
+        component: () => import('@/view/admin/components/userMg/UserMg.vue'),
       },
       {
         path: 'userOpinion',
-        component: () => import('@/view/admin/components/desktop/UserOpinion.vue'),
+        component: () => import('@/view/admin/components/userOpinion/UserOpinion.vue'),
       },
       {
         path: 'imageMg',
-        component: () => import('@/view/admin/components/desktop/ImageMg.vue'),
+        component: () => import('@/view/admin/components/imageMg/ImageMg.vue'),
       },
       {
         path: 'simpleSql',
-        component: () => import('@/view/admin/SimpleSql.vue'),
+        component: () => import('@/view/admin/components/SimpleSql.vue'),
       },
     ],
   },
   {
     path: 'apiLog',
-    component: () => import('@/view/admin/components/phone/PApiLog.vue'),
+    component: () => import('@/view/admin/components/apiLog/PApiLog.vue'),
   },
   {
     path: 'operationLog',
-    component: () => import('@/view/admin/components/phone/POperationLog.vue'),
+    component: () => import('@/view/admin/components/operationLog/POperationLog.vue'),
   },
   {
     path: 'userMg',
-    component: () => import('@/view/admin/components/phone/PUserMg.vue'),
+    component: () => import('@/view/admin/components/userMg/PUserMg.vue'),
   },
   {
     path: 'userOpinion',
-    component: () => import('@/view/admin/components/phone/PUserOpinion.vue'),
+    component: () => import('@/view/admin/components/userOpinion/PUserOpinion.vue'),
   },
   {
     path: 'imageMg',
-    component: () => import('@/view/admin/components/phone/PImageMg.vue'),
+    component: () => import('@/view/admin/components/imageMg/PImageMg.vue'),
   },
 ];
 
