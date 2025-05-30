@@ -1,6 +1,6 @@
 <template>
   <PhoneContainer title="意见反馈">
-    <div :style="{ width: bookmark.isPhone ? '95%' : '450px' }">
+    <div :style="{ width: bookmark.isPhone ? '95%' : '450px' }" style="height: 100%">
       <BTabs :options="['反馈类型', '反馈历史']" v-model:activeTab="activeTab" />
       <div class="type" v-if="activeTab === '反馈类型'">
         <b-radio
@@ -50,8 +50,37 @@
           <b-input v-model:value="opinionData.phone" style="margin-top: 10px" placeholder="请输入电话便于联系" />
         </div>
       </div>
-      <div v-else>
-        <a-empty description="功能维护中..." class="absolute-center" style="color: #ccc"/>
+      <div v-else style="height: 95%; overflow-y: auto; position: relative">
+        <b-loading :loading="loading" />
+        <div v-show="!loading">
+          <div v-if="opinionHistory.length > 0" class="opinion-history-container">
+            <div v-for="(item, index) in opinionHistory" class="opinion-history-item" :key="index">
+              <span
+                >反馈内容： <span style="color: coral">{{ item.content }}</span></span
+              >
+              <span>反馈类型：{{ item.type }}</span>
+              <span>
+                反馈图片：
+                <span class="flex-align-center-gap" v-if="JSON.parse(item.imgArray).length > 0">
+                  <img
+                    v-for="src in JSON.parse(item.imgArray)"
+                    :src="src"
+                    height="100"
+                    width="100"
+                    @click="bookmark.refreshViewer(src)"
+                    alt=""
+                  />
+                </span>
+                <span v-else>-</span></span
+              >
+              <span>反馈时间：{{ item.createTime }}</span>
+              <span
+                >开发者答复：<span style="color: coral">{{ item.replay }}</span></span
+              >
+            </div>
+          </div>
+          <a-empty v-else description="暂无反馈历史" class="absolute-center" style="color: #ccc" />
+        </div>
       </div>
     </div>
     <b-button
@@ -70,14 +99,15 @@
   import BButton from '@/components/BasicComponents/BButton/BButton.vue';
   import BUpload from '@/components/BasicComponents/BUpload/BUpload.vue';
   import BInput from '@/components/BasicComponents/BInput/BInput.vue';
-  import { bookmarkStore } from '@/store';
-  import { reactive, ref } from 'vue';
+  import { bookmarkStore, useUserStore } from '@/store';
+  import { reactive, ref, watch } from 'vue';
   import { message } from 'ant-design-vue';
   import { cloneDeep } from 'lodash-es';
   import { apiBasePost } from '@/http/request.ts';
   import PhoneContainer from '@/components/phoneComponents/PhoneContainer/PhoneContainer.vue';
   import router from '@/router';
   import BTabs from '@/components/BasicComponents/BTabs/BTabs.vue';
+  import BLoading from '@/components/BasicComponents/BLoading/BLoading.vue';
 
   const bookmark = bookmarkStore();
   const activeTab = ref('反馈类型');
@@ -126,6 +156,31 @@
         router.back();
       });
   }
+
+  const user = useUserStore();
+  const opinionHistory = ref([]);
+  const loading = ref(false);
+  watch(
+    () => activeTab.value,
+    (val) => {
+      if (val === '反馈历史') {
+        loading.value = true;
+        apiBasePost('/api/opinion/getOpinionList', {
+          currentPage: 1,
+          pageSize: 5,
+          userId: user.id,
+        })
+          .then((res) => {
+            if (res.status === 200) {
+              opinionHistory.value = res.data.items;
+            }
+          })
+          .finally(() => {
+            loading.value = false;
+          });
+      }
+    },
+  );
 </script>
 
 <style lang="less" scoped>
@@ -140,5 +195,21 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+  .opinion-history-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .opinion-history-item {
+    border: 1px solid #ccc;
+    padding: 2px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    height: max-content;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
   }
 </style>

@@ -69,6 +69,10 @@
       time: '2025-05-26',
       list: ['笔记模块核心编辑器由tinymce替换为wangeditor ', '笔记可导出为PDF文件'],
     },
+    {
+      label: '新增反馈历史模块',
+      time: '2025-05-30',
+    },
   ];
 </script>
 

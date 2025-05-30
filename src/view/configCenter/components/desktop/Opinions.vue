@@ -1,5 +1,5 @@
 <template>
-  <b-modal :mask-closable="false" title="意见反馈"  v-model:visible="visible" @close="visible = false">
+  <b-modal :mask-closable="false" title="意见反馈" v-model:visible="visible" @close="visible = false">
     <div :style="{ width: bookmark.isPhone ? '95%' : '450px' }">
       <BTabs :options="['反馈类型', '反馈历史']" v-model:activeTab="activeTab" />
       <div class="type" style="height: 330px" v-if="activeTab === '反馈类型'">
@@ -49,8 +49,37 @@
           <b-input v-model:value="opinionData.phone" style="margin-top: 10px" placeholder="请输入电话便于联系" />
         </div>
       </div>
-      <div v-else style="min-height: 330px">
-        <a-empty description="功能维护中..." class="absolute-center" style="color: #ccc" />
+      <div v-else style="height: 330px; overflow-y: auto; position: relative">
+        <b-loading :loading="loading" />
+        <div v-show="!loading">
+          <div v-if="opinionHistory.length > 0" class="opinion-history-container">
+            <div v-for="(item, index) in opinionHistory" class="opinion-history-item" :key="index">
+            <span
+            >反馈内容： <span style="color: coral">{{ item.content }}</span></span
+            >
+              <span>反馈类型：{{ item.type }}</span>
+              <span>
+              反馈图片：
+              <span class="flex-align-center-gap" v-if="JSON.parse(item.imgArray).length > 0">
+                <img
+                    v-for="src in JSON.parse(item.imgArray)"
+                    :src="src"
+                    height="100"
+                    width="100"
+                    @click="bookmark.refreshViewer(src)"
+                    alt=""
+                />
+              </span>
+              <span v-else>-</span></span
+              >
+              <span>反馈时间：{{ item.createTime }}</span>
+              <span
+              >开发者答复：<span style="color: coral">{{ item.replay }}</span></span
+              >
+            </div>
+          </div>
+          <a-empty v-else description="暂无反馈历史" class="absolute-center" style="color: #ccc" />
+        </div>
       </div>
     </div>
     <template #footer>
@@ -71,12 +100,13 @@
   import BButton from '@/components/BasicComponents/BButton/BButton.vue';
   import BUpload from '@/components/BasicComponents/BUpload/BUpload.vue';
   import BInput from '@/components/BasicComponents/BInput/BInput.vue';
-  import { bookmarkStore } from '@/store';
-  import { reactive, Ref, ref } from 'vue';
+  import { bookmarkStore, useUserStore } from '@/store';
+  import { reactive, Ref, ref, watch } from 'vue';
   import { message } from 'ant-design-vue';
   import { cloneDeep } from 'lodash-es';
   import { apiBasePost } from '@/http/request.ts';
   import BTabs from '@/components/BasicComponents/BTabs/BTabs.vue';
+  import BLoading from '@/components/BasicComponents/BLoading/BLoading.vue';
 
   const visible = <Ref<boolean>>defineModel('visible');
   const bookmark = bookmarkStore();
@@ -126,6 +156,31 @@
         visible.value = false;
       });
   }
+
+  const user = useUserStore();
+  const opinionHistory = ref([]);
+  const loading = ref(false);
+  watch(
+    () => activeTab.value,
+    (val) => {
+      if (val === '反馈历史') {
+        loading.value = true;
+        apiBasePost('/api/opinion/getOpinionList', {
+          currentPage: 1,
+          pageSize: 5,
+          userId: user.id,
+        })
+          .then((res) => {
+            if (res.status === 200) {
+              opinionHistory.value = res.data.items;
+            }
+          })
+          .finally(() => {
+            loading.value = false;
+          });
+      }
+    },
+  );
 </script>
 
 <style lang="less" scoped>
@@ -146,5 +201,21 @@
     align-items: center;
     justify-content: center;
     opacity: 0;
+  }
+  .opinion-history-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .opinion-history-item {
+    border: 1px solid #ccc;
+    padding: 2px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    height: max-content;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
   }
 </style>
