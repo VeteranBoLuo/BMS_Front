@@ -121,12 +121,15 @@
     const seconds = now.getSeconds().toString().padStart(2, '0');
     updateTime.value = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   }
+
   async function saveNote(isMsg?: boolean) {
     isStartEdit.value = true;
     isCurrentSave.value = true;
     const params: any = cloneDeep(note);
     delete params.lastTitle;
     let res;
+    const startTime = Date.now();
+
     if (params.id) {
       delete params.createBy;
       res = await apiBasePost('/api/note/updateNote', params);
@@ -138,6 +141,8 @@
         note.id = res.data.id;
         router.push(`/noteLibrary/${note.id}`).then();
       }
+      const elapsedTime = Date.now() - startTime;
+      const delay = Math.max(500 - elapsedTime, 0);
       setTimeout(() => {
         isStartEdit.value = false;
         timer.value = null;
@@ -146,7 +151,7 @@
         }
         setUpdateTime();
         clearTimeout(timer.value);
-      }, 500);
+      }, delay);
     }
   }
 

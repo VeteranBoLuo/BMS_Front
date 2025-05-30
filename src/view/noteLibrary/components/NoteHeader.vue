@@ -85,13 +85,19 @@
   const bookmark = bookmarkStore();
 
   function back() {
-    if (props.nodeType === 'add') {
-      router.push('/noteLibrary');
-    } else if (props.nodeType === 'share') {
-      router.push('/home');
-    } else {
-      router.back();
-    }
+    // 处于保存中的状态时，延迟300ms跳转，避免同时进行保存和跳转导致的异常情况
+    setTimeout(
+      () => {
+        if (props.nodeType === 'add') {
+          router.push('/noteLibrary');
+        } else if (props.nodeType === 'share') {
+          router.push('/home');
+        } else {
+          router.back();
+        }
+      },
+      props.isStartEdit ? 300 : 0,
+    );
   }
   const tagConfDlgVisible = ref(false);
   function updateTag() {

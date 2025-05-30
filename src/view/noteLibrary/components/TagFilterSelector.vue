@@ -76,7 +76,7 @@
   }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
   .handle-btn-group {
     display: flex;
     align-items: center;
