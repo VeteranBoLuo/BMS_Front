@@ -195,11 +195,15 @@
   }
 
   .note-content {
+    box-sizing: border-box;
     color: #666;
     font-size: 12px;
     line-height: 1rem;
     height: 180px;
     overflow: hidden;
+    :deep(li) {
+      margin-top: 5px;
+    }
   }
 
   .note-tags {

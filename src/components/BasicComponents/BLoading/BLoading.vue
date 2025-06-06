@@ -33,7 +33,6 @@ import {nextTick, onMounted, ref} from 'vue';
 
   onMounted(() => {
     nextTick(() => {
-      console.log(slotContainerRef.value)
       if (slotContainerRef.value) {
         hasSlotContent.value = slotContainerRef.value.children.length > 0;
       }
