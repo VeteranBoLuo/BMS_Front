@@ -162,6 +162,7 @@
   const timer = ref(null);
   function saveFunc(isMsg?: boolean) {
     if (!['admin', 'root'].includes(user.role)) {
+      message.warn('没有操作权限.请登录！！！');
       return;
     }
     if (timer.value) {

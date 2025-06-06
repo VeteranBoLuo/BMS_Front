@@ -1,6 +1,8 @@
 <template>
   <div id="editor-container" style="display: flex; flex-direction: column; height: calc(100% - 60px)">
-    <Toolbar style="border-bottom: 1px solid #ccc" :editor="editorRef" :defaultConfig="toolbarConfig" />
+    <div style="border-bottom: 1px solid #ccc">
+      <Toolbar :editor="editorRef" :defaultConfig="toolbarConfig" :style="{ display: readonly ? 'none' : 'flex' }" />
+    </div>
     <Editor v-model="content" :defaultConfig="editorConfig" @onCreated="handleCreated" style="overflow: auto" />
   </div>
 </template>
