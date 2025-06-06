@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, shallowRef, onMounted, onBeforeUnmount, nextTick } from 'vue';
+  import { shallowRef, onMounted, onBeforeUnmount, watchEffect } from 'vue';
   import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
   import '@wangeditor/editor/dist/css/style.css';
   import { apiBasePost } from '@/http/request.ts';
@@ -68,6 +68,13 @@
   };
   const emits = defineEmits(['update:modelValue', 'setHtml', 'setNoteId', 'saveData']);
   onMounted(() => {});
+
+  // 动态同步配置
+  watchEffect(() => {
+    if (editorRef.value) {
+      props.readonly ? editorRef.value.disable() : editorRef.value.enable();
+    }
+  });
 
   const toolbarConfig: Partial<IToolbarConfig> = {
     toolbarKeys: [
@@ -168,7 +175,7 @@
   .w-e-text-container [data-slate-editor] {
     background-color: var(--background-color) !important;
     color: var(--text-color);
-    padding: 0 10px 20px 10px!important;
+    padding: 0 10px 20px 10px !important;
   }
   .w-e-text-container [data-slate-editor] pre > code {
     text-shadow: unset !important;

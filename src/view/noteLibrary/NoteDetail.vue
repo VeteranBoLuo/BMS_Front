@@ -24,7 +24,7 @@
               placeholder="请输入标题"
             />
           </div>
-          <editor v-model:content="note.content" />
+          <editor v-model:content="note.content" :readonly="readonly" />
         </div>
       </div>
     </div>
