@@ -34,7 +34,7 @@
         />
         <div class="navigation-title-link" @click="handleToIndex">
           <img src="../../../assets/icons/bookmark.svg" title="首页" width="25" height="25" alt="" />
-          <span style="font-size: 18px">智汇云书签</span>
+          <span style="font-size: 18px">轻笺</span>
         </div>
       </div>
       <div class="navigation-tab flex-align-center" style="gap: 30px; width: 140px">
@@ -51,7 +51,8 @@
             style="font-size: 14px; cursor: pointer; display: flex; gap: 5px; align-items: center"
             v-click-log="{ module: '首页', operation: '跳转笔记模块' }"
             @click="router.push('/noteLibrary')"
-            >笔记<div
+            >笔记
+            <div
               class="flex-align-center"
               style="
                 height: 1rem;
@@ -62,7 +63,8 @@
                 padding: 0 4px;
               "
               >Beta</div
-            ></div
+            >
+          </div
           >
         </template>
       </div>

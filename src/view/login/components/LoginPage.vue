@@ -23,7 +23,7 @@
           width: 100%;
           text-align: center;
         "
-        >欢迎使用智汇云书签</span
+        >欢迎使用轻笺</span
       >
       <a-form
         :label-col="{
