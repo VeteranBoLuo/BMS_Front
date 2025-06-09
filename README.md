@@ -1,6 +1,5 @@
 # 轻笺 🌊 
 
-[![Vue flow](vue-flow.gif)](https://vueflow.dev/)
 ![top-language](https://img.shields.io/github/languages/top/VeteranBoLuo/BMS_Front)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/VeteranBoLuo/BMS_Front)
 ![GitHub last commit](https://img.shields.io/github/last-commit/VeteranBoLuo/BMS_Front)
