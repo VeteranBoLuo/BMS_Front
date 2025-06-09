@@ -104,6 +104,7 @@
         </div>
         <!--  主题切换        -->
         <ThemeSwitch />
+        <svg-icon size="28" title="github" :src="icon.github" class="dom-hover" @click="githubClick" />
         <!--移动端个人中心       -->
         <div :class="['navigation-icon']" v-if="bookmark.isPhone" @click="handleToPhoneUserCenter">
           <svg-icon size="30" :src="user.headPicture || icon.navigation.user" class="dom-hover" />
@@ -222,6 +223,11 @@
     body.style.transform = ' translateX(0)';
   }
 
+
+  function githubClick() {
+    window.open('https://github.com/VeteranBoLuo/BMS_Front');
+  }
+
   function handleToPhoneUserCenter() {
     bookmark.isFold = true;
     router.push('/personCenter');
@@ -300,7 +306,7 @@
     display: flex;
     align-items: center;
     gap: 15px;
-    width: 140px;
+    min-width: 140px;
     justify-content: flex-end;
     position: absolute;
     right: 40px;
