@@ -19,9 +19,10 @@
   import { nextTick, onMounted, watch } from 'vue';
   import login from '@/view/login/index.vue';
   import BViewer from '@/components/Viewer/BViewer.vue';
-  import { apiBaseGet } from '@/http/request';
+  import { apiBaseGet, apiQueryPost } from '@/http/request';
   import { useRoute, useRouter } from 'vue-router';
   import { fingerprint } from '@/utils/common';
+  import {notification} from "ant-design-vue";
 
   const router = useRouter();
   const user = useUserStore();
@@ -55,6 +56,23 @@
     try {
       const res = await apiBaseGet('/api/user/getUserInfo');
       user.setUserInfo(res.data);
+      if (res.data.role === 'root') {
+        apiQueryPost('/api/opinion/getOpinionList', {
+          currentPage: 1,
+          pageSize: 5,
+        }).then((r) => {
+          if (r.status === 200 && r.data.total > 0) {
+            notification.open({
+              message: '有新反馈',
+              description:
+                    `总计${r.data.total}条反馈`,
+              onClick: () => {
+                router.push('/admin/userOpinion')
+              },
+            });
+          }
+        });
+      }
       bookmark.theme = res.data.theme || 'day';
       localStorage.setItem('theme', bookmark.theme);
       if (res.status !== 200) {
@@ -81,7 +99,6 @@
       }
     });
   }
-
 
   function handleFilterTransition(filter, val) {
     if (val) {
