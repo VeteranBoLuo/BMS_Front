@@ -1,30 +1,33 @@
 <template>
-  <b-loading :loading="loading">
-    <PhoneListMg :list-data="tableData" title="标签管理" v-if="!loading" @add="router.push('/manage/editTag/add')">
-      <template #item="{ data }">
-        <svg-icon :src="data.iconUrl" />
-        <span>{{ data['name'] }}</span>
-        <div class="edit-tag-operation">
-          <svg-icon
-            title="编辑"
-            :src="icon.table_edit"
-            v-click-log="{ module: '标签管理', operation: `点击编辑图标` }"
-            size="16"
-            @click="edit(data.id)"
-            class="dom-hover"
-          />
-          <svg-icon
-            title="删除"
-            :src="icon.table_delete"
-            size="16"
-            @click="handleDeleteTag(data)"
-            v-click-log="{ module: '标签管理', operation: `点击删除图标` }"
-            class="dom-hover"
-          />
-        </div>
-      </template>
-    </PhoneListMg>
-  </b-loading>
+  <PhoneListMg
+    :loading="loading"
+    :list-data="tableData"
+    title="标签管理"
+    @add="router.push('/manage/editTag/add')"
+  >
+    <template #item="{ data }">
+      <svg-icon :src="data.iconUrl" />
+      <span>{{ data['name'] }}</span>
+      <div class="edit-tag-operation">
+        <svg-icon
+          title="编辑"
+          :src="icon.table_edit"
+          v-click-log="{ module: '标签管理', operation: `点击编辑图标` }"
+          size="16"
+          @click="edit(data.id)"
+          class="dom-hover"
+        />
+        <svg-icon
+          title="删除"
+          :src="icon.table_delete"
+          size="16"
+          @click="handleDeleteTag(data)"
+          v-click-log="{ module: '标签管理', operation: `点击删除图标` }"
+          class="dom-hover"
+        />
+      </div>
+    </template>
+  </PhoneListMg>
 </template>
 
 <script lang="ts" setup>

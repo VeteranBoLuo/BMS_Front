@@ -55,7 +55,6 @@
   const visible = defineModel<boolean>('visible');
 
   const bookmark = bookmarkStore();
-  const loading = ref(false);
 
   const searchValue = ref('');
   const dataList = computed(() => {
