@@ -53,7 +53,7 @@
   📱 **多端同步策略**：自适应移动端布局。
 
 
-## 🚀 快速开始
+## 🚀快速开始
 ```bash
 # 克隆前端仓库
 git clone https://github.com/VeteranBoLuo/BMS_Front
