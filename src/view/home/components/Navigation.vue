@@ -104,7 +104,7 @@
         </div>
         <!--  主题切换        -->
         <ThemeSwitch />
-        <svg-icon size="28" title="github" :src="icon.github" class="dom-hover" @click="githubClick" />
+        <svg-icon size="28"  :src="icon.github" class="dom-hover" @click="githubClick" />
         <!--移动端个人中心       -->
         <div :class="['navigation-icon']" v-if="bookmark.isPhone" @click="handleToPhoneUserCenter">
           <svg-icon size="30" :src="user.headPicture || icon.navigation.user" class="dom-hover" />
