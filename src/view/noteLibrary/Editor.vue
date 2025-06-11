@@ -11,16 +11,9 @@
   import { shallowRef, onMounted, onBeforeUnmount, watchEffect, nextTick } from 'vue';
   import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
   import '@wangeditor/editor/dist/css/style.css';
-  import { Boot } from '@wangeditor/editor';
   import { apiBasePost } from '@/http/request.ts';
   import { IToolbarConfig } from '@wangeditor/editor';
-  import {
-    insertColumnLeftBtn,
-    insertColumnRightBtn,
-    insertRowAboveBtn,
-    insertRowBelowBtn,
-    selectAllBtn,
-  } from '@/config/wangEditor/menu/tableMenu.ts';
+
   const props = defineProps({
     value: {
       type: String,

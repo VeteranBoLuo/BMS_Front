@@ -1,10 +1,14 @@
-import { DomEditor, SlateEditor } from '@wangeditor/editor';
+import { IDomEditor, DomEditor, SlateEditor } from '@wangeditor/editor';
 import { Transforms } from 'slate';
 import icon from '@/config/icon.ts';
+import type { IButtonMenu } from 'node_modules/.pnpm/@wangeditor+core@1.1.19_@uppy+core@2.3.4_@uppy+xhr-upload@2.1.3_dom7@3.0.0_is-hotkey@0.2.0_lo_lf5i4i5pzogr67jshptmitu5fq/node_modules/@wangeditor/core/dist/core/src/menus/interface.d.ts';
 export const selectAllBtn = {
   key: 'selectAll',
   factory() {
     return new (class wangEditorTableSelectAllHoverMenu implements IButtonMenu {
+      readonly tag: string;
+      readonly title: string;
+      readonly iconSvg: string;
       constructor() {
         this.title = '全选'; // 自定义菜单标题
         this.iconSvg =
@@ -54,6 +58,9 @@ export const insertRowAboveBtn = {
   key: 'insertRowAbove',
   factory() {
     return new (class WangEditorInsertRowAboveMenu implements IButtonMenu {
+      readonly tag: string;
+      readonly title: string;
+      readonly iconSvg: string;
       constructor() {
         this.title = '在上方插入行';
         this.iconSvg = icon.noteDetail.table_insert_top;
@@ -77,58 +84,58 @@ export const insertRowAboveBtn = {
         return !cellEntry;
       }
 
-        exec(editor: IDomEditor) {
-            if (this.isDisabled(editor)) return;
+      exec(editor: IDomEditor) {
+        if (this.isDisabled(editor)) return;
 
-            // 1. 获取当前选中的单元格
-            const [cellEntry] = SlateEditor.nodes(editor, {
-                match: (n) => DomEditor.checkNodeType(n, 'table-cell'),
-                universal: true,
-            });
-            const [selectedCellNode, selectedCellPath] = cellEntry;
+        // 1. 获取当前选中的单元格
+        const [cellEntry] = SlateEditor.nodes(editor, {
+          match: (n) => DomEditor.checkNodeType(n, 'table-cell'),
+          universal: true,
+        });
+        const [selectedCellNode, selectedCellPath] = cellEntry;
 
-            // 2. 获取当前行和行路径
-            const rowNode = DomEditor.getParentNode(editor, selectedCellNode);
-            if (!rowNode) return;
-            const rowPath = DomEditor.findPath(editor, rowNode);
+        // 2. 获取当前行和行路径
+        const rowNode = DomEditor.getParentNode(editor, selectedCellNode);
+        if (!rowNode) return;
+        const rowPath = DomEditor.findPath(editor, rowNode);
 
-            // 3. 获取表格节点
-            const tableNode = DomEditor.getParentNode(editor, rowNode);
-            if (!tableNode) return;
-            const tablePath = DomEditor.findPath(editor, tableNode);
+        // 3. 获取表格节点
+        const tableNode = DomEditor.getParentNode(editor, rowNode);
+        if (!tableNode) return;
+        const tablePath = DomEditor.findPath(editor, tableNode);
 
-            // 4. 找出当前选中单元格是第几列（根据 path 的最后一个索引）
-            const colIndex = selectedCellPath[selectedCellPath.length - 1];
+        // 4. 找出当前选中单元格是第几列（根据 path 的最后一个索引）
+        const colIndex = selectedCellPath[selectedCellPath.length - 1];
 
-            // 5. 创建新行（复制当前行的结构）
-            const newRow = {
-                type: 'table-row',
-                children: rowNode.children.map((cell: any) => ({
-                    type: 'table-cell',
-                    children: [{ text: '' }], // 创建空单元格
-                })),
-            };
+        // 5. 创建新行（复制当前行的结构）
+        const newRow = {
+          type: 'table-row',
+          children: rowNode.children.map((cell: any) => ({
+            type: 'table-cell',
+            children: [{ text: '' }], // 创建空单元格
+          })),
+        };
 
-            // 6. 在当前行上方插入新行
-            SlateEditor.withoutNormalizing(editor, () => {
-                // 在行路径位置插入新行
-                Transforms.insertNodes(editor, newRow, {
-                    at: rowPath,
-                });
+        // 6. 在当前行上方插入新行
+        SlateEditor.withoutNormalizing(editor, () => {
+          // 在行路径位置插入新行
+          Transforms.insertNodes(editor, newRow, {
+            at: rowPath,
+          });
 
-                // 7. 移动光标到新行的与当前单元格同列的位置
-                const newRowPath = [...rowPath]; // 新插入行的路径
-                const newCellPath = [...newRowPath, colIndex, 0]; // 新插入行中对应列的文本节点路径
+          // 7. 移动光标到新行的与当前单元格同列的位置
+          const newRowPath = [...rowPath]; // 新插入行的路径
+          const newCellPath = [...newRowPath, colIndex, 0]; // 新插入行中对应列的文本节点路径
 
-                const range = {
-                    anchor: { path: newCellPath, offset: 0 },
-                    focus: { path: newCellPath, offset: 0 },
-                };
+          const range = {
+            anchor: { path: newCellPath, offset: 0 },
+            focus: { path: newCellPath, offset: 0 },
+          };
 
-                // 使用 Transforms.select 设置光标位置
-                Transforms.select(editor as any, range);
-            });
-        }
+          // 使用 Transforms.select 设置光标位置
+          Transforms.select(editor as any, range);
+        });
+      }
     })();
   },
 };
@@ -137,6 +144,9 @@ export const insertRowBelowBtn = {
   key: 'insertRowBelow',
   factory() {
     return new (class WangEditorInsertRowBelowMenu implements IButtonMenu {
+      readonly tag: string;
+      readonly title: string;
+      readonly iconSvg: string;
       constructor() {
         this.title = '在下方插入行'; // 修改标题
         this.iconSvg = icon.noteDetail.table_insert_bottom; // 可更换为下方插入行的图标
@@ -160,62 +170,62 @@ export const insertRowBelowBtn = {
         return !cellEntry;
       }
 
-        exec(editor: IDomEditor) {
-            if (this.isDisabled(editor)) return;
+      exec(editor: IDomEditor) {
+        if (this.isDisabled(editor)) return;
 
-            // 1. 获取当前选中的单元格
-            const [cellEntry] = SlateEditor.nodes(editor, {
-                match: (n) => DomEditor.checkNodeType(n, 'table-cell'),
-                universal: true,
-            });
-            const [selectedCellNode, selectedCellPath] = cellEntry;
+        // 1. 获取当前选中的单元格
+        const [cellEntry] = SlateEditor.nodes(editor, {
+          match: (n) => DomEditor.checkNodeType(n, 'table-cell'),
+          universal: true,
+        });
+        const [selectedCellNode, selectedCellPath] = cellEntry;
 
-            // 2. 获取当前行和行路径
-            const rowNode = DomEditor.getParentNode(editor, selectedCellNode);
-            if (!rowNode) return;
-            const rowPath = DomEditor.findPath(editor, rowNode);
+        // 2. 获取当前行和行路径
+        const rowNode = DomEditor.getParentNode(editor, selectedCellNode);
+        if (!rowNode) return;
+        const rowPath = DomEditor.findPath(editor, rowNode);
 
-            // 3. 获取表格节点
-            const tableNode = DomEditor.getParentNode(editor, rowNode);
-            if (!tableNode) return;
-            const tablePath = DomEditor.findPath(editor, tableNode);
+        // 3. 获取表格节点
+        const tableNode = DomEditor.getParentNode(editor, rowNode);
+        if (!tableNode) return;
+        const tablePath = DomEditor.findPath(editor, tableNode);
 
-            // 4. 找出当前选中单元格是第几列（根据 path 的最后一个索引）
-            const colIndex = selectedCellPath[selectedCellPath.length - 1];
+        // 4. 找出当前选中单元格是第几列（根据 path 的最后一个索引）
+        const colIndex = selectedCellPath[selectedCellPath.length - 1];
 
-            // 5. 创建新行（复制当前行的结构）
-            const newRow = {
-                type: 'table-row',
-                children: rowNode.children.map((cell: any) => ({
-                    type: 'table-cell',
-                    children: [{ text: '' }], // 创建空单元格
-                })),
-            };
+        // 5. 创建新行（复制当前行的结构）
+        const newRow = {
+          type: 'table-row',
+          children: rowNode.children.map((cell: any) => ({
+            type: 'table-cell',
+            children: [{ text: '' }], // 创建空单元格
+          })),
+        };
 
-            // 6. 在当前行下方插入新行（关键修改）
-            SlateEditor.withoutNormalizing(editor, () => {
-                // 计算插入位置：当前行的下一行
-                const insertPath = [...rowPath];
-                insertPath[insertPath.length - 1] += 1;
+        // 6. 在当前行下方插入新行（关键修改）
+        SlateEditor.withoutNormalizing(editor, () => {
+          // 计算插入位置：当前行的下一行
+          const insertPath = [...rowPath];
+          insertPath[insertPath.length - 1] += 1;
 
-                // 在计算出的位置插入新行
-                Transforms.insertNodes(editor, newRow, {
-                    at: insertPath,
-                });
+          // 在计算出的位置插入新行
+          Transforms.insertNodes(editor, newRow, {
+            at: insertPath,
+          });
 
-                // 7. 移动光标到新行的与当前单元格同列的位置
-                const newRowPath = insertPath; // 新插入行的路径
-                const newCellPath = [...newRowPath, colIndex, 0]; // 新插入行中对应列的文本节点路径
+          // 7. 移动光标到新行的与当前单元格同列的位置
+          const newRowPath = insertPath; // 新插入行的路径
+          const newCellPath = [...newRowPath, colIndex, 0]; // 新插入行中对应列的文本节点路径
 
-                const range = {
-                    anchor: { path: newCellPath, offset: 0 },
-                    focus: { path: newCellPath, offset: 0 },
-                };
+          const range = {
+            anchor: { path: newCellPath, offset: 0 },
+            focus: { path: newCellPath, offset: 0 },
+          };
 
-                // 使用 Transforms.select 设置光标位置
-                Transforms.select(editor as any, range);
-            });
-        }
+          // 使用 Transforms.select 设置光标位置
+          Transforms.select(editor as any, range);
+        });
+      }
     })();
   },
 };
@@ -224,6 +234,9 @@ export const insertColumnLeftBtn = {
   key: 'insertColumnLeft',
   factory() {
     return new (class WangEditorInsertColumnLeftMenu implements IButtonMenu {
+      readonly tag: string;
+      readonly title: string;
+      readonly iconSvg: string;
       constructor() {
         this.title = '在左侧插入列';
         this.iconSvg = icon.noteDetail.table_insert_left; // 替换为你自己的图标
@@ -311,6 +324,9 @@ export const insertColumnRightBtn = {
   key: 'insertColumnRight',
   factory() {
     return new (class WangEditorInsertColumnRightMenu implements IButtonMenu {
+      readonly tag: string;
+      readonly title: string;
+      readonly iconSvg: string;
       constructor() {
         this.title = '在右侧插入列';
         this.iconSvg = icon.noteDetail.table_insert_right; // 替换为你自己的图标
