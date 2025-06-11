@@ -1,6 +1,6 @@
 <template>
-  <PhoneContainer title="更新日志">
-    <div style="color: white !important; padding: 20px">
+  <CommonContainer title="更新日志">
+    <div style="color: white !important; padding: 20px; height: 100%; overflow-y: auto">
       <a-timeline>
         <a-timeline-item color="#615ced" v-for="item in updateOptions"
           >{{ item.label }}
@@ -11,10 +11,10 @@
         </a-timeline-item>
       </a-timeline>
     </div>
-  </PhoneContainer>
+  </CommonContainer>
 </template>
 <script lang="ts" setup>
-  import PhoneContainer from '@/components/phoneComponents/PhoneContainer/PhoneContainer.vue';
+  import CommonContainer from '@/components/BasicComponents/CommonContainer/CommonContainer.vue';
 
   const updateOptions = [
     {
@@ -72,6 +72,11 @@
     {
       label: '新增反馈历史模块',
       time: '2025-05-30',
+    },
+    {
+      label: '笔记模块优化',
+      time: '2025-06-11',
+      list: ['编辑器的表格新增从当前单元格左侧/右侧插入列以及从上方和下方插入行、全选等快捷菜单', '新增批量删除笔记'],
     },
   ];
 </script>

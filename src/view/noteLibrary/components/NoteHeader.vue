@@ -17,7 +17,7 @@
         v-if="!isStartEdit"
         :style="{ marginLeft: bookmark.isPhone ? '20px' : '0' }"
       >
-        最近修改 {{ updateTime }}
+        已保存于 {{ updateTime }}
       </div>
       <div v-else style="color: #c0c0c0; font-size: 12px" :style="{ marginLeft: bookmark.isPhone ? '20px' : '0' }">
         <span>保存中...</span>

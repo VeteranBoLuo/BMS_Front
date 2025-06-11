@@ -1,5 +1,5 @@
 <template>
-  <PhoneContainer title="用户管理" @backClick="router.push('/admin')">
+  <CommonContainer title="用户管理" @backClick="router.push('/admin')">
     <a-table
       :data-source="userList"
       :columns="userColumns"
@@ -34,7 +34,7 @@
         <b-form form-id="userEditForm" :form-data="editData" :fields="formFields" />
       </div>
     </b-modal>
-  </PhoneContainer>
+  </CommonContainer>
 </template>
 
 <script lang="ts" setup>
@@ -51,7 +51,7 @@
   import userApi from '@/api/userApi.ts';
   import BSpace from '@/components/BasicComponents/BSpace/BSpace.vue';
   import Alert from '@/components/BasicComponents/BModal/Alert.ts';
-  import PhoneContainer from '@/components/phoneComponents/PhoneContainer/PhoneContainer.vue';
+  import CommonContainer from '@/components/BasicComponents/CommonContainer/CommonContainer.vue';
   import router from '@/router';
   const bookmark = bookmarkStore();
   const userList = ref([]);

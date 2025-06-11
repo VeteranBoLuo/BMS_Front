@@ -1,5 +1,5 @@
 <template>
-  <PhoneContainer :title="(handleType === 'add' ? '新增' : '编辑') + '书签'">
+  <CommonContainer :title="(handleType === 'add' ? '新增' : '编辑') + '书签'">
     <b-loading :loading="loading" style='height: unset'>
       <div class="tag-edit-body">
         <div class="tag-attr-item">
@@ -36,7 +36,7 @@
       v-click-log="{ module: '书签编辑', operation: `确定` }"
       >确定</b-button
     >
-  </PhoneContainer>
+  </CommonContainer>
 </template>
 
 <script lang="ts" setup>
@@ -47,7 +47,7 @@
   import { bookmarkStore, useUserStore } from '@/store';
   import { message } from 'ant-design-vue';
   import { SelectionSearch } from '@/components/BasicComponents/BForm/FormRenders.vue';
-  import PhoneContainer from '@/components/phoneComponents/PhoneContainer/PhoneContainer.vue';
+  import CommonContainer from '@/components/BasicComponents/CommonContainer/CommonContainer.vue';
 
   const bookmark = bookmarkStore();
   const user = useUserStore();

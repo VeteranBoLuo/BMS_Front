@@ -7,7 +7,7 @@
         <div class="tag-selector-container">
           <b-button @click="tagSelectorVisible = !tagSelectorVisible">选择已有标签</b-button>
           <div class="tag-selector" v-if="tagSelectorVisible">
-            <div v-for="item in allTags" class="filter-item" @click="setTag(item)"># {{ item }}</div>
+            <div v-for="item in allTags" class="filter-item" @click="setTag(item)"><span style="color: #8f91a8">#</span> {{ item }}</div>
           </div>
         </div>
       </div>
@@ -200,6 +200,7 @@
     box-sizing: border-box;
     width: 100%;
     height: 24px;
+    font-size: 14px;
     cursor: pointer;
     @media (min-width: 600px) {
       &:hover {

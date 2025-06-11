@@ -24,7 +24,7 @@
               placeholder="请输入标题"
             />
           </div>
-          <editor v-model:content="note.content" :readonly="readonly" />
+          <editor v-model:content="note.content" :readonly="readonly" :note-id="note.id" />
         </div>
       </div>
     </div>
@@ -179,7 +179,7 @@
       content: `请确认是否要删除此笔记？`,
       onOk() {
         apiBasePost('/api/note/delNote', {
-          id: note.id,
+          ids: [note.id],
         }).then((res) => {
           if (res.status) {
             message.success('删除成功');
@@ -251,7 +251,7 @@
     } else {
       isReady.value = true;
       nodeType.value = 'add';
-      setUpdateTime();
+      saveFunc();
       watch(
         () => note.content,
         () => {

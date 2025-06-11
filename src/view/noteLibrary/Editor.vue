@@ -8,11 +8,19 @@
 </template>
 
 <script setup lang="ts">
-  import { shallowRef, onMounted, onBeforeUnmount, watchEffect } from 'vue';
+  import { shallowRef, onMounted, onBeforeUnmount, watchEffect, nextTick } from 'vue';
   import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
   import '@wangeditor/editor/dist/css/style.css';
+  import { Boot } from '@wangeditor/editor';
   import { apiBasePost } from '@/http/request.ts';
-  import { IToolbarConfig, DomEditor } from '@wangeditor/editor';
+  import { IToolbarConfig } from '@wangeditor/editor';
+  import {
+    insertColumnLeftBtn,
+    insertColumnRightBtn,
+    insertRowAboveBtn,
+    insertRowBelowBtn,
+    selectAllBtn,
+  } from '@/config/wangEditor/menu/tableMenu.ts';
   const props = defineProps({
     value: {
       type: String,
@@ -50,7 +58,7 @@
           const formData = new FormData();
           formData.append('file', file);
           formData.append('noteId', props.noteId);
-          apiBasePost('/api/note/uploadFile', formData, {
+          apiBasePost('/api/note/uploadImage', formData, {
             headers: {
               'Content-Type': 'multipart/form-data',
             },
@@ -66,7 +74,23 @@
       },
     },
     placeholder: '请输入内容...',
-    // 用户自定义上传图片
+    hoverbarKeys: {
+      table: {
+        menuKeys: [
+          'enter',
+          'tableHeader',
+          'tableFullWidth',
+          'insertRowAbove',
+          'insertRowBelow',
+          'deleteTableRow',
+          'insertColumnLeft',
+          'insertColumnRight',
+          'deleteTableCol',
+          'deleteTable',
+          'selectAll',
+        ],
+      },
+    },
   };
   const emits = defineEmits(['update:modelValue', 'setHtml', 'setNoteId', 'saveData']);
   onMounted(() => {});
@@ -136,7 +160,7 @@
     editor.destroy();
   });
 
-  const handleCreated = (editor: Editor) => {
+  const handleCreated = (editor: any) => {
     editorRef.value = editor; // 记录 editor 实例，重要！
   };
 </script>

@@ -58,7 +58,7 @@
         </a-form-item>
         <a-form-item>
           <div class="login-tips-text">
-            <span class="remember-text"><b-checkbox v-model:isCheck="isCheck" />Remember Me</span>
+            <span class="remember-text"><b-checkbox type="circle" v-model:isCheck="isCheck" />Remember Me</span>
             <span class="dom-hover forget-text" @click="title = '重置'">Forget Password?</span>
           </div>
         </a-form-item>

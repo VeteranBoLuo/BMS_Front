@@ -1,5 +1,5 @@
 <template>
-  <PhoneContainer :title="(handleType === 'add' ? '新增' : '编辑') + '标签'">
+  <CommonContainer :title="(handleType === 'add' ? '新增' : '编辑') + '标签'">
     <b-loading :loading="loading" style="height: unset">
       <div class="tag-edit-body">
         <div class="tag-attr-item">
@@ -77,7 +77,7 @@
       v-click-log="{ module: '标签编辑', operation: `确定` }"
       >确定
     </b-button>
-  </PhoneContainer>
+  </CommonContainer>
 </template>
 
 <script lang="ts" setup>
@@ -92,7 +92,7 @@
   import BLoading from '@/components/BasicComponents/BLoading/BLoading.vue';
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
   import icon from '@/config/icon.ts';
-  import PhoneContainer from '@/components/phoneComponents/PhoneContainer/PhoneContainer.vue';
+  import CommonContainer from '@/components/BasicComponents/CommonContainer/CommonContainer.vue';
 
   const bookmark = bookmarkStore();
   const user = useUserStore();

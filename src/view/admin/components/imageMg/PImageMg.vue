@@ -1,5 +1,5 @@
 <template>
-  <PhoneContainer title="图片管理" @backClick="router.push('/admin')">
+  <CommonContainer title="图片管理" @backClick="router.push('/admin')">
     <div style="overflow: hidden; height: 100%; box-sizing: border-box">
       <b-space style="width: 100%">
         <b-input v-model:value="searchValue" placeholder="文件名" @input="handleSearch">
@@ -27,7 +27,7 @@
         张图片
       </p>
     </div>
-  </PhoneContainer>
+  </CommonContainer>
 </template>
 
 <script lang="ts" setup>
@@ -42,7 +42,7 @@
   import Alert from '@/components/BasicComponents/BModal/Alert.ts';
   import { message } from 'ant-design-vue';
   import BSpace from '@/components/BasicComponents/BSpace/BSpace.vue';
-  import PhoneContainer from '@/components/phoneComponents/PhoneContainer/PhoneContainer.vue';
+  import CommonContainer from '@/components/BasicComponents/CommonContainer/CommonContainer.vue';
   const bookmark = bookmarkStore();
   const imgOptions = [
     { label: '使用中', value: 'usedImages' },

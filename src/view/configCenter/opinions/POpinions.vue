@@ -1,5 +1,5 @@
 <template>
-  <PhoneContainer title="意见反馈">
+  <CommonContainer title="意见反馈">
     <div :style="{ width: bookmark.isPhone ? '95%' : '450px' }" style="height: 100%">
       <BTabs :options="['反馈类型', '反馈历史']" v-model:activeTab="activeTab" />
       <div class="type" v-if="activeTab === '反馈类型'">
@@ -91,7 +91,7 @@
       v-click-log="{ module: '意见反馈', operation: '提交反馈' }"
       >提交</b-button
     >
-  </PhoneContainer>
+  </CommonContainer>
 </template>
 
 <script setup lang="ts">
@@ -104,7 +104,7 @@
   import { message } from 'ant-design-vue';
   import { cloneDeep } from 'lodash-es';
   import { apiBasePost } from '@/http/request.ts';
-  import PhoneContainer from '@/components/phoneComponents/PhoneContainer/PhoneContainer.vue';
+  import CommonContainer from '@/components/BasicComponents/CommonContainer/CommonContainer.vue';
   import router from '@/router';
   import BTabs from '@/components/BasicComponents/BTabs/BTabs.vue';
   import BLoading from '@/components/BasicComponents/BLoading/BLoading.vue';

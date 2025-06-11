@@ -1,5 +1,5 @@
 <template>
-  <PhoneContainer title="编辑资料">
+  <CommonContainer title="编辑资料">
     <div class="home-container">
       <div style="width: 100%" class="flex-justify-center">
         <div class="user_icon" @click="uploadImg" v-click-log="{ module: '我的信息', operation: `上传头像` }">
@@ -35,7 +35,7 @@
       v-click-log="{ module: '我的信息', operation: `保存` }"
       >保存</b-button
     >
-  </PhoneContainer>
+  </CommonContainer>
 </template>
 
 <script lang="ts" setup>
@@ -48,7 +48,7 @@
   import BInput from '@/components/BasicComponents/BInput/BInput.vue';
   import { cloneDeep } from 'lodash-es';
   import icon from '@/config/icon.ts';
-  import PhoneContainer from '@/components/phoneComponents/PhoneContainer/PhoneContainer.vue';
+  import CommonContainer from '@/components/BasicComponents/CommonContainer/CommonContainer.vue';
   const user = useUserStore();
   const headPicture = ref<string>('');
   const visible = <Ref<boolean>>defineModel('visible');

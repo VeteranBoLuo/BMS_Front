@@ -5,10 +5,13 @@ import '@/assets/css/index.less';
 import { Icon } from '@iconify/vue';
 import globalDirect from '@/config/globalDirect';
 import { createPinia } from 'pinia';
-// import { connect } from '@/http/websocket';
+// 在入口文件中（如 main.ts 或 app.ts）
+import TableMenuPlugin from '@/config/wangEditor/table-menu-plugin.ts';
 // 创建vue实例
 const app = createApp(App);
 const pinia = createPinia();
+TableMenuPlugin(); // 全局注册一次
+
 // connect();
 app.use(pinia);
 app.use(router);

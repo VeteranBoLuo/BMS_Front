@@ -43,6 +43,7 @@ declare module 'vue' {
     BTooltip: typeof import('./src/components/BasicComponents/BTooltip/BTooltip.vue')['default']
     BTree: typeof import('./src/components/BasicComponents/BTree/BTree.vue')['default']
     BUpload: typeof import('./src/components/BasicComponents/BUpload/BUpload.vue')['default']
+    CommonContainer: typeof import('./src/components/BasicComponents/CommonContainer/CommonContainer.vue')['default']
     FormRenders: typeof import('./src/components/BasicComponents/BForm/FormRenders.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

@@ -1,5 +1,5 @@
 <template>
-  <PhoneContainer
+  <CommonContainer
     title="个人中心"
     :style="{ backgroundColor: bookmark.theme === 'day' ? '#f6f7f9' : '#222222' }"
     @backClick="router.push('/home')"
@@ -122,7 +122,7 @@
       >
     </div>
     <my-info v-if="userVisible" v-model:visible="userVisible" />
-  </PhoneContainer>
+  </CommonContainer>
 </template>
 
 <script setup lang="ts">
@@ -135,7 +135,7 @@
   import userApi from '@/api/userApi.ts';
   import MyInfo from '@/view/configCenter/myInfo/MyInfo.vue';
   import Viewer from '@/components/Viewer/BViewer.vue';
-  import PhoneContainer from '@/components/phoneComponents/PhoneContainer/PhoneContainer.vue';
+  import CommonContainer from '@/components/BasicComponents/CommonContainer/CommonContainer.vue';
 
   const bookmark = bookmarkStore();
   const menuVisible = ref(false);

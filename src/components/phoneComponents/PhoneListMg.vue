@@ -1,6 +1,6 @@
 <template>
   <b-loading :loading="loading">
-    <PhoneContainer :title="title">
+    <CommonContainer :title="title">
       <div class="edit-list-container">
         <b-input v-model:value="searchValue" class="table-search-input" :placeholder="placeholder">
           <template #prefix>
@@ -20,7 +20,7 @@
           >新增</b-button
         >
       </div>
-    </PhoneContainer>
+    </CommonContainer>
   </b-loading>
 </template>
 
@@ -31,7 +31,7 @@
   import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
   import BLoading from '@/components/BasicComponents/BLoading/BLoading.vue';
   import BInput from '@/components/BasicComponents/BInput/BInput.vue';
-  import PhoneContainer from '@/components/phoneComponents/PhoneContainer/PhoneContainer.vue';
+  import CommonContainer from '@/components/BasicComponents/CommonContainer/CommonContainer.vue';
   import icon from '@/config/icon.ts';
 
   const props = defineProps({

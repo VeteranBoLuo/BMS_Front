@@ -1,5 +1,5 @@
 <template>
-  <PhoneContainer title="帮助中心">
+  <CommonContainer title="帮助中心">
     <div class="help-container">
       <b-input v-model:value="searchValue" placeholder="目录名..." style="width: 100%" />
       <div class="help-body">
@@ -34,7 +34,7 @@
         ></div>
       </div>
     </div>
-  </PhoneContainer>
+  </CommonContainer>
 </template>
 
 <script lang="ts" setup>
@@ -43,7 +43,7 @@
   import BInput from '@/components/BasicComponents/BInput/BInput.vue';
 
   import 'viewerjs/dist/viewer.css'; //样式文件不要忘了
-  import PhoneContainer from '@/components/phoneComponents/PhoneContainer/PhoneContainer.vue';
+  import CommonContainer from '@/components/BasicComponents/CommonContainer/CommonContainer.vue';
   import { listOptions } from '@/config/helpCfg.ts';
 
   const bookmark = bookmarkStore();

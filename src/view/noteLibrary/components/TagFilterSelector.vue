@@ -1,27 +1,22 @@
 <template>
-  <div class="handle-btn-group">
-    <b-button class="noteType-select" @click="filterVisible = !filterVisible">
-      {{ viewNoteFilter }}<svg-icon :src="icon.arrow_left" :style="{ rotate: filterVisible ? '-90deg' : '90deg' }" />
-      <div class="filter-container" :style="{ display: filterVisible ? '' : 'none' }">
-        <div class="filter-item" @click.stop="viewNote('all')" :isFocus="noteType === 'all' ? true : false"
-          >全部笔记</div
-        >
-        <div class="filter-item" @click.stop="viewNote('null')" :isFocus="noteType === 'null'">无标签笔记</div>
-        <div style="width: 100%; height: 1px; background: #f0f0f0; flex-shrink: 0"></div>
-        <div v-for="item in allTags" class="filter-item" @click.stop="viewNote(item)" :isFocus="noteType === item"
-          ># {{ item }}</div
-        >
-      </div>
-    </b-button>
-    <b-button
-      type="primary"
-      style="border-radius: 20px"
-      @click="router.push('/noteLibrary/add')"
-      v-click-log="{ module: '笔记', operation: '新建笔记' }"
-    >
-      + 新建笔记
-    </b-button>
-  </div>
+  <b-button
+    class="noteType-select"
+    :style="{
+      background: filterVisible ? 'var(--noteType-hover-bg-color)' : '',
+      color: filterVisible ? 'var(--noteType-hover-color)' : '',
+    }"
+    @click="filterVisible = !filterVisible"
+  >
+    {{ viewNoteFilter }}<svg-icon :src="icon.arrow_left" :style="{ rotate: filterVisible ? '-90deg' : '90deg' }" />
+    <div class="filter-container" :style="{ display: filterVisible ? '' : 'none' }">
+      <div class="filter-item" @click.stop="viewNote('all')" :isFocus="noteType === 'all' ? true : false">全部笔记</div>
+      <div class="filter-item" @click.stop="viewNote('null')" :isFocus="noteType === 'null'">无标签笔记</div>
+      <div style="width: 100%; height: 1px; background: #f0f0f0; flex-shrink: 0"></div>
+      <div v-for="item in allTags" class="filter-item" @click.stop="viewNote(item)" :isFocus="noteType === item"
+        ># {{ item }}</div
+      >
+    </div>
+  </b-button>
 </template>
 
 <script lang="ts" setup>
@@ -77,26 +72,27 @@
 </script>
 
 <style lang="less" scoped>
-  .handle-btn-group {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
   .noteType-select {
     position: relative;
     border-radius: 36px !important;
     border: 1px solid #e8eaf2 !important;
+    background-color: var(--background-color);
     display: flex;
     gap: 5px;
+    &:hover {
+      background-color: var(--noteType-hover-bg-color);
+      color: var(--noteType-hover-color);
+    }
   }
   .filter-container {
     width: 200px;
-    height: 200px;
+    max-height: 300px;
     padding: 5px;
     background: var(--menu-cintainer-bg-color);
     box-shadow: 1px 1px 5px #4d5264;
     position: absolute;
-    top: 32px;
+    z-index: 1;
+    top: 35px;
     right: 0;
     border-radius: 8px;
     display: flex;
@@ -106,6 +102,7 @@
   }
   .filter-item {
     text-align: left;
+    color: var(--desc-color);
     padding-left: 10px;
     box-sizing: border-box;
     border-radius: 8px;

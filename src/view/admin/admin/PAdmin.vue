@@ -1,17 +1,17 @@
 <template>
-  <PhoneContainer
+  <CommonContainer
     title="后台管理"
     :style="{ backgroundColor: bookmark.theme === 'day' ? '#f6f7f9' : '#222222' }"
     @backClick="router.push('/personCenter')"
   >
     <PhoneMenu :menu-list="menuList" label="title" @click="clickItem" />
-  </PhoneContainer>
+  </CommonContainer>
 </template>
 
 <script lang="ts" setup>
   import icon from '@/config/icon.ts';
   import { bookmarkStore } from '@/store';
-  import PhoneContainer from '@/components/phoneComponents/PhoneContainer/PhoneContainer.vue';
+  import CommonContainer from '@/components/BasicComponents/CommonContainer/CommonContainer.vue';
   import PhoneMenu from '@/components/phoneComponents/PhoneMenu/PhoneMenu.vue';
   import router from '@/router';
   const bookmark = bookmarkStore();
