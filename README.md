@@ -37,7 +37,7 @@
   📦 **批量管理**：拖拽式书签归类、标签批量操作（如为50个书签统一添加`#deprecated`标签）。
 
 - **轻量化笔记辅助**  
-  📝 笔记与书签**共享标签体系**，可绑定书签生成“**知识卡片**”（例：技术文档+学习心得联动）。
+  📝 笔记模块采用极简设计，支持文字、图片等多形式快速输入，实现碎片化信息的即时捕捉与整理。通过智能标签体系，笔记可自动归类并实现秒级搜索，帮助用户高效沉淀知识、回顾思考轨迹。
 
 ### 📦 __配置中心__
 - **🖼 书签管理**  
@@ -72,6 +72,7 @@ npm run build
 
 
 ## ✨ 未来路线图
+- **知识卡片**：笔记与书签共享标签体系，可绑定书签生成“知识卡片”（例：技术文档+学习心得联动）
 - **AI智能归档**：基于历史行为自动推荐书签标签  
 - **灵感火花**：关联书签的智能内容推荐引擎  
 - **轻笺宇宙**：UGC书签合集共享
@@ -81,4 +82,4 @@ npm run build
 
 非常感谢各位好心人留下的星星。非常感谢你们的支持！
 
-[![Stargazers for @vue-flow/core](https://reporoster.com/stars/VeteranBoLuo/BMS_Front)](https://github.com/VeteranBoLuo/BMS_Front/stargazers)
+[![Stargazers for BMS_Front](https://reporoster.com/stars/VeteranBoLuo/BMS_Front)](https://github.com/VeteranBoLuo/BMS_Front/stargazers)
