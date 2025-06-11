@@ -1,20 +1,15 @@
 import { IDomEditor, DomEditor, SlateEditor } from '@wangeditor/editor';
 import { Transforms } from 'slate';
 import icon from '@/config/icon.ts';
-import type { IButtonMenu } from 'node_modules/.pnpm/@wangeditor+core@1.1.19_@uppy+core@2.3.4_@uppy+xhr-upload@2.1.3_dom7@3.0.0_is-hotkey@0.2.0_lo_lf5i4i5pzogr67jshptmitu5fq/node_modules/@wangeditor/core/dist/core/src/menus/interface.d.ts';
+import type { IButtonMenu } from '@wangeditor/core';
 export const selectAllBtn = {
   key: 'selectAll',
   factory() {
     return new (class wangEditorTableSelectAllHoverMenu implements IButtonMenu {
-      readonly tag: string;
-      readonly title: string;
-      readonly iconSvg: string;
-      constructor() {
-        this.title = '全选'; // 自定义菜单标题
-        this.iconSvg =
-          '<svg t="1715422038657" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1472" width="200" height="200"><path d="M736 96h192v192h-192v-192zM416 736h192v192h-192v-192zM608 96h-192v192h192v-192zM96 736h192v192h-192v-192zM288 96h-192v192h192v-192zM736 736h192v192h-192v-192zM288 416h-192v192h192v-192zM608 416h-192v192h192v-192zM736 416h192v192h-192v-192z" fill="#000000" p-id="1473"></path></svg>';
-        this.tag = 'button';
-      }
+      readonly tag = 'button';
+      readonly title = '全选';
+      readonly iconSvg =
+        '<svg t="1715422038657" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1472" width="200" height="200"><path d="M736 96h192v192h-192v-192zM416 736h192v192h-192v-192zM608 96h-192v192h192v-192zM96 736h192v192h-192v-192zM288 96h-192v192h192v-192zM736 736h192v192h-192v-192zM288 416h-192v192h192v-192zM608 416h-192v192h192v-192zM736 416h192v192h-192v-192z" fill="#000000" p-id="1473"></path></svg>';
 
       // 获取菜单执行时的 value ，用不到则返回空 字符串或 false
       getValue(editor: IDomEditor): string | boolean {
@@ -58,14 +53,9 @@ export const insertRowAboveBtn = {
   key: 'insertRowAbove',
   factory() {
     return new (class WangEditorInsertRowAboveMenu implements IButtonMenu {
-      readonly tag: string;
-      readonly title: string;
-      readonly iconSvg: string;
-      constructor() {
-        this.title = '在上方插入行';
-        this.iconSvg = icon.noteDetail.table_insert_top;
-        this.tag = 'button';
-      }
+      readonly tag = 'button';
+      readonly title = '在上方插入行';
+      readonly iconSvg = icon.noteDetail.table_insert_top;
 
       getValue(editor: IDomEditor): string | boolean {
         return 'insertRowAbove';
@@ -144,14 +134,9 @@ export const insertRowBelowBtn = {
   key: 'insertRowBelow',
   factory() {
     return new (class WangEditorInsertRowBelowMenu implements IButtonMenu {
-      readonly tag: string;
-      readonly title: string;
-      readonly iconSvg: string;
-      constructor() {
-        this.title = '在下方插入行'; // 修改标题
-        this.iconSvg = icon.noteDetail.table_insert_bottom; // 可更换为下方插入行的图标
-        this.tag = 'button';
-      }
+      readonly tag = 'button';
+      readonly title = '在下方插入行';
+      readonly iconSvg = icon.noteDetail.table_insert_bottom;
 
       getValue(editor: IDomEditor): string | boolean {
         return 'insertRowBelow'; // 修改返回值
@@ -234,14 +219,9 @@ export const insertColumnLeftBtn = {
   key: 'insertColumnLeft',
   factory() {
     return new (class WangEditorInsertColumnLeftMenu implements IButtonMenu {
-      readonly tag: string;
-      readonly title: string;
-      readonly iconSvg: string;
-      constructor() {
-        this.title = '在左侧插入列';
-        this.iconSvg = icon.noteDetail.table_insert_left; // 替换为你自己的图标
-        this.tag = 'button';
-      }
+      readonly tag = 'button';
+      readonly title = '在左侧插入列';
+      readonly iconSvg = icon.noteDetail.table_insert_left;
 
       getValue(editor: IDomEditor): string | boolean {
         return 'insertColumnLeft';
@@ -324,14 +304,9 @@ export const insertColumnRightBtn = {
   key: 'insertColumnRight',
   factory() {
     return new (class WangEditorInsertColumnRightMenu implements IButtonMenu {
-      readonly tag: string;
-      readonly title: string;
-      readonly iconSvg: string;
-      constructor() {
-        this.title = '在右侧插入列';
-        this.iconSvg = icon.noteDetail.table_insert_right; // 替换为你自己的图标
-        this.tag = 'button';
-      }
+      readonly tag = 'button';
+      readonly title = '在右侧插入列';
+      readonly iconSvg = icon.noteDetail.table_insert_right;
 
       getValue(editor: IDomEditor): string | boolean {
         return 'insertColumnRight';
