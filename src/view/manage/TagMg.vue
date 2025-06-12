@@ -4,9 +4,9 @@
 </template>
 
 <script lang="ts" setup>
-  import TagTable from '@/view/manage/components/desktop/TagTable.vue';
+  import TagTable from '@/components/manage/tagMg/TagTable.vue';
   import { bookmarkStore } from '@/store';
-  import PTagTable from '@/view/manage/components/phone/PTagTable.vue';
+  import PTagTable from '@/components/manage/tagMg/PTagTable.vue';
   const bookmark = bookmarkStore();
 </script>
 

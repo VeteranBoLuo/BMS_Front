@@ -10,7 +10,7 @@ import bookmarkTable from '@/assets/img/help/bookmark_table.jpg';
 import bookmarkMainPage from '@/assets/img/help/bookmark_mainPage.jpg';
 import opinionMg from '@/assets/img/help/opinionMg.png';
 import { ref } from 'vue';
-import UpdateLogs from '@/view/configCenter/UpdateLogs.vue';
+import UpdateLogs from '@/components/personCenter/UpdateLogs.vue';
 
 export const listOptions = ref([
   {

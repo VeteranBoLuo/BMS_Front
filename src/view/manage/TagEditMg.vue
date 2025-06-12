@@ -5,8 +5,8 @@
 
 <script lang="ts" setup>
   import { bookmarkStore } from '@/store';
-  import PTagEdit from '@/view/manage/components/phone/PTagEdit.vue';
-  import TagEdit from '@/view/manage/components/desktop/TagEdit.vue';
+  import PTagEdit from '@/components/manage/tagEditMg/PTagEdit.vue';
+  import TagEdit from '@/components/manage/tagEditMg/TagEdit.vue';
   const bookmark = bookmarkStore();
 </script>
 

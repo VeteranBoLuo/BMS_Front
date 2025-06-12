@@ -5,8 +5,8 @@
 
 <script lang="ts" setup>
   import { bookmarkStore } from '@/store';
-  import BookmarkTable from '@/view/manage/components/desktop/BookmarkTable.vue';
-  import PBookmarkTable from '@/view/manage/components/phone/PBookmarkTable.vue';
+  import BookmarkTable from '@/components/manage/bookmarkMg/BookmarkTable.vue';
+  import PBookmarkTable from '@/components/manage/bookmarkMg/PBookmarkTable.vue';
   const bookmark = bookmarkStore();
 </script>
 

@@ -11,8 +11,8 @@
 <script lang="ts" setup>
   import icon from '@/config/icon.ts';
   import { bookmarkStore } from '@/store';
-  import CommonContainer from '@/components/BasicComponents/CommonContainer/CommonContainer.vue';
-  import PhoneMenu from '@/components/phoneComponents/PhoneMenu/PhoneMenu.vue';
+  import CommonContainer from '@/components/base/BasicComponents/CommonContainer.vue';
+  import PhoneMenu from '@/components/base/phoneComponents/PhoneMenu/PhoneMenu.vue';
   import router from '@/router';
   const bookmark = bookmarkStore();
   const menuList = [

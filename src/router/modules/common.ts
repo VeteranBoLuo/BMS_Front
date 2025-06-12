@@ -11,7 +11,7 @@ const commonRouter: AppRouteRecordRaw[] = [
     },
     path: '/help',
     name: 'help',
-    component: () => import('@/view/configCenter/help/HelpMg.vue'),
+    component: () => import('@/components/personCenter/help/HelpMg.vue'),
   },
   {
     meta: {
@@ -21,7 +21,7 @@ const commonRouter: AppRouteRecordRaw[] = [
     },
     path: '/updateLogs',
     name: 'updateLogs',
-    component: () => import('@/view/configCenter/UpdateLogs.vue'),
+    component: () => import('@/components/personCenter/UpdateLogs.vue'),
   },
 ];
 

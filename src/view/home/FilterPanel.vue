@@ -73,13 +73,13 @@
   import { apiBasePost } from '@/http/request.ts';
   import { bookmarkStore, useUserStore } from '@/store';
   import { useRouter } from 'vue-router';
-  import RightMenu from '@/components/RightMenu.vue';
+  import RightMenu from '@/components/base/RightMenu.vue';
   import { TagInterface } from '@/config/bookmarkCfg.ts';
   import { message } from 'ant-design-vue';
-  import Alert from '@/components/BasicComponents/BModal/Alert.ts';
-  import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
+  import Alert from '@/components/base/BasicComponents/BModal/Alert.ts';
+  import SvgIcon from '@/components/base/SvgIcon/src/SvgIcon.vue';
   import icon from '@/config/icon.ts';
-  import BList from '@/components/BasicComponents/BList/BList.vue';
+  import BList from '@/components/base/BasicComponents/BList.vue';
   import { recordOperation } from '@/api/commonApi.ts';
 
   const tagName = ref('');

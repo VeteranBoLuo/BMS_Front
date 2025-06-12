@@ -56,12 +56,12 @@
   import { computed, onMounted, ref } from 'vue';
   import { apiQueryPost } from '@/http/request.ts';
   import { bookmarkStore } from '@/store';
-  import BInput from '@/components/BasicComponents/BInput/BInput.vue';
+  import BInput from '@/components/base/BasicComponents/BInput.vue';
   import icon from '@/config/icon.ts';
-  import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
+  import SvgIcon from '@/components/base/SvgIcon/src/SvgIcon.vue';
   import router from '@/router';
-  import BSpace from '@/components/BasicComponents/BSpace/BSpace.vue';
-  import CommonContainer from '@/components/BasicComponents/CommonContainer/CommonContainer.vue';
+  import BSpace from '@/components/base/BasicComponents/BSpace.vue';
+  import CommonContainer from '@/components/base/BasicComponents/CommonContainer.vue';
 
   const bookmark = bookmarkStore();
   const logList = ref([]);

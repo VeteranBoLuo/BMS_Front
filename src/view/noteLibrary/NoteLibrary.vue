@@ -46,16 +46,16 @@
 
 <script lang="ts" setup>
   import icon from '@/config/icon.ts';
-  import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
+  import SvgIcon from '@/components/base/SvgIcon/src/SvgIcon.vue';
   import router from '@/router';
   import { apiBasePost } from '@/http/request.ts';
   import { computed, ref } from 'vue';
   import { bookmarkStore } from '@/store';
-  import TagFilterSelector from '@/view/noteLibrary/components/TagFilterSelector.vue';
-  import BLoading from '@/components/BasicComponents/BLoading/BLoading.vue';
-  import NoteCard from '@/view/noteLibrary/components/NoteCard.vue';
-  import BButton from '@/components/BasicComponents/BButton/BButton.vue';
-  import Alert from '@/components/BasicComponents/BModal/Alert.ts';
+  import TagFilterSelector from '@/components/noteLibrary/library/TagFilterSelector.vue';
+  import BLoading from '@/components/base/BasicComponents/BLoading.vue';
+  import NoteCard from '@/components/noteLibrary/library/NoteCard.vue';
+  import BButton from '@/components/base/BasicComponents/BButton.vue';
+  import Alert from '@/components/base/BasicComponents/BModal/Alert.ts';
   import { message } from 'ant-design-vue';
   const bookmark = bookmarkStore();
   const noteList = ref([]);
@@ -198,6 +198,6 @@
     align-items: center;
     cursor: pointer;
     font-size: 14px;
-    color: #eb2f2f;
+    color: #f54e4e;
   }
 </style>

@@ -14,7 +14,7 @@
       />
       <div class="note-body">
         <Catalog :content="note.content" />
-        <div class="note-body-header footer-center">
+        <div class="note-body-header row-center">
           <div class="note-body-title n-title">
             <a-input
               :disabled="readonly"
@@ -37,13 +37,13 @@
   import router from '@/router';
   import { cloneDeep } from 'lodash-es';
   import { apiBasePost } from '@/http/request.ts';
-  import Catalog from '@/view/noteLibrary/components/Catalog.vue';
-  import Alert from '@/components/BasicComponents/BModal/Alert.ts';
+  import Catalog from '@/components/noteLibrary/detail/Catalog.vue';
+  import Alert from '@/components/base/BasicComponents/BModal/Alert.ts';
   import { message } from 'ant-design-vue';
   import { bookmarkStore, noteStore, useUserStore } from '@/store';
-  import NoteHeader from '@/view/noteLibrary/components/NoteHeader.vue';
-  import Editor from '@/view/noteLibrary/Editor.vue';
-  import BLoading from '@/components/BasicComponents/BLoading/BLoading.vue';
+  import NoteHeader from '@/components/noteLibrary/detail/NoteHeader.vue';
+  import Editor from '@/components/noteLibrary/detail/Editor.vue';
+  import BLoading from '@/components/base/BasicComponents/BLoading.vue';
   const bookmark = bookmarkStore();
   const user = useUserStore();
   const note = reactive({

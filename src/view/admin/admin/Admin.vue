@@ -15,8 +15,8 @@
 
 <script lang="ts" setup>
   import icon from '@/config/icon.ts';
-  import BList from '@/components/BasicComponents/BList/BList.vue';
-  import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
+  import BList from '@/components/base/BasicComponents/BList.vue';
+  import SvgIcon from '@/components/base/SvgIcon/src/SvgIcon.vue';
   import { onMounted, ref } from 'vue';
   import router from '@/router';
   import { bookmarkStore } from '@/store';

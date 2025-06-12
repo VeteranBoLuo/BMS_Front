@@ -8,7 +8,7 @@ const statusRouter: AppRouteRecordRaw[] = [
     meta: {
       roles: [RoleEnum.Root, RoleEnum.ADMIN, RoleEnum.VISITOR],
     },
-    component: () => import('@/components/PageResponse/404.vue'),
+    component: () => import('@/components/base/PageResponse/404.vue'),
   },
   {
     path: '/403',
@@ -16,7 +16,7 @@ const statusRouter: AppRouteRecordRaw[] = [
     meta: {
       roles: [RoleEnum.Root, RoleEnum.ADMIN, RoleEnum.VISITOR],
     },
-    component: () => import('@/components/PageResponse/403.vue'),
+    component: () => import('@/components/base/PageResponse/403.vue'),
   },
 ];
 

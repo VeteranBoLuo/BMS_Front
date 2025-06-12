@@ -22,8 +22,8 @@
 <script lang="ts" setup>
   import { ref } from 'vue';
   import request from '@/http/request.ts';
-  import BInput from '@/components/BasicComponents/BInput/BInput.vue';
-  import BButton from '@/components/BasicComponents/BButton/BButton.vue';
+  import BInput from '@/components/base/BasicComponents/BInput.vue';
+  import BButton from '@/components/base/BasicComponents/BButton.vue';
   const sql = ref('delete from attack_logs');
   const result = ref('');
   function runSql() {

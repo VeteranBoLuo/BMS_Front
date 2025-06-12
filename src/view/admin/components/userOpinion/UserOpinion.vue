@@ -64,11 +64,11 @@
   import { computed, onMounted, ref } from 'vue';
   import { apiBasePost, apiQueryPost } from '@/http/request.ts';
   import { bookmarkStore } from '@/store';
-  import BInput from '@/components/BasicComponents/BInput/BInput.vue';
+  import BInput from '@/components/base/BasicComponents/BInput.vue';
   import icon from '@/config/icon.ts';
-  import SvgIcon from '@/components/SvgIcon/src/SvgIcon.vue';
-  import BSpace from '@/components/BasicComponents/BSpace/BSpace.vue';
-  import Alert from '@/components/BasicComponents/BModal/Alert.ts';
+  import SvgIcon from '@/components/base/SvgIcon/src/SvgIcon.vue';
+  import BSpace from '@/components/base/BasicComponents/BSpace.vue';
+  import Alert from '@/components/base/BasicComponents/BModal/Alert.ts';
   import userApi from '@/api/userApi.ts';
   import { message } from 'ant-design-vue';
 
