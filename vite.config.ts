@@ -19,7 +19,7 @@ export default defineConfig({
     vueJsx(),
     vue(), //按需加载
     Components({
-      dirs: ['src/components/BasicComponents/*'], // 按需加载的文件
+      dirs: ['src/components/base/*'], // 按需加载的文件
       directoryAsNamespace: true,
       resolvers: [
         ElementPlusResolver(),
