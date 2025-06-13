@@ -8,7 +8,17 @@
           </div>
           <div style="font-weight: 500; font-size: 20px" @click="init">笔记库</div>
         </div>
-        <TagFilterSelector :allTags="allTags" v-model:noteType="noteType" @nodeTypeChange="noteType = $el" />
+        <div class="handle-btn-group">
+          <TagFilterSelector :allTags="allTags" v-model:noteType="noteType" @nodeTypeChange="noteType = $el" />
+          <b-button
+            type="primary"
+            style="border-radius: 20px"
+            @click="router.push('/noteLibrary/add')"
+            v-click-log="{ module: '笔记', operation: '新建笔记' }"
+          >
+            + 新建笔记
+          </b-button>
+        </div>
       </div>
       <div v-else class="flex-align-center" style="justify-content: space-between; padding: 0 20px">
         <div style="font-weight: 500; font-size: 20px; cursor: pointer" @click="init">笔记库</div>
