@@ -17,7 +17,7 @@
         v-if="!isStartEdit"
         :style="{ marginLeft: bookmark.isPhone ? '20px' : '0' }"
       >
-        已保存于 {{ updateTime }}
+        <span v-show="note.id"> 已保存于 {{ updateTime }} </span>
       </div>
       <div v-else style="color: #c0c0c0; font-size: 12px" :style="{ marginLeft: bookmark.isPhone ? '20px' : '0' }">
         <span>保存中...</span>
@@ -77,7 +77,7 @@
       nodeType: 'edit' | 'add' | 'share';
       readonly: boolean;
       isStartEdit: boolean;
-      content: string;
+      note: any;
     }>(),
     {},
   );

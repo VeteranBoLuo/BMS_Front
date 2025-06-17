@@ -19,8 +19,9 @@ export default defineConfig({
     vueJsx(),
     vue(), //按需加载
     Components({
-      dirs: ['src/components/base/*'], // 按需加载的文件
+      dirs: ['src/components/base/*'], // 自动导入的文件
       directoryAsNamespace: true,
+      deep: true,
       resolvers: [
         ElementPlusResolver(),
         AntDesignVueResolver({

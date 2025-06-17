@@ -7,7 +7,7 @@
         :readonly="readonly"
         :isStartEdit="isStartEdit"
         @focusout="titleBlur"
-        :content="note.content"
+        :note="note"
         @del="delNote"
         @save="clickSaveNote"
         @saveTag="clickSaveNote"

@@ -9,7 +9,7 @@
           <div style="font-weight: 500; font-size: 20px" @click="init">笔记库</div>
         </div>
         <div class="handle-btn-group">
-          <TagFilterSelector :allTags="allTags" v-model:noteType="noteType" @nodeTypeChange="noteType = $el" />
+          <TagFilterSelector :allTags="allTags" v-model:noteType="noteType"  />
           <b-button
             type="primary"
             style="border-radius: 20px"
@@ -35,7 +35,20 @@
             </b-button>
           </template>
           <template v-else>
-            <TagFilterSelector :allTags="allTags" v-model:noteType="noteType" />
+            <TagFilterSelector :allTags="allTags" v-model:noteType="noteType"  />
+            <div
+              class="search-icon flex-center dom-hover"
+              :class="searchActive ? 'normal-input' : 'icon-input'"
+              @click="searchActive = true"
+              :style="{ width: searchActive ? '200px' : '32px' }"
+            >
+              <!--              <svg-icon color="#cccccc" :src="icon.navigation.search" size="16" v-if="!searchActive" />-->
+              <b-input :placeholder="searchActive ? '搜索笔记' : ''" v-model:value="searchValue">
+                <template #prefix>
+                  <svg-icon color="#cccccc" :src="icon.navigation.search" size="16" @click="focusSearchInput" />
+                </template>
+              </b-input>
+            </div>
             <b-button
               type="primary"
               style="border-radius: 20px"
@@ -48,7 +61,7 @@
         </div>
       </div>
       <div class="note-library-body">
-        <note-card v-for="note in viewNoteList" :note="note" />
+        <note-card v-for="note in viewNoteList" :note="note" @nodeTypeChange="handleNodeTypeChange" />
       </div>
     </div>
   </b-loading>
@@ -59,7 +72,7 @@
   import SvgIcon from '@/components/base/SvgIcon/src/SvgIcon.vue';
   import router from '@/router';
   import { apiBasePost } from '@/http/request.ts';
-  import { computed, ref } from 'vue';
+  import { computed, onMounted, ref, watch } from 'vue';
   import { bookmarkStore } from '@/store';
   import TagFilterSelector from '@/components/noteLibrary/library/TagFilterSelector.vue';
   import BLoading from '@/components/base/BasicComponents/BLoading.vue';
@@ -67,6 +80,8 @@
   import BButton from '@/components/base/BasicComponents/BButton.vue';
   import Alert from '@/components/base/BasicComponents/BModal/Alert.ts';
   import { message } from 'ant-design-vue';
+  import ContenteditableDiv from '@/components/base/BasicComponents/ContenteditableDiv.vue';
+  import BInput from '@/components/base/BasicComponents/BInput.vue';
   const bookmark = bookmarkStore();
   const noteList = ref([]);
   const loading = ref(false);
@@ -95,15 +110,30 @@
       });
   }
 
+  const searchValue = ref('');
+
   const viewNoteList = computed(() => {
+    const filteredNotes = noteList.value.filter(
+      (note) =>
+        note.title.includes(searchValue.value) ||
+        note.content.includes(searchValue.value) ||
+        note.tags?.includes(searchValue.value),
+    );
+
     if (noteType.value === 'all') {
-      return noteList.value;
+      return filteredNotes;
     }
+
     if (noteType.value === 'null') {
-      return noteList.value.filter((item) => !item.tags);
+      return filteredNotes.filter((note) => !note.tags);
     }
-    return noteList.value.filter((item) => item.tags && JSON.parse(item.tags)?.includes(noteType.value));
+
+    return filteredNotes.filter((note) => note.tags && JSON.parse(note.tags)?.includes(noteType.value));
   });
+
+  function focusSearchInput() {
+    document.querySelector('.b_input').focus();
+  }
 
   const noteType = ref('all');
   const allTags = ref([]);
@@ -141,6 +171,39 @@
       },
     });
   }
+
+  const searchActive = ref(false);
+
+  watch(
+    () => searchActive.value,
+    (val) => {
+      if (val) {
+        document.addEventListener(
+          'click',
+          (e) => {
+            if (!e.target.matches('.search-icon *')) {
+              searchActive.value = false;
+            }
+          },
+          true,
+        );
+      } else {
+        document.removeEventListener(
+          'click',
+          (e) => {
+            if (!e.target.matches('.search-icon *')) {
+              searchActive.value = false;
+            }
+          },
+          true,
+        );
+      }
+    },
+  );
+
+  const handleNodeTypeChange = (tag) => {
+    noteType.value = tag;
+  };
 </script>
 
 <style lang="less" scoped>
@@ -209,5 +272,35 @@
     cursor: pointer;
     font-size: 14px;
     color: #f54e4e;
+  }
+  .search-icon {
+    height: 32px;
+    width: 32px;
+    border-radius: 16px;
+    border-color: var(--card-border-color) !important;
+    transition: all 0.3s;
+    :deep(.b_input) {
+      border-radius: 16px;
+    }
+  }
+  .icon-input {
+    :deep(.b_input) {
+      padding: 0 !important;
+      cursor: pointer;
+    }
+    :deep(.prefix-icon) {
+      left: 8px;
+    }
+    :deep(.icon-base64) {
+      transition: color 0.3s !important;
+    }
+    &:hover {
+      :deep(.b_input) {
+        border-color: var(--primary-color);
+      }
+      :deep(.icon-base64) {
+        color: var(--primary-color) !important;
+      }
+    }
   }
 </style>

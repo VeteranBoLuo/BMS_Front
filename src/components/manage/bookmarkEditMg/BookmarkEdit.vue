@@ -30,7 +30,7 @@
       </div>
     </b-loading>
     <b-space class="edit-tag-footer">
-      <b-button type="primary" @click="submit" v-click-log="{ module: '书签编辑', operation: `确定` }">确定</b-button>
+      <b-button v-click-log="{ module: '书签编辑', operation: `确定` }" type="primary" @click="submit">确定</b-button>
       <b-button @click="$router.back()" v-click-log="{ module: '书签编辑', operation: `返回` }">返回</b-button>
     </b-space>
   </div>
@@ -40,9 +40,7 @@
   import { computed, onMounted, ref } from 'vue';
   import { apiBasePost, apiQueryPost } from '@/http/request.ts';
   import { useRouter } from 'vue-router';
-  import BInput from '@/components/base/BasicComponents/BInput.vue';
   import { bookmarkStore, useUserStore } from '@/store';
-  import BSpace from '@/components/base/BasicComponents/BSpace.vue';
   import { message } from 'ant-design-vue';
   import { SelectionSearch } from '@/components/base/BasicComponents/BForm/FormRenders.vue';
 

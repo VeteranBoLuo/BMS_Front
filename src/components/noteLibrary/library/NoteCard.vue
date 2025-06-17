@@ -95,7 +95,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     flex: 1 1 0;
-    margin-right: 8px;
+    margin-right: 10px;
   }
   .note-content {
     box-sizing: border-box;
