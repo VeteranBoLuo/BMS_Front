@@ -11,7 +11,9 @@
       v-html="extractAndConvertTags(note.content)"
     />
     <div class="note-tags" v-if="getTags(note)">
-      <div class="b-tag" v-for="tag in getTags(note)" @click.stop="noteTypeChange(tag)">{{ tag }}</div>
+      <div :title="tag" class="b-tag text-hidden" v-for="tag in getTags(note)" @click.stop="noteTypeChange(tag)">{{
+        tag
+      }}</div>
     </div>
     <div class="note-tags" v-else style="font-size: 12px">_</div>
     <div
@@ -115,14 +117,11 @@
     margin-top: 10px;
     display: flex;
     gap: 10px;
-
     .b-tag {
       background-color: #eeedff;
       padding: 2px 4px;
-      min-width: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      max-width: 80px;
+      text-align: center;
       border-radius: 6px;
       font-size: 12px;
       color: #8b88f2;

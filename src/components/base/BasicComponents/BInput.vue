@@ -4,7 +4,7 @@
       v-if="type === 'textarea'"
       :id="id"
       :rows="rows"
-      class="b_textarea"
+      class="b-textarea"
       :value="value"
       @input="handleInput"
       @enter="$emit('enter')"
@@ -20,7 +20,7 @@
     <input
       v-else
       :id="id"
-      class="b_input"
+      class="b-input"
       :class="inputTheme"
       :value="value"
       :type="type"
@@ -48,7 +48,8 @@
 </template>
 
 <script setup lang="ts">
-  import { useSlots, computed } from 'vue';
+  import { useSlots, computed, Ref } from 'vue';
+
   const props = withDefaults(
     defineProps<{
       id: string;
@@ -56,7 +57,7 @@
       type: string;
       autocomplete: 'off' | 'on' | 'new-password';
       height: string;
-      theme: string;
+      theme: 'al-day' | 'noBorder' | '';
       rows: number;
       maxlength: number | string;
     }>(),
@@ -71,7 +72,7 @@
       rows: 4,
     },
   );
-  const value = defineModel('value');
+  const value: Ref<string | number | undefined> = defineModel('value');
   const emit = defineEmits(['input', 'enter', 'focus', 'focusout', 'blur', 'change']);
 
   // 获取插槽内容
@@ -104,7 +105,7 @@
     width: 100%;
     position: relative;
   }
-  .b_input {
+  .b-input {
     border: 1px solid #d9d9d9;
     border-radius: 6px;
     padding: 0 11px;
@@ -113,7 +114,7 @@
     box-sizing: border-box;
     background-color: var(--bl-input-bg-color);
     color: var(--bl-input-color);
-    transition: border-color 0.2s !important;
+    transition: border-color 0.2s;
     &:focus {
       border: 1px solid var(--bl-input-border-h-color);
       box-shadow: 0 0 0 1px rgba(92, 90, 86, 0.1);
@@ -126,7 +127,7 @@
     }
     outline: none;
   }
-  .b_textarea {
+  .b-textarea {
     border: 1px solid #d9d9d9;
     border-radius: 6px;
     padding: 4px 11px;
@@ -172,8 +173,20 @@
     -webkit-text-fill-color: var(--text-color); //这个地方的颜色是字体颜色，可以根据实际情况修改
     transition: background-color 50000s ease-in-out 0s;
   }
-  .input-day {
+  .input-al-day {
     background-color: #ffffff !important;
     color: rgb(0, 0, 0) !important;
+  }
+  .input-noBorder {
+    border-color: transparent !important;
+    box-shadow: none !important;
+    background: var(--bl-input-noBorder-bg-color);
+    transition: background-color 0.3s;
+    &:hover {
+      background: var(--bl-input-noBorder-hover-bg-color);
+    }
+    &:focus-visible {
+      background: var(--bl-input-noBorder-hover-bg-color);
+    }
   }
 </style>

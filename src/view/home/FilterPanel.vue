@@ -8,7 +8,7 @@
       :node-type="{ id: 'id', title: 'name' }"
     >
       <template #input>
-        <b-input placeholder="请输入标签名" v-model:value="tagName" id="ref1">
+        <b-input theme="noBorder" placeholder="请输入标签名" v-model:value="tagName" id="ref1">
           <template #suffix>
             <a-dropdown :trigger="['hover']" class="flex-align-center">
               <template #overlay>
@@ -166,7 +166,7 @@
   }
 
   .edit-input {
-    :deep(.b_input) {
+    :deep(.b-input) {
       height: 30px !important;
     }
   }

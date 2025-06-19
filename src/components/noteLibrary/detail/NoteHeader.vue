@@ -24,39 +24,31 @@
       </div>
     </div>
     <div class="flex-align-center" style="gap: 20px">
-      <div
-        class="note-header-title-icon"
-        @click="updateTag"
-        title="更新标签"
-        v-click-log="{ module: '笔记详情', operation: '更新标签' }"
-      >
-        <SvgIcon :src="icon.manage_categoryBtn_tag" />
-      </div>
-      <div
-        class="note-header-title-icon"
-        @click="exportToPDF"
-        title="导出为PDF"
-        v-click-log="{ module: '笔记详情', operation: '导出为PDF' }"
-      >
-        <SvgIcon :src="icon.noteDetail.export" />
-      </div>
-      <div
-        class="note-header-title-icon"
-        @click="$emit('del')"
-        title="删除"
-        v-click-log="{ module: '笔记详情', operation: '删除笔记' }"
-      >
-        <SvgIcon :src="icon.noteDetail.delete" />
-      </div>
-      <div
-        v-if="!bookmark.isPhone"
-        class="note-header-title-icon"
-        @click="$emit('save')"
-        title="保存"
-        v-click-log="{ module: '笔记详情', operation: '保存笔记' }"
-      >
-        <SvgIcon :src="icon.noteDetail.save" />
-      </div>
+      <a-tooltip title="更新标签">
+        <div class="note-header-title-icon" @click="updateTag" v-click-log="OPERATION_LOG_MAP.note.updateTag">
+          <SvgIcon :src="icon.manage_categoryBtn_tag" />
+        </div>
+      </a-tooltip>
+      <a-tooltip title="导出为PDF">
+        <div class="note-header-title-icon" @click="exportToPDF" v-click-log="OPERATION_LOG_MAP.note.exportPdf">
+          <SvgIcon :src="icon.noteDetail.export" />
+        </div>
+      </a-tooltip>
+      <a-tooltip title="删除">
+        <div class="note-header-title-icon" @click="$emit('del')" v-click-log="OPERATION_LOG_MAP.note.deleteNote">
+          <SvgIcon :src="icon.noteDetail.delete" />
+        </div>
+      </a-tooltip>
+      <a-tooltip title="保存">
+        <div
+          v-if="!bookmark.isPhone"
+          class="note-header-title-icon"
+          @click="$emit('save')"
+          v-click-log="OPERATION_LOG_MAP.note.saveNote"
+        >
+          <SvgIcon :src="icon.noteDetail.save" />
+        </div>
+      </a-tooltip>
     </div>
     <NoteTagConfig v-model:visible="tagConfDlgVisible" v-if="tagConfDlgVisible" @saveTag="$emit('saveTag')" />
   </div>
@@ -70,17 +62,15 @@
   import { ref } from 'vue';
   import NoteTagConfig from '@/components/noteLibrary/detail/NoteTagConfig.vue';
   import { generatePDF } from '@/utils/htmlToPdf.ts';
+  import { OPERATION_LOG_MAP } from '@/config/logMap.ts';
 
-  const props = withDefaults(
-    defineProps<{
-      updateTime: string;
-      nodeType: 'edit' | 'add' | 'share';
-      readonly: boolean;
-      isStartEdit: boolean;
-      note: any;
-    }>(),
-    {},
-  );
+  const props = defineProps<{
+    updateTime: string;
+    nodeType: 'edit' | 'add' | 'share';
+    readonly: boolean;
+    isStartEdit: boolean;
+    note: any;
+  }>();
 
   const bookmark = bookmarkStore();
 
@@ -106,7 +96,7 @@
 
   // 在setup中添加
   const exportToPDF = async () => {
-    generatePDF('pdf', '.w-e-text-container [data-slate-editor]');
+    await generatePDF('pdf', '.w-e-text-container [data-slate-editor]');
   };
 </script>
 

@@ -33,7 +33,7 @@
       class="container-footer-btn"
       type="primary"
       @click="submit"
-      v-click-log="{ module: '书签编辑', operation: `确定` }"
+      v-click-log="OPERATION_LOG_MAP.bookmarkDetail.save"
       >确定</b-button
     >
   </CommonContainer>
@@ -48,6 +48,7 @@
   import { message } from 'ant-design-vue';
   import { SelectionSearch } from '@/components/base/BasicComponents/BForm/FormRenders.vue';
   import CommonContainer from '@/components/base/BasicComponents/CommonContainer.vue';
+  import {OPERATION_LOG_MAP} from "@/config/logMap.ts";
 
   const bookmark = bookmarkStore();
   const user = useUserStore();

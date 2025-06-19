@@ -23,10 +23,10 @@
           </div>
           <div style="display: flex; gap: 20px; font-size: 12px">
             <span
-              >标签<span style="margin-left: 10px">{{ user.tagTotal }}</span></span
+              >书签<span style="margin-left: 10px">{{ user.bookmarkTotal }}</span></span
             >
             <span
-              >书签<span style="margin-left: 10px">{{ user.bookmarkTotal }}</span></span
+              >笔记<span style="margin-left: 10px">{{ user.noteTotal }}</span></span
             >
           </div>
         </div>
@@ -55,10 +55,7 @@
           >
             <svg-icon size="14" :src="menuItem.icon" />
             {{ menuItem.label }}
-            <div
-              v-if="getVersionIsNew(menuItem)"
-              class="update-point"
-            />
+            <div v-if="getVersionIsNew(menuItem)" class="update-point" />
           </div>
           <div
             class="flex-center li"
@@ -234,7 +231,7 @@
   .handle-body {
     border-radius: 8px;
     background-color: var(--user-body-bg-color);
-    margin-top: 15px;
+    margin-top: 10px;
     padding: 5px;
     width: 220px;
 
@@ -291,7 +288,7 @@
     animation-duration: 0.6s;
     cursor: pointer;
   }
-  .update-point{
+  .update-point {
     height: 5px;
     width: 5px;
     background-color: #ff4d4f;

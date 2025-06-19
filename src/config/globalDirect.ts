@@ -69,7 +69,8 @@ export default function (app) {
     };
     el.onmouseup = () => {
       if (isMouseDown) {
-        apiBasePost('/api/common/recordOperationLogs', binding.value).then(() => {});
+          console.log(binding)
+        // apiBasePost('/api/common/recordOperationLogs', binding.value).then(() => {});
       }
       isMouseDown = false;
     };

@@ -1,22 +1,25 @@
 <template>
   <a-dropdown :trigger="['click']" v-model:open="filterVisible" placement="bottomRight">
     <b-button
-        class="noteType-select"
-        :style="{
-      background: filterVisible ? 'var(--noteType-hover-bg-color)' : '',
-      color: filterVisible ? 'var(--noteType-hover-color)' : '',
-    }"
+      class="noteType-select"
+      :style="{
+        background: filterVisible ? 'var(--noteType-hover-bg-color)' : '',
+        color: filterVisible ? 'var(--noteType-hover-color)' : '',
+      }"
+      v-click-log="OPERATION_LOG_MAP.noteLibrary.filterNote"
     >
       {{ viewNoteFilter }}<svg-icon :src="icon.arrow_left" :style="{ rotate: filterVisible ? '-90deg' : '90deg' }" />
     </b-button>
     <template #overlay>
-      <div class="filter-container" >
-        <div class="filter-item" @click.stop="viewNote('all')" :isFocus="noteType === 'all' ? true : false">全部笔记</div>
+      <div class="filter-container">
+        <div class="filter-item" @click.stop="viewNote('all')" :isFocus="noteType === 'all' ? true : false"
+          >全部笔记</div
+        >
         <div class="filter-item" @click.stop="viewNote('null')" :isFocus="noteType === 'null'">无标签笔记</div>
         <div style="width: 100%; height: 1px; background: #f0f0f0; flex-shrink: 0"></div>
-        <div v-for="item in allTags" class="filter-item" @click.stop="viewNote(item)" :isFocus="noteType === item"
-        ># {{ item }}</div
-        >
+        <div :title="item" v-for="item in allTags" class="filter-item" @click.stop="viewNote(item)" :isFocus="noteType === item">
+          <span class="text-hidden"> # {{ item }} </span>
+        </div>
       </div>
     </template>
   </a-dropdown>
@@ -27,6 +30,7 @@
   import SvgIcon from '@/components/base/SvgIcon/src/SvgIcon.vue';
   import BButton from '@/components/base/BasicComponents/BButton.vue';
   import { computed, ref } from 'vue';
+  import { OPERATION_LOG_MAP } from '@/config/logMap.ts';
 
   defineProps({
     allTags: {
@@ -52,7 +56,6 @@
   function viewNote(type?: 'all' | 'null' | any) {
     noteType.value = type;
   }
-
 </script>
 
 <style lang="less" scoped>
@@ -90,6 +93,7 @@
     height: 36px;
     display: flex;
     align-items: center;
+    cursor: pointer;
     @media (min-width: 600px) {
       &:hover {
         background: #eeedff;

@@ -114,7 +114,7 @@
     align-items: center;
     font-size: 14px;
     gap: 10px;
-    :deep(.b_input) {
+    :deep(.b-input) {
       height: 30px;
     }
     .form-item-label {

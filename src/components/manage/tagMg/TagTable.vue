@@ -7,7 +7,7 @@
         <b-space>
           <b-button
             config_id="test"
-            v-click-log="{ module: '标签管理', operation: `新增` }"
+            v-click-log="OPERATION_LOG_MAP.tagMg.addTag"
             type="primary"
             @click="$router.push({ path: `/manage/editTag/add` })"
             >新增</b-button
@@ -91,6 +91,7 @@
   import BSpace from '@/components/base/BasicComponents/BSpace.vue';
   import BLoading from '@/components/base/BasicComponents/BLoading.vue';
   import BInput from '@/components/base/BasicComponents/BInput.vue';
+  import { OPERATION_LOG_MAP } from '@/config/logMap.ts';
 
   const visible = defineModel<boolean>('visible');
 

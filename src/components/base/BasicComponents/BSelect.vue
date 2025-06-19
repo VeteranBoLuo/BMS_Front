@@ -49,11 +49,11 @@
       width: 100% !important;
       min-width: 100px !important;
       cursor: pointer;
-      .b_input {
+      .b-input {
         pointer-events: none;
       }
       &:hover {
-        .b_input {
+        .b-input {
           border: 1px solid #4096ff !important;
         }
       }
@@ -90,7 +90,7 @@
   }
 
   .isOpen {
-    :deep(.b_input) {
+    :deep(.b-input) {
       border: 1px solid #4096ff !important;
       box-shadow: 0 0 0 2px rgba(5, 145, 255, 0.1);
     }

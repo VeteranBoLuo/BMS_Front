@@ -22,6 +22,8 @@ export const useUserStore = defineStore('user', {
     email: '',
     tagTotal: 0,
     bookmarkTotal: 0,
+    noteTotal: 0,
+    opinionTotal: 0,
     location: {
       province: '',
       city: '',
@@ -39,6 +41,8 @@ export const useUserStore = defineStore('user', {
       this.email = val.email ?? '';
       this.tagTotal = val.tagTotal ?? 0;
       this.bookmarkTotal = val.bookmarkTotal ?? 0;
+      this.noteTotal = val.noteTotal ?? 0;
+      this.opinionTotal = val.opinionTotal ?? 0;
       this.location = val.location ?? {
         province: '',
         city: '',

@@ -5,11 +5,17 @@
       <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 20px">
         <b-input v-model:value="tableSearchValue" class="table-search-input" />
         <b-space :size="10">
-          <b-button type="success" @click="exportBookmark" v-if="user.role === 'root'">导出</b-button>
+          <b-button
+            type="success"
+            @click="exportBookmark"
+            v-if="user.role === 'root'"
+            v-click-log="OPERATION_LOG_MAP.bookmarkMg.exportToExcel"
+            >导出</b-button
+          >
           <b-button
             type="primary"
             @click="$router.push({ path: `/manage/editBookmark/add` })"
-            v-click-log="{ module: '书签管理', operation: `新增` }"
+            v-click-log="OPERATION_LOG_MAP.bookmarkMg.toAddBtn"
             >新增</b-button
           >
           <b-button @click="handleToBack" v-click-log="{ module: '书签管理', operation: `返回` }">返回</b-button>
@@ -162,6 +168,7 @@
   import * as XLSX from 'xlsx';
   import { cloneDeep } from 'lodash-es';
   import { recordOperation } from '@/api/commonApi.ts';
+  import { OPERATION_LOG_MAP } from '@/config/logMap.ts';
   function exportBookmark() {
     // 随便声明一个结果
     const exportData = bookmarkList.value?.map((item: any) => {

@@ -33,7 +33,7 @@
         :model="formData"
       >
         <a-form-item label="" name="userName">
-          <b-input theme="day" height="40px" v-model:value="formData.userName" placeholder="账号">
+          <b-input theme="al-day" height="40px" v-model:value="formData.userName" placeholder="账号">
             <template #prefix>
               <svg-icon :src="icon.navigation.user" size="16" />
             </template>
@@ -42,7 +42,7 @@
         <a-form-item label="" name="password">
           <span class="flex-center">
             <b-input
-              theme="day"
+              theme="al-day"
               height="40px"
               maxlength="20"
               type="password"
@@ -69,7 +69,7 @@
         </a-form-item>
       </a-form>
       <a
-        v-click-log="{ module: '登录', operation: `移动端预览` }"
+        v-click-log="OPERATION_LOG_MAP.login.previewMobile"
         class="tips-text dom-hover"
         style="left: 20px; font-size: 12px; width: max-content"
         v-if="!bookmark.isPhone"
@@ -102,6 +102,7 @@
   import { computed, onMounted, ref, watch } from 'vue';
   import { bookmarkStore, useUserStore } from '@/store';
   import { cloneDeep } from 'lodash-es';
+  import { OPERATION_LOG_MAP } from '@/config/logMap.ts';
 
   const title = defineModel('title');
   const formData: any = defineModel('formData');

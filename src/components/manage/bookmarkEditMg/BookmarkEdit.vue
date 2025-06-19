@@ -30,8 +30,8 @@
       </div>
     </b-loading>
     <b-space class="edit-tag-footer">
-      <b-button v-click-log="{ module: '书签编辑', operation: `确定` }" type="primary" @click="submit">确定</b-button>
-      <b-button @click="$router.back()" v-click-log="{ module: '书签编辑', operation: `返回` }">返回</b-button>
+      <b-button v-click-log="OPERATION_LOG_MAP.bookmarkDetail.save" type="primary" @click="submit">确定</b-button>
+      <b-button @click="$router.back()">返回</b-button>
     </b-space>
   </div>
 </template>
@@ -43,6 +43,7 @@
   import { bookmarkStore, useUserStore } from '@/store';
   import { message } from 'ant-design-vue';
   import { SelectionSearch } from '@/components/base/BasicComponents/BForm/FormRenders.vue';
+  import { OPERATION_LOG_MAP } from '@/config/logMap.ts';
 
   const bookmark = bookmarkStore();
   const user = useUserStore();

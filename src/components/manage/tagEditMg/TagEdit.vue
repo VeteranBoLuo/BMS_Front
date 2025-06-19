@@ -85,8 +85,8 @@
       </div>
     </b-loading>
     <b-space class="edit-tag-footer">
-      <b-button type="primary" @click="submit" v-click-log="{ module: '标签编辑', operation: `确定` }">确定 </b-button>
-      <b-button @click="$router.back()" v-click-log="{ module: '标签编辑', operation: `返回` }">返回 </b-button>
+      <b-button type="primary" @click="submit" v-click-log="OPERATION_LOG_MAP.tagDetail.saveTag">确定 </b-button>
+      <b-button @click="$router.back()">返回 </b-button>
     </b-space>
     <b-modal
       :esc-closable="false"
@@ -121,6 +121,7 @@
   import icon from '@/config/icon.ts';
   import BModal from '@/components/base/BasicComponents/BModal/BModal.vue';
   import iconifyImg from '@/assets/img/iconify教程.jpg';
+  import { OPERATION_LOG_MAP } from '@/config/logMap.ts';
   const bookmark = bookmarkStore();
   const user = useUserStore();
 

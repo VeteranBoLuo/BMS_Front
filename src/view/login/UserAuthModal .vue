@@ -115,7 +115,7 @@
   :deep(.hide) {
     transform: rotateY(180deg);
   }
-  :deep(.b_input) {
+  :deep(.b-input) {
     line-height: 40px;
   }
   :deep(.tips-text) {

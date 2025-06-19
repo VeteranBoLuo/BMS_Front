@@ -9,12 +9,12 @@
           <div style="font-weight: 500; font-size: 20px" @click="init">笔记库</div>
         </div>
         <div class="handle-btn-group">
-          <TagFilterSelector :allTags="allTags" v-model:noteType="noteType"  />
+          <TagFilterSelector :allTags="allTags" v-model:noteType="noteType" />
           <b-button
             type="primary"
             style="border-radius: 20px"
             @click="router.push('/noteLibrary/add')"
-            v-click-log="{ module: '笔记', operation: '新建笔记' }"
+            v-click-log="OPERATION_LOG_MAP.noteLibrary.addNote"
           >
             + 新建笔记
           </b-button>
@@ -24,26 +24,21 @@
         <div style="font-weight: 500; font-size: 20px; cursor: pointer" @click="init">笔记库</div>
         <div class="handle-btn-group">
           <template v-if="hasCheck">
-            <span class="deleteText" @click="batchDeleteNote"><svg-icon :src="icon.noteDetail.delete" />删除所选</span>
-            <b-button
-              type="primary"
-              style="border-radius: 20px"
-              @click="exitBatch"
-              v-click-log="{ module: '笔记', operation: '新建笔记' }"
+            <span class="deleteText" @click="batchDeleteNote" v-click-log="OPERATION_LOG_MAP.noteLibrary.deleteNote"
+              ><svg-icon :src="icon.noteDetail.delete" />删除所选</span
             >
-              退出批量操作
-            </b-button>
+            <b-button type="primary" style="border-radius: 20px" @click="exitBatch"> 退出批量操作 </b-button>
           </template>
           <template v-else>
-            <TagFilterSelector :allTags="allTags" v-model:noteType="noteType"  />
+            <TagFilterSelector :allTags="allTags" v-model:noteType="noteType" />
             <div
               class="search-icon flex-center dom-hover"
               :class="searchActive ? 'normal-input' : 'icon-input'"
               @click="searchActive = true"
+              v-click-log="OPERATION_LOG_MAP.noteLibrary.searchNote"
               :style="{ width: searchActive ? '200px' : '32px' }"
             >
-              <!--              <svg-icon color="#cccccc" :src="icon.navigation.search" size="16" v-if="!searchActive" />-->
-              <b-input :placeholder="searchActive ? '搜索笔记' : ''" v-model:value="searchValue">
+              <b-input  :placeholder="searchActive ? '搜索笔记' : ''" v-model:value="searchValue">
                 <template #prefix>
                   <svg-icon color="#cccccc" :src="icon.navigation.search" size="16" @click="focusSearchInput" />
                 </template>
@@ -53,7 +48,7 @@
               type="primary"
               style="border-radius: 20px"
               @click="router.push('/noteLibrary/add')"
-              v-click-log="{ module: '笔记', operation: '新建笔记' }"
+              v-click-log="OPERATION_LOG_MAP.noteLibrary.addNote"
             >
               + 新建笔记
             </b-button>
@@ -82,6 +77,7 @@
   import { message } from 'ant-design-vue';
   import ContenteditableDiv from '@/components/base/BasicComponents/ContenteditableDiv.vue';
   import BInput from '@/components/base/BasicComponents/BInput.vue';
+  import { OPERATION_LOG_MAP } from '@/config/logMap.ts';
   const bookmark = bookmarkStore();
   const noteList = ref([]);
   const loading = ref(false);
@@ -132,7 +128,7 @@
   });
 
   function focusSearchInput() {
-    document.querySelector('.b_input').focus();
+    document.querySelector('.b-input').focus();
   }
 
   const noteType = ref('all');
@@ -238,16 +234,16 @@
     width: 100%;
     padding: 20px;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 30px;
     overflow: auto;
     box-sizing: border-box;
     align-content: start;
   }
 
-  @media (max-width: 600px) {
+  @media (min-width: 2000px) {
     .note-library-body {
-      padding: 5px;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     }
   }
   .back-icon {
@@ -279,12 +275,12 @@
     border-radius: 16px;
     border-color: var(--card-border-color) !important;
     transition: all 0.3s;
-    :deep(.b_input) {
+    :deep(.b-input) {
       border-radius: 16px;
     }
   }
   .icon-input {
-    :deep(.b_input) {
+    :deep(.b-input) {
       padding: 0 !important;
       cursor: pointer;
     }
@@ -295,7 +291,7 @@
       transition: color 0.3s !important;
     }
     &:hover {
-      :deep(.b_input) {
+      :deep(.b-input) {
         border-color: var(--primary-color);
       }
       :deep(.icon-base64) {

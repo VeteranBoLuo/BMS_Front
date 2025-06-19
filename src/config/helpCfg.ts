@@ -115,4 +115,13 @@ export const listOptions = ref([
   <b style="font-size: 20px">感谢您对项目的支持与关注，您的意见是我不断进步的动力！</b></div>
     </div>`,
   },
+  // {
+  //   id: '笔记管理',
+  //   title: '笔记管理',
+  //   content: `<div class="tag-explanation" style="margin: auto">
+  //        <p style="text-align: left">1、点击此处可根据标签对笔记进行过滤</p>
+  //                 <p style="text-align: left">2、鼠标悬浮在笔记卡片上时可以勾选笔记，可以对笔记进行批量删除</p>
+  //                 <p style="text-align: left">3、笔记库标题也可以点击，点击后刷新页面，返回全部笔记页面</p>
+  //   </div>`,
+  // },
 ]);

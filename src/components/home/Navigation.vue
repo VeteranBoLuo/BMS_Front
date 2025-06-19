@@ -42,69 +42,69 @@
           <div
             :style="{ color: route.path.includes('/home') ? '#615ced' : '' }"
             style="font-size: 14px; cursor: pointer"
-            v-click-log="{ module: '首页', operation: '跳转首页' }"
+            v-click-log="OPERATION_LOG_MAP.navigation.home"
             @click="router.push('/home')"
             >书签</div
           >
           <div
             :style="{ color: route.path.includes('/noteLibrary') ? '#615ced' : '' }"
             style="font-size: 14px; cursor: pointer; display: flex; gap: 5px; align-items: center"
-            v-click-log="{ module: '首页', operation: '跳转笔记模块' }"
+            v-click-log="OPERATION_LOG_MAP.navigation.note"
             @click="router.push('/noteLibrary')"
             >笔记
-            <div
-              class="flex-align-center"
-              style="
-                height: 1rem;
-                font-size: 10px;
-                background-color: #ff4d4f;
-                color: white;
-                border-radius: 12px;
-                padding: 0 4px;
-              "
-              >Beta</div
-            >
-          </div
-          >
+<!--            <div-->
+<!--              class="flex-align-center"-->
+<!--              style="-->
+<!--                height: 1rem;-->
+<!--                font-size: 10px;-->
+<!--                background-color: #ff4d4f;-->
+<!--                color: white;-->
+<!--                border-radius: 12px;-->
+<!--                padding: 0 4px;-->
+<!--              "-->
+<!--              >Beta</div-->
+<!--            >-->
+          </div>
         </template>
       </div>
-      <div class="navigation-search-body">
-        <div
-          class="navigation-search-input"
-          v-if="searchInputVisible"
-          :style="{
-            opacity: route.path.includes('/noteLibrary') ? 0 : 1,
-            pointerEvents: route.path.includes('/noteLibrary') ? 'none' : 'auto',
-          }"
-        >
-          <b-input
-            id="bookmark-input"
-            :placeholder="placeholder"
-            @input="handleSearch"
-            @focus="placeholder = '可根据网站名称、描述和标签搜索'"
-            @focusout="placeholder = 'Search...'"
-            v-model:value="bookmark.bookmarkSearch"
-          >
-            <template #prefix>
-              <svg-icon :src="icon.navigation.search" size="16" />
-            </template>
-            <template #suffix>
-              <div>/</div>
-            </template>
-          </b-input>
-        </div>
-      </div>
       <div
-        class="navigation-right-menu"
+        class="navigation-right-area"
         :class="{ 'phone-top-menu': bookmark.isPhone }"
         :style="{ marginLeft: searchInputVisible ? '0' : 'auto' }"
       >
+        <div class="navigation-search-body">
+          <div
+            class="navigation-search-input"
+            v-if="searchInputVisible"
+            :style="{
+              opacity: route.path.includes('/noteLibrary') ? 0 : 1,
+              pointerEvents: route.path.includes('/noteLibrary') ? 'none' : 'auto',
+            }"
+          >
+            <b-input
+              id="bookmark-input"
+              theme="noBorder"
+              :placeholder="placeholder"
+              @input="handleSearch"
+              @focus="placeholder = '可根据网站名称、描述和标签搜索'"
+              @focusout="placeholder = 'Search...'"
+              v-model:value="bookmark.bookmarkSearch"
+            >
+              <template #prefix>
+                <svg-icon :src="icon.navigation.search" size="16" />
+              </template>
+              <template #suffix>
+                <div>/</div>
+              </template>
+            </b-input>
+          </div>
+        </div>
         <div v-if="phoneSearchVisible" class="flex-align-center dom-hover">
           <svg-icon size="30" :src="icon.navigation.phone_search" @click="phoneSearchClick" />
         </div>
         <!--  主题切换        -->
         <ThemeSwitch />
-        <svg-icon size="28"  :src="icon.github" class="dom-hover" @click="githubClick" />
+        <svg-icon size="28" :src="icon.github" class="dom-hover" @click="githubClick" />
         <!--移动端个人中心       -->
         <div :class="['navigation-icon']" v-if="bookmark.isPhone" @click="handleToPhoneUserCenter">
           <svg-icon size="30" :src="user.headPicture || icon.navigation.user" class="dom-hover" />
@@ -126,6 +126,7 @@
   import ThemeSwitch from '@/components/base/ThemeSwitch.vue';
   import PersonCenter from '@/view/personCenter/PersonCenter.vue';
   import { useRoute } from 'vue-router';
+  import { OPERATION_LOG_MAP } from '@/config/logMap.ts';
 
   const route = useRoute();
   const user = useUserStore();
@@ -223,7 +224,6 @@
     body.style.transform = ' translateX(0)';
   }
 
-
   function githubClick() {
     window.open('https://github.com/VeteranBoLuo/BMS_Front');
   }
@@ -295,14 +295,18 @@
     height: 100%;
     align-items: center;
     display: flex;
-    width: calc(100% - 220px - 140px - 140px - 40px);
+    width: 280px;
+    :deep(.b-input) {
+      border-radius: 16px;
+      height: 34px;
+    }
   }
 
   .navigation-search-input {
     margin: auto;
     width: 400px;
   }
-  .navigation-right-menu{
+  .navigation-right-area {
     display: flex;
     align-items: center;
     gap: 15px;

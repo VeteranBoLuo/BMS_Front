@@ -128,10 +128,10 @@
     word-wrap: break-word; /* 允许单词在到达边界时断开换行 */
     overflow-wrap: break-word;
   }
-  :deep(.b_input) {
+  :deep(.b-input) {
     background-color: var(--modal-input-bg);
   }
-  :deep(.b_textarea) {
+  :deep(.b-textarea) {
     background-color: var(--modal-input-bg);
   }
   .modal-footer {

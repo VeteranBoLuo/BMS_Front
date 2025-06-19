@@ -16,13 +16,13 @@
 <script setup lang="ts">
   // 检查本地存储中是否有用户数据
   import { bookmarkStore, useUserStore } from '@/store';
-  import { nextTick, onMounted, watch } from 'vue';
+  import { h, nextTick, onMounted, watch } from 'vue';
   import login from '@/view/login/UserAuthModal .vue';
   import BViewer from '@/components/base/Viewer/BViewer.vue';
   import { apiBaseGet, apiQueryPost } from '@/http/request';
-  import { useRoute, useRouter } from 'vue-router';
+  import { useRouter } from 'vue-router';
   import { fingerprint } from '@/utils/common';
-  import {notification} from "ant-design-vue";
+  import { notification } from 'ant-design-vue';
 
   const router = useRouter();
   const user = useUserStore();
@@ -57,21 +57,15 @@
       const res = await apiBaseGet('/api/user/getUserInfo');
       user.setUserInfo(res.data);
       if (res.data.role === 'root') {
-        apiQueryPost('/api/opinion/getOpinionList', {
-          currentPage: 1,
-          pageSize: 5,
-        }).then((r) => {
-          if (r.status === 200 && r.data.total > 0) {
-            notification.open({
-              message: '有新反馈',
-              description:
-                    `总计${r.data.total}条反馈`,
-              onClick: () => {
-                router.push('/admin/userOpinion')
-              },
-            });
-          }
-        });
+        if (res.data.opinionTotal > 0) {
+          notification.open({
+            message: '有新反馈',
+            description: h('a', `总计${res.data.opinionTotal}条反馈`),
+            onClick: () => {
+              router.push('/admin/userOpinion');
+            },
+          });
+        }
       }
       bookmark.theme = res.data.theme || 'day';
       localStorage.setItem('theme', bookmark.theme);
@@ -87,7 +81,20 @@
 
   // 应用主题样式
   function applyTheme(theme) {
+    // 禁用所有动画
+    document.documentElement.classList.add('disable-animations');
+
+    // 强制重绘确保样式生效
+    void document.documentElement.offsetWidth;
+
+    // 执行主题切换
     document.documentElement.setAttribute('data-theme', theme);
+
+    // 下一事件循环恢复动画
+    setTimeout(() => {
+      document.documentElement.classList.remove('disable-animations');
+      console.timeEnd('hh');
+    }, 0);
   }
 
   // 设置动画
@@ -177,3 +184,18 @@
     document.head.appendChild(style);
   }
 </script>
+<style>
+  .disable-animations * {
+    animation: none !important;
+    transition: none !important;
+    animation-play-state: paused !important;
+  }
+
+  /* 2. 系统级动画禁用（尊重用户偏好） */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+</style>

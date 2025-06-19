@@ -74,7 +74,7 @@
       class="container-footer-btn"
       type="primary"
       @click="submit"
-      v-click-log="{ module: '标签编辑', operation: `确定` }"
+      v-click-log="OPERATION_LOG_MAP.tagDetail.saveTag"
       >确定
     </b-button>
   </CommonContainer>
@@ -93,6 +93,7 @@
   import SvgIcon from '@/components/base/SvgIcon/src/SvgIcon.vue';
   import icon from '@/config/icon.ts';
   import CommonContainer from '@/components/base/BasicComponents/CommonContainer.vue';
+  import {OPERATION_LOG_MAP} from "@/config/logMap.ts";
 
   const bookmark = bookmarkStore();
   const user = useUserStore();

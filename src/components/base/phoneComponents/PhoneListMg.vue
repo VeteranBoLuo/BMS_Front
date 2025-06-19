@@ -17,6 +17,7 @@
           style="width: 80%; margin-top: 15px; border-radius: 80px"
           type="primary"
           @click="$emit('add')"
+          v-click-log="OPERATION_LOG_MAP.bookmarkMg.toAddBtn"
           >新增</b-button
         >
       </div>
@@ -33,6 +34,7 @@
   import BInput from '@/components/base/BasicComponents/BInput.vue';
   import CommonContainer from '@/components/base/BasicComponents/CommonContainer.vue';
   import icon from '@/config/icon.ts';
+  import {OPERATION_LOG_MAP} from "@/config/logMap.ts";
 
   const props = defineProps({
     title: {

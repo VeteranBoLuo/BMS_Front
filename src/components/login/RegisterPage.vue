@@ -28,7 +28,7 @@
         >
           <b-input
             height="40px"
-            theme="day"
+            theme="al-day"
             v-model:value="formData.userName"
             placeholder="账号"
             @blur="validateFun('userName')"
@@ -54,7 +54,7 @@
         >
           <span class="flex-center">
             <b-input
-              theme="day"
+              theme="al-day"
               height="40px"
               maxlength="20"
               type="password"
@@ -80,14 +80,19 @@
             },
           ]"
         >
-          <b-input height="40px" theme="day" v-model:value="formData.email" placeholder="邮箱" @blur="validateFun">
+          <b-input height="40px" theme="al-day" v-model:value="formData.email" placeholder="邮箱" @blur="validateFun">
             <template #prefix>
               <svg-icon :src="icon.login.email" size="16" />
             </template>
           </b-input>
         </a-form-item>
         <a-form-item>
-          <b-button type="primary" class="handle-btn" :class="{ 'disable-btn': disable }" @click="handleRegister"
+          <b-button
+            type="primary"
+            class="handle-btn"
+            :class="{ 'disable-btn': disable }"
+            @click="handleRegister"
+            v-click-log="OPERATION_LOG_MAP.register.register"
             >注册
           </b-button>
         </a-form-item>
@@ -108,6 +113,7 @@
   import userApi from '@/api/userApi.ts';
   import { message } from 'ant-design-vue';
   import { bookmarkStore } from '@/store';
+  import { OPERATION_LOG_MAP } from '@/config/logMap.ts';
   const title = defineModel('title');
   const formData = reactive({
     userName: '',

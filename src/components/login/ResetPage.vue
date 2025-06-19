@@ -30,7 +30,7 @@
         >
           <b-input
             @blur="validateFun('email')"
-            theme="day"
+            theme="al-day"
             height="40px"
             v-model:value="formData.email"
             placeholder="邮箱"
@@ -57,7 +57,7 @@
         >
           <b-input
             height="40px"
-            theme="day"
+            theme="al-day"
             type="password"
             autocomplete="new-password"
             @blur="validateFun('password')"
@@ -72,7 +72,7 @@
         <a-form-item label="" name="rPassword" @blur="validateFun('rPassword')">
           <b-input
             height="40px"
-            theme="day"
+            theme="al-day"
             type="password"
             autocomplete="new-password"
             v-model:value="formData.rPassword"
@@ -86,7 +86,7 @@
         </a-form-item>
         <a-form-item label="" name="rPassword">
           <span class="flex-center">
-            <b-input :maxlength="6" theme="day" height="40px" placeholder="验证码" v-model:value="formData.code">
+            <b-input :maxlength="6" theme="al-day" height="40px" placeholder="验证码" v-model:value="formData.code">
               <template #prefix>
                 <svg-icon :src="icon.login.code" size="16" />
               </template>
