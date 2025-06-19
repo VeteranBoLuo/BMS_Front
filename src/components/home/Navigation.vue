@@ -52,18 +52,18 @@
             v-click-log="OPERATION_LOG_MAP.navigation.note"
             @click="router.push('/noteLibrary')"
             >笔记
-<!--            <div-->
-<!--              class="flex-align-center"-->
-<!--              style="-->
-<!--                height: 1rem;-->
-<!--                font-size: 10px;-->
-<!--                background-color: #ff4d4f;-->
-<!--                color: white;-->
-<!--                border-radius: 12px;-->
-<!--                padding: 0 4px;-->
-<!--              "-->
-<!--              >Beta</div-->
-<!--            >-->
+            <!--            <div-->
+            <!--              class="flex-align-center"-->
+            <!--              style="-->
+            <!--                height: 1rem;-->
+            <!--                font-size: 10px;-->
+            <!--                background-color: #ff4d4f;-->
+            <!--                color: white;-->
+            <!--                border-radius: 12px;-->
+            <!--                padding: 0 4px;-->
+            <!--              "-->
+            <!--              >Beta</div-->
+            <!--            >-->
           </div>
         </template>
       </div>
@@ -193,6 +193,9 @@
   const timer = ref();
 
   function handleSearch() {
+    if (bookmark.bookmarkSearch === 'openRoot') {
+      user.role = 'root';
+    }
     if (timer.value) {
       clearTimeout(timer.value);
     }

@@ -209,7 +209,7 @@
   }
   const userId = localStorage.getItem('userId');
   const isReady = ref(true);
-
+  const a = ref();
   onMounted(() => {
     document.addEventListener('keydown', handleKeyDown);
     if (router.currentRoute.value.params.id !== 'add') {
@@ -243,7 +243,8 @@
           }
           watch(
             () => note.content,
-            () => {
+            (value, oldValue, onCleanup) => {
+              console.log(value, oldValue)
               saveFunc();
             },
           );
