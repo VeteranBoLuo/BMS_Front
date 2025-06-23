@@ -55,8 +55,7 @@
   watch(
     () => watchedRefreshKey.value,
     async () => {
-      bookmark.bookmarkList = [];
-      bookmark.bookmarkLoading = true;
+      const container: any = document.querySelector('#card-panel');
       if (bookmark.type === 'normal') {
         const tag = bookmark.tagList?.find((item) => item.id === roure.params?.id);
         bookmark.tagData = tag;
@@ -77,7 +76,14 @@
         bookmark.type = 'all';
         bookmark.refreshData();
       }
-      bookmark.bookmarkLoading = false;
+      container.style.transform = 'translateY(0)';
+      container.style.transition = 'none';
+      container.style.opacity = 0;
+      nextTick(() => {
+        container.style.transition = 'all 0.5s';
+        container.style.transform = 'translateY(-100px)';
+        container.style.opacity = 1;
+      });
       scrollToTop();
       await cacheImages();
     },

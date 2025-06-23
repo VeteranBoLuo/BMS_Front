@@ -90,7 +90,6 @@ export const bookmarkStore = defineStore('bookmark', {
         isFold?: boolean; // 手机模式下菜单的折叠状态
         theme: 'day' | 'night' | string; // 主题
         isShowLogin: boolean; // 是否弹出登录页面
-        mainPanelKey: string; // 用于刷新主面板
         viewerKey: string;
         bookmarkLoading: boolean;
         viewer: {
@@ -116,7 +115,6 @@ export const bookmarkStore = defineStore('bookmark', {
       isFold: true,
       theme: 'day',
       isShowLogin: false,
-      mainPanelKey: (Math.random() * 9000000).toString(),
       viewerKey: '',
       bookmarkLoading: false,
       viewer: {
@@ -137,9 +135,6 @@ export const bookmarkStore = defineStore('bookmark', {
     },
   },
   actions: {
-    refreshViewKey() {
-      this.mainPanelKey = (Math.random() * 9000000).toString();
-    },
     refreshData() {
       this.refreshKey = !this.refreshKey;
     },

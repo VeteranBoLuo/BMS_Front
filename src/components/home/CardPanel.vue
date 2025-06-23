@@ -1,13 +1,11 @@
 <template>
-  <b-loading :loading="bookmark.bookmarkLoading" class="panel-loading">
-    <div class="card-panel">
+    <div class="card-panel" id="card-panel">
       <div v-for="item in getBookList">
         <RightMenu :menu="['编辑', '删除']" @select="rightMenuClick($event, item)">
           <TagCard :cardInfo="item" />
         </RightMenu>
       </div>
     </div>
-  </b-loading>
 </template>
 
 <script lang="ts" setup>
@@ -51,7 +49,7 @@
 
 <style lang="less" scoped>
   .card-panel {
-    margin-top: 20px;
+    margin-top: 120px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     padding: 0 20px;

@@ -72,7 +72,7 @@
         :class="{ 'phone-top-menu': bookmark.isPhone }"
         :style="{ marginLeft: searchInputVisible ? '0' : 'auto' }"
       >
-        <div class="navigation-search-body">
+        <div class="navigation-search-body" v-if="!bookmark.isPhone">
           <div
             class="navigation-search-input"
             v-if="searchInputVisible"
@@ -162,7 +162,6 @@
     bookmark.type = 'all';
     bookmark.refreshData();
     await router.push({ path: `/` });
-    bookmark.refreshViewKey();
     bookmark.isFold = true;
   }
 
