@@ -97,12 +97,12 @@
   watch(() => bookmark.refreshTagKey, queryTagList);
 
   function queryTagList() {
+    bookmark.refreshData();
     apiQueryPost('/api/bookmark/queryTagList', {
       filters: { userId },
     }).then((res) => {
       if (res.status === 200) {
         bookmark.tagList = res.data;
-        bookmark.refreshData();
       }
     });
   }
