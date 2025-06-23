@@ -1,7 +1,7 @@
 <template>
   <div class="main-page">
     <FilterPanel id="phone-filter-panel" class="phone-filter-panel" />
-    <ViewPanel  />
+    <ViewPanel />
   </div>
 </template>
 
@@ -55,6 +55,7 @@
   watch(
     () => watchedRefreshKey.value,
     async () => {
+      bookmark.bookmarkList = [];
       const container: any = document.querySelector('#card-panel');
       if (bookmark.type === 'normal') {
         const tag = bookmark.tagList?.find((item) => item.id === roure.params?.id);
