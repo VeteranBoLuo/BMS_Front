@@ -67,8 +67,27 @@ npm run dev
 
 # 生产环境构建
 npm run build
+
+# 克隆后端仓库
+git clone https://github.com/VeteranBoLuo/BMS_Back
+
+# 将根目录下的sql文件导入mysql数据库中
+
+# 修改index.js中的账号密码为自己数据库中账号密码
+const pool = mysql.createPool({
+  connectionLimit: 10, // 例如限制为10个连接
+  host: '127.0.0.1',
+  port: 3306,
+  user: 'root',// 账号
+  password: '123456',// 秘密
+  database: 'tag_db',
+  namedPlaceholders: true,
+  charset: 'utf8mb4'
+});
+
+# 启动开发环境
+node app.js
 ```
-> 💡 后端服务需同步部署 [BMS_Back](https://github.com/VeteranBoLuo/BMS_Back)
 
 
 ## ✨ 未来路线图
