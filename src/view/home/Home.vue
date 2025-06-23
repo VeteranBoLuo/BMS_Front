@@ -8,7 +8,7 @@
 <script lang="ts" setup>
   import FilterPanel from '@/view/home/FilterPanel.vue';
   import ViewPanel from '@/view/home/ViewPanel.vue';
-  import { computed, onMounted, watch } from 'vue';
+  import { computed, nextTick, onMounted, watch } from 'vue';
   import { bookmarkStore, useUserStore } from '@/store';
   import { apiBasePost, apiQueryPost } from '@/http/request.ts';
   import { useRoute, useRouter } from 'vue-router';
@@ -51,11 +51,12 @@
     }
   };
 
-  const watchedId = computed(() => roure.params?.id);
   const watchedRefreshKey = computed(() => bookmark.refreshKey);
   watch(
-    () => [watchedId.value, watchedRefreshKey.value],
+    () => watchedRefreshKey.value,
     async () => {
+      bookmark.bookmarkList = [];
+      bookmark.bookmarkLoading = true;
       if (bookmark.type === 'normal') {
         const tag = bookmark.tagList?.find((item) => item.id === roure.params?.id);
         bookmark.tagData = tag;
@@ -76,6 +77,7 @@
         bookmark.type = 'all';
         bookmark.refreshData();
       }
+      bookmark.bookmarkLoading = false;
       scrollToTop();
       await cacheImages();
     },

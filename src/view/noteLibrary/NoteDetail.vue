@@ -243,8 +243,7 @@
           }
           watch(
             () => note.content,
-            (value, oldValue, onCleanup) => {
-              console.log(value, oldValue)
+            () => {
               saveFunc();
             },
           );
@@ -324,7 +323,6 @@
   }
   .note-body-header {
     height: calc(100% - 80px);
-    width: 60%;
     display: flex;
     flex-direction: column;
   }
@@ -344,9 +342,15 @@
       border-radius: 4px;
     }
   }
+  @media (max-width: 1920px) {
+    .note-body-header {
+      min-width: 1160px;
+    }
+  }
   @media (max-width: 600px) {
     .note-body-header {
       width: 90%;
+      min-width: unset;
     }
   }
 </style>

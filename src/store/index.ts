@@ -92,6 +92,7 @@ export const bookmarkStore = defineStore('bookmark', {
         isShowLogin: boolean; // 是否弹出登录页面
         mainPanelKey: string; // 用于刷新主面板
         viewerKey: string;
+        bookmarkLoading: boolean;
         viewer: {
           container: Viewer;
           src: string;
@@ -117,6 +118,7 @@ export const bookmarkStore = defineStore('bookmark', {
       isShowLogin: false,
       mainPanelKey: (Math.random() * 9000000).toString(),
       viewerKey: '',
+      bookmarkLoading: false,
       viewer: {
         src: '',
         options: {},

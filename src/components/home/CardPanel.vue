@@ -1,11 +1,13 @@
 <template>
-  <div class="card-panel">
-    <div v-for="item in getBookList">
-      <RightMenu :menu="['编辑', '删除']" @select="rightMenuClick($event, item)">
-        <TagCard :cardInfo="item" />
-      </RightMenu>
+  <b-loading :loading="bookmark.bookmarkLoading" class="panel-loading">
+    <div class="card-panel">
+      <div v-for="item in getBookList">
+        <RightMenu :menu="['编辑', '删除']" @select="rightMenuClick($event, item)">
+          <TagCard :cardInfo="item" />
+        </RightMenu>
+      </div>
     </div>
-  </div>
+  </b-loading>
 </template>
 
 <script lang="ts" setup>
@@ -47,7 +49,7 @@
   }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
   .card-panel {
     margin-top: 20px;
     display: grid;
@@ -58,6 +60,11 @@
   @media (max-width: 600px) {
     .card-panel {
       justify-content: center;
+    }
+  }
+  .panel-loading {
+    :deep(.loading) {
+      top: 40% !important;
     }
   }
 </style>

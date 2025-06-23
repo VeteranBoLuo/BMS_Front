@@ -137,7 +137,7 @@
       label: '意见反馈',
       icon: icon.userCenter.operationLog,
     },
-    { name: 'updateLogs', label: '更新日志', path: '/updateLogs', icon: icon.userCenter.log, version: '1.1' },
+    { name: 'updateLogs', label: '更新日志', path: '/updateLogs', icon: icon.userCenter.log, version: '1.2' },
   ]);
   function getVersionIsNew(menu: any) {
     if (menu.version) {

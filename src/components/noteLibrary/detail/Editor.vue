@@ -105,6 +105,7 @@
       'italic',
       'color',
       'bgColor',
+      'clearStyle',
       '|',
       'fontSize',
       'fontFamily',

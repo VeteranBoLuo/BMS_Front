@@ -147,10 +147,12 @@
 
   function handleClickTag(tag: TagInterface) {
     if (tag.id === router.currentRoute.value.params?.id) {
-      bookmark.refreshTag();
+      bookmark.refreshData();
     } else {
       bookmark.type = 'normal';
-      router.push({ path: `/home/${tag.id}` });
+      router.push({ path: `/home/${tag.id}` }).then(() => {
+        bookmark.refreshData();
+      });
     }
   }
 </script>
