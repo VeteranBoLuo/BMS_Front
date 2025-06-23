@@ -97,12 +97,17 @@
   watch(() => bookmark.refreshTagKey, queryTagList);
 
   function queryTagList() {
-    bookmark.refreshData();
+    if (bookmark.type !== 'normal') {
+      bookmark.refreshData();
+    }
     apiQueryPost('/api/bookmark/queryTagList', {
       filters: { userId },
     }).then((res) => {
       if (res.status === 200) {
         bookmark.tagList = res.data;
+        if (bookmark.type === 'normal') {
+          bookmark.refreshData();
+        }
       }
     });
   }
