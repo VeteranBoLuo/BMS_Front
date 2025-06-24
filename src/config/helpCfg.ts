@@ -9,8 +9,8 @@ import bookmarkAddPage from '@/assets/img/help/bookmark_addPage.jpg';
 import bookmarkTable from '@/assets/img/help/bookmark_table.jpg';
 import bookmarkMainPage from '@/assets/img/help/bookmark_mainPage.jpg';
 import opinionMg from '@/assets/img/help/opinionMg.png';
+import noteManage from '@/assets/img/help/note_manage.jpg';
 import { ref } from 'vue';
-import UpdateLogs from '@/components/personCenter/UpdateLogs.vue';
 
 export const listOptions = ref([
   {
@@ -34,17 +34,21 @@ export const listOptions = ref([
 
       <div class="bookmark-example">
         <h3>关系示例</h3>
-        <img src="${tagAndBookmark}"  alt="书签示例" class="bookmark-image"   />
-        <p style="font-size: 12px">
+        <div class="flex-align-center" style="flex-direction: column">
+        <img src="${tagAndBookmark}"  alt="书签示例" class="bookmark-image" style="width: 80%"  />
+         <p style="font-size: 12px">
         <i>书签标签关系图</i>
     </p>
+</div>
+       
       </div>
     </div>`,
   },
   {
     id: '标签管理',
     title: '标签管理',
-    content: `<div style="width: 100%;margin: auto">
+    content: `<div class="flex-justify-center">
+ <div style="width: 80%; height: 100%">
       <div class="bookmark-example">
         <p style="font-size: 12px">
         <p style="text-align: left">1、点击标签管理进入标签管理页面</p>
@@ -58,14 +62,15 @@ export const listOptions = ref([
          <img src="${tagTree}"  alt="标签示例" class="bookmark-image"   width="80%" style="border: 1px solid;"/>
           <p style="text-align: left;font-size: 12px">注：标签列表可通过拖拽排序</p>
     </p>
-        <i style="text-align: center;font-size: 12px">标签管理示例</i>
+      </div>
       </div>
     </div>`,
   },
   {
     id: '书签管理',
     title: '书签管理',
-    content: `<div class="tag-explanation" style="margin: auto">
+    content: `<div class="flex-justify-center" >
+ <div style="width: 80%; height: 100%">
          <div class="bookmark-example">
         <p style="font-size: 12px">
          <p style="text-align: left">1、点击书签管理进入书签管理页面，或者直接右键标签快速创建与此标签相关的书签</p>
@@ -77,19 +82,20 @@ export const listOptions = ref([
         <img src="${bookmarkMainPage}"  alt="书签示例" class="bookmark-image"   width="80%" style="border: 1px solid;"/>
     </p>
         <i style="font-size: 12px">书签管理示例</i>
+        </div>
     </div>`,
   },
   {
     id: '意见反馈',
     title: '意见反馈',
-    content: `<div class="tag-explanation" >
+    content: `<div class="flex-justify-center" >
+ <div style="width: 80%; height: 100%">
        <div class="bookmark-example">
-        <img style="width: 80%" src="${opinionMg}" alt="标签管理示例" class="bookmark-image">
+        <img  src="${opinionMg}" alt="标签管理示例" class="bookmark-image"  >
         <p style="font-size: 12px">
-        <i>意见反馈页面</i>
     </p>
       </div>
-    <div style="margin: 0 auto;width: 80%"><div>模块宗旨</div><p style="font-size: 14px">意见反馈模块旨在搭建一个用户与项目开发人员之间沟通的桥梁，便于您及时向我反映在使用过程中遇到的问题、提出的建议以及期望的功能，帮助我不断优化产品，为您提供更优质的服务。</p>
+    <div>模块宗旨</div><p style="font-size: 14px">意见反馈模块旨在搭建一个用户与项目开发人员之间沟通的桥梁，便于您及时向我反映在使用过程中遇到的问题、提出的建议以及期望的功能，帮助我不断优化产品，为您提供更优质的服务。</p>
   <br/>
   <div>模块功能</div>
   <p style="font-size: 14px">问题反馈：您可以在此提交在使用项目过程中遇到的问题，如功能异常、操作不便等，我将尽快为您解决。<br/>
@@ -115,13 +121,16 @@ export const listOptions = ref([
   <b style="font-size: 20px">感谢您对项目的支持与关注，您的意见是我不断进步的动力！</b></div>
     </div>`,
   },
-  // {
-  //   id: '笔记管理',
-  //   title: '笔记管理',
-  //   content: `<div class="tag-explanation" style="margin: auto">
-  //        <p style="text-align: left">1、点击此处可根据标签对笔记进行过滤</p>
-  //                 <p style="text-align: left">2、鼠标悬浮在笔记卡片上时可以勾选笔记，可以对笔记进行批量删除</p>
-  //                 <p style="text-align: left">3、笔记库标题也可以点击，点击后刷新页面，返回全部笔记页面</p>
-  //   </div>`,
-  // },
+  {
+    id: '笔记管理',
+    title: '笔记管理',
+    content: `<div class="flex-justify-center">
+    <div style="width: 80%; height: 100%">
+      <img src="${noteManage}" alt="书签示例" class="bookmark-image"  />
+      <p style="text-align: left;font-size: 14px">1、点击此处可根据标签对笔记进行过滤</p>
+      <p style="text-align: left;font-size: 14px">2、鼠标悬浮在笔记卡片上时可以勾选笔记，可以对笔记进行批量删除</p>
+      <p style="text-align: left;font-size: 14px">3、笔记库标题也可以点击，点击后获取最新的全部笔记</p>
+    </div>
+  </div>`,
+  },
 ]);

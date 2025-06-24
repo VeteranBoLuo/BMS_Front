@@ -140,7 +140,7 @@
   });
 </script>
 
-<style lang="less" scoped>
+<style lang="less" >
   .help-container {
     width: 100%;
     padding: 20px;
@@ -179,7 +179,7 @@
     text-align: center;
   }
   .bookmark-image {
-    max-width: 100%;
+    width: 100%;
     height: auto;
     border: 1px solid #ddd;
     padding: 5px;

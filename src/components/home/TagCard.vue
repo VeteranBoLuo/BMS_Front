@@ -57,6 +57,7 @@
   function handleToTagPage(tag) {
     router.push(`/home/${tag.id}`);
     bookmark.type = 'normal';
+    bookmark.refreshTag();
   }
 
   function getIcon(bookmark: any) {

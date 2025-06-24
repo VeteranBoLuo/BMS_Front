@@ -81,7 +81,6 @@
       container.style.transition = 'none';
       container.style.opacity = 0;
       nextTick(() => {
-        console.log('f;ash');
         container.style.transition = 'all 0.5s';
         container.style.transform = 'translateY(-100px)';
         container.style.opacity = 1;
