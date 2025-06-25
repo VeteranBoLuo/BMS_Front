@@ -38,7 +38,7 @@
               v-click-log="OPERATION_LOG_MAP.noteLibrary.searchNote"
               :style="{ width: searchActive ? '200px' : '32px' }"
             >
-              <b-input  :placeholder="searchActive ? '搜索笔记' : ''" v-model:value="searchValue">
+              <b-input :placeholder="searchActive ? '搜索笔记' : ''" v-model:value="searchValue">
                 <template #prefix>
                   <svg-icon color="#cccccc" :src="icon.navigation.search" size="16" @click="focusSearchInput" />
                 </template>
@@ -68,19 +68,19 @@
   import router from '@/router';
   import { apiBasePost } from '@/http/request.ts';
   import { computed, onMounted, ref, watch } from 'vue';
-  import { bookmarkStore } from '@/store';
+  import { bookmarkStore, useUserStore } from '@/store';
   import TagFilterSelector from '@/components/noteLibrary/library/TagFilterSelector.vue';
   import BLoading from '@/components/base/BasicComponents/BLoading.vue';
   import NoteCard from '@/components/noteLibrary/library/NoteCard.vue';
   import BButton from '@/components/base/BasicComponents/BButton.vue';
   import Alert from '@/components/base/BasicComponents/BModal/Alert.ts';
   import { message } from 'ant-design-vue';
-  import ContenteditableDiv from '@/components/base/BasicComponents/ContenteditableDiv.vue';
   import BInput from '@/components/base/BasicComponents/BInput.vue';
   import { OPERATION_LOG_MAP } from '@/config/logMap.ts';
   const bookmark = bookmarkStore();
   const noteList = ref([]);
   const loading = ref(false);
+  const user = useUserStore();
   init();
   function init() {
     loading.value = true;
@@ -88,6 +88,7 @@
       .then((res) => {
         if (res.status === 200) {
           noteList.value = res.data ?? [];
+          user.noteTotal = noteList.value.length;
           noteList.value.forEach((data) => {
             const tags = data.tags ? JSON.parse(data.tags) : null;
             if (tags) {

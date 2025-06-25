@@ -2,12 +2,12 @@
   <div
     @click="router.push(`/noteLibrary/${note.id}`)"
     class="note-card"
-    :style="{ boxShadow: bookmark.theme === 'day' ? 'rgb(237, 242, 250) 0px 0px 10px' : 'unset' }"
+    :style="{ boxShadow: bookmark.currentTheme === 'day' ? 'rgb(237, 242, 250) 0px 0px 10px' : 'unset' }"
   >
     <div class="note-title" :title="note.title">{{ note.title }}</div>
     <div
       class="note-content"
-      :style="{ color: bookmark.theme === 'day' ? 'rgb(102, 102, 102)' : '#ccc' }"
+      :style="{ color: bookmark.currentTheme === 'day' ? 'rgb(102, 102, 102)' : '#ccc' }"
       v-html="extractAndConvertTags(note.content)"
     />
     <div class="note-tags" v-if="getTags(note)">
@@ -17,7 +17,7 @@
     </div>
     <div class="note-tags" v-else style="font-size: 12px">_</div>
     <div
-      :style="{ color: bookmark.theme === 'day' ? 'rgb(102, 102, 102)' : '#ccc' }"
+      :style="{ color: bookmark.currentTheme === 'day' ? 'rgb(102, 102, 102)' : '#ccc' }"
       style="font-size: 12px; margin-top: 10px"
       >{{ note['updateTime'] ?? note['createTime'] }}</div
     >

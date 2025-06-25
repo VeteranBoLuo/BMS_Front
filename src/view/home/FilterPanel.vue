@@ -9,27 +9,8 @@
     >
       <template #input>
         <b-input theme="noBorder" placeholder="请输入标签名" v-model:value="tagName" id="ref1">
-          <template #suffix>
-            <a-dropdown :trigger="['hover']" class="flex-align-center">
-              <template #overlay>
-                <a-menu style="background-color: var(--menu-body-bg-color)">
-                  <a-menu-item :style="{ color: bookmark.iconColor }" key="addTag" @click="addTag" class="menu-item">
-                    <span v-click-log="{ module: '首页', operation: `点击添加标签` }"> 添加标签 </span>
-                  </a-menu-item>
-                  <a-menu-item
-                    :style="{ color: bookmark.iconColor }"
-                    class="menu-item"
-                    key="editTag"
-                    @click="addBookmark"
-                  >
-                    <span v-click-log="{ module: '首页', operation: `点击添加书签` }"> 添加书签 </span>
-                  </a-menu-item>
-                </a-menu>
-              </template>
-              <span>
-                <svg-icon :src="icon.filterPanel.list" size="20" />
-              </span>
-            </a-dropdown>
+          <template #prefix>
+            <svg-icon  :src="icon.navigation.search" size="16" />
           </template>
         </b-input>
       </template>
@@ -142,8 +123,6 @@
     }
   }
 
-  const addBookmark = () => router.push('/manage/editBookmark/add');
-  const addTag = () => router.push('/manage/editTag/add');
 
   function handleClickTag(tag: TagInterface) {
     if (tag.id === router.currentRoute.value.params?.id) {

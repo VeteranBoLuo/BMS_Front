@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts" setup>
-  import Navigation from '@/components/home/Navigation.vue';
+  import Navigation from '@/components/home/navigation/Navigation.vue';
   import { bookmarkStore } from '@/store';
   import { useRoute } from 'vue-router';
   import { computed } from 'vue';

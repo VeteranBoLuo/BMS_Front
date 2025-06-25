@@ -4,8 +4,8 @@
       <div
         style="width: 80px; height: 80px; color: #6c7074; border-radius: 8px"
         :style="{
-          backgroundColor: bookmark.theme === 'day' ? '#F5F5F5' : '#333333',
-          border: bookmark.theme === 'day' ? '1px dashed #ccc' : '',
+          backgroundColor: bookmark.currentTheme === 'day' ? '#F5F5F5' : '#333333',
+          border: bookmark.currentTheme === 'day' ? '1px dashed #ccc' : '',
         }"
         class="flex-center dom-hover"
       >

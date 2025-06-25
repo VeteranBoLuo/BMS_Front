@@ -122,7 +122,7 @@
     top: 10%;
     right: 30px;
     z-index: 999;
-    background: var(--menu-cintainer-bg-color);
+    background: var(--menu-container-bg-color);
     width: 200px;
     border-radius: 8px;
     box-shadow:

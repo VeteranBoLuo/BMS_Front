@@ -1,12 +1,15 @@
 <template>
   <CommonContainer
     title="个人中心"
-    :style="{ backgroundColor: bookmark.theme === 'day' ? '#f6f7f9' : '#222222' }"
+    :style="{ backgroundColor: bookmark.currentTheme === 'day' ? '#f6f7f9' : '#222222' }"
     @backClick="router.push('/home')"
   >
-    <div class="person-title-card" :style="{ backgroundColor: bookmark.theme === 'day' ? '#97a1c6' : '#4d5264' }">
+    <div
+      class="person-title-card"
+      :style="{ backgroundColor: bookmark.currentTheme === 'day' ? '#97a1c6' : '#4d5264' }"
+    >
       <div style="display: flex; gap: 10px">
-        <div :class="['navigation-icon']" :style="{ color: bookmark.iconColor }">
+        <div class="navigation-icon" :style="{ color: bookmark.iconColor }">
           <svg-icon
             img-id="viewUserImg"
             @click="zoomImage"
@@ -56,14 +59,15 @@
           >日志、用户管理等<svg-icon color="#999fa8" style="rotate: 180deg" :src="icon.arrow_left" size="14" /></span
       ></div>
       <div
-          class="person-menu-item"
-          @click="router.push('/noteLibrary')"
-          v-click-log="{ module: '个人中心', operation: `笔记库` }"
+        class="person-menu-item"
+        @click="router.push('/noteLibrary')"
+        v-click-log="{ module: '个人中心', operation: `笔记库` }"
       >
         <span class="person-menu-item-title">笔记库</span>
         <span class="person-menu-item-des"
-        ><svg-icon color="#999fa8" style="rotate: 180deg" :src="icon.arrow_left" size="14" /></span>
-       </div>
+          ><svg-icon color="#999fa8" style="rotate: 180deg" :src="icon.arrow_left" size="14"
+        /></span>
+      </div>
       <div
         class="person-menu-item"
         @click="$router.push('/manage/tagMg')"
@@ -103,14 +107,14 @@
           ><svg-icon color="#999fa8" style="rotate: 180deg" :src="icon.arrow_left" size="14" /></span
       ></div>
       <div
-          class="person-menu-item"
-          @click="$router.push('/updateLogs')"
-          v-click-log="{ module: '更新日志', operation: `更新日志` }"
+        class="person-menu-item"
+        @click="$router.push('/updateLogs')"
+        v-click-log="{ module: '更新日志', operation: `更新日志` }"
       >
         <span class="person-menu-item-title">更新日志</span>
         <span class="person-menu-item-des"
-        ><svg-icon color="#999fa8" style="rotate: 180deg" :src="icon.arrow_left" size="14" /></span
-        ></div>
+          ><svg-icon color="#999fa8" style="rotate: 180deg" :src="icon.arrow_left" size="14" /></span
+      ></div>
     </div>
     <div
       class="person-menu"
@@ -182,7 +186,10 @@
     if (bookmark.theme === 'night') {
       return '深色';
     }
-    return '浅色';
+    if (bookmark.theme === 'day') {
+      return '浅色';
+    }
+    return '跟随系统';
   });
   ref<Viewer>();
   function zoomImage() {
@@ -191,7 +198,7 @@
   }
 </script>
 
-<style lang="less" scoped>
+<style lang="less" >
   .person-title-card {
     gap: 40px;
     padding: 15px;

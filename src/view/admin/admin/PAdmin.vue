@@ -1,7 +1,7 @@
 <template>
   <CommonContainer
     title="后台管理"
-    :style="{ backgroundColor: bookmark.theme === 'day' ? '#f6f7f9' : '#222222' }"
+    :style="{ backgroundColor: bookmark.currentTheme === 'day' ? '#f6f7f9' : '#222222' }"
     @backClick="router.push('/personCenter')"
   >
     <PhoneMenu :menu-list="menuList" label="title" @click="clickItem" />

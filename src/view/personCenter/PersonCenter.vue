@@ -1,6 +1,6 @@
 <template>
   <a-tooltip
-    :color="bookmark.theme === 'day' ? '#97a1c6' : '#4d5264'"
+    :color="bookmark.currentTheme === 'day' ? '#97a1c6' : '#4d5264'"
     placement="bottomLeft"
     :get-popup-container="getPopupContainer"
     v-model:open="menuVisible"
@@ -43,7 +43,7 @@
         </div>
         <hr
           style="width: calc(100% - 20px); border: unset; height: 1px"
-          :color="bookmark.theme === 'day' ? '#f6f7f9' : '#4e5262'"
+          :color="bookmark.currentTheme === 'day' ? '#f6f7f9' : '#4e5262'"
         />
         <div class="header_menu_ul">
           <div
@@ -68,8 +68,8 @@
         </div>
       </div>
     </template>
-    <div :class="['navigation-icon']">
-      <svg-icon size="30" :src="user.headPicture || icon.navigation.user" class="dom-hover" />
+    <div class="navigation-icon" style="margin-left: 5px">
+      <svg-icon size="32" :src="user.headPicture || icon.navigation.user" class="dom-hover" />
     </div>
     <my-info v-if="userVisible" v-model:visible="userVisible" />
     <Opinions v-if="opinionsVisible" v-model:visible="opinionsVisible" />
@@ -113,18 +113,6 @@
       path: '/admin',
       role: 'root',
       icon: icon.user_admin,
-    },
-    {
-      name: 'tagMg',
-      label: '标签管理',
-      path: '/manage/tagMg',
-      icon: icon.manage_categoryBtn_tag,
-    },
-    {
-      name: 'bookmarkMg',
-      label: '书签管理',
-      path: '/manage/bookmarkMg',
-      icon: icon.manage_categoryBtn_bookmark,
     },
     {
       name: 'help',
@@ -206,7 +194,10 @@
     if (bookmark.theme === 'night') {
       return '深色';
     }
-    return '浅色';
+    if (bookmark.theme === 'day') {
+      return '浅色';
+    }
+    return '跟随系统';
   });
 
   function zoomImage() {
@@ -220,7 +211,7 @@
   }
 </script>
 
-<style scoped lang="less">
+<style  lang="less" scoped>
   .navigation-icon {
     display: flex;
     align-items: center;

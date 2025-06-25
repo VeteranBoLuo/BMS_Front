@@ -88,7 +88,7 @@ export const bookmarkStore = defineStore('bookmark', {
         screenWidth: number;
         screenHeight: number;
         isFold?: boolean; // 手机模式下菜单的折叠状态
-        theme: 'day' | 'night' | string; // 主题
+        theme: 'day' | 'night' | 'system' | string; // 主题
         isShowLogin: boolean; // 是否弹出登录页面
         viewerKey: string;
         bookmarkLoading: boolean;
@@ -132,6 +132,13 @@ export const bookmarkStore = defineStore('bookmark', {
     },
     iconColor() {
       return this.theme === 'day' ? 'black' : 'white';
+    },
+    currentTheme() {
+      return this.theme === 'system'
+        ? window.matchMedia('(prefers-color-scheme: dark)').matches
+          ? 'night'
+          : 'day'
+        : this.theme;
     },
   },
   actions: {

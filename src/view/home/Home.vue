@@ -34,6 +34,9 @@
     });
     if (res.status === 200) {
       bookmark.bookmarkList = res.data.items;
+      if (type === 'all') {
+        user.bookmarkTotal = res.data.total;
+      }
     }
   };
 

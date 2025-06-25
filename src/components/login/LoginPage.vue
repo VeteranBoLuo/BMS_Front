@@ -7,9 +7,9 @@
     v-if="viewPhoneVisible"
   />
   <div v-else class="view-body" :class="title !== '登录' ? 'hide' : ''">
-    <span @click="bookmark.isShowLogin = false" class="dom-hover login-close-icon">
-      <img src="../../assets/icons/close.svg" width="20" height="20" alt="" />
-    </span>
+    <a  @click="bookmark.isShowLogin = false" class="dom-hover login-close-icon" style="color: var(--primary-text);">
+      游客体验
+    </a>
     <div class="view-page">
       <b style="font-size: 30px; justify-self: center; color: #161824">登录</b>
       <span
@@ -273,6 +273,6 @@
 
   .forget-text {
     font-size: 12px;
-    color: var(--primary-text) !important;
+    color: var(--primary-color) !important;
   }
 </style>

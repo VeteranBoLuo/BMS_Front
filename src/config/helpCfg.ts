@@ -53,9 +53,9 @@ export const listOptions = ref([
         <p style="font-size: 12px">
         <p style="text-align: left">1、点击标签管理进入标签管理页面</p>
         <img src="${tagMg}"  alt="标签示例" class="bookmark-image" width="80%"  style="border: 1px solid;"/>
-         <p style="text-align: left">2、点击新增进入添加标签页面</p>
+         <p style="text-align: left">2、点击顶部新增标签或者表格新增按钮进入添加标签页面</p>
         <img src="${tagAddBtn}"  alt="标签示例" class="bookmark-image"   width="80%" style="border: 1px solid;"/>
-         <p style="text-align: left">3、标签图标可通过本地上传或粘贴图标的svg代码、base64代码等两种方式设置</p>
+         <p style="text-align: left">3、标签图标可通过本地上传或粘贴图标的svg代码、base64代码等方式设置</p>
         <img src="${tagAddPage}"  alt="标签示例" class="bookmark-image"   width="80%" style="border: 1px solid;"/>
          <p style="text-align: left">4、新增成功后可在标签管理页面和首页查看</p>
         <img src="${tagTable}"  alt="标签示例" class="bookmark-image"   width="80%" style="border: 1px solid;"/>
@@ -81,7 +81,6 @@ export const listOptions = ref([
         <img src="${bookmarkTable}"  alt="书签示例" class="bookmark-image"   width="80%" style="border: 1px solid;"/>
         <img src="${bookmarkMainPage}"  alt="书签示例" class="bookmark-image"   width="80%" style="border: 1px solid;"/>
     </p>
-        <i style="font-size: 12px">书签管理示例</i>
         </div>
     </div>`,
   },
@@ -118,7 +117,7 @@ export const listOptions = ref([
   为保护您的隐私，请勿在反馈内容中透露个人信息。
   我会尽快处理您的反馈，请您耐心等待。</p>
   <br/>
-  <b style="font-size: 20px">感谢您对项目的支持与关注，您的意见是我不断进步的动力！</b></div>
+  <b style="font-size: 20px">感谢您对项目的支持与关注，您的意见是我不断进步的动力！对于有效反馈，我也将会给予您应得的🧧感谢！</b></div>
     </div>`,
   },
   {

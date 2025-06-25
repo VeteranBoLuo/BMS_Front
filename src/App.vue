@@ -19,7 +19,7 @@
   import { h, nextTick, onMounted, watch } from 'vue';
   import login from '@/view/login/UserAuthModal .vue';
   import BViewer from '@/components/base/Viewer/BViewer.vue';
-  import { apiBaseGet, apiQueryPost } from '@/http/request';
+  import { apiBaseGet } from '@/http/request';
   import { useRouter } from 'vue-router';
   import { fingerprint } from '@/utils/common';
   import { notification } from 'ant-design-vue';
@@ -37,7 +37,7 @@
   watch(
     () => bookmark.theme,
     (val) => {
-      applyTheme(val);
+      applyTheme();
     },
   );
 
@@ -47,9 +47,14 @@
     if (theme) {
       bookmark.theme = theme;
     }
-    applyTheme(bookmark.theme);
+    applyTheme();
     // 设置指纹
     window['fingerprint'] = fingerprint();
+
+    const mq = window.matchMedia('(prefers-color-scheme: dark)');
+    mq.addEventListener('change', (e) => {
+      bookmark.theme = e.matches ? 'night' : 'day';
+    });
   }
 
   async function getUserInfo() {
@@ -80,20 +85,18 @@
   }
 
   // 应用主题样式
-  function applyTheme(theme) {
+  function applyTheme() {
     // 禁用所有动画
     document.documentElement.classList.add('disable-animations');
 
     // 强制重绘确保样式生效
     void document.documentElement.offsetWidth;
-
     // 执行主题切换
-    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.setAttribute('data-theme', bookmark.currentTheme);
 
     // 下一事件循环恢复动画
     setTimeout(() => {
       document.documentElement.classList.remove('disable-animations');
-      console.timeEnd('hh');
     }, 0);
   }
 
@@ -120,25 +123,38 @@
 
   // 手机端路由和电脑端不一样，切换不同尺寸设备后需要切换对应路由地址
   function handleRouteChange(isPhone: boolean, path: string) {
+    // 电脑端切换至手机端
     if (isPhone) {
-      if (
-        ['/admin/apiLog', '/admin/userMg', '/admin/userOpinion', '/admin/operationLog', '/admin/imageMg'].includes(path)
-      ) {
-        router.push(path.replace('/admin', ''));
+      const phoneReplaceMap = {
+        '/admin/apiLog': '/apiLog',
+        '/admin/userMg': '/userMg',
+        '/admin/userOpinion': '/userOpinion',
+        '/admin/operationLog': '/operationLog',
+        '/admin/imageMg': '/imageMg',
+      };
+      if (phoneReplaceMap[path]) {
+        router.push(phoneReplaceMap[path]);
       }
     } else {
-      if (path === '/admin') {
-        router.push('/admin/operationLog');
-      }
-      if (['/apiLog', '/userMg', '/userOpinion', '/operationLog', '/imageMg'].includes(path)) {
-        router.push('/admin' + path);
+      const deskReplaceMap = {
+        '/apiLog': '/admin/apiLog',
+        '/userMg': '/admin/userMg',
+        '/userOpinion': '/admin/userOpinion',
+        '/operationLog': '/admin/operationLog',
+        '/imageMg': '/admin/imageMg',
+        '/opinions': '/home',
+        '/admin': '/admin/operationLog',
+      };
+      if (deskReplaceMap[path]) {
+        router.push(deskReplaceMap[path]);
       }
     }
   }
   function handleUserLogout() {
     localStorage.setItem('userId', '');
     router.isReady().then(() => {
-      if (router.currentRoute.value.name !== 'NoteDetail' && router.currentRoute.value.name !== 'updateLogs') {
+      const skipRouter = ['help', 'noteDetail', 'updateLogs'];
+      if (!skipRouter.includes(<string>router.currentRoute.value.name)) {
         bookmark.isShowLogin = true;
       }
     });
