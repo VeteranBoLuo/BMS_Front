@@ -8,7 +8,10 @@
       }"
       v-click-log="OPERATION_LOG_MAP.noteLibrary.filterNote"
     >
-      {{ viewNoteFilter }}<svg-icon :src="icon.arrow_left" :style="{ rotate: filterVisible ? '-90deg' : '90deg' }" />
+      <div class="text-hidden" style="max-width: 100px">
+        {{ viewNoteFilter }}
+      </div>
+      <svg-icon :src="icon.arrow_left" :style="{ rotate: filterVisible ? '-90deg' : '90deg' }" />
     </b-button>
     <template #overlay>
       <div class="filter-container">
@@ -17,7 +20,13 @@
         >
         <div class="filter-item" @click.stop="viewNote('null')" :isFocus="noteType === 'null'">无标签笔记</div>
         <div style="width: 100%; height: 1px; background: #f0f0f0; flex-shrink: 0"></div>
-        <div :title="item" v-for="item in allTags" class="filter-item" @click.stop="viewNote(item)" :isFocus="noteType === item">
+        <div
+          :title="item"
+          v-for="item in allTags"
+          class="filter-item"
+          @click.stop="viewNote(item)"
+          :isFocus="noteType === item"
+        >
           <span class="text-hidden"> # {{ item }} </span>
         </div>
       </div>
@@ -75,7 +84,7 @@
     width: 200px;
     max-height: 300px;
     padding: 5px;
-    background: var(--menu-cintainer-bg-color);
+    background: var(--menu-container-bg-color);
     box-shadow: 1px 1px 5px #4d5264;
     border-radius: 8px;
     display: flex;

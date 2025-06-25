@@ -49,6 +49,7 @@
   function handleToTagPage(tag) {
     router.push({ path: `/home/${tag.id}` });
     bookmark.type = 'normal';
+    bookmark.refreshTag();
   }
 </script>
 

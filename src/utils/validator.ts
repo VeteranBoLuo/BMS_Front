@@ -39,3 +39,7 @@ export function isEmpty(val) {
   }
   return Array.isArray(val) && !val.length;
 }
+// 判断是否是聚焦元素
+export function isFocused(element) {
+    return document.activeElement === element;
+}

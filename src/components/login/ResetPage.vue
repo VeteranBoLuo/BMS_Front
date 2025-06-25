@@ -1,7 +1,7 @@
 <template>
   <div class="view-body" :class="title !== '重置' ? 'hide' : ''">
-    <span @click="bookmark.isShowLogin = false" class="dom-hover login-close-icon">
-      <img src="../../assets/icons/close.svg" width="20" height="20" alt="" />
+    <span @click="bookmark.isShowLogin = false" class="dom-hover login-close-icon" style="color: var(--primary-text)">
+      游客体验
     </span>
     <div class="view-page">
       <span>

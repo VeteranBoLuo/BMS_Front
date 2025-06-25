@@ -1,6 +1,9 @@
 <template>
   <CommonContainer title="更新日志">
-    <div style="color: white !important; padding: 20px; height: 100%; overflow-y: auto">
+    <div
+      style="color: white !important; height: 100%; overflow-y: auto"
+      :style="{ padding: bookmark.isPhone ? '20px' : '20px 100px' }"
+    >
       <a-timeline>
         <a-timeline-item color="#615ced" v-for="item in updateOptions"
           >{{ item.label }}
@@ -15,7 +18,8 @@
 </template>
 <script lang="ts" setup>
   import CommonContainer from '@/components/base/BasicComponents/CommonContainer.vue';
-
+  import { bookmarkStore } from '@/store';
+  const bookmark = bookmarkStore();
   const updateOptions = [
     {
       label: '功能优化',
@@ -73,7 +77,16 @@
     {
       label: '体验优化',
       time: '2025-06-23',
-      list: ['新增笔记搜索功能', '首页书签搜索框移至右上角，更符合大众操作习惯','优化首页加载动画'],
+      list: ['新增笔记搜索功能', '首页书签搜索框移至右上角，更符合大众操作习惯', '优化首页加载动画'],
+    },
+    {
+      label: '体验优化',
+      time: '2025-6-25',
+      list: [
+        '主题切换组件重构，新增支持跟随系统变化',
+        '书签和标签的新增和管理入口统一放置在顶部导航栏右侧区域',
+        '首页书签列表查询动画效果优化',
+      ],
     },
   ];
 </script>
@@ -81,5 +94,8 @@
 <style lang="less" scoped>
   :deep(.ant-timeline .ant-timeline-item-tail) {
     background-color: var(--timeline-line-bg-color);
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
   }
 </style>

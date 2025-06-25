@@ -97,7 +97,7 @@
     width: 150px;
     border: 1px solid #ccc;
     border-radius: 12px;
-    box-shadow: 0 0 3px #ccc;
+    box-shadow: 0 0 1px #ccc;
     overflow: hidden;
     .context-menu-item {
       padding-left: 10px;

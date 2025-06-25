@@ -142,7 +142,7 @@
     right: 20px;
     top: 20px;
     z-index: 99999;
-    font-size: 20px;
+    font-size: 14px;
   }
   @keyframes in-animation {
     0% {
