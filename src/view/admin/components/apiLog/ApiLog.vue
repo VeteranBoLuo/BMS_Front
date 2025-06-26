@@ -1,5 +1,5 @@
 <template>
-  <div style="overflow: hidden; height: 100%; box-sizing: border-box">
+  <div style="height: 100%; box-sizing: border-box">
     <b-space style="width: 100%">
       <b-input v-model:value="searchValue" placeholder="用户名或ip..." class="log-search-input" @input="handleSearch">
         <template #prefix>
@@ -151,11 +151,7 @@
   .log-search-input {
     width: 50%;
   }
-  :deep(.ant-table-container) {
-    border: 1px solid var(--icon-color);
-    border-radius: 8px;
-    overflow: hidden;
-  }
+
   :deep(.ant-table-wrapper .ant-table) {
     background-color: var(--background-color);
     color: var(--text-color);

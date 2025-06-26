@@ -1,5 +1,5 @@
 <template>
-  <div style="overflow: hidden; height: 100%; box-sizing: border-box">
+  <div style="height: 100%; box-sizing: border-box">
     <a-table
       :data-source="logList"
       :columns="logColumns"
@@ -88,11 +88,7 @@
   .log-search-input {
     width: 50%;
   }
-  :deep(.ant-table-container) {
-    border: 1px solid var(--icon-color);
-    border-radius: 8px;
-    overflow: hidden;
-  }
+
   :deep(.ant-table-wrapper .ant-table) {
     background-color: var(--background-color);
     color: var(--text-color);

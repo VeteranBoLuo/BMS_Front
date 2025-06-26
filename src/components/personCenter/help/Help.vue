@@ -172,7 +172,7 @@
   .bookmark-definition {
     background-color: var(--background-color);
     border-left: 4px solid #007bff;
-    padding: 10px 20px;
+    padding: 0 20px;
     margin: 20px 0;
   }
   :deep(.bookmark-example) {

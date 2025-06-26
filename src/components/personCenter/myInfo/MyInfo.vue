@@ -19,7 +19,7 @@
         </div>
         <div class="user-item">
           <span class="user-item-label">昵称</span>
-          <b-input style="width: 100%" v-model:value="userData.alias" placeholder="请输入昵称" />
+          <b-input theme="noBorder" style="width: 100%" v-model:value="userData.alias" placeholder="请输入昵称" />
         </div>
 
         <div class="user-item">

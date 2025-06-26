@@ -162,27 +162,22 @@ h1 {
 
 /*--------------------------a-select下拉框配置----------------------*/
 .ant-select-selector {
-  transition: border-color 0.2s !important;
-  border: 1px solid #d9d9d9 !important;
-  background-color: var(--ant-select-selector-bg-color) !important;
   color: var(--text-color) !important;
-  &:hover {
-    box-shadow: unset !important;
-    border: 1px solid var(--bl-input-border-h-color) !important;
-  }
-  &:focus {
-    box-shadow: unset !important;
-  }
   .ant-select-selection-item {
     background-color: var(--ant-select-selection-item-bg-color) !important;
   }
   .anticon-close {
     color: var(--ant-select-selection-item-anticon-close-color) !important;
   }
-}
-.ant-select-focused .ant-select-selector {
-  border: 1px solid var(--bl-input-border-h-color) !important;
-  box-shadow: 0 0 0 1px rgba(92, 90, 86, 0.1) !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: var(--bl-input-noBorder-bg-color) !important;
+  &:hover {
+    background: var(--bl-input-noBorder-hover-bg-color) !important;
+  }
+  &:focus-visible {
+    background: var(--bl-input-noBorder-hover-bg-color) !important;
+  }
 }
 // 选择器下拉菜单背景颜色
 .ant-select-dropdown {
@@ -208,17 +203,32 @@ h1 {
   background-color: var(--bl-input-bg-color) !important;
   color: var(--text-color);
 }
+// 穿梭框
+.ant-transfer-list {
+  border: none !important;
+  box-shadow: none !important;
+  background: var(--bl-input-noBorder-bg-color) !important;
+}
+.ant-transfer-list-header {
+  background: var(--bl-input-noBorder-bg-color) !important;
+}
+.ant-transfer-operation{
+  gap: 10px;
+}
+.ant-transfer-list-body-search-wrapper {
+  .ant-input-affix-wrapper {
+    border: none !important;
+  }
+}
+.ant-transfer-list-body-not-found{
+  color: var(--desc-color)!important;
+}
+
 .ant-input::placeholder {
   color: #7d7d7d;
 }
-.ant-input-affix-wrapper {
-  transition: border-color 0.2s !important;
-  &:hover {
-    border: 1px solid var(--bl-input-border-h-color) !important;
-  }
-}
 .ant-table-container {
-  border: 1px solid var(--icon-color);
+  box-shadow:  0 0 4px var(--menu-item-h-bg-color);
   border-radius: 8px;
   overflow: hidden;
 }
@@ -278,7 +288,7 @@ h1 {
 }
 .ant-dropdown-menu-item {
   color: var(--text-color) !important;
-  &:hover{
-    background-color: var(--menu-item-h-bg-color)!important;
+  &:hover {
+    background-color: var(--menu-item-h-bg-color) !important;
   }
 }

@@ -67,7 +67,7 @@
       type: 'text',
       autocomplete: 'off',
       height: '32px',
-      theme: '',
+      theme: 'noBorder',
       maxlength: '',
       rows: 4,
     },

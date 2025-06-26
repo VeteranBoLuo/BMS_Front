@@ -4,11 +4,11 @@
       <div class="tag-edit-body">
         <div class="tag-attr-item">
           <span class="tag-attr-label">书签名称</span>
-          <b-input v-model:value="bookmarkData.name" />
+          <b-input theme="noBorder" v-model:value="bookmarkData.name" />
         </div>
         <div class="tag-attr-item">
           <span class="tag-attr-label">网站地址</span>
-          <b-input v-model:value="bookmarkData.url" />
+          <b-input theme="noBorder" v-model:value="bookmarkData.url" />
         </div>
         <div class="tag-attr-item">
           <span class="tag-attr-label">相关标签</span>
@@ -25,7 +25,7 @@
         </div>
         <div class="tag-attr-item">
           <span class="tag-attr-label">描述</span>
-          <b-input v-model:value="bookmarkData.description" />
+          <b-input theme="noBorder" v-model:value="bookmarkData.description" />
         </div>
       </div>
     </b-loading>

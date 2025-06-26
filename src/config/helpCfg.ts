@@ -21,25 +21,29 @@ export const listOptions = ref([
 
         <div class="bookmark-definition">
         <h3>什么是标签？</h3>
+         </div>
        <p>标签是用于描述内容、分类或属性的关键词，它帮助我们组织和分类信息。在本网站中，标签用于对书签进行分类，使得查找和浏览更加高效。</p>
-      </div>
+     
       <div class="bookmark-definition">
         <h3>什么是书签？</h3>
+        </div>
         <p>书签是保存网站链接以便快速访问的一种方式。你可以将喜欢的网页或资源添加到书签中，以便日后快速检索。</p>
-      </div>
-
+     
+       <div class="bookmark-definition">
       <h3>标签与书签的关系</h3>
+      </div>
       <p>一个标签下可以有多个书签。例如，"文档"标签可能包含各种文档网站的书签，菜鸟教程、Vue官方网站等。</p>
       <p>同样，一个书签也可以属于多个标签。例如，Vue的官方网站可能同时属于"Vue"和"文档"这两个标签，因为它既与Vue相关，又是一个文档网站。</p>
 
-      <div class="bookmark-example">
+      <div class="bookmark-definition">
         <h3>关系示例</h3>
+        </div>
         <div class="flex-align-center" style="flex-direction: column">
         <img src="${tagAndBookmark}"  alt="书签示例" class="bookmark-image" style="width: 80%"  />
          <p style="font-size: 12px">
         <i>书签标签关系图</i>
     </p>
-</div>
+
        
       </div>
     </div>`,

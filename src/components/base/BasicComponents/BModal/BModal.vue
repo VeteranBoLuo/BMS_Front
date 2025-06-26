@@ -66,7 +66,7 @@
     }, 200);
   }
   function closeMask(e) {
-    if (props.maskClosable && !document.getElementById('modal-view').contains(e.target as HTMLElement)) {
+    if (props.maskClosable && !document.getElementById('modal-view')?.contains(e.target as HTMLElement)) {
       handleClose();
     }
   }
