@@ -1,7 +1,7 @@
 <template>
   <div class="simple-sql-container">
     <div class="flex-align-center-gap" style="width: 100%; height: 300px">
-      <BInput type="textarea" v-model:value="sql" :rows="16"  />
+      <BInput type="textarea" v-model:value="sql" :rows="16" />
       <div>
         <div class="quick-area">
           <div style="width: 100%">
@@ -39,6 +39,7 @@
     <b-button @click="runSql">运行</b-button>
     <div class="log-result">
       {{ result }}
+      <span style="position: absolute;right: 20px;bottom: 20px;font-size: 12px;color: #555555">{{ new Date() }}</span>
     </div>
   </div>
 </template>
@@ -101,13 +102,18 @@
     gap: 10px;
   }
   .log-result {
-    border: 1px solid #ccc;
+    position: relative;
     padding: 12px;
     white-space: pre-wrap;
     font-size: 14px;
+    border-radius: 12px;
     height: 400px;
     box-sizing: border-box;
     width: 100%;
     overflow: auto;
+    border-color: transparent !important;
+    box-shadow: none !important;
+    background: var(--bl-input-noBorder-bg-color);
+    transition: background-color 0.3s;
   }
 </style>

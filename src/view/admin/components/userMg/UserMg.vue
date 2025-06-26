@@ -1,5 +1,5 @@
 <template>
-  <div style="overflow: auto; height: 100%; box-sizing: border-box">
+  <div style="height: 100%; box-sizing: border-box">
     <a-table
       :data-source="userList"
       :columns="userColumns"
@@ -166,11 +166,6 @@
     background-color: unset !important;
   }
 
-  :deep(.ant-table-container) {
-    border: 1px solid var(--icon-color);
-    border-radius: 8px;
-    overflow: hidden;
-  }
 
   :deep(.ant-table-wrapper .ant-table) {
     background-color: var(--background-color);

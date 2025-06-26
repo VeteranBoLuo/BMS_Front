@@ -4,11 +4,11 @@
       <div class="tag-edit-body">
         <div class="tag-attr-item">
           <span class="tag-attr-label">标签名称</span>
-          <b-input v-model:value="tag.name" />
+          <b-input theme="noBorder" v-model:value="tag.name" />
         </div>
         <div class="tag-attr-item" style="position: relative">
           <span class="tag-attr-label">图标</span>
-          <b-input v-model:value="tag.iconUrl" placeholder="支持svg代码、base64编码或者直接上传图标">
+          <b-input theme="noBorder" v-model:value="tag.iconUrl" placeholder="支持svg代码、base64编码或者直接上传图标">
             <template #prefix>
               <svg-icon
                 title="获取图标"
@@ -69,7 +69,7 @@
               notFoundContent: '列表为空',
               searchPlaceholder: '请输入搜索内容',
             }"
-            :titles="['--未关联', '--待关联']"
+            :titles="['--未关联', '--已关联']"
             show-search
             :data-source="mockData"
             :list-style="{

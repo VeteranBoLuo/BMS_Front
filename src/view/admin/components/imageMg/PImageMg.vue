@@ -102,11 +102,7 @@
 </script>
 
 <style lang="less" scoped>
-  :deep(.ant-table-container) {
-    border: 1px solid var(--icon-color);
-    border-radius: 8px;
-    overflow: hidden;
-  }
+
   :deep(.ant-table-wrapper .ant-table) {
     background-color: var(--background-color);
     color: var(--text-color);

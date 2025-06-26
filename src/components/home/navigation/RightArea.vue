@@ -52,7 +52,7 @@
       <svg-icon size="26" :src="icon.navigation.phone_search" @click="phoneSearchClick" />
     </div>
     <b-menu
-      v-if="!bookmark.isPhone && route.path.includes('home')"
+      v-if="!bookmark.isPhone"
       :menu-options="[
         { label: '新增标签', icon: icon.common.add, function: () => router.push('/manage/editTag/add') },
         { label: '标签管理', icon: icon.filterPanel.list, function: () => router.push('/manage/tagMg') },
@@ -61,7 +61,7 @@
       <svg-icon size="26" hover :src="icon.manage_categoryBtn_tag"
     /></b-menu>
     <b-menu
-      v-if="!bookmark.isPhone && route.path.includes('home')"
+      v-if="!bookmark.isPhone"
       :menu-options="[
         { label: '新增书签', icon: icon.common.add, function: () => router.push('/manage/editBookmark/add') },
         { label: '书签管理', icon: icon.filterPanel.list, function: () => router.push('/manage/bookmarkMg') },

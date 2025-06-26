@@ -55,7 +55,7 @@
               notFoundContent: '列表为空',
               searchPlaceholder: '请输入搜索内容',
             }"
-            :titles="['--未关联', '--待关联']"
+            :titles="['--未关联', '--已关联']"
             show-search
             :data-source="mockData"
             :list-style="{
