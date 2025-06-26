@@ -32,7 +32,7 @@
       >
         <b-input
           id="bookmark-input"
-          theme="noBorder"
+
           :placeholder="placeholder"
           @input="handleSearch"
           @focus="placeholder = '可根据网站名称、描述和标签搜索'"

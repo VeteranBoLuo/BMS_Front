@@ -21,7 +21,7 @@
           <span style="font-size: 18px">轻笺</span>
         </div>
       </div>
-      <div class="navigation-tab flex-align-center" style="gap: 30px; width: 140px">
+      <div class="navigation-tab flex-align-center" style="gap: 30px; width: max-content">
         <template v-if="navigationFucVisible">
           <div
             :style="{ color: route.path.includes('/home') ? '#615ced' : '' }"
@@ -36,6 +36,14 @@
             v-click-log="OPERATION_LOG_MAP.navigation.note"
             @click="router.push('/noteLibrary')"
             >笔记
+          </div>
+          <div
+            v-if="user.role === 'root'"
+            :style="{ color: route.path.includes('/cloudSpace') ? '#615ced' : '' }"
+            style="font-size: 14px; cursor: pointer; display: flex; gap: 5px; align-items: center"
+            v-click-log="OPERATION_LOG_MAP.navigation.cloudSpace"
+            @click="router.push('/cloudSpace')"
+            >云空间
           </div>
         </template>
       </div>
@@ -56,6 +64,7 @@
   import RightArea from '@/components/home/navigation/RightArea.vue';
 
   const route = useRoute();
+  const user = useUserStore();
 
   document.addEventListener('DOMContentLoaded', function () {
     const searchInput = document.getElementById('searchInput');
@@ -71,7 +80,10 @@
     });
   });
   const navigationFucVisible = computed(() => {
-    return !bookmark.isPhone && ['home', 'noteLibrary', 'manage', 'help'].some((item) => route.path.includes(item));
+    return (
+      !bookmark.isPhone &&
+      ['home', 'noteLibrary', 'manage', 'help', 'cloudSpace', 'admin'].some((item) => route.path.includes(item))
+    );
   });
 
   const bookmark = bookmarkStore();

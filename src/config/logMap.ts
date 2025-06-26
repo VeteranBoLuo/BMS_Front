@@ -19,6 +19,7 @@ export const OPERATION_LOG_MAP = {
   navigation: createModule('导航栏', {
     home: '跳转首页',
     note: '跳转笔记',
+    cloudSpace: '跳转云空间',
   }),
   login: createModule('登录', {
     previewMobile: '移动端预览',

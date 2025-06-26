@@ -39,25 +39,23 @@
     <b-button @click="runSql">运行</b-button>
     <div class="log-result">
       {{ result }}
-      <span style="position: absolute;right: 20px;bottom: 20px;font-size: 12px;color: #555555">{{ new Date() }}</span>
+      <span style="position: absolute; right: 20px; bottom: 20px; font-size: 12px; color: #555555">{{
+        new Date()
+      }}</span>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
   import { ref } from 'vue';
-  import request from '@/http/request.ts';
+  import request, { apiBasePost } from '@/http/request.ts';
   import BInput from '@/components/base/BasicComponents/BInput.vue';
   import BButton from '@/components/base/BasicComponents/BButton.vue';
 
   const sql = ref('');
   const result = ref('');
   function runSql() {
-    request({
-      url: '/api/common/runSql',
-      method: 'post',
-      data: { sql: sql.value },
-    }).then((res: any) => {
+    apiBasePost('/api/common/runSql', { sql: sql.value }).then((res: any) => {
       if (res.status === 200) {
         result.value = res.data;
       } else {

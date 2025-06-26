@@ -114,6 +114,7 @@
   import { message } from 'ant-design-vue';
   import { bookmarkStore } from '@/store';
   import { OPERATION_LOG_MAP } from '@/config/logMap.ts';
+  import { apiBasePost } from '@/http/request.ts';
   const title = defineModel('title');
   const formData = reactive({
     userName: '',
@@ -137,7 +138,7 @@
     }
     await validateFun();
     formData.role = 'admin';
-    userApi.registerUser(formData).then((res: any) => {
+    apiBasePost('/api/user/registerUser', formData).then((res: any) => {
       if (res.status === 200) {
         message.success('注册成功');
         title.value = '登录';

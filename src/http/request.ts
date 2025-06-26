@@ -39,10 +39,6 @@ request.interceptors.request.use(
   },
 );
 
-request.interceptors.response.use((config) => {
-  return config.data;
-});
-
 export const apiQueryPost = async (
   url: string,
   data?: {
@@ -68,7 +64,7 @@ export const apiQueryPost = async (
     },
     ...options,
   });
-  return handleErrorResponse(res);
+  return handleErrorResponse(res.data);
 };
 export const apiBasePost = async (url: string, data?: any, options?: AxiosRequestConfig) => {
   const res = await request({
@@ -77,7 +73,7 @@ export const apiBasePost = async (url: string, data?: any, options?: AxiosReques
     data,
     ...options,
   });
-  return handleErrorResponse(res);
+  return handleErrorResponse(res.data);
 };
 
 export const apiBaseGet = async (url: string, params?: any, options?: AxiosRequestConfig) => {
@@ -87,7 +83,7 @@ export const apiBaseGet = async (url: string, params?: any, options?: AxiosReque
     params: params,
     ...options,
   });
-  return handleErrorResponse(res);
+  return handleErrorResponse(res.data);
 };
 
 export function handleErrorResponse(res: any): {

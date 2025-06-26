@@ -7,7 +7,7 @@
     v-if="viewPhoneVisible"
   />
   <div v-else class="view-body" :class="title !== '登录' ? 'hide' : ''">
-    <a  @click="bookmark.isShowLogin = false" class="dom-hover login-close-icon" style="color: var(--primary-text);">
+    <a @click="bookmark.isShowLogin = false" class="dom-hover login-close-icon" style="color: var(--primary-text)">
       游客体验
     </a>
     <div class="view-page">
@@ -103,6 +103,7 @@
   import { bookmarkStore, useUserStore } from '@/store';
   import { cloneDeep } from 'lodash-es';
   import { OPERATION_LOG_MAP } from '@/config/logMap.ts';
+  import request, { apiBasePost } from '@/http/request.ts';
 
   const title = defineModel('title');
   const formData: any = defineModel('formData');
@@ -119,8 +120,8 @@
       return;
     }
     await formDataRef.value.validate();
-    userApi
-      .validateUser(formData.value)
+
+    apiBasePost('/api/user/login', formData.value)
       .then((res: any) => {
         if (res.status === 200) {
           localStorage.setItem('userId', res.data.id);

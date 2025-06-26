@@ -1,20 +1,14 @@
-import request from '@/http/request';
+import { apiBaseGet, apiBasePost } from '@/http/request';
 
 const userApi = {
-  validateUser(user) {
-    return request.post('/api/user/login', user);
-  },
-  registerUser(user) {
-    return request.post('/api/user/registerUser', user);
-  },
   getUserInfoById(data) {
-    return request.get('/api/user/getUserInfo', { params: data });
+    return apiBaseGet('/api/user/getUserInfo', { params: data });
   },
   updateUserInfo(user) {
-    return request.post('/api/user/saveUserInfo', user);
+    return apiBasePost('/api/user/saveUserInfo', user);
   },
   deleteUserById(id) {
-    return request.get(`/api/user/deleteUserById?id=${id}`);
+    return apiBaseGet(`/api/user/deleteUserById?id=${id}`);
   },
 };
 

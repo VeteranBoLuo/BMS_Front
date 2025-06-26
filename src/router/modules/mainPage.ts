@@ -22,11 +22,6 @@ const mainPageRouter: AppRouteRecordRaw = {
       path: 'search/:value(.*)',
       component: () => import('@/view/home/Home.vue'),
     },
-    {
-      path: 'edit',
-      name: 'edit',
-      component: () => import('@/components/manage/tagMg/TagTable.vue'),
-    },
   ],
 };
 
