@@ -5,7 +5,7 @@
       placeholder="请搜索问题"
       style="width: 30%; margin: 0 auto; position: fixed; top: 15px; transform: translateX(-50%); left: 50%"
       id="ref2"
-      theme="noBorder"
+
     >
       <template #prefix>
         <svg-icon color="#cccccc" :src="icon.navigation.search" size="16" />

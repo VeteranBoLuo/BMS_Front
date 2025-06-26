@@ -141,7 +141,7 @@
     width: 100%;
     box-sizing: border-box;
     gap: 10px;
-
+    font-size: 14px;
     &:hover {
       background-color: var(--category-item-ba-color);
     }

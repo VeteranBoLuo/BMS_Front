@@ -57,7 +57,7 @@
       type: string;
       autocomplete: 'off' | 'on' | 'new-password';
       height: string;
-      theme: 'al-day' | 'noBorder' | '';
+      theme: 'al-day' | '';
       rows: number;
       maxlength: number | string;
     }>(),
@@ -67,7 +67,7 @@
       type: 'text',
       autocomplete: 'off',
       height: '32px',
-      theme: 'noBorder',
+      theme: '',
       maxlength: '',
       rows: 4,
     },
@@ -106,24 +106,22 @@
     position: relative;
   }
   .b-input {
-    border: 1px solid #d9d9d9;
     border-radius: 6px;
     padding: 0 11px;
     height: v-bind(height);
     width: 100%;
     box-sizing: border-box;
-    background-color: var(--bl-input-bg-color);
     color: var(--bl-input-color);
-    transition: border-color 0.2s;
-    &:focus {
-      border: 1px solid var(--bl-input-border-h-color);
-      box-shadow: 0 0 0 1px rgba(92, 90, 86, 0.1);
-    }
+
+    border-color: transparent !important;
+    box-shadow: none !important;
+    background: var(--bl-input-noBorder-bg-color);
+    transition: background-color 0.3s;
     &:hover {
-      border: 1px solid var(--bl-input-border-h-color);
+      background: var(--bl-input-noBorder-hover-bg-color);
     }
-    &:active {
-      border: 1px solid var(--bl-input-border-h-color);
+    &:focus-visible {
+      background: var(--bl-input-noBorder-hover-bg-color);
     }
     outline: none;
   }
@@ -174,19 +172,8 @@
     transition: background-color 50000s ease-in-out 0s;
   }
   .input-al-day {
+    border: 1px solid #d9d9d9 !important;
     background-color: #ffffff !important;
     color: rgb(0, 0, 0) !important;
-  }
-  .input-noBorder {
-    border-color: transparent !important;
-    box-shadow: none !important;
-    background: var(--bl-input-noBorder-bg-color);
-    transition: background-color 0.3s;
-    &:hover {
-      background: var(--bl-input-noBorder-hover-bg-color);
-    }
-    &:focus-visible {
-      background: var(--bl-input-noBorder-hover-bg-color);
-    }
   }
 </style>

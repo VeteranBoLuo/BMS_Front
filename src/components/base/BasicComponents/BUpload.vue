@@ -59,7 +59,11 @@
           const reader = new FileReader();
           reader.onload = function (e) {
             if (file.type.startsWith('image/')) {
-              result.push(e.target.result); // 图片文件转换为 Base64 字符串
+              result.push({
+                isImg: true,
+                fileName: file.name,
+                file: e.target.result,
+              }); // 图片文件转换为 Base64 字符串
             } else {
               result.push(file); // 非图片文件返回原始文件数据
             }

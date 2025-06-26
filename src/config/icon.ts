@@ -9,6 +9,8 @@ export default {
     close:
       'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2Utd2lkdGg9IjIiIGQ9Ik0xMiAyMWE5IDkgMCAxIDEgMC0xOGE5IDkgMCAwIDEgMCAxOHpNOSA5bDYgNm0wLTZsLTYgNiIvPjwvc3ZnPg==',
     add: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxyZWN0IHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0ibm9uZSIvPjxwYXRoIGZpbGw9ImN1cnJlbnRDb2xvciIgZD0iTTE5IDNINWEyIDIgMCAwIDAtMiAydjE0YTIgMiAwIDAgMCAyIDJoMTRjMS4xIDAgMi0uOSAyLTJWNWMwLTEuMS0uOS0yLTItMm0wIDE2SDVWNWgxNHptLTgtMmgydi00aDR2LTJoLTRWN2gtMnY0SDd2Mmg0eiIvPjwvc3ZnPg==',
+    folder:
+      'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgNDggNDgiPjxyZWN0IHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgZmlsbD0ibm9uZSIvPjxwYXRoIGZpbGw9IiNmZmEwMDAiIGQ9Ik00MCAxMkgyMmwtNC00SDhjLTIuMiAwLTQgMS44LTQgNHY4aDQwdi00YzAtMi4yLTEuOC00LTQtNCIvPjxwYXRoIGZpbGw9IiNmZmNhMjgiIGQ9Ik00MCAxMkg4Yy0yLjIgMC00IDEuOC00IDR2MjBjMCAyLjIgMS44IDQgNCA0aDMyYzIuMiAwIDQtMS44IDQtNFYxNmMwLTIuMi0xLjgtNC00LTQiLz48L3N2Zz4=',
   },
 
   // 登录页面图标
@@ -96,5 +98,9 @@ export default {
       '<svg style="transform: rotate(-90deg); transform-origin: center;" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 2048 2048"><rect width="2048" height="2048" fill="none"/><path fill="currentColor" d="M2048 128v1664h-640l128-128h384v-384h-768V768H768v512H128v384h256l128 128H0V128zM640 256H128v384h512zm640 0H768v384h512zm640 0h-512v384h512zm-621 1139l90 90l-429 429l-429-429l90-90l275 275V896h128v774z"/></svg>',
     table_insert_left:
       '<svg style="transform: rotate(90deg); transform-origin: center;" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 2048 2048"><rect width="2048" height="2048" fill="none"/><path fill="currentColor" d="M2048 128v1664h-640l128-128h384v-384h-768V768H768v512H128v384h256l128 128H0V128zM640 256H128v384h512zm640 0H768v384h512zm640 0h-512v384h512zm-621 1139l90 90l-429 429l-429-429l90-90l275 275V896h128v774z"/></svg>',
+  },
+
+  cloudSpace: {
+    download:'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxZW0iIGhlaWdodD0iMWVtIiB2aWV3Qm94PSIwIDAgMjQgMjQiPjxyZWN0IHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0ibm9uZSIvPjxwYXRoIGZpbGw9ImN1cnJlbnRDb2xvciIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNNSAxOWgxNGExIDEgMCAwIDEgMCAySDVhMSAxIDAgMCAxIDAtMm04LTUuODI1bDMuMjQzLTMuMjQybDEuNDE0IDEuNDE0TDEyIDE3LjAwNGwtNS42NTctNS42NTdsMS40MTQtMS40MTRMMTEgMTMuMTc1VjJoMnoiLz48L3N2Zz4='
   },
 };

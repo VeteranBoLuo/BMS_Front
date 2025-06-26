@@ -10,6 +10,7 @@ import manageRouter from '@/router/modules/manage.ts';
 import phoneRouter from '@/router/modules/phone';
 import noteLibraryRouter from '@/router/modules/noteLibrary.ts';
 import { RoleEnum } from '@/config/bookmarkCfg.ts';
+import cloudSpaceRouter from '@/router/modules/cloudSpace.ts';
 export interface AppRouteRecordRaw {
   name?: string;
   meta?: RouteMeta;
@@ -29,7 +30,15 @@ const routes: Array<RouteRecordRaw | any> = [
     name: '/',
     redirect: '/home',
     component: () => import('@/view/index.vue'),
-    children: [mainPageRouter, ...commonRouter, ...adminRouter, manageRouter, ...noteLibraryRouter],
+    // 放入此处的有顶部导航栏
+    children: [
+      mainPageRouter,
+      ...commonRouter,
+      ...adminRouter,
+      manageRouter,
+      ...noteLibraryRouter,
+      ...cloudSpaceRouter,
+    ],
   },
   {
     meta: {
@@ -38,14 +47,6 @@ const routes: Array<RouteRecordRaw | any> = [
     path: '/personCenter',
     name: 'personCenter',
     component: () => import('@/view/personCenter/PPersonCenter.vue'),
-  },
-  {
-    meta: {
-      roles: [RoleEnum.Root, RoleEnum.ADMIN, RoleEnum.VISITOR],
-    },
-    path: '/noteLibrary/:id(.*)',
-    name: 'NoteDetail',
-    component: () => import('@/view/noteLibrary/NoteDetail.vue'),
   },
   loginRouter,
   ...statusRouter,
