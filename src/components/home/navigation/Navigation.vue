@@ -46,13 +46,7 @@
             >云空间
             <div
               class="flex-align-center"
-              style="
-                font-size: 10px;
-                background-color: #ff4d4f;
-                color: white;
-                border-radius: 12px;
-                padding: 0 4px;
-              "
+              style="font-size: 10px; background-color: #ff4d4f; color: white; border-radius: 12px; padding: 0 4px"
               >Beta</div
             >
           </div>
@@ -93,7 +87,7 @@
   const navigationFucVisible = computed(() => {
     return (
       !bookmark.isMobile &&
-      ['home', 'noteLibrary', 'manage', 'help', 'cloudSpace', 'admin'].some((item) => route.path.includes(item))
+      ['home', 'noteLibrary', 'manage', 'help', 'cloudSpace', 'admin', 'updateLogs'].some((item) => route.path.includes(item))
     );
   });
 
