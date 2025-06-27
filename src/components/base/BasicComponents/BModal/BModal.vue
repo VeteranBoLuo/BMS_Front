@@ -161,7 +161,7 @@
     }
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 1000px) {
     .modal-view {
       top: 45%;
       min-width: 80%;

@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { message } from 'ant-design-vue';
 
-export async function downloadField(id: number) {
+export async function downloadField(id: number | string) {
   try {
     // 使用 axios.post 直接发起请求，并设置 responseType: 'blob'
     const response = await axios.post(
@@ -47,6 +48,18 @@ export async function downloadField(id: number) {
     console.log('文件大小:', fileSize);
   } catch (error) {
     console.error('下载失败:', error);
-    alert('下载失败，请重试');
+    message.error('下载失败，请重试');
+  }
+}
+
+// 删除文件
+export async function deleteField(id: number | string) {
+  try {
+    await axios.post('/api/file/deleteFileById', { id });
+    message.success('删除成功');
+    window.location.reload();
+  } catch (error) {
+    console.error('删除失败:', error);
+    message.error('删除失败，请重试');
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <PBookmarkEdit v-if="bookmark.isPhone" />
+  <PBookmarkEdit v-if="bookmark.isMobile" />
   <BookmarkEdit v-else />
 </template>
 

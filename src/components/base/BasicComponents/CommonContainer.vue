@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="phone-container no-scrollbar" v-if="bookmark.isPhone">
+    <div class="phone-container no-scrollbar" v-if="bookmark.isMobile">
       <div class="phone-navigation">
         <slot name="navigation">
           <span

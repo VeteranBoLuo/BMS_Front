@@ -122,6 +122,7 @@
   }
   .category-body {
     height: calc(100% - 50px);
+    width: 100%;
     overflow-y: auto;
     --scrollbar-width: 0;
     &::-webkit-scrollbar {

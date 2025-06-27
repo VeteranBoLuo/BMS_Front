@@ -55,7 +55,7 @@
     padding: 0 20px;
     gap: 30px;
   }
-  @media (max-width: 600px) {
+  @media (max-width: 1000px) {
     .card-panel {
       justify-content: center;
     }

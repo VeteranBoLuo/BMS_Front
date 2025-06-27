@@ -31,7 +31,7 @@
     }>(),
     {
       accept: 'qwe',
-      multiple: true,
+      multiple: false,
       maxTotalSize: 10 * 1024 * 1024,
     }, // 默认总大小限制为10MB
   );

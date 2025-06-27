@@ -122,9 +122,9 @@
   }
 
   // 手机端路由和电脑端不一样，切换不同尺寸设备后需要切换对应路由地址
-  function handleRouteChange(isPhone: boolean, path: string) {
+  function handleRouteChange(isMobile: boolean, path: string) {
     // 电脑端切换至手机端
-    if (isPhone) {
+    if (isMobile) {
       const phoneReplaceMap = {
         '/admin/apiLog': '/apiLog',
         '/admin/userMg': '/userMg',
@@ -170,13 +170,13 @@
     if (roles.length > 0 && !roles.includes(user.role)) {
       router.push('/403');
     }
-    handleRouteChange(bookmark.isPhone, to.path);
+    handleRouteChange(bookmark.isMobile, to.path);
     next();
   });
 
   // 监听设备类型变化
   watch(
-    () => bookmark.isPhone,
+    () => bookmark.isMobile,
     (val) => {
       handleRouteChange(val, router.currentRoute.value.path);
       setTransition(val);

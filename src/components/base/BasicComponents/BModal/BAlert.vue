@@ -1,5 +1,5 @@
 <template>
-  <Teleport to="body" v-if="bookmark.isPhone">
+  <Teleport to="body" v-if="bookmark.isMobile">
     <div class="bAlert-bg">
       <div class="bAlert" :class="{ out: isExit }">
         <div
@@ -200,7 +200,7 @@
     }
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 1000px) {
     .bAlert {
       width: 70%;
       top: 45%;

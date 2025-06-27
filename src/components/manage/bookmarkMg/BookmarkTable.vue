@@ -148,7 +148,7 @@
   }
 
   function handleToBack() {
-    if (bookmark.isPhone) {
+    if (bookmark.isMobile) {
       router.push('/personCenter');
     } else {
       router.push('/home');
@@ -266,7 +266,7 @@
     border-radius: 0.5rem;
     flex-shrink: 0;
   }
-  @media (max-width: 600px) {
+  @media (max-width: 1000px) {
     .edit-tag-container {
       padding: 0 20px;
     }

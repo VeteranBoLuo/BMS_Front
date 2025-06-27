@@ -1,45 +1,74 @@
 <template>
-  <div class="cloud-container">
-    <div class="header">
-      <b-input v-model:value="searchValue" placeholder="文件名" class="header-input">
-        <template #prefix>
-          <svg-icon :src="icon.navigation.search" size="16" />
-        </template>
-      </b-input>
-      <b-space>
-        <b-upload class="upload-btn" @change="handleChange" :max-total-size="50 * 1024 * 1024">
-          <b-button>上传文件</b-button>
-        </b-upload>
-        <b-button @click="handleAddFolder">新建文件夹</b-button>
-      </b-space>
-    </div>
-    <div class="content-area">
-      <div class="folder-list">
-        <b-list v-model:listOptions="folderList" :node-type="{ id: 'id', title: 'name' }" @nodeClick="folderClick">
-          <template #icon>
-            <svg-icon size="16" :src="icon.common.folder" />
+  <CommonContainer title="云空间">
+    <div class="cloud-container">
+      <div class="header">
+        <b-input v-model:value="searchValue" placeholder="文件名" class="header-input">
+          <template #prefix>
+            <svg-icon :src="icon.navigation.search" size="16" />
           </template>
-        </b-list>
+        </b-input>
+        <b-space>
+          <b-upload class="upload-btn" @change="handleChange" :max-total-size="50 * 1024 * 1024">
+            <b-button>上传文件</b-button>
+          </b-upload>
+          <b-button v-if="!bookmark.isMobile" @click="handleAddFolder">新建文件夹</b-button>
+        </b-space>
       </div>
-      <div class="field-list">
-        <div class="field-header">
-          <div class="flex-align-center-gap" style="width: 80%"> <b-checkbox /> 文件名 </div>
-          <div class="default-area"><div> 文件大小 </div> <div> 存储时间 </div></div>
+      <div class="content-area">
+        <div class="folder-list" v-if="!bookmark.isMobile">
+          <b-list v-model:listOptions="folderList" :node-type="{ id: 'id', title: 'name' }" @nodeClick="folderClick">
+            <template #icon>
+              <svg-icon size="16" :src="icon.common.folder" />
+            </template>
+          </b-list>
         </div>
-        <div class="field-item" v-for="(item, index) in filedList" :key="index">
-          <div style="width: 80%; position: relative" class="flex-align-center">
-            <span>{{ item.fileName }}</span>
-            <svg-icon class="download-icon" :src="icon.cloudSpace.download" size="20" @click="downloadField(item.id)" />
+        <div class="field-list">
+          <div class="field-header">
+            <div class="flex-align-center-gap" :style="{ width: bookmark.isMobile ? '80%' : '70%' }">
+              <b-checkbox v-if="!bookmark.isMobile" /> 文件名
+            </div>
+            <div class="default-area"
+              ><div> 文件大小 </div>
+              <div v-if="!bookmark.isMobile"> 存储时间 </div>
+            </div>
           </div>
-          <div class="default-area">
-            <div>{{ Number(item.fileSize / 1000).toFixed() }} KB</div>
-            <div>{{ item.uploadTime }} </div>
+          <div class="file-container">
+            <div class="field-item" v-for="(item, index) in filedList" :key="index">
+              <div
+                style="width: 70%; position: relative"
+                class="flex-align-center"
+                :style="{ width: bookmark.isMobile ? '80%' : '70%' }"
+              >
+                <span>{{ item.fileName }}</span>
+                <div class="flex-align-center handle-btn">
+                  <svg-icon
+                    title="下载"
+                    class="download-icon"
+                    :src="icon.cloudSpace.download"
+                    size="20"
+                    @click="downloadField(item.id)"
+                  />
+                  <a-popconfirm
+                    title="确认删除此文件？"
+                    ok-text="是"
+                    cancel-text="否"
+                    @confirm="handleDelFile(item.id)"
+                  >
+                    <svg-icon title="删除" class="download-icon" :src="icon.noteDetail.delete" size="20"></svg-icon>
+                  </a-popconfirm>
+                </div>
+              </div>
+              <div class="default-area">
+                <div>{{ Number(item.fileSize / 1000).toFixed() }} KB</div>
+                <div v-if="!bookmark.isMobile">{{ item.uploadTime }} </div>
+              </div>
+            </div>
           </div>
+          <b-loading :loading="loading" class="both-center" />
         </div>
-        <b-loading :loading="loading" class="both-center" />
       </div>
     </div>
-  </div>
+  </CommonContainer>
 </template>
 
 <script lang="ts" setup>
@@ -47,7 +76,10 @@
   import icon from '@/config/icon.ts';
   import { ref } from 'vue';
   import BList from '@/components/base/BasicComponents/BList.vue';
-  import { downloadField } from '@/http/common.ts';
+  import { deleteField, downloadField } from '@/http/common.ts';
+  import { bookmarkStore } from '@/store';
+
+  const bookmark = bookmarkStore();
 
   const searchValue = ref();
   const folderList = ref([{ id: 'all', name: '全部文件' }]);
@@ -58,7 +90,7 @@
     }
   }
 
-  const filedList = ref([]);
+  const filedList = ref<{ id: string; fileName: string; fileSize: number; uploadTime: string }[]>([]);
 
   function queryFieldList() {
     loading.value = true;
@@ -109,6 +141,13 @@
   }
   function handleAddFolder() {}
 
+  function handleDelFile(id) {
+    deleteField(id).then((res) => {
+      console.log(res);
+      queryFieldList();
+    });
+  }
+
   queryFieldList();
 </script>
 
@@ -134,6 +173,7 @@
   }
   .content-area {
     flex: 1;
+    height: 100%;
     display: flex;
     .folder-list {
       height: 100%;
@@ -141,15 +181,24 @@
       border-right: 1px solid var(--folder-list-border-color);
     }
     .field-list {
-      width: 100%;
+      flex: 1;
       position: relative;
+      display: flex;
+      flex-direction: column;
     }
   }
   .field-header {
     display: flex;
     align-items: center;
     padding-bottom: 10px;
+    padding-left: 20px;
     border-bottom: 1px solid var(--folder-list-border-color);
+  }
+  .file-container {
+    height: calc(100% - 70px);
+    padding-right: 20px;
+    margin-right: -20px;
+    overflow-y: auto;
   }
   .field-item {
     height: 64px;
@@ -160,16 +209,21 @@
     transition: background-color 0.3s;
     &:hover {
       background-color: var(--bl-input-noBorder-bg-color);
-      .download-icon {
+      .handle-btn {
         opacity: 1;
       }
     }
-    .download-icon {
-      opacity: 0;
-      position: absolute;
-      right: 20px;
-      cursor: pointer;
+    .handle-btn {
       color: var(--desc-color);
+    }
+  }
+  .handle-btn {
+    opacity: 0;
+    position: absolute;
+    right: 20px;
+    gap: 10px;
+    div {
+      cursor: pointer;
     }
   }
   .default-area {
@@ -179,5 +233,24 @@
     flex: 1;
     font-size: 14px;
     color: var(--desc-color);
+  }
+
+  @media (max-width: 1000px) {
+    .header {
+      height: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      .header-input {
+        flex: 1;
+      }
+    }
+    .file-container {
+      height: calc(100% - 20px);
+    }
+    .handle-btn {
+      opacity: 1;
+    }
   }
 </style>
