@@ -7,6 +7,7 @@ import Viewer from 'viewerjs';
 import { createVNode, nextTick, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { cloneDeep } from 'lodash-es';
+import { apiBasePost } from '@/http/request.ts';
 const getIframeDocument = () => {
   const iframe: any = document.getElementsByClassName('tox-edit-area__iframe')[0];
   return iframe?.contentDocument || iframe?.contentWindow?.document;
@@ -165,17 +166,27 @@ export const bookmarkStore = defineStore('bookmark', {
   },
 });
 
-export const domStore = defineStore('dom', {
+export const cloudSpaceStore = defineStore('dom', {
   state: () =>
     <
       {
-        domScroll?: boolean; // 主要用于判断元素设置scrollTop = 0时是否处于滚动状态，移动端设置scrollTop = 0时若处于滚动状态会导致白屏
+        usedSpace: number;
+        maxSpace: number;
       }
     >{
-      domScroll: false,
+      usedSpace: 0,
+      maxSpace: 100,
     },
   getters: {},
-  actions: {},
+  actions: {
+    getUsedSpace() {
+      apiBasePost('/api/file/queryTotalFileSize').then((res) => {
+        if (res.status === 200) {
+          this.usedSpace = res.data.totalSizeMB;
+        }
+      });
+    },
+  },
 });
 
 export const noteStore = defineStore('note', {

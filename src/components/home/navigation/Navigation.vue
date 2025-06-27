@@ -44,6 +44,17 @@
             v-click-log="OPERATION_LOG_MAP.navigation.cloudSpace"
             @click="router.push('/cloudSpace')"
             >云空间
+            <div
+              class="flex-align-center"
+              style="
+                font-size: 10px;
+                background-color: #ff4d4f;
+                color: white;
+                border-radius: 12px;
+                padding: 0 4px;
+              "
+              >Beta</div
+            >
           </div>
         </template>
       </div>
@@ -55,7 +66,7 @@
 <script lang="ts" setup>
   import { computed, onMounted, ref, watch } from 'vue';
   import router from '@/router';
-  import { bookmarkStore, domStore, useUserStore } from '@/store';
+  import { bookmarkStore, useUserStore } from '@/store';
   import SvgIcon from '@/components/base/SvgIcon/src/SvgIcon.vue';
   import icon from '@/config/icon.ts';
   import { useRoute } from 'vue-router';
@@ -87,7 +98,6 @@
   });
 
   const bookmark = bookmarkStore();
-  const dom = domStore();
 
   async function handleToIndex() {
     bookmark.type = 'all';

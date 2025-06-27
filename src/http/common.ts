@@ -57,7 +57,6 @@ export async function deleteField(id: number | string) {
   try {
     await axios.post('/api/file/deleteFileById', { id });
     message.success('删除成功');
-    window.location.reload();
   } catch (error) {
     console.error('删除失败:', error);
     message.error('删除失败，请重试');

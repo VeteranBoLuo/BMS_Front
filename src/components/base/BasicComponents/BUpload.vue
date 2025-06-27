@@ -63,6 +63,7 @@
                 isImg: true,
                 fileName: file.name,
                 file: e.target.result,
+                size: totalSize,
               }); // 图片文件转换为 Base64 字符串
             } else {
               result.push(file); // 非图片文件返回原始文件数据
