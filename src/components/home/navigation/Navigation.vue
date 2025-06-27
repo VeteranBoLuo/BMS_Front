@@ -6,14 +6,14 @@
           :src="icon.navigation.menu"
           size="25"
           class="dom-hover"
-          v-if="bookmark.isPhone && route.path.includes('home') && bookmark.isFold"
+          v-if="bookmark.isMobile && route.path.includes('home') && bookmark.isFold"
           @click="foldClick"
         />
         <svg-icon
           :src="icon.navigation.close"
           size="25"
           class="dom-hover"
-          v-if="bookmark.isPhone && route.path.includes('home') && !bookmark.isFold"
+          v-if="bookmark.isMobile && route.path.includes('home') && !bookmark.isFold"
           @click="foldClick"
         />
         <div class="navigation-title-link" @click="handleToIndex">
@@ -81,7 +81,7 @@
   });
   const navigationFucVisible = computed(() => {
     return (
-      !bookmark.isPhone &&
+      !bookmark.isMobile &&
       ['home', 'noteLibrary', 'manage', 'help', 'cloudSpace', 'admin'].some((item) => route.path.includes(item))
     );
   });
@@ -99,7 +99,7 @@
   function foldClick() {
     bookmark.isFold = !bookmark.isFold;
     const body: any = document.getElementById('phone-filter-panel');
-    if (bookmark.isPhone) {
+    if (bookmark.isMobile) {
       body.style.transition = 'all 0.3s';
     } else {
       body.style.transition = 'none';
@@ -166,7 +166,7 @@
   .user-icon-text {
     text-align: left;
   }
-  @media (max-width: 600px) {
+  @media (max-width: 1000px) {
     .navigation-title {
       gap: 20px;
 

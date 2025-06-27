@@ -64,7 +64,7 @@
         width: 100,
       },
     ];
-    if (!bookmark.isPhone) {
+    if (!bookmark.isMobile) {
       {
         columns.splice(1, 0, {
           title: '关联标签',

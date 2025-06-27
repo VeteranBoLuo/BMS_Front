@@ -1,10 +1,10 @@
 <template>
   <div
     class="navigation-right-area"
-    :class="{ 'phone-top-menu': bookmark.isPhone }"
-    :style="{ marginLeft: searchInputVisible ? '0' : 'auto', gap: bookmark.isPhone ? '15px' : '5px' }"
+    :class="{ 'phone-top-menu': bookmark.isMobile }"
+    :style="{ marginLeft: searchInputVisible ? '0' : 'auto', gap: bookmark.isMobile ? '15px' : '5px' }"
   >
-    <Teleport v-if="bookmark.isPhone" to="body">
+    <Teleport v-if="bookmark.isMobile" to="body">
       <div id="phone-navigation-search" class="phone-navigation-search">
         <b-input
           v-model:value="bookmark.bookmarkSearch"
@@ -52,7 +52,7 @@
       <svg-icon size="26" :src="icon.navigation.phone_search" @click="phoneSearchClick" />
     </div>
     <b-menu
-      v-if="!bookmark.isPhone"
+      v-if="!bookmark.isMobile"
       :menu-options="[
         { label: '新增标签', icon: icon.common.add, function: () => router.push('/manage/editTag/add') },
         { label: '标签管理', icon: icon.filterPanel.list, function: () => router.push('/manage/tagMg') },
@@ -61,7 +61,7 @@
       <svg-icon size="26" hover :src="icon.manage_categoryBtn_tag"
     /></b-menu>
     <b-menu
-      v-if="!bookmark.isPhone"
+      v-if="!bookmark.isMobile"
       :menu-options="[
         { label: '新增书签', icon: icon.common.add, function: () => router.push('/manage/editBookmark/add') },
         { label: '书签管理', icon: icon.filterPanel.list, function: () => router.push('/manage/bookmarkMg') },
@@ -83,7 +83,7 @@
       <svg-icon size="26" hover :src="icon.github" @click="githubClick" />
     </b-menu>
     <!--移动端个人中心       -->
-    <div :class="['navigation-icon']" v-if="bookmark.isPhone" @click="handleToPhoneUserCenter">
+    <div :class="['navigation-icon']" v-if="bookmark.isMobile" @click="handleToPhoneUserCenter">
       <svg-icon size="32" :src="user.headPicture || icon.navigation.user" class="dom-hover" />
     </div>
     <!--pc端个人中心       -->
@@ -104,10 +104,10 @@
   import { useRoute } from 'vue-router';
   const bookmark = bookmarkStore();
   const searchInputVisible = computed(() => {
-    return !bookmark.isPhone && ['home'].some((item) => route.path.includes(item));
+    return !bookmark.isMobile && ['home'].some((item) => route.path.includes(item));
   });
   const phoneSearchVisible = computed(() => {
-    return bookmark.isPhone && route.path.includes('home') && bookmark.isFold;
+    return bookmark.isMobile && route.path.includes('home') && bookmark.isFold;
   });
 
   const route = useRoute();

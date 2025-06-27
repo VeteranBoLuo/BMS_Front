@@ -69,7 +69,7 @@
   const logList = ref([]);
 
   const logColumns = computed(() => {
-    if (bookmark.isPhone) {
+    if (bookmark.isMobile) {
       return [
         {
           title: '用户名',

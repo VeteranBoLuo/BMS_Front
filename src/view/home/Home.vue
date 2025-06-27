@@ -65,7 +65,7 @@
         bookmark.tagData = tag;
         if (tag) {
           await fetchBookmarkList('normal', { tagId: tag.id });
-          if (bookmark.isPhone) {
+          if (bookmark.isMobile) {
             bookmark.isFold = true;
           }
         }
@@ -118,7 +118,7 @@
     () => bookmark.isFold,
     (val) => {
       const filter: any = document.getElementById('phone-filter-panel');
-      if (bookmark.isPhone) {
+      if (bookmark.isMobile) {
         filter.style.transition = 'all 0.3s';
         if (val) {
           filter.style.transform = 'translateX(-100%)';
@@ -156,7 +156,7 @@
     box-sizing: border-box;
     display: flex;
   }
-  @media (max-width: 600px) {
+  @media (max-width: 1000px) {
     .main-page {
       padding: 20px 0;
       display: flex;

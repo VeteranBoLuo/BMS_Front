@@ -153,7 +153,7 @@
     }
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 1000px) {
     .index-view {
       top: 45%;
       height: 400px;

@@ -124,11 +124,8 @@ export const bookmarkStore = defineStore('bookmark', {
       browserId: '',
     },
   getters: {
-    isPhone() {
-      return this.screenWidth <= 600;
-    },
-    isPad() {
-      return this.screenWidth > 600 && this.screenWidth <= 1400;
+    isMobile() {
+      return this.screenWidth <= 1000;
     },
     iconColor() {
       return this.theme === 'day' ? 'black' : 'white';

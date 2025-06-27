@@ -70,6 +70,15 @@
       </div>
       <div
         class="person-menu-item"
+        @click="$router.push('/cloudSpace')"
+        v-click-log="{ module: '个人中心', operation: `云空间` }"
+      >
+        <span class="person-menu-item-title">云空间</span>
+        <span class="person-menu-item-des"
+          ><svg-icon color="#999fa8" style="rotate: 180deg" :src="icon.arrow_left" size="14" /></span
+      ></div>
+      <div
+        class="person-menu-item"
         @click="$router.push('/manage/tagMg')"
         v-click-log="{ module: '个人中心', operation: `标签管理` }"
       >
@@ -198,7 +207,7 @@
   }
 </script>
 
-<style lang="less" >
+<style lang="less">
   .person-title-card {
     gap: 40px;
     padding: 15px;
@@ -307,7 +316,7 @@
     cursor: pointer;
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 1000px) {
     .header_menu_ul {
     }
 

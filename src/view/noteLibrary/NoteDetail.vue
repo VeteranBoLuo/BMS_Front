@@ -221,7 +221,7 @@
           if (res.status === 200) {
             Object.assign(note, res.data);
             note.lastTitle = cloneDeep(note.title);
-            if (!bookmark.isPhone) {
+            if (!bookmark.isMobile) {
               document.getElementById('note-header-title').innerText = note.title;
             }
             updateTime.value = res.data.updateTime ?? res.data.createTime;
@@ -347,7 +347,7 @@
       min-width: 1160px;
     }
   }
-  @media (max-width: 600px) {
+  @media (max-width: 1000px) {
     .note-body-header {
       width: 90%;
       min-width: unset;

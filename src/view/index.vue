@@ -5,7 +5,7 @@
       backgroundImage: bgVisible,
     }"
   >
-    <Navigation v-if="!bookmark.isPhone || route.path.includes('home')" />
+    <Navigation v-if="!bookmark.isMobile || route.path.includes('home')" />
     <router-view style="position: fixed; top: 60px; height: calc(100% - 60px); width: 100%; box-sizing: border-box" />
   </div>
 </template>
@@ -26,7 +26,7 @@
   };
 
   const bgVisible = computed(() => {
-    if (bookmark.isPhone || route.name === 'NoteDetail') {
+    if (bookmark.isMobile || route.name === 'NoteDetail') {
       return 'unset';
     }
     return '';

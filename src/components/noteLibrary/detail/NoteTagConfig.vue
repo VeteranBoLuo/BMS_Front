@@ -145,7 +145,7 @@
   .config-container {
     height: 100px;
     width: 600px;
-    @media (max-width: 600px) {
+    @media (max-width: 1000px) {
       width: 100%;
     }
   }

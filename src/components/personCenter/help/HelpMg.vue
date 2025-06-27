@@ -1,5 +1,5 @@
 <template>
-  <PHelp v-if="bookmark.isPhone" />
+  <PHelp v-if="bookmark.isMobile" />
   <Help v-else />
 </template>
 

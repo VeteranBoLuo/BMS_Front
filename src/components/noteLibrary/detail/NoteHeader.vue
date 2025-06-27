@@ -1,11 +1,11 @@
 <template>
   <div class="note-header">
-    <div style="display: flex; align-items: center" :style="{ gap: bookmark.isPhone ? '0' : '20px' }">
+    <div style="display: flex; align-items: center" :style="{ gap: bookmark.isMobile ? '0' : '20px' }">
       <div class="back-icon" @click="back">
         <SvgIcon :src="icon.noteDetail.back" />
       </div>
       <div
-        v-if="!bookmark.isPhone"
+        v-if="!bookmark.isMobile"
         class="note-header-title n-title"
         :contenteditable="!readonly"
         id="note-header-title"
@@ -15,11 +15,11 @@
       <div
         style="color: #c0c0c0; font-size: 12px"
         v-if="!isStartEdit"
-        :style="{ marginLeft: bookmark.isPhone ? '20px' : '0' }"
+        :style="{ marginLeft: bookmark.isMobile ? '20px' : '0' }"
       >
         <span v-show="note.id"> 已保存于 {{ updateTime }} </span>
       </div>
-      <div v-else style="color: #c0c0c0; font-size: 12px" :style="{ marginLeft: bookmark.isPhone ? '20px' : '0' }">
+      <div v-else style="color: #c0c0c0; font-size: 12px" :style="{ marginLeft: bookmark.isMobile ? '20px' : '0' }">
         <span>保存中...</span>
       </div>
     </div>
@@ -41,7 +41,7 @@
       </a-tooltip>
       <a-tooltip title="保存">
         <div
-          v-if="!bookmark.isPhone"
+          v-if="!bookmark.isMobile"
           class="note-header-title-icon"
           @click="$emit('save')"
           v-click-log="OPERATION_LOG_MAP.note.saveNote"

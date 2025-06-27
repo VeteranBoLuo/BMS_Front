@@ -191,7 +191,7 @@
       font-size: 12px; /* 文字大小 */
     }
   }
-  @media (max-width: 600px) {
+  @media (max-width: 1000px) {
     .home-container {
       width: 90%;
     }

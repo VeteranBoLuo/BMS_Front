@@ -142,7 +142,7 @@
     gap: 8px;
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 1000px) {
     .card-body {
       height: 140px;
       &:hover {

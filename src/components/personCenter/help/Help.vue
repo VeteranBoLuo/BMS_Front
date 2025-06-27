@@ -13,14 +13,14 @@
     </b-input>
     <div class="help-body">
       <div
-        v-if="bookmark.isPhone"
+        v-if="bookmark.isMobile"
         class="help-title"
         style="position: relative; top: 10px"
         @click="checkId = ''"
         v-click-log="{ module: '帮助中心', operation: `导览` }"
         >帮助中心</div
       >
-      <div v-if="!bookmark.isPhone" :style="{ width: '150px' }">
+      <div v-if="!bookmark.isMobile" :style="{ width: '150px' }">
         <div class="help-title" @click="checkId = ''" v-click-log="{ module: '帮助中心', operation: `导览` }"
           >帮助中心</div
         >
@@ -46,7 +46,7 @@
       </div>
       <div
         id="view-body"
-        :style="{ width: bookmark.isPhone ? 'calc(100% - 40px)' : 'calc(100% - 150px)' }"
+        :style="{ width: bookmark.isMobile ? 'calc(100% - 40px)' : 'calc(100% - 150px)' }"
         style="
           height: 100%;
           border: 1px solid var(--card-border-color);

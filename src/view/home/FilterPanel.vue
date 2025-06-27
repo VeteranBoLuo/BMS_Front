@@ -1,7 +1,7 @@
 <template>
   <div class="filter-panel">
     <b-list
-      :draggable="!bookmark.isPhone"
+      :draggable="!bookmark.isMobile"
       class="header-input"
       v-model:listOptions="filterTagList"
       v-model:dragList="bookmark.tagList"
@@ -159,7 +159,7 @@
     overflow: hidden auto;
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 1000px) {
     .filter-panel {
       min-width: unset;
       width: 100%;

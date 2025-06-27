@@ -1,7 +1,7 @@
 <template>
   <b-loading :loading="loading">
     <div class="note-library-container">
-      <div class="note-library-header" v-if="bookmark.isPhone">
+      <div class="note-library-header" v-if="bookmark.isMobile">
         <div class="header-content">
           <div class="back-icon" @click="back">
             <SvgIcon :src="icon.noteDetail.back" />
@@ -136,7 +136,7 @@
   const allTags = ref([]);
 
   function back() {
-    if (bookmark.isPhone) {
+    if (bookmark.isMobile) {
       router.push('/personCenter');
     } else {
       router.back();
