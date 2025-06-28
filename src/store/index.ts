@@ -7,7 +7,7 @@ import Viewer from 'viewerjs';
 import { createVNode, nextTick, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { cloneDeep } from 'lodash-es';
-import { apiBasePost } from '@/http/request.ts';
+import { apiBasePost, apiQueryPost } from '@/http/request.ts';
 const getIframeDocument = () => {
   const iframe: any = document.getElementsByClassName('tox-edit-area__iframe')[0];
   return iframe?.contentDocument || iframe?.contentWindow?.document;
@@ -172,10 +172,12 @@ export const cloudSpaceStore = defineStore('dom', {
       {
         usedSpace: number;
         maxSpace: number;
+        folderList: { name: string; id?: string; isRename?: boolean }[];
       }
     >{
       usedSpace: 0,
       maxSpace: 100,
+      folderList: [],
     },
   getters: {},
   actions: {
@@ -183,6 +185,13 @@ export const cloudSpaceStore = defineStore('dom', {
       apiBasePost('/api/file/queryTotalFileSize').then((res) => {
         if (res.status === 200) {
           this.usedSpace = res.data.totalSizeMB;
+        }
+      });
+    },
+    queryFolder() {
+      apiQueryPost('/api/common/queryFolder').then((res) => {
+        if (res.status === 200) {
+          this.folderList = res.data.items;
         }
       });
     },

@@ -3,7 +3,13 @@
     <slot name="input">
       <b-input v-model:value="searchValue" :placeholder="placeholder" v-if="searchFilter" />
     </slot>
-    <div class="category-body" :style="{ marginTop: hasInputSlot ? '10px' : '' }">
+    <div
+      class="category-body"
+      :style="{
+        marginTop: hasInputSlot ? '10px' : '',
+        height: hasInputSlot ? 'calc(100% - 40px)' : 'calc(100% - 10px)',
+      }"
+    >
       <VueDraggable :disabled="!draggable" :animation="200" ref="el" v-model="dragList" @end="onEnd">
         <div :key="item[nodeType.id]" v-for="item in listOptions" @click="nodeClick(item)">
           <slot name="item" :item="item">
@@ -121,7 +127,6 @@
     width: 100%;
   }
   .category-body {
-    height: calc(100% - 50px);
     width: 100%;
     overflow-y: auto;
     --scrollbar-width: 0;

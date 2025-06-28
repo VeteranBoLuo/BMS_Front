@@ -17,23 +17,10 @@
             </b-input>
           </div>
         </div>
-
-        <b-space :size="15">
-          <CloudStorageBar v-if="!bookmark.isMobile" />
-          <b-upload class="upload-btn" @change="handleChange" :max-total-size="50 * 1024 * 1024">
-            <b-button>上传文件</b-button>
-          </b-upload>
-          <b-button v-if="!bookmark.isMobile" @click="handleAddFolder">新建文件夹</b-button>
-        </b-space>
+        <HandleBtnGroup @upload-success="queryFieldList" />
       </div>
       <div class="content-area">
-        <div class="folder-list" v-if="!bookmark.isMobile">
-          <b-list check-id="all" v-model:listOptions="folderList" :node-type="{ id: 'id', title: 'name' }" @nodeClick="folderClick">
-            <template #icon>
-              <svg-icon size="16" :src="icon.common.folder" />
-            </template>
-          </b-list>
-        </div>
+        <CloudFolder @queryFieldList="queryFieldList" />
         <div class="field-list">
           <div class="field-header">
             <div class="flex-align-center-gap" :style="{ width: bookmark.isMobile ? '80%' : '70%' }"> 文件名 </div>
@@ -82,24 +69,18 @@
 </template>
 
 <script lang="ts" setup>
-  import { apiBasePost, apiQueryPost } from '@/http/request.ts';
+  import { apiQueryPost } from '@/http/request.ts';
   import icon from '@/config/icon.ts';
   import { ref } from 'vue';
-  import BList from '@/components/base/BasicComponents/BList.vue';
   import { deleteField, downloadField } from '@/http/common.ts';
   import { bookmarkStore, cloudSpaceStore } from '@/store';
-  import CloudStorageBar from '@/components/cloudSpace/CloudStorageBar.vue';
-  import { message } from 'ant-design-vue';
+  import HandleBtnGroup from '@/components/cloudSpace/HandleBtnGroup.vue';
+  import SvgIcon from '@/components/base/SvgIcon/src/SvgIcon.vue';
+  import CloudFolder from '@/view/cloudSpace/CloudFolder.vue';
 
   const bookmark = bookmarkStore();
   const cloud = cloudSpaceStore();
-  const folderList = ref([{ id: 'all', name: '全部文件' }]);
   const loading = ref(false);
-  function folderClick(folder) {
-    if (folder.id === 'all') {
-      queryFieldList();
-    }
-  }
 
   const filedList = ref<{ id: string; fileName: string; fileSize: number; uploadTime: string }[]>([]);
   const searchFileName = ref('');
@@ -121,54 +102,12 @@
 
   function init() {
     searchFileName.value = '';
+    cloud.queryFolder();
     queryFieldList();
   }
 
-  function handleChange(e) {
-    let fileData;
-    let file = e[0]; // 假设这里的e[0]是你的文件或者Base64字符串
-    // 检查是否为Base64字符串（这里假设Base64字符串都是"data:image"开头）
-    if (file.isImg) {
-      // 提取Base64字符串部分并转换为Blob
-      const base64String = file.file.split(';base64,').pop();
-      const byteCharacters = atob(base64String);
-      const byteNumbers = new Array(byteCharacters.length);
-      for (let i = 0; i < byteCharacters.length; i++) {
-        byteNumbers[i] = byteCharacters.charCodeAt(i);
-      }
-      const byteArray = new Uint8Array(byteNumbers);
-      fileData = new Blob([byteArray], { type: 'image/svg+xml' }); // 根据实际情况调整MIME类型
-    } else {
-      // 如果不是Base64字符串，则直接使用原始文件
-      fileData = file;
-    }
-    const formData = new FormData();
-    if (file.isImg) {
-      formData.append('file', fileData, file.fileName); // 确保文件名正确
-    } else {
-      formData.append('file', fileData);
-    }
-
-    const uploadAfterSize: number = Number(file.size / 1024 / 1024 + cloud.usedSpace).toFixed(2);
-    console.log(uploadAfterSize);
-    if (uploadAfterSize <= cloud.maxSpace) {
-      apiBasePost('/api/file/uploadFile', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      }).then((res) => {
-        if (res.status === 200) {
-          queryFieldList();
-        }
-      });
-    } else {
-      message.warning('剩余空间不足');
-    }
-  }
-  function handleAddFolder() {}
-
   function handleDelFile(id) {
-    deleteField(id).then((res) => {
+    deleteField(id).then(() => {
       queryFieldList();
     });
   }
@@ -178,7 +117,7 @@
 
 <style lang="less" scoped>
   .cloud-container {
-    padding: 20px;
+    padding: 20px 20px 0 20px;
     width: 100%;
     height: 100%;
     border-top: 1px solid var(--notePage-topBody-border-color);
@@ -197,15 +136,9 @@
     }
   }
   .content-area {
-    flex: 1;
-    height: 100%;
+    height: calc(100% - 42px);
+    overflow: hidden;
     display: flex;
-    .folder-list {
-      height: 100%;
-      width: 300px;
-      border-right: 1px solid var(--folder-list-border-color);
-      padding-right: 10px;
-    }
     .field-list {
       flex: 1;
       position: relative;
@@ -216,19 +149,17 @@
   .field-header {
     display: flex;
     align-items: center;
-    padding-bottom: 10px;
-    padding-left: 20px;
+    height: 20px;
+    padding: 0 20px 10px 20px;
     border-bottom: 1px solid var(--folder-list-border-color);
   }
   .file-container {
-    height: calc(100% - 70px);
-    padding-right: 20px;
-    margin-right: -20px;
+    height: calc(100% - 40px);
     overflow-y: auto;
   }
   .field-item {
     height: 64px;
-    padding-left: 20px;
+    padding: 0 20px;
     display: flex;
     align-items: center;
     border-bottom: 1px solid var(--folder-list-border-color);

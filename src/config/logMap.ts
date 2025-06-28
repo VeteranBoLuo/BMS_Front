@@ -52,4 +52,5 @@ export const OPERATION_LOG_MAP = {
     deleteNote: '删除笔记',
     saveNote: '保存笔记',
   }),
+  cloudSpace: createModule('云空间', {}),
 };
