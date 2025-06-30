@@ -24,7 +24,7 @@ export const copyTextToClipboard = function (text) {
 };
 
 //  防抖函数
-export function debounce(func:any, time) {
+export function debounce(func: any, time) {
   let timer: any;
   return function () {
     clearTimeout(timer);
@@ -194,7 +194,7 @@ export function closeOpenWindow(className: string, flag: Ref<boolean>, remove?: 
   if (remove) {
     document.removeEventListener(
       'click',
-      (e) => {
+      (e: any) => {
         if (!e.target.matches(`.${className} *`)) {
           flag.value = false;
         }
@@ -204,7 +204,7 @@ export function closeOpenWindow(className: string, flag: Ref<boolean>, remove?: 
   } else {
     document.addEventListener(
       'click',
-      (e) => {
+      (e: any) => {
         if (!e.target.matches(`.${className} *`)) {
           flag.value = false;
         }
