@@ -1,6 +1,14 @@
 <template>
   <BModal title="移动文件" :mask-closable="false" @ok="moveFile" v-model:visible="visible">
     <div style="display: flex; flex-direction: column; width: 500px; max-height: 400px; overflow-y: auto">
+      <div class="folder-item" @click="folderClick({ name: '不关联文件夹', id: 'all' })">
+        <div class="flex-align-center-gap">
+          <span style="font-size: 14px">不关联文件夹</span>
+        </div>
+        <div class="check">
+          <div class="point" v-show="checkValue === 'all'"></div>
+        </div>
+      </div>
       <div v-for="folder in cloud.folderList" :key="folder.id" class="folder-item" @click="folderClick(folder)">
         <div class="flex-align-center-gap">
           <svg-icon size="24" :src="icon.common.folder" />
@@ -35,7 +43,7 @@
   }
   function moveFile() {
     apiBasePost('/api/file/associateFile', {
-      folderId: checkValue.value,
+      folderId: checkValue.value === 'all' ? '' : checkValue.value,
       fileId: props.fileId,
     }).then((res) => {
       if (res.status === 200) {
