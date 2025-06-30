@@ -43,7 +43,12 @@
                 class="flex-align-center"
                 :style="{ width: bookmark.isMobile ? '80%' : '70%' }"
               >
-                <span class="file-label">{{ item.fileName }}</span>
+                <span
+                  :style="{ cursor: !bookmark.isMobile && item.fileType.includes('image') ? 'pointer' : 'unset' }"
+                  class="file-label"
+                  @click="previewFile(item)"
+                  >{{ item.fileName }}</span
+                >
                 <div class="flex-align-center handle-btn">
                   <a-tooltip title="下载">
                     <svg-icon
@@ -103,7 +108,6 @@
   const cloud = cloudSpaceStore();
   const loading = ref(false);
 
-
   const inputQueryFieldList = debounce(cloud.queryFieldList, 500);
   function init() {
     cloud.searchFileName = '';
@@ -122,6 +126,11 @@
   function moveField(file) {
     moveCfg.moveFileVisible = true;
     moveCfg.file = file;
+  }
+  function previewFile(file: any) {
+    if (!bookmark.isMobile && file.fileType.includes('image')) {
+      bookmark.refreshViewer(file.fileUrl, {});
+    }
   }
 
   init();
@@ -224,7 +233,7 @@
     .handle-btn {
       opacity: 1;
     }
-    .file-label{
+    .file-label {
       width: 150px;
       text-overflow: ellipsis;
       white-space: nowrap;
