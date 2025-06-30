@@ -17,6 +17,7 @@
   const cloud = cloudSpaceStore();
   const emit = defineEmits(['addFolder']);
   function handleChange(e) {
+    cloud.loading = true;
     let fileData;
     let file = e[0]; // 假设这里的e[0]是你的文件或者Base64字符串
     // 检查是否为Base64字符串（这里假设Base64字符串都是"data:image"开头）
@@ -47,14 +48,19 @@
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-      }).then((res) => {
-        if (res.status === 200) {
-          message.success('上传成功');
-          cloud.queryFieldList();
-        }
-      });
+      })
+        .then((res) => {
+          if (res.status === 200) {
+            message.success('上传成功');
+            cloud.queryFieldList();
+          }
+        })
+        .finally(() => {
+          cloud.loading = false;
+        });
     } else {
       message.warning('剩余空间不足');
+      cloud.loading = false;
     }
   }
 
