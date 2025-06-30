@@ -43,7 +43,7 @@
                 class="flex-align-center"
                 :style="{ width: bookmark.isMobile ? '80%' : '70%' }"
               >
-                <span>{{ item.fileName }}</span>
+                <span class="file-label">{{ item.fileName }}</span>
                 <div class="flex-align-center handle-btn">
                   <a-tooltip title="下载">
                     <svg-icon
@@ -184,15 +184,13 @@
     }
     .handle-btn {
       color: var(--desc-color);
-    }
-  }
-  .handle-btn {
-    opacity: 0;
-    position: absolute;
-    right: 20px;
-    gap: 10px;
-    div {
-      cursor: pointer;
+      opacity: 0;
+      position: absolute;
+      right: 20px;
+      gap: 10px;
+      div {
+        cursor: pointer;
+      }
     }
   }
   .default-area {
@@ -225,6 +223,12 @@
     }
     .handle-btn {
       opacity: 1;
+    }
+    .file-label{
+      width: 150px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
     }
   }
 </style>

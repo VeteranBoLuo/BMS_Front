@@ -10,6 +10,7 @@ import bookmarkTable from '@/assets/img/help/bookmark_table.jpg';
 import bookmarkMainPage from '@/assets/img/help/bookmark_mainPage.jpg';
 import opinionMg from '@/assets/img/help/opinionMg.png';
 import noteManage from '@/assets/img/help/note_manage.jpg';
+import cloudSpace from '@/assets/img/help/cloudSpace.jpg';
 import { ref } from 'vue';
 
 export const listOptions = ref([
@@ -129,10 +130,23 @@ export const listOptions = ref([
     title: '笔记管理',
     content: `<div class="flex-justify-center">
     <div style="width: 80%; height: 100%">
-      <img src="${noteManage}" alt="书签示例" class="bookmark-image"  />
+      <img src="${noteManage}" alt="笔记管理示例" class="bookmark-image"  />
       <p style="text-align: left;font-size: 14px">1、点击此处可根据标签对笔记进行过滤</p>
       <p style="text-align: left;font-size: 14px">2、鼠标悬浮在笔记卡片上时可以勾选笔记，可以对笔记进行批量删除</p>
       <p style="text-align: left;font-size: 14px">3、笔记库标题也可以点击，点击后获取最新的全部笔记</p>
+    </div>
+  </div>`,
+  },
+  {
+    id: '云空间',
+    title: '云空间',
+    content: `<div class="flex-justify-center">
+    <div style="width: 80%; height: 100%">
+      <img src="${cloudSpace}" alt="云空间示例" class="bookmark-image"  />
+      <p style="text-align: left;font-size: 14px">1、支持用户上传文件至云端空间，实现跨设备数据存储与访，兼容移动端与桌面端操作体验，同时完善权限控制逻辑，确保用户仅能访问自身上传的文件资源</p>
+      <p style="text-align: left;font-size: 14px">2、引入用户配额管理机制，每位用户暂时默认可使用最大 100MB 存储空间，并提供空间使用状态展示组件</p>
+      <p style="text-align: left;font-size: 14px">3、支持按文件类型和文件夹两个维度管理文件</p>
+      <p style="text-align: left;font-size: 14px">4、支持文件的上传、下载、预览、删除、重命名、搜索和分享功能</p>
     </div>
   </div>`,
   },
