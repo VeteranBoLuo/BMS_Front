@@ -1,5 +1,5 @@
 <template>
-  <a-dropdown>
+  <a-dropdown :trigger="trigger">
     <slot />
     <template #overlay>
       <a-menu>
@@ -16,10 +16,17 @@
 
 <script lang="ts" setup>
   import SvgIcon from '@/components/base/SvgIcon/src/SvgIcon.vue';
+  import { Trigger } from 'ant-design-vue/es/dropdown/props';
 
-  const props = defineProps<{
-    menuOptions: { label: string; icon?: string; function?: () => void }[];
-  }>();
+  const props = withDefaults(
+    defineProps<{
+      menuOptions: { label: string; icon?: string; function?: () => void }[];
+      trigger: Trigger | Trigger[];
+    }>(),
+    {
+      trigger: 'hover',
+    },
+  );
 </script>
 
 <style lang="less" scoped></style>

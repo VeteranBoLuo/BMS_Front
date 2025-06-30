@@ -21,6 +21,7 @@
         <RightMenu :menu="['上传文件', '重命名', '删除']" v-if="!item.isRename" @select="handleTagMenu($event, item)">
           <div
             class="category-item"
+            style="height: 32px"
             :title="item.name"
             :style="{
               backgroundColor: cloud.folder.id === item.id ? 'var(--category-item-ba-color)' : '',
@@ -34,7 +35,10 @@
         </RightMenu>
         <b-input v-else class="edit-input" v-model:value="newName" @click.stop @enter="handleRename(item)">
           <template #suffix>
-            <svg-icon :src="icon.filterPanel.check" size="18" class="dom-hover" @click="handleRename(item)" />
+            <div class="flex-align-center-gap">
+              <svg-icon :src="icon.filterPanel.check" size="18" class="dom-hover" @click="handleRename(item)" />
+              <svg-icon :src="icon.common.close" size="18" class="dom-hover" @click="cloud.queryFolder()"
+            /></div>
           </template>
         </b-input>
       </template>
@@ -63,12 +67,12 @@
       name: '全部文件',
       id: 'all',
     };
-    cloud.queryFieldList()
+    cloud.queryFieldList();
   }
 
   function folderClick(folder) {
     cloud.folder = folder;
-    cloud.queryFieldList()
+    cloud.queryFieldList();
   }
 
   const newName = ref('');
@@ -76,6 +80,9 @@
     recordOperation({ module: '云科技', operation: `右键${menu}文件夹${folder.name}` });
     const actions = {
       重命名: () => {
+        if (cloud.folderList.find((i) => !i.id || i.isRename)) {
+          return;
+        }
         folder.isRename = true;
         newName.value = folder.name;
       },
@@ -98,13 +105,16 @@
               name: '全部文件',
               id: 'all',
             };
-            cloud.queryFieldList()
+            cloud.queryFieldList();
           }
         });
       },
     });
   }
   function addFolder() {
+    if (cloud.folderList.find((i) => !i.id || i.isRename)) {
+      return;
+    }
     cloud.folderList.push({ name: '', isRename: true });
     nextTick(() => {
       document.querySelector('.edit-input .b-input').focus();
@@ -140,5 +150,11 @@
     width: 300px;
     border-right: 1px solid var(--folder-list-border-color);
     padding-right: 10px;
+  }
+  .edit-input {
+    :deep(.b-input) {
+      margin-top: 5px !important;
+      padding-right: 60px !important;
+    }
   }
 </style>

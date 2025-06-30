@@ -44,11 +44,27 @@
                 :style="{ width: bookmark.isMobile ? '80%' : '70%' }"
               >
                 <span
+                  v-if="!item.isRename"
                   :style="{ cursor: !bookmark.isMobile && item.fileType.includes('image') ? 'pointer' : 'unset' }"
                   class="file-label"
                   @click="previewFile(item)"
                   >{{ item.fileName }}</span
                 >
+                <b-input
+                  style="width: 300px"
+                  v-else
+                  class="edit-input"
+                  v-model:value="item.fileName"
+                  @click.stop
+                  @enter="submitReName(item)"
+                >
+                  <template #suffix>
+                    <div class="flex-align-center-gap">
+                      <svg-icon :src="icon.filterPanel.check" size="18" class="dom-hover" @click="submitReName(item)" />
+                      <svg-icon :src="icon.common.close" size="18" class="dom-hover" @click="cloud.queryFieldList()"
+                    /></div>
+                  </template>
+                </b-input>
                 <div class="flex-align-center handle-btn">
                   <a-tooltip title="下载">
                     <svg-icon
@@ -58,16 +74,6 @@
                       @click="downloadField(item.id)"
                     />
                   </a-tooltip>
-                  <a-popconfirm
-                    title="确认删除此文件？"
-                    ok-text="是"
-                    cancel-text="否"
-                    @confirm="handleDelFile(item.id)"
-                  >
-                    <a-tooltip title="删除">
-                      <svg-icon class="download-icon" :src="icon.noteDetail.delete" size="20"></svg-icon>
-                    </a-tooltip>
-                  </a-popconfirm>
                   <a-tooltip title="移动文件">
                     <svg-icon
                       class="download-icon"
@@ -76,6 +82,15 @@
                       @click="moveField(item)"
                     />
                   </a-tooltip>
+                  <b-menu
+                    :trigger="'click'"
+                    :menu-options="[
+                      { label: '删除', icon: icon.noteDetail.delete, function: () => handleDelFile(item.id) },
+                      { label: '重命名', icon: icon.filterPanel.list, function: () => handleReName(item) },
+                    ]"
+                  >
+                    <svg-icon class="download-icon" :src="icon.common.more" size="20" />
+                  </b-menu>
                 </div>
               </div>
               <div class="default-area">
@@ -103,6 +118,11 @@
   import FileTypeFilter from '@/components/cloudSpace/FileTypeFilter.vue';
   import { debounce } from '@/utils/common.ts';
   import MoveFile from '@/components/cloudSpace/MoveFile.vue';
+  import router from '@/router';
+  import BMenu from '@/components/base/BasicComponents/BMenu.vue';
+  import Alert from '@/components/base/BasicComponents/BModal/Alert.ts';
+  import { apiBasePost } from '@/http/request.ts';
+  import { message } from 'ant-design-vue';
 
   const bookmark = bookmarkStore();
   const cloud = cloudSpaceStore();
@@ -115,10 +135,32 @@
   }
 
   function handleDelFile(id) {
-    deleteField(id).then(() => {
-      cloud.queryFieldList();
+    Alert.alert({
+      title: '提示',
+      content: `确认删除此文件？`,
+      onOk() {
+        deleteField(id).then(() => {
+          cloud.queryFieldList();
+        });
+      },
     });
   }
+  function handleReName(file) {
+    file.isRename = true;
+  }
+
+  function submitReName(file) {
+    file.isRename = false;
+    apiBasePost('/api/file/updateFile', {
+      id: file.id,
+      fileName: file.fileName,
+    }).then((res) => {
+      if (res.status === 200) {
+        message.success('重命名成功');
+      }
+    });
+  }
+
   const moveCfg = reactive({
     moveFileVisible: false,
     file: {},
