@@ -25,13 +25,13 @@
 <script lang="ts" setup>
   import { cloudSpaceStore } from '@/store';
   import icon from '@/config/icon.ts';
-  import { ref } from 'vue';
+  import { ref, watch } from 'vue';
   import { apiBasePost } from '@/http/request.ts';
   import { message } from 'ant-design-vue';
   const cloud = cloudSpaceStore();
   const checkValue = ref('');
   const props = defineProps({
-    fileId: {
+    file: {
       type: String,
       default: '',
     },
@@ -44,7 +44,7 @@
   function moveFile() {
     apiBasePost('/api/file/associateFile', {
       folderId: checkValue.value === 'all' ? '' : checkValue.value,
-      fileId: props.fileId,
+      fileId: props.file.id,
     }).then((res) => {
       if (res.status === 200) {
         message.success('移动文件夹成功');
@@ -53,6 +53,14 @@
       }
     });
   }
+  watch(
+    () => visible.value,
+    (val) => {
+      if (val) {
+        checkValue.value = props.file.folderId;
+      }
+    },
+  );
 </script>
 
 <style lang="less" scoped>

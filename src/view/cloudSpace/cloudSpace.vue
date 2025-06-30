@@ -68,7 +68,7 @@
                       class="download-icon"
                       :src="icon.cloudSpace.moveFile"
                       size="20"
-                      @click="moveField(item.id)"
+                      @click="moveField(item)"
                     />
                   </a-tooltip>
                 </div>
@@ -83,7 +83,7 @@
         </div>
       </div>
     </div>
-    <MoveFile v-model:visible="moveCfg.moveFileVisible" :fileId="moveCfg.fileId" />
+    <MoveFile v-model:visible="moveCfg.moveFileVisible" :file="moveCfg.file" />
   </CommonContainer>
 </template>
 
@@ -117,11 +117,11 @@
   }
   const moveCfg = reactive({
     moveFileVisible: false,
-    fileId: '',
+    file: {},
   });
-  function moveField(id) {
+  function moveField(file) {
     moveCfg.moveFileVisible = true;
-    moveCfg.fileId = id;
+    moveCfg.file = file;
   }
 
   init();
