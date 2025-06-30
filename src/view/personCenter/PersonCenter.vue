@@ -125,7 +125,7 @@
       label: '意见反馈',
       icon: icon.userCenter.operationLog,
     },
-    { name: 'updateLogs', label: '更新日志', path: '/updateLogs', icon: icon.userCenter.log, version: '1.3' },
+    { name: 'updateLogs', label: '更新日志', path: '/updateLogs', icon: icon.userCenter.log, version: '1.3.1' },
   ]);
   function getVersionIsNew(menu: any) {
     if (menu.version) {
@@ -211,7 +211,7 @@
   }
 </script>
 
-<style  lang="less" scoped>
+<style lang="less" scoped>
   .navigation-icon {
     display: flex;
     align-items: center;

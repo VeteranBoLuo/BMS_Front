@@ -1,5 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
 
+import { Ref } from 'vue';
+
 export const copyTextToClipboard = function (text) {
   // 检查浏览器是否支持Clipboard API
   if (navigator.clipboard) {
@@ -22,7 +24,7 @@ export const copyTextToClipboard = function (text) {
 };
 
 //  防抖函数
-export function debounce(func, time) {
+export function debounce(func:any, time) {
   let timer: any;
   return function () {
     clearTimeout(timer);
@@ -183,7 +185,31 @@ export function generateUUID() {
 }
 
 export function customTimer(ms) {
-    return new Promise(resolve => {
-        setTimeout(resolve, ms);
-    });
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
+}
+
+export function closeOpenWindow(className: string, flag: Ref<boolean>, remove?: boolean) {
+  if (remove) {
+    document.removeEventListener(
+      'click',
+      (e) => {
+        if (!e.target.matches(`.${className} *`)) {
+          flag.value = false;
+        }
+      },
+      true,
+    );
+  } else {
+    document.addEventListener(
+      'click',
+      (e) => {
+        if (!e.target.matches(`.${className} *`)) {
+          flag.value = false;
+        }
+      },
+      true,
+    );
+  }
 }

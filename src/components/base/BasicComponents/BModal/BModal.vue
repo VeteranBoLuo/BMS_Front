@@ -30,7 +30,7 @@
 
 <script lang="ts" setup>
   import BSpace from '@/components/base/BasicComponents/BSpace.vue';
-  import { computed, onMounted, onUnmounted, ref, useAttrs } from 'vue';
+  import { computed, onBeforeUnmount, onMounted, onUnmounted, ref, useAttrs, watch } from 'vue';
 
   const props = withDefaults(
     defineProps<{
@@ -66,7 +66,7 @@
     }, 200);
   }
   function closeMask(e) {
-    if (props.maskClosable && !document.getElementById('modal-view')?.contains(e.target as HTMLElement)) {
+    if (props.maskClosable && !e.target.matches('.modal-view *')) {
       handleClose();
     }
   }
@@ -78,14 +78,28 @@
   }
 
   onMounted(() => {
-    document.addEventListener('mouseup', closeMask);
-    document.addEventListener('keydown', clickEsc);
+    if (visible.value) {
+      document.addEventListener('mouseup', closeMask);
+      document.addEventListener('keydown', clickEsc);
+    }
   });
-  onUnmounted(() => {
-    document.removeEventListener('mouseup', closeMask);
-    document.addEventListener('keydown', clickEsc);
-  });
+  watch(
+    () => visible.value,
+    (val) => {
+      if (val) {
+        document.addEventListener('mouseup', closeMask);
+        document.addEventListener('keydown', clickEsc);
+      } else {
+        document.removeEventListener('mouseup', closeMask);
+        document.addEventListener('keydown', clickEsc);
+      }
+    },
+  );
 
+  onBeforeUnmount(() => {
+    document.removeEventListener('mouseup', closeMask);
+    document.removeEventListener('keydown', clickEsc);
+  });
   const cssTop = computed(() => {
     return props.top;
   });
@@ -106,7 +120,7 @@
     top: v-bind(cssTop);
     transform: translate(-50%, -50%);
     box-sizing: border-box;
-    background-color: var(--menu-body-bg-color);
+    background-color: var(--background-color);
     padding: 20px;
     border-radius: 10px;
     width: max-content;

@@ -4,7 +4,7 @@
       class="category-item"
       style="margin: 0 0 5px 0"
       :style="{
-        backgroundColor: 'all' === currentFolder.id ? 'var(--category-item-ba-color)' : '',
+        backgroundColor: 'all' === cloud.folder.id ? 'var(--category-item-ba-color)' : '',
       }"
       @click="clickAllFolder"
     >
@@ -23,17 +23,16 @@
             class="category-item"
             :title="item.name"
             :style="{
-              backgroundColor: currentFolder.id === item.id ? 'var(--category-item-ba-color)' : '',
+              backgroundColor: cloud.folder.id === item.id ? 'var(--category-item-ba-color)' : '',
             }"
             :key="item"
             v-click-log="{ module: '云空间', operation: `查询文件夹【${item.name}】下的文件列表` }"
-            @click="folderClick(item)"
           >
             <svg-icon size="16" :src="icon.common.folder" />
             <span class="text-hidden" style="width: calc(100% - 28px)">{{ item['name'] }}</span>
           </div>
         </RightMenu>
-        <b-input v-else class="edit-input" v-model:value="newName" @click.stop>
+        <b-input v-else class="edit-input" v-model:value="newName" @click.stop @enter="handleRename(item)">
           <template #suffix>
             <svg-icon :src="icon.filterPanel.check" size="18" class="dom-hover" @click="handleRename(item)" />
           </template>
@@ -50,30 +49,26 @@
   import RightMenu from '@/components/base/RightMenu.vue';
   import SvgIcon from '@/components/base/SvgIcon/src/SvgIcon.vue';
   import { bookmarkStore, cloudSpaceStore } from '@/store';
-  import { ref } from 'vue';
+  import { nextTick, ref } from 'vue';
   import { recordOperation } from '@/api/commonApi.ts';
   import { message } from 'ant-design-vue';
-  import { apiBasePost, apiQueryPost } from '@/http/request.ts';
+  import { apiBasePost } from '@/http/request.ts';
+  import Alert from '@/components/base/BasicComponents/BModal/Alert.ts';
 
   const bookmark = bookmarkStore();
   const cloud = cloudSpaceStore();
-  const emit = defineEmits(['queryFieldList']);
-
-  const currentFolder = ref({
-    name: '全部文件',
-    id: 'all',
-  });
 
   function clickAllFolder() {
-    currentFolder.value = {
+    cloud.folder = {
       name: '全部文件',
       id: 'all',
     };
-    emit('queryFieldList');
+    cloud.queryFieldList()
   }
 
   function folderClick(folder) {
-    currentFolder.value = folder;
+    cloud.folder = folder;
+    cloud.queryFieldList()
   }
 
   const newName = ref('');
@@ -84,14 +79,36 @@
         folder.isRename = true;
         newName.value = folder.name;
       },
-      删除: () => {},
+      删除: () => handleDeleteFolder(folder),
       上传文件: () => {},
     };
     actions[menu]?.();
   }
 
+  function handleDeleteFolder(folder: any) {
+    Alert.alert({
+      title: '提示',
+      content: `请确认是否要删除文件夹【${folder.name}】？`,
+      onOk() {
+        apiBasePost('/api/file/deleteFolder', { id: folder.id }).then(() => {
+          cloud.queryFolder();
+          message.success('删除成功');
+          if (folder.id === cloud.folder.id) {
+            cloud.folder = {
+              name: '全部文件',
+              id: 'all',
+            };
+            cloud.queryFieldList()
+          }
+        });
+      },
+    });
+  }
   function addFolder() {
     cloud.folderList.push({ name: '', isRename: true });
+    nextTick(() => {
+      document.querySelector('.edit-input .b-input').focus();
+    });
   }
 
   function handleRename(folder: any) {
@@ -99,9 +116,12 @@
       folder.isRename = !folder.isRename;
       folder.name = newName.value;
       if (folder.id) {
-        message.success('重命名成功');
+        apiBasePost('/api/file/updateFolder', folder).then(() => {
+          cloud.queryFolder();
+          message.success('重命名成功');
+        });
       } else {
-        apiBasePost('/api/common/addFolder', folder).then((res) => {
+        apiBasePost('/api/file/addFolder', folder).then((res) => {
           if (res.status === 200) {
             cloud.queryFolder();
             message.success('新增文件夹成功');

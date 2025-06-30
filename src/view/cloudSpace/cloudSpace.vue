@@ -2,25 +2,32 @@
   <CommonContainer title="云空间">
     <div class="cloud-container">
       <div class="header">
-        <b-input v-if="bookmark.isMobile" v-model:value="searchFileName" placeholder="文件名" class="header-input">
+        <b-input
+          v-if="bookmark.isMobile"
+          v-model:value="cloud.searchFileName"
+          placeholder="文件名"
+          class="header-input"
+          @enter="cloud.queryFieldList"
+        >
           <template #suffix>
-            <svg-icon class="dom-hover" :src="icon.navigation.search" size="16" @click="queryFieldList" />
+            <svg-icon class="dom-hover" :src="icon.navigation.search" size="16" @click="cloud.queryFieldList" />
           </template>
         </b-input>
         <div v-else class="flex-align-center">
           <div style="font-weight: 500; font-size: 20px" @click="init" class="dom-hover">云空间</div>
           <div class="search-icon">
-            <b-input v-model:value="searchFileName" placeholder="文件名">
+            <b-input @input="inputQueryFieldList" v-model:value="cloud.searchFileName" placeholder="文件名">
               <template #suffix>
-                <svg-icon class="dom-hover" :src="icon.navigation.search" size="16" @click="queryFieldList" />
+                <svg-icon class="dom-hover" :src="icon.navigation.search" size="16" @click="cloud.queryFieldList" />
               </template>
             </b-input>
           </div>
+          <FileTypeFilter />
         </div>
-        <HandleBtnGroup @upload-success="queryFieldList" />
+        <HandleBtnGroup />
       </div>
       <div class="content-area">
-        <CloudFolder @queryFieldList="queryFieldList" />
+        <CloudFolder />
         <div class="field-list">
           <div class="field-header">
             <div class="flex-align-center-gap" :style="{ width: bookmark.isMobile ? '80%' : '70%' }"> 文件名 </div>
@@ -30,7 +37,7 @@
             </div>
           </div>
           <div class="file-container">
-            <div class="field-item" v-for="(item, index) in filedList" :key="index">
+            <div class="field-item" v-for="(item, index) in cloud.fileList" :key="index">
               <div
                 style="width: 70%; position: relative"
                 class="flex-align-center"
@@ -38,21 +45,32 @@
               >
                 <span>{{ item.fileName }}</span>
                 <div class="flex-align-center handle-btn">
-                  <svg-icon
-                    title="下载"
-                    class="download-icon"
-                    :src="icon.cloudSpace.download"
-                    size="20"
-                    @click="downloadField(item.id)"
-                  />
+                  <a-tooltip title="下载">
+                    <svg-icon
+                      class="download-icon"
+                      :src="icon.cloudSpace.download"
+                      size="20"
+                      @click="downloadField(item.id)"
+                    />
+                  </a-tooltip>
                   <a-popconfirm
                     title="确认删除此文件？"
                     ok-text="是"
                     cancel-text="否"
                     @confirm="handleDelFile(item.id)"
                   >
-                    <svg-icon title="删除" class="download-icon" :src="icon.noteDetail.delete" size="20"></svg-icon>
+                    <a-tooltip title="删除">
+                      <svg-icon class="download-icon" :src="icon.noteDetail.delete" size="20"></svg-icon>
+                    </a-tooltip>
                   </a-popconfirm>
+                  <a-tooltip title="移动文件">
+                    <svg-icon
+                      class="download-icon"
+                      :src="icon.cloudSpace.moveFile"
+                      size="20"
+                      @click="moveField(item.id)"
+                    />
+                  </a-tooltip>
                 </div>
               </div>
               <div class="default-area">
@@ -61,58 +79,52 @@
               </div>
             </div>
           </div>
-          <b-loading :loading="loading" class="both-center" />
+          <b-loading :loading="cloud.loading" class="both-center" />
         </div>
       </div>
     </div>
+    <MoveFile v-model:visible="moveCfg.moveFileVisible" :fileId="moveCfg.fileId" />
   </CommonContainer>
 </template>
 
 <script lang="ts" setup>
-  import { apiQueryPost } from '@/http/request.ts';
   import icon from '@/config/icon.ts';
-  import { ref } from 'vue';
+  import { reactive, ref } from 'vue';
   import { deleteField, downloadField } from '@/http/common.ts';
   import { bookmarkStore, cloudSpaceStore } from '@/store';
   import HandleBtnGroup from '@/components/cloudSpace/HandleBtnGroup.vue';
   import SvgIcon from '@/components/base/SvgIcon/src/SvgIcon.vue';
-  import CloudFolder from '@/view/cloudSpace/CloudFolder.vue';
+  import CloudFolder from '@/components/cloudSpace/CloudFolder.vue';
+  import FileTypeFilter from '@/components/cloudSpace/FileTypeFilter.vue';
+  import { debounce } from '@/utils/common.ts';
+  import MoveFile from '@/components/cloudSpace/MoveFile.vue';
 
   const bookmark = bookmarkStore();
   const cloud = cloudSpaceStore();
   const loading = ref(false);
 
-  const filedList = ref<{ id: string; fileName: string; fileSize: number; uploadTime: string }[]>([]);
-  const searchFileName = ref('');
-  function queryFieldList() {
-    loading.value = true;
-    apiQueryPost('/api/file/queryFiles', {
-      filters: {
-        fileName: searchFileName.value,
-      },
-    })
-      .then((res) => {
-        filedList.value = res.data;
-      })
-      .finally(() => {
-        loading.value = false;
-        cloud.getUsedSpace();
-      });
-  }
 
+  const inputQueryFieldList = debounce(cloud.queryFieldList, 500);
   function init() {
-    searchFileName.value = '';
-    cloud.queryFolder();
-    queryFieldList();
+    cloud.searchFileName = '';
+    cloud.queryFieldList();
   }
 
   function handleDelFile(id) {
     deleteField(id).then(() => {
-      queryFieldList();
+      cloud.queryFieldList();
     });
   }
+  const moveCfg = reactive({
+    moveFileVisible: false,
+    fileId: '',
+  });
+  function moveField(id) {
+    moveCfg.moveFileVisible = true;
+    moveCfg.fileId = id;
+  }
 
-  queryFieldList();
+  init();
 </script>
 
 <style lang="less" scoped>

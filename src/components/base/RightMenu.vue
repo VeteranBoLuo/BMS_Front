@@ -95,9 +95,8 @@
     padding: 5px 0;
     background-color: var(--menu-body-bg-color);
     width: 150px;
-    border: 1px solid #ccc;
     border-radius: 12px;
-    box-shadow: 0 0 1px #ccc;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
     overflow: hidden;
     .context-menu-item {
       padding-left: 10px;

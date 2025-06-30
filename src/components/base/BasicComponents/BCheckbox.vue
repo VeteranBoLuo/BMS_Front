@@ -1,7 +1,7 @@
 <template>
   <div
     class="checkbox_container"
-    @click="isCheck = !isCheck"
+    @click="checkClick"
     :style="{
       backgroundColor: isCheck ? 'var(--primary-color)' : '',
       borderRadius: type === 'circle' ? '8px' : 'unset',
@@ -27,6 +27,11 @@
   const props = withDefaults(defineProps<{ type: 'normal' | 'circle' }>(), {
     type: 'normal',
   });
+  const emit = defineEmits(['change']);
+  function checkClick() {
+    isCheck.value = !isCheck.value;
+    emit('change', isCheck.value);
+  }
 </script>
 
 <style lang="less">

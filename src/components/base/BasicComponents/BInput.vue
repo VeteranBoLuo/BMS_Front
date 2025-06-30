@@ -25,7 +25,7 @@
       :value="value"
       :type="type"
       @input="handleInput"
-      @enter="$emit('enter')"
+      @keydown.enter="$emit('enter')"
       :style="{
         paddingLeft: hasPrefixSlot ? '35px' : '11px',
         paddingRight: hasSuffixSlot ? '35px' : '11px',

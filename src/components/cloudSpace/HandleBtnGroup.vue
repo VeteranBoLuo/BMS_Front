@@ -15,7 +15,7 @@
 
   const bookmark = bookmarkStore();
   const cloud = cloudSpaceStore();
-  const emit = defineEmits(['upload-success', 'addFolder']);
+  const emit = defineEmits(['addFolder']);
   function handleChange(e) {
     let fileData;
     let file = e[0]; // 假设这里的e[0]是你的文件或者Base64字符串
@@ -50,7 +50,7 @@
       }).then((res) => {
         if (res.status === 200) {
           message.success('上传成功');
-          emit('upload-success');
+          cloud.queryFieldList();
         }
       });
     } else {

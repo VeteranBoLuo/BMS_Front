@@ -176,7 +176,7 @@
     border-radius: 16px;
     z-index: 9999;
     box-shadow: 0 0 24px rgba(0, 0, 0, 0.6);
-    background-color: var(--menu-body-bg-color);
+    background-color: var(--background-color);
     animation: in-animation 0.3s ease;
     padding: 22px;
   }

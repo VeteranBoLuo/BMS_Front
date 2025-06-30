@@ -43,6 +43,7 @@
     input.multiple = props.multiple;
     input.addEventListener('change', function (event: any) {
       const files = event.target.files;
+      console.log(files)
       let totalSize = 0;
       const result = [];
       for (let i = 0; i < files.length; i++) {

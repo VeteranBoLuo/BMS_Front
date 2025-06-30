@@ -13,6 +13,14 @@ const cloudSpaceRouter: AppRouteRecordRaw[] = [
     name: 'cloudSpace',
     component: () => import('@/view/cloudSpace/cloudSpace.vue'),
   },
+  {
+    meta: {
+      roles: [RoleEnum.Root, RoleEnum.ADMIN, RoleEnum.VISITOR],
+    },
+    path: '/noteLibrary/:folderName(.*)',
+    name: 'NoteDetail',
+    component: () => import('@/view/noteLibrary/NoteDetail.vue'),
+  },
 ];
 
 export default cloudSpaceRouter;
