@@ -51,9 +51,9 @@
                   >{{ item.fileName }}</span
                 >
                 <b-input
-                  style="width: 300px"
+                  style="width: 400px"
                   v-else
-                  class="edit-input"
+                  class="edit-file-input"
                   v-model:value="item.fileName"
                   @click.stop
                   @enter="submitReName(item)"
@@ -109,7 +109,7 @@
 
 <script lang="ts" setup>
   import icon from '@/config/icon.ts';
-  import { reactive, ref } from 'vue';
+  import {nextTick, reactive, ref} from 'vue';
   import { deleteField, downloadField } from '@/http/common.ts';
   import { bookmarkStore, cloudSpaceStore } from '@/store';
   import HandleBtnGroup from '@/components/cloudSpace/HandleBtnGroup.vue';
@@ -147,6 +147,9 @@
   }
   function handleReName(file) {
     file.isRename = true;
+    nextTick(() => {
+      document.querySelector('.edit-file-input .b-input').focus();
+    });
   }
 
   function submitReName(file) {
