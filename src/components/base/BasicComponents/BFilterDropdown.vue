@@ -2,12 +2,15 @@
   <div class="filter-container">
     <!-- 下拉筛选按钮 -->
     <div class="filter-dropdown">
-      <b-button class="filter-button" @click="toggleFilterMenu">
-        <svg-icon :src="icon.cloudSpace.filter" />
-        <span>文件类型</span>
-        <i :class="['arrow', { 'arrow-up': showFilterMenu }]"></i>
-      </b-button>
-
+      <div @click="toggleFilterMenu">
+        <slot name="filterBtn">
+          <div class="filter-button">
+            <svg-icon :src="icon.cloudSpace.filter" />
+            <span>{{ title }}</span>
+            <i :class="['arrow', { 'arrow-up': showFilterMenu }]"></i>
+          </div>
+        </slot>
+      </div>
       <!-- 筛选菜单 -->
       <div v-show="showFilterMenu" class="filter-menu">
         <div class="filter-header">
@@ -15,8 +18,8 @@
             <span style="color: var(--text-color)">全选</span>
           </a-checkbox>
         </div>
-        <a-checkbox-group class="filter-options" v-model:value="cloud.typeCheckValue">
-          <a-checkbox v-for="type in fileTypes" :key="type.value" :value="type.value" class="filter-option">
+        <a-checkbox-group class="filter-options" v-model:value="checkValue">
+          <a-checkbox v-for="type in filterOptions" :key="type.value" :value="type.value" class="filter-option">
             {{ type.label }}
           </a-checkbox>
         </a-checkbox-group>
@@ -26,26 +29,33 @@
 </template>
 
 <script lang="ts" setup>
-  import { ref, watch } from 'vue';
+  import { PropType, ref, watch } from 'vue';
   import { closeOpenWindow } from '@/utils/common.ts';
   import icon from '@/config/icon.ts';
-  import { cloudSpaceStore } from '@/store';
 
-  // 文件类型定义
-  interface FileTypeOption {
-    value: string;
+  const props = defineProps({
+    title: {
+      type: String,
+      default: '筛选',
+    },
+    filterOptions: {
+      type: Array as PropType<FilterTypeOption[]>,
+      default: () => [
+        { value: 'image', label: '图片' },
+        { value: 'pdf', label: 'PDF' },
+        { value: 'word', label: 'Word' },
+        { value: 'audio', label: '音频' },
+        { value: 'video', label: '视频' },
+        { value: 'other', label: '其他' },
+      ],
+    },
+  });
+
+  // 类型定义
+  interface FilterTypeOption {
     label: string;
+    value: string;
   }
-  // 文件类型选项
-  const fileTypes = ref<FileTypeOption[]>([
-    { value: 'image', label: '图片' },
-    { value: 'pdf', label: 'PDF' },
-    { value: 'word', label: 'Word' },
-    { value: 'audio', label: '音频' },
-    { value: 'video', label: '视频' },
-    { value: 'other', label: '其他' },
-  ]);
-  const cloud = cloudSpaceStore();
   // 响应式数据
   const showFilterMenu = ref(false);
 
@@ -54,21 +64,26 @@
 
   const indeterminate = ref(false);
 
+  const checkValue: any = defineModel('check');
+
   // 筛选逻辑
   const toggleSelectAll = (e) => {
     if (e.target.checked) {
-      cloud.typeCheckValue = fileTypes.value.map((type) => type.value);
+      checkValue.value = props.filterOptions.map((type) => type.value);
     } else {
-      cloud.typeCheckValue = [];
+      checkValue.value = [];
       indeterminate.value = false;
     }
+    emit('selectAll', e.target.checked);
   };
+  const emit = defineEmits(['change', 'selectAll', 'openChange']);
+
   watch(
-    () => cloud.typeCheckValue,
-    (val) => {
-      indeterminate.value = !!val.length && val.length < fileTypes.value.length;
-      allTypesSelected.value = val.length === fileTypes.value.length;
-      cloud.queryFieldList();
+    () => checkValue.value,
+    (val: string[]) => {
+      indeterminate.value = !!val.length && val.length < props.filterOptions.length;
+      allTypesSelected.value = val.length === props.filterOptions.length;
+      emit('change', val);
     },
   );
   const toggleFilterMenu = () => {
@@ -78,6 +93,7 @@
     } else {
       closeOpenWindow('filter-container', showFilterMenu, false);
     }
+    emit('openChange', showFilterMenu.value);
   };
 </script>
 
@@ -93,15 +109,23 @@
   }
 
   .filter-button {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    border-radius: 4px;
+    border-radius: 6px;
+    white-space: nowrap;
+    text-align: center;
+    box-sizing: border-box;
     cursor: pointer;
+    height: 32px;
+    line-height: 32px;
+    width: max-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 15px;
     font-size: 14px;
+    gap: 8px;
+    color: var(--text-color);
+    background-color: var(--primary-btn-bg-color);
     transition: all 0.3s;
-    color: var(--catalog-color);
   }
 
   .filter-button:hover {

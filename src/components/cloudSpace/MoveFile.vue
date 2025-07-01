@@ -32,8 +32,8 @@
   const checkValue = ref('');
   const props = defineProps({
     file: {
-      type: String,
-      default: '',
+      type: Object,
+      default: () => ({}),
     },
   });
   const visible = defineModel('visible');
@@ -44,7 +44,7 @@
   function moveFile() {
     apiBasePost('/api/file/associateFile', {
       folderId: checkValue.value === 'all' ? '' : checkValue.value,
-      fileId: props.file.id,
+      fileId: props.file?.id,
     }).then((res) => {
       if (res.status === 200) {
         message.success('移动文件夹成功');
