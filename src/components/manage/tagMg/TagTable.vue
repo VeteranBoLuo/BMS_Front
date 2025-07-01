@@ -3,7 +3,7 @@
     <div class="edit-tag-container">
       <h2>标签管理</h2>
       <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 20px">
-        <b-input v-model:value="tableSearchValue" class="table-search-input" />
+        <b-input v-model:value="tableSearchValue" class="table-search-input" placeholder="请输入标签名"/>
         <b-space>
           <b-button
             config_id="test"
@@ -15,22 +15,20 @@
           <b-button @click="handleToBack" v-click-log="{ module: '标签管理', operation: `返回` }">返回</b-button>
         </b-space>
       </div>
-      <a-table
-        style="width: 90vw; margin-top: 5px"
-        :data-source="tagList"
+      <BTable
+        :data="tagList"
         :columns="tagColumns"
-        row-key="id"
-        :pagination="false"
-        :scroll="{ y: bookmark.screenHeight - 300 }"
+        style="margin-top: 10px; width: 90vw"
+        :style="{ height: bookmark.screenHeight - 300 + 'px' }"
       >
         <template #bodyCell="{ column, text, record }">
-          <template v-if="column.dataIndex === 'name'">
+          <template v-if="column.key === 'name'">
             <span style="display: flex; align-items: center; gap: 10px">
               <svg-icon :src="record.iconUrl" />
               {{ text }}
             </span>
           </template>
-          <template v-else-if="column.dataIndex === 'relatedTagIds'">
+          <template v-else-if="column.key === 'relatedTagIds'">
             <div>
               <div style="display: flex; align-items: center; gap: 10px">
                 <div :title="tag.name" class="common-tag" v-for="tag in record.relatedTagList" :key="tag.id">
@@ -39,8 +37,8 @@
               </div>
             </div>
           </template>
-          <template v-else-if="column.dataIndex === 'bookmarkList'">
-            <div class="text-hidden">
+          <template v-else-if="column.key === 'bookmarkList'">
+            <div class="flex-align-center-gap">
               <span
                 :title="b.name"
                 class="common-tag"
@@ -52,7 +50,7 @@
               </span>
             </div>
           </template>
-          <template v-else-if="column.dataIndex === 'operation'">
+          <template v-else-if="column.key === 'operation'">
             <div class="edit-tag-operation">
               <svg-icon
                 title="编辑"
@@ -73,7 +71,7 @@
             </div>
           </template>
         </template>
-      </a-table>
+      </BTable>
     </div>
   </b-loading>
 </template>
@@ -101,14 +99,14 @@
     let columns = [
       {
         title: '标签',
-        dataIndex: 'name',
+        key: 'name',
         ellipsis: true,
       },
       {
         title: '操作',
-        dataIndex: 'operation',
+        key: 'operation',
         ellipsis: true,
-        width: 100,
+        width: '100px',
       },
     ];
     if (!bookmark.isMobile) {
@@ -118,12 +116,12 @@
           0,
           {
             title: '相关标签',
-            dataIndex: 'relatedTagIds',
+            key: 'relatedTagIds',
             ellipsis: true,
           },
           {
             title: '关联书签',
-            dataIndex: 'bookmarkList',
+            key: 'bookmarkList',
             ellipsis: true,
           },
         );

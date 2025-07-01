@@ -3,7 +3,7 @@
     <div class="edit-tag-container">
       <h2>书签管理</h2>
       <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 20px">
-        <b-input v-model:value="tableSearchValue" class="table-search-input" />
+        <b-input v-model:value="tableSearchValue" class="table-search-input" placeholder="请输入书签名"/>
         <b-space :size="10">
           <b-button
             type="success"
@@ -21,16 +21,13 @@
           <b-button @click="handleToBack" v-click-log="{ module: '书签管理', operation: `返回` }">返回</b-button>
         </b-space>
       </div>
-      <a-table
-        style="width: 90vw; margin-top: 5px"
-        :data-source="bookmarkList"
+      <BTable
+        :data="bookmarkList"
         :columns="tagColumns"
-        row-key="id"
-        :pagination="false"
-        :scroll="{ y: bookmark.screenHeight - 300 }"
-      >
-        <template #bodyCell="{ column, text, record }">
-          <template v-if="column.dataIndex === 'name'">
+        style="margin-top: 10px; width: 90vw"
+        :style="{ height: bookmark.screenHeight - 300 + 'px' }"
+        ><template #bodyCell="{ column, text, record }">
+          <template v-if="column.key === 'name'">
             <div style="display: flex; align-items: center; gap: 10px" :title="text">
               <div class="card-img-container">
                 <img v-if="record.iconUrl" :src="record.iconUrl" height="20" width="20" @error="onErrorImg" alt="" />
@@ -38,12 +35,11 @@
               {{ text }}
             </div>
           </template>
-          <template v-else-if="column.dataIndex === 'tagList'">
-            <div class="text-hidden">
+          <template v-else-if="column.key === 'tagList'">
+            <div class="flex-align-center-gap">
               <span
                 :title="t.name"
                 class="common-tag"
-                style="margin-right: 10px"
                 v-for="t in record.tagList"
                 :key="t.id"
               >
@@ -51,12 +47,12 @@
               </span>
             </div>
           </template>
-          <template v-else-if="column.dataIndex === 'url'">
+          <template v-else-if="column.key === 'url'">
             <div class="text-hidden">
               <a :href="text" target="_blank">{{ text }}</a>
             </div>
           </template>
-          <template v-else-if="column.dataIndex === 'operation'">
+          <template v-else-if="column.key === 'operation'">
             <div class="edit-tag-operation">
               <svg-icon
                 title="编辑"
@@ -75,9 +71,8 @@
                 class="dom-hover"
               />
             </div>
-          </template>
-        </template>
-      </a-table>
+          </template> </template
+      ></BTable>
     </div>
   </b-loading>
 </template>
@@ -104,24 +99,24 @@
   const tagColumns = ref([
     {
       title: '书签',
-      dataIndex: 'name',
+      key: 'name',
       ellipsis: true,
     },
     {
       title: '网址',
-      dataIndex: 'url',
+      key: 'url',
       ellipsis: true,
     },
     {
       title: '关联标签',
-      dataIndex: 'tagList',
+      key: 'tagList',
       ellipsis: true,
     },
     {
       title: '操作',
-      dataIndex: 'operation',
+      key: 'operation',
       ellipsis: true,
-      width: 100,
+      width: '100px',
     },
   ]);
 
