@@ -156,7 +156,8 @@
   }
 
   function submitReName(file) {
-    if (originalName.value.split('.').pop() !== file.fileName.split('.').pop()) {
+    // 判断是否改变扩展名(只有修改扩展名时提示，直接删除后缀不提示，后端会自动补全)
+    if (file.fileName.includes('.') && originalName.value.split('.').pop() !== file.fileName.split('.').pop()) {
       Alert.alert({
         title: '提示',
         content: `如果改变文件扩展名可能会导致文件无法正常打开，请确认是否继续？`,
