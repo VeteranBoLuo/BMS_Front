@@ -109,7 +109,7 @@
 
 <script lang="ts" setup>
   import icon from '@/config/icon.ts';
-  import {nextTick, reactive, ref} from 'vue';
+  import { nextTick, reactive, ref } from 'vue';
   import { deleteField, downloadField } from '@/http/common.ts';
   import { bookmarkStore, cloudSpaceStore } from '@/store';
   import HandleBtnGroup from '@/components/cloudSpace/HandleBtnGroup.vue';
@@ -121,8 +121,9 @@
   import router from '@/router';
   import BMenu from '@/components/base/BasicComponents/BMenu.vue';
   import Alert from '@/components/base/BasicComponents/BModal/Alert.ts';
-  import { apiBasePost } from '@/http/request.ts';
+  import { apiBaseGet, apiBasePost } from '@/http/request.ts';
   import { message } from 'ant-design-vue';
+  import { cloneDeep } from 'lodash-es';
 
   const bookmark = bookmarkStore();
   const cloud = cloudSpaceStore();
@@ -145,7 +146,9 @@
       },
     });
   }
+  const originalName = ref('');
   function handleReName(file) {
+    originalName.value = cloneDeep(file.fileName);
     file.isRename = true;
     nextTick(() => {
       document.querySelector('.edit-file-input .b-input').focus();
@@ -153,15 +156,24 @@
   }
 
   function submitReName(file) {
-    file.isRename = false;
-    apiBasePost('/api/file/updateFile', {
-      id: file.id,
-      fileName: file.fileName,
-    }).then((res) => {
-      if (res.status === 200) {
-        message.success('重命名成功');
-      }
-    });
+    if (originalName.value.split('.').pop() !== file.fileName.split('.').pop()) {
+      Alert.alert({
+        title: '提示',
+        content: `如果改变文件扩展名可能会导致文件无法正常打开，请确认是否继续？`,
+        onOk() {
+          file.isRename = false;
+          apiBasePost('/api/file/updateFile', {
+            id: file.id,
+            fileName: file.fileName,
+          }).then((res) => {
+            if (res.status === 200) {
+              message.success('重命名成功');
+              cloud.queryFieldList();
+            }
+          });
+        },
+      });
+    }
   }
 
   const moveCfg = reactive({
