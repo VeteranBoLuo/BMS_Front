@@ -161,19 +161,25 @@
         title: '提示',
         content: `如果改变文件扩展名可能会导致文件无法正常打开，请确认是否继续？`,
         onOk() {
-          file.isRename = false;
-          apiBasePost('/api/file/updateFile', {
-            id: file.id,
-            fileName: file.fileName,
-          }).then((res) => {
-            if (res.status === 200) {
-              message.success('重命名成功');
-              cloud.queryFieldList();
-            }
-          });
+          updateFileName(file);
         },
       });
+    } else {
+      updateFileName(file);
     }
+  }
+
+  function updateFileName(file) {
+    file.isRename = false;
+    apiBasePost('/api/file/updateFile', {
+      id: file.id,
+      fileName: file.fileName,
+    }).then((res) => {
+      if (res.status === 200) {
+        message.success('重命名成功');
+        cloud.queryFieldList();
+      }
+    });
   }
 
   const moveCfg = reactive({
