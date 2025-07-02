@@ -143,8 +143,6 @@
         message.success('注册成功');
         title.value = '登录';
         emit('update:success', formData);
-      } else {
-        message.error(res.msg);
       }
     });
   }

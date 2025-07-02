@@ -21,7 +21,7 @@
         <RightMenu :menu="['上传文件', '重命名', '删除']" v-if="!item.isRename" @select="handleTagMenu($event, item)">
           <div
             class="category-item"
-            style="height: 32px"
+            style="height: 32px; margin-top: 5px !important"
             :title="item.name"
             :style="{
               backgroundColor: cloud.folder.id === item.id ? 'var(--category-item-ba-color)' : '',
@@ -152,8 +152,9 @@
     padding-right: 10px;
   }
   .edit-input {
+    display: flex;
+    margin-top: 5px !important;
     :deep(.b-input) {
-      margin-top: 5px !important;
       padding-right: 60px !important;
     }
   }

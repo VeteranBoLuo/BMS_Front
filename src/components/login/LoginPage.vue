@@ -144,9 +144,6 @@
           message.error(res.msg);
         }
       })
-      .catch((e) => {
-        message.error(e.message);
-      });
   }
 
   watch(
