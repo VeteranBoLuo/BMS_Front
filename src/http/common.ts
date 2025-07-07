@@ -1,8 +1,10 @@
 import axios from 'axios';
 import { message } from 'ant-design-vue';
-
+import { cloudSpaceStore } from '@/store';
+const cloud = cloudSpaceStore();
 export async function downloadField(id: number | string) {
   try {
+    cloud.loading = true;
     // 使用 axios.post 直接发起请求，并设置 responseType: 'blob'
     const response = await axios.post(
       '/api/file/downloadFileById',
@@ -43,12 +45,13 @@ export async function downloadField(id: number | string) {
     a.click();
     a.remove();
     window.URL.revokeObjectURL(downloadUrl);
-
+    cloud.loading = false;
     // 可选：打印文件大小等信息
     console.log('文件大小:', fileSize);
   } catch (error) {
     console.error('下载失败:', error);
     message.error('下载失败，请重试');
+    cloud.loading = false;
   }
 }
 
