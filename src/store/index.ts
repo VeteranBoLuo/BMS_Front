@@ -182,7 +182,7 @@ export const cloudSpaceStore = defineStore('dom', {
       }
     >{
       usedSpace: 0,
-      maxSpace: 100,
+      maxSpace: 500,
       folderList: [],
       fileList: [],
       typeCheckValue: ['image', 'pdf', 'word', 'audio', 'video', 'other'],

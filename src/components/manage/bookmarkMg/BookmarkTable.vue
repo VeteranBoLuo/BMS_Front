@@ -3,7 +3,7 @@
     <div class="edit-tag-container">
       <h2>书签管理</h2>
       <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 20px">
-        <b-input v-model:value="tableSearchValue" class="table-search-input" placeholder="请输入书签名"/>
+        <b-input v-model:value="tableSearchValue" class="table-search-input" placeholder="请输入书签名" />
         <b-space :size="10">
           <b-button
             type="success"
@@ -28,21 +28,20 @@
         :style="{ height: bookmark.screenHeight - 300 + 'px' }"
         ><template #bodyCell="{ column, text, record }">
           <template v-if="column.key === 'name'">
-            <div style="display: flex; align-items: center; gap: 10px" :title="text">
-              <div class="card-img-container">
-                <img v-if="record.iconUrl" :src="record.iconUrl" height="20" width="20" @error="onErrorImg" alt="" />
+            <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis">
+              <div style="display: flex; align-items: center; gap: 10px" :title="text">
+                <div class="card-img-container">
+                  <img v-if="record.iconUrl" :src="record.iconUrl" height="20" width="20" @error="onErrorImg" alt="" />
+                </div>
+                <div class="text-hidden">
+                  {{ text }}
+                </div>
               </div>
-              {{ text }}
             </div>
           </template>
           <template v-else-if="column.key === 'tagList'">
             <div class="flex-align-center-gap">
-              <span
-                :title="t.name"
-                class="common-tag"
-                v-for="t in record.tagList"
-                :key="t.id"
-              >
+              <span :title="t.name" class="common-tag" v-for="t in record.tagList" :key="t.id">
                 {{ t.name }}
               </span>
             </div>
@@ -101,6 +100,7 @@
       title: '书签',
       key: 'name',
       ellipsis: true,
+      width: '400px',
     },
     {
       title: '网址',
@@ -111,6 +111,7 @@
       title: '关联标签',
       key: 'tagList',
       ellipsis: true,
+      width: '300px',
     },
     {
       title: '操作',

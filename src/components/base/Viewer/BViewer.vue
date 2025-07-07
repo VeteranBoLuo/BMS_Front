@@ -18,7 +18,7 @@
   );
 
   function newView() {
-    viewSrc.value = bookmark.viewer.src;
+    viewSrc.value = `${bookmark.viewer.src}?t=${Date.now()}`;
     nextTick(() => {
       const viewer = new Viewer(document.getElementById('viewImage'), {
         inline: false,
@@ -41,7 +41,7 @@
 </script>
 
 <style>
- /* .viewer-container img {
+  /* .viewer-container img {
     min-width: 100px !important;
     min-height: 100px !important;
   }*/

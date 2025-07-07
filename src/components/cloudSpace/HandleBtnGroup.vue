@@ -1,7 +1,7 @@
 <template>
   <b-space :size="15">
     <CloudStorageBar v-if="!bookmark.isMobile" />
-    <b-upload class="upload-btn" @change="handleChange" :max-total-size="50 * 1024 * 1024">
+    <b-upload multiple class="upload-btn" @change="handleChange" :max-total-size="50 * 1024 * 1024">
       <b-button type="primary">上传文件</b-button>
     </b-upload>
   </b-space>
@@ -18,45 +18,90 @@
   const emit = defineEmits(['addFolder']);
   function handleChange(e) {
     cloud.loading = true;
-    let fileData;
-    let file = e[0]; // 假设这里的e[0]是你的文件或者Base64字符串
-    // 检查是否为Base64字符串（这里假设Base64字符串都是"data:image"开头）
-    if (file.isImg) {
-      // 提取Base64字符串部分并转换为Blob
-      const base64String = file.file.split(';base64,').pop();
-      const byteCharacters = atob(base64String);
-      const byteNumbers = new Array(byteCharacters.length);
-      for (let i = 0; i < byteCharacters.length; i++) {
-        byteNumbers[i] = byteCharacters.charCodeAt(i);
-      }
-      const byteArray = new Uint8Array(byteNumbers);
-      fileData = new Blob([byteArray], { type: 'image/svg+xml' }); // 根据实际情况调整MIME类型
-    } else {
-      // 如果不是Base64字符串，则直接使用原始文件
-      fileData = file;
-    }
-    const formData = new FormData();
-    if (file.isImg) {
-      formData.append('file', fileData, file.fileName); // 确保文件名正确
-    } else {
-      formData.append('file', fileData);
-    }
+    let filesData = [];
+    let totalSize = 0;
+    let invalidFiles = [];
 
-    const uploadAfterSize: any = Number(file.size / 1024 / 1024 + cloud.usedSpace).toFixed(2);
+    // 遍历所有选中的文件
+    for (let file of e) {
+      try {
+        // 处理Base64文件
+        let processedFile;
+        if (file.isImg) {
+          // Base64转Blob
+          const base64String = file.file.split(';base64,').pop();
+          const byteCharacters = atob(base64String);
+          const byteNumbers = new Array(byteCharacters.length);
+
+          for (let i = 0; i < byteCharacters.length; i++) {
+            byteNumbers[i] = byteCharacters.charCodeAt(i);
+          }
+
+          const byteArray = new Uint8Array(byteNumbers);
+          processedFile = new Blob([byteArray], {
+            type: 'image/svg+xml', // 根据实际情况调整MIME类型
+          });
+          processedFile.name = file.fileName || 'converted-image.svg';
+        } else {
+          // 原始文件
+          processedFile = file;
+        }
+        // 累计文件大小
+        totalSize += processedFile.size;
+        filesData.push(processedFile);
+      } catch (error) {
+        invalidFiles.push({ name: file.name, error: '文件处理失败' });
+      }
+    }
+    // 检查总空间
+    const uploadAfterSize = Number((totalSize / 1024 / 1024 + cloud.usedSpace).toFixed(2));
     if (uploadAfterSize <= cloud.maxSpace) {
-      apiBasePost('/api/file/uploadFile', formData, {
+      const formData = new FormData();
+
+      // 添加所有文件到FormData
+      filesData.forEach((file, index) => {
+        formData.append('files', file, file.name); // 字段名必须与后端保持一致
+      });
+      // 发送上传请求
+      apiBasePost('/api/file/uploadFiles', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       })
         .then((res) => {
           if (res.status === 200) {
-            message.success('上传成功');
-            cloud.queryFieldList();
+            // 处理上传结果
+            const successFiles = res.data.filter((item) => item.status === '已上传');
+            const existedFiles = res.data.filter((item) => item.status === '已覆盖');
+            const failedFiles = res.data.filter((item) => item.status === '处理失败');
+
+            if (successFiles.length > 0) {
+              message.success(`成功上传 ${successFiles.length} 个文件`);
+            }
+
+            if (existedFiles.length > 0) {
+              message.warning(`覆盖了 ${existedFiles.length} 个已有文件`);
+            }
+
+            if (failedFiles.length > 0) {
+              message.error(`以下文件上传失败：${failedFiles.map((f) => f.filename).join(', ')}`);
+            }
+
+            if (successFiles.length > 0 || existedFiles.length > 0) {
+              cloud.queryFieldList();
+            }
           }
+        })
+        .catch((error) => {
+          message.error('上传失败：' + error.message);
         })
         .finally(() => {
           cloud.loading = false;
+
+          // 显示预检错误信息
+          if (invalidFiles.length > 0) {
+            message.warning(`以下文件无法处理：${invalidFiles.map((f) => f.name + ' - ' + f.error).join(', ')}`);
+          }
         });
     } else {
       message.warning('剩余空间不足');
@@ -64,9 +109,6 @@
     }
   }
 
-  function handleAddFolder() {
-    emit('addFolder');
-  }
 </script>
 
 <style lang="less" scoped></style>

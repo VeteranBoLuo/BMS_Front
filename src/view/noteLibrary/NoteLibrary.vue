@@ -6,10 +6,10 @@
           <div class="back-icon" @click="back">
             <SvgIcon :src="icon.noteDetail.back" />
           </div>
-          <div style="font-weight: 500; font-size: 20px" @click="init">笔记库</div>
+          <div style="font-weight: 500; font-size: 20px" @click="getIndexNoteList">笔记库</div>
         </div>
         <div class="handle-btn-group">
-          <TagFilterSelector :allTags="allTags" v-model:noteType="noteType" />
+          <TagFilterSelector :allTags="allTags"  />
           <b-button
             type="primary"
             style="border-radius: 20px"
@@ -21,7 +21,7 @@
         </div>
       </div>
       <div v-else class="flex-align-center" style="justify-content: space-between; padding: 0 20px">
-        <div style="font-weight: 500; font-size: 20px; cursor: pointer" @click="init">笔记库</div>
+        <div style="font-weight: 500; font-size: 20px; cursor: pointer" @click="getIndexNoteList">笔记库</div>
         <div class="handle-btn-group">
           <template v-if="hasCheck">
             <span class="deleteText" @click="batchDeleteNote" v-click-log="OPERATION_LOG_MAP.noteLibrary.deleteNote"
@@ -30,7 +30,7 @@
             <b-button type="primary" style="border-radius: 20px" @click="exitBatch"> 退出批量操作 </b-button>
           </template>
           <template v-else>
-            <TagFilterSelector :allTags="allTags" v-model:noteType="noteType" />
+            <TagFilterSelector :allTags="allTags"  />
             <div
               class="search-icon flex-center dom-hover"
               :class="searchActive ? 'normal-input' : 'icon-input'"
@@ -82,29 +82,28 @@
   const loading = ref(false);
   const user = useUserStore();
   init();
-  function init() {
+  async function init() {
     loading.value = true;
-    apiBasePost('/api/note/queryNoteList')
-      .then((res) => {
-        if (res.status === 200) {
-          noteList.value = res.data ?? [];
-          user.noteTotal = noteList.value.length;
-          noteList.value.forEach((data) => {
-            const tags = data.tags ? JSON.parse(data.tags) : null;
-            if (tags) {
-              tags.forEach((tag) => {
-                if (!allTags.value.includes(tag)) {
-                  allTags.value.push(tag);
-                }
-              });
+    const res = await apiBasePost('/api/note/queryNoteList');
+    if (res.status === 200) {
+      noteList.value = res.data ?? [];
+      user.noteTotal = noteList.value.length;
+      noteList.value.forEach((data) => {
+        const tags = data.tags ? JSON.parse(data.tags) : null;
+        if (tags) {
+          tags.forEach((tag) => {
+            if (!allTags.value.includes(tag)) {
+              allTags.value.push(tag);
             }
           });
         }
-      })
-      .finally(() => {
-        loading.value = false;
-        noteType.value = 'all';
       });
+      loading.value = false;
+    }
+  }
+
+   function getIndexNoteList() {
+     router.push('/noteLibrary');
   }
 
   const searchValue = ref('');
@@ -116,23 +115,23 @@
         note.content.includes(searchValue.value) ||
         note.tags?.includes(searchValue.value),
     );
+    const tag = router.currentRoute.value.query.tag;
 
-    if (noteType.value === 'all') {
+    if (tag === undefined) {
       return filteredNotes;
     }
 
-    if (noteType.value === 'null') {
+    if (tag === 'null') {
       return filteredNotes.filter((note) => !note.tags);
     }
 
-    return filteredNotes.filter((note) => note.tags && JSON.parse(note.tags)?.includes(noteType.value));
+    return filteredNotes.filter((note) => note.tags && JSON.parse(note.tags)?.includes(tag));
   });
 
   function focusSearchInput() {
     document.querySelector('.b-input').focus();
   }
 
-  const noteType = ref('all');
   const allTags = ref([]);
 
   function back() {
@@ -199,7 +198,7 @@
   );
 
   const handleNodeTypeChange = (tag) => {
-    noteType.value = tag;
+    router.push(`/noteLibrary?tag=${tag}`);
   };
 </script>
 

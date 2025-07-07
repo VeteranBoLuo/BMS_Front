@@ -121,29 +121,26 @@
     }
     await formDataRef.value.validate();
 
-    apiBasePost('/api/user/login', formData.value)
-      .then((res: any) => {
-        if (res.status === 200) {
-          localStorage.setItem('userId', res.data.id);
-          localStorage.setItem('theme', res.data.theme);
-          bookmark.theme = res.data?.theme || 'day';
-          user.setUserInfo(res.data);
-          router.push('/');
-          message.success('登录成功');
-          if (isCheck.value) {
-            const params = cloneDeep(formData.value);
-            params.password = encrypt(params.password);
-            localStorage.setItem('loginInfo', JSON.stringify(params));
-          } else {
-            localStorage.setItem('loginInfo', '');
-          }
-          bookmark.isShowLogin = false;
-          bookmark.type = 'all';
-          bookmark.refreshTag();
+    apiBasePost('/api/user/login', formData.value).then((res: any) => {
+      if (res.status === 200) {
+        localStorage.setItem('userId', res.data.id);
+        localStorage.setItem('theme', res.data.theme);
+        bookmark.theme = res.data?.theme || 'day';
+        user.setUserInfo(res.data);
+        router.push('/');
+        message.success('登录成功');
+        if (isCheck.value) {
+          const params = cloneDeep(formData.value);
+          params.password = encrypt(params.password);
+          localStorage.setItem('loginInfo', JSON.stringify(params));
         } else {
-          message.error(res.msg);
+          localStorage.setItem('loginInfo', '');
         }
-      })
+        bookmark.isShowLogin = false;
+        bookmark.type = 'all';
+        bookmark.refreshTag();
+      }
+    });
   }
 
   watch(

@@ -8,24 +8,22 @@
       }"
       v-click-log="OPERATION_LOG_MAP.noteLibrary.filterNote"
     >
-      <div class="text-hidden" style="max-width: 100px">
-        {{ viewNoteFilter }}
-      </div>
+      <div class="text-hidden" style="max-width: 100px"> {{ viewNoteFilter }}</div>
       <svg-icon :src="icon.arrow_left" :style="{ rotate: filterVisible ? '-90deg' : '90deg' }" />
     </b-button>
     <template #overlay>
       <div class="filter-container">
-        <div class="filter-item" @click.stop="viewNote('all')" :isFocus="noteType === 'all' ? true : false"
+        <div class="filter-item" @click.stop="viewNote('all')" :isFocus="tag === undefined ? true : false"
           >全部笔记</div
         >
-        <div class="filter-item" @click.stop="viewNote('null')" :isFocus="noteType === 'null'">无标签笔记</div>
+        <div class="filter-item" @click.stop="viewNote('null')" :isFocus="tag === 'null'">无标签笔记</div>
         <div style="width: 100%; height: 1px; background: #f0f0f0; flex-shrink: 0"></div>
         <div
           :title="item"
           v-for="item in allTags"
           class="filter-item"
           @click.stop="viewNote(item)"
-          :isFocus="noteType === item"
+          :isFocus="tag === item"
         >
           <span class="text-hidden"> # {{ item }} </span>
         </div>
@@ -38,8 +36,9 @@
   import icon from '@/config/icon.ts';
   import SvgIcon from '@/components/base/SvgIcon/src/SvgIcon.vue';
   import BButton from '@/components/base/BasicComponents/BButton.vue';
-  import { computed, ref } from 'vue';
+  import { computed, onMounted, ref } from 'vue';
   import { OPERATION_LOG_MAP } from '@/config/logMap.ts';
+  import router from '@/router';
 
   defineProps({
     allTags: {
@@ -51,19 +50,25 @@
   const filterVisible = ref(false);
 
   const viewNoteFilter = computed(() => {
-    if (noteType.value === 'all') {
+    if (tag.value === undefined) {
       return '全部笔记';
     }
-    if (noteType.value === 'null') {
+    if (tag.value === 'null') {
       return '无标签笔记';
     }
-    return noteType.value;
+    return tag.value;
   });
 
-  const noteType = defineModel('noteType');
+  const tag = computed(() => {
+    return router.currentRoute.value.query.tag;
+  });
 
-  function viewNote(type?: 'all' | 'null' | any) {
-    noteType.value = type;
+  function viewNote(tag?: 'all' | 'null' | any) {
+    if (tag === 'all') {
+      router.push(`/noteLibrary`);
+    } else {
+      router.push(`/noteLibrary?tag=${tag}`);
+    }
   }
 </script>
 

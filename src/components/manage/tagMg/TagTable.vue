@@ -3,7 +3,7 @@
     <div class="edit-tag-container">
       <h2>标签管理</h2>
       <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 20px">
-        <b-input v-model:value="tableSearchValue" class="table-search-input" placeholder="请输入标签名"/>
+        <b-input v-model:value="tableSearchValue" class="table-search-input" placeholder="请输入标签名" />
         <b-space>
           <b-button
             config_id="test"
@@ -23,10 +23,14 @@
       >
         <template #bodyCell="{ column, text, record }">
           <template v-if="column.key === 'name'">
-            <span style="display: flex; align-items: center; gap: 10px">
-              <svg-icon :src="record.iconUrl" />
-              {{ text }}
-            </span>
+            <div style="display: flex; align-items: center; gap: 10px">
+              <div class="flex-align-center">
+                <svg-icon :src="record.iconUrl" />
+              </div>
+              <div class="text-hidden">
+                {{ text }}
+              </div>
+            </div>
           </template>
           <template v-else-if="column.key === 'relatedTagIds'">
             <div>
@@ -42,7 +46,6 @@
               <span
                 :title="b.name"
                 class="common-tag"
-                style="margin-right: 10px"
                 v-for="b in record.bookmarkList"
                 :key="b.id"
               >
@@ -101,6 +104,7 @@
         title: '标签',
         key: 'name',
         ellipsis: true,
+        width: '400px',
       },
       {
         title: '操作',
@@ -118,6 +122,7 @@
             title: '相关标签',
             key: 'relatedTagIds',
             ellipsis: true,
+            width: '300px',
           },
           {
             title: '关联书签',

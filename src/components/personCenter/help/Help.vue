@@ -50,7 +50,7 @@
         style="
           height: 100%;
           border: 1px solid var(--card-border-color);
-          border-radius: 4px;
+          border-radius: 8px;
           padding: 20px;
           overflow: auto;
           line-height: 2rem;
