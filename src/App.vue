@@ -67,9 +67,9 @@
         const cRes = await apiBasePost('/api/user/github', { code });
         const { userInfo } = cRes.data;
         user.setUserInfo(userInfo);
-        // 存储用户信息（示例）
         localStorage.setItem('userId', userInfo.id);
-        await router.push('/');
+        const targetUrl = `${window.location.origin}/#/home`; // 目标地址
+        window.history.replaceState({}, document.title, targetUrl); // 替换当前历史记录
         location.reload();
       }
       const res = await apiBaseGet('/api/user/getUserInfo');
