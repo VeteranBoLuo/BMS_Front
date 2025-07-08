@@ -7,7 +7,7 @@
         },
       }"
     >
-      <router-view v-if="isReady" />
+      <router-view  />
       <login v-if="bookmark.isShowLogin" />
       <BViewer />
     </a-config-provider>
@@ -57,7 +57,6 @@
       bookmark.theme = e.matches ? 'night' : 'day';
     });
   }
-  const isReady = ref(false);
   async function getUserInfo() {
     try {
       // let matches = router.options.history?.base?.match(/code=([^&]*)/);
@@ -75,7 +74,6 @@
       const res = await apiBaseGet('/api/user/getUserInfo');
       user.setUserInfo(res.data);
       localStorage.setItem('userId', res.data.id);
-      isReady.value = true;
       if (res.data.role === 'root') {
         if (res.data.opinionTotal > 0) {
           notification.open({
