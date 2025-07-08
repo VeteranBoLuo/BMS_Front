@@ -102,6 +102,7 @@ const pool = mysql.createPool({
 # 启动开发环境
 node app.js
 ```
+[后端仓库地址](https://github.com/VeteranBoLuo/BMS_Back)
 
 
 ## ✨ 未来路线图
