@@ -19,7 +19,7 @@
   import { h, nextTick, onMounted, ref, watch } from 'vue';
   import login from '@/view/login/UserAuthModal .vue';
   import BViewer from '@/components/base/Viewer/BViewer.vue';
-  import { apiBaseGet } from '@/http/request';
+  import {apiBaseGet, apiBasePost} from '@/http/request';
   import { useRouter } from 'vue-router';
   import { fingerprint } from '@/utils/common';
   import { notification } from 'ant-design-vue';
@@ -64,7 +64,7 @@
       let code = matches ? matches[1] : null;
       const userId = localStorage?.getItem('userId');
       if (!userId && code) {
-        const cRes = await axios.post('/api/user/github', { code });
+        const cRes = await apiBasePost('/api/user/github', { code });
         const { userInfo } = cRes.data;
         user.setUserInfo(userInfo);
         // 存储用户信息（示例）
