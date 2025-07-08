@@ -7,7 +7,8 @@
   const router = useRouter();
   const user = useUserStore();
   onMounted(async () => {
-    let code = router.currentRoute.value.query.code
+    console.log('router', router);
+    let code = router.currentRoute.value.query.code;
     // 发送 code 给后端换取 Token
     const cRes = await apiBasePost('/api/user/github', { code });
     const { userInfo } = cRes.data;
