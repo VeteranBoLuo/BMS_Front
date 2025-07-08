@@ -2,9 +2,11 @@
   import { onMounted } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
   import axios from 'axios';
+  import { useUserStore } from '@/store';
 
   const route = useRoute();
   const router = useRouter();
+  const user = useUserStore();
 
   onMounted(async () => {
     const code = route.query.code;
@@ -12,17 +14,16 @@
 
     // 验证 state 防止 CSRF
     if (!state || state !== localStorage.getItem('github_state')) {
-      alert('no');
+      alert('no current')
       router.push('/login');
       return;
     }
+
     // 发送 code 给后端换取 Token
     try {
-      alert('code');
-
       const res = await axios.post('/api/user/github', { code });
-      const { access_token, user_info } = res.data;
-
+      const { user_info } = res.data;
+      user.setUserInfo(user_info);
       // 存储用户信息（示例）
       localStorage.setItem('user', JSON.stringify(user_info));
       router.push('/home');
