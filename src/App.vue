@@ -62,13 +62,14 @@
     try {
       let matches = router.options.history?.base?.match(/code=([^&]*)/);
       let code = matches ? matches[1] : null;
-      if (code) {
+      const userId = localStorage?.getItem('userId');
+      if (!userId && code) {
         const cRes = await axios.post('/api/user/github', { code });
         const { user_info } = cRes.data;
         user.setUserInfo(user_info);
         // 存储用户信息（示例）
         localStorage.setItem('userId', user_info.id);
-        router.push('/home')
+        await router.push('/');
         location.reload();
       }
       const res = await apiBaseGet('/api/user/getUserInfo');
@@ -187,15 +188,13 @@
   // });
 
   onMounted(async () => {
-    if (!user.id) {
-      // 等待用户信息加载完成
-      await getUserInfo();
-    }
-    const roles = router.currentRoute.value.meta.roles || [];
-    if (roles.length > 0 && !roles.includes(user.role)) {
-      router.push('/403');
-    }
-    handleRouteChange(bookmark.isMobile, router.currentRoute.value.path);
+    // 等待用户信息加载完成
+    await getUserInfo();
+    // const roles = router.currentRoute.value.meta.roles || [];
+    // if (roles.length > 0 && !roles.includes(user.role)) {
+    //   router.push('/403');
+    // }
+    // handleRouteChange(bookmark.isMobile, router.currentRoute.value.path);
   });
 
   // 监听设备类型变化
