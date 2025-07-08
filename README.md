@@ -68,7 +68,7 @@
 
 
 ## 🚀 快速开始
-项目已经配置好了后端环境，直接启动即可使用
+项目已经配置好了后端环境，想要快速体验只需下载前端仓库即可
 ```bash
 # 克隆前端仓库
 git clone https://github.com/VeteranBoLuo/BMS_Front
@@ -81,6 +81,26 @@ npm run dev
 
 # 生产环境构建
 npm run build
+
+# 克隆后端仓库（按需）
+git clone https://github.com/VeteranBoLuo/BMS_Back
+
+# 将根目录下的sql文件导入mysql数据库中
+
+# 修改index.js中的账号密码为自己数据库中账号密码
+const pool = mysql.createPool({
+  connectionLimit: 10, // 例如限制为10个连接
+  host: '127.0.0.1',
+  port: 3306,
+  user: 'root',// 账号
+  password: '123456',// 秘密
+  database: 'tag_db',
+  namedPlaceholders: true,
+  charset: 'utf8mb4'
+});
+
+# 启动开发环境
+node app.js
 ```
 
 
