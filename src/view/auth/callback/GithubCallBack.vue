@@ -6,13 +6,8 @@
 
   const router = useRouter();
   const user = useUserStore();
-  function getHashParam(param) {
-    const hash = window.location.hash; // 获取整个 hash 部分
-    const url = new URL(hash, 'http://example.com'); // 构造一个虚拟 URL
-    return url.searchParams.get(param); // 获取参数值
-  }
   onMounted(async () => {
-    let code = getHashParam('code');
+    let code = router.currentRoute.value.query.code
     // 发送 code 给后端换取 Token
     const cRes = await apiBasePost('/api/user/github', { code });
     const { userInfo } = cRes.data;
