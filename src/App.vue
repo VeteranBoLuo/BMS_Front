@@ -68,6 +68,8 @@
         user.setUserInfo(user_info);
         // 存储用户信息（示例）
         localStorage.setItem('userId', user_info.id);
+        router.push('/home')
+        location.reload();
       }
       const res = await apiBaseGet('/api/user/getUserInfo');
       user.setUserInfo(res.data);
