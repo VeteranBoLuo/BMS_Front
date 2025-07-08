@@ -1,26 +1,51 @@
 <script setup>
   import { onMounted } from 'vue';
   import { useRoute, useRouter } from 'vue-router';
-  import axios from 'axios';
   import { useUserStore } from '@/store';
+  import { apiBasePost } from '@/http/request';
 
-  const route = useRoute();
   const router = useRouter();
   const user = useUserStore();
 
   onMounted(async () => {
-    const code = route.query.code;
-
+    let matches = router.options.history?.base?.match(/code=([^&]*)/);
+    let code = matches ? matches[1] : null;
     // 发送 code 给后端换取 Token
-    try {
-      const res = await axios.post('/api/user/github', { code });
-      const { user_info } = res.data;
-      user.setUserInfo(user_info);
-      // 存储用户信息（示例）
-      localStorage.setItem('userId', user_info.id);
-      // location.reload();
-    } catch (error) {
-      console.error('登录失败', error);
-    }
+    const cRes = await apiBasePost('/api/user/github', { code });
+    const { userInfo } = cRes.data;
+    user.setUserInfo(userInfo);
+    localStorage.setItem('userId', userInfo.id);
+    const targetUrl = `${window.location.origin}/#/home`; // 目标地址
+    window.history.replaceState({}, document.title, targetUrl); // 替换当前历史记录
+    location.reload();
   });
+  function goBack() {
+    const targetUrl = `${window.location.origin}/#/home`;
+    window.history.replaceState({}, document.title, targetUrl);
+    location.reload();
+  }
 </script>
+<template>
+  <template>
+    <div style="height: 100%; width: 100%; display: grid; place-items: center">
+      <div style="margin-top: -200px; display: flex; flex-direction: column; gap: 30px; align-items: center">
+        <div
+          style="
+            height: 200px;
+            width: 200px;
+            border-radius: 50%;
+            border: 5px solid #ccc;
+            display: grid;
+            place-items: center;
+            color: #ccc;
+            font-size: 50px;
+          "
+        >
+          404
+        </div>
+        <b style="color: #ccc"> github登录校验中...</b>
+        <a @click="goBack" style="cursor: pointer"> 返回</a>
+      </div>
+    </div>
+  </template>
+</template>
