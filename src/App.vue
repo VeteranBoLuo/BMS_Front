@@ -62,10 +62,13 @@
     try {
       // 创建一个URL对象
       let myURL = new URL(router.options.history.base);
+      console.log('myURL', myURL);
       // 使用URLSearchParams处理查询部分
       let params = new URLSearchParams(myURL.search);
+      console.log('params', params);
       // 获取code参数的值
       let code = params.get('code');
+      console.log('code', code);
       if (code) {
         const res = await axios.post('/api/user/github', { code });
         const { user_info } = res.data;
