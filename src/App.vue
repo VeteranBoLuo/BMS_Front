@@ -23,6 +23,7 @@
   import { useRouter } from 'vue-router';
   import { fingerprint } from '@/utils/common';
   import { notification } from 'ant-design-vue';
+  import axios from 'axios';
 
   const router = useRouter();
   const user = useUserStore();
@@ -59,6 +60,20 @@
 
   async function getUserInfo() {
     try {
+      // 创建一个URL对象
+      let myURL = new URL(router.options.history.base);
+      // 使用URLSearchParams处理查询部分
+      let params = new URLSearchParams(myURL.search);
+      // 获取code参数的值
+      let code = params.get('code');
+      if (code) {
+        const res = await axios.post('/api/user/github', { code });
+        const { user_info } = res.data;
+        user.setUserInfo(user_info);
+        console.log('user_info', user_info);
+        // 存储用户信息（示例）
+        localStorage.setItem('userId', user_info.id);
+      }
       const res = await apiBaseGet('/api/user/getUserInfo');
       user.setUserInfo(res.data);
       if (res.data.role === 'root') {
@@ -161,7 +176,6 @@
   }
 
   router.beforeEach(async (to, from, next) => {
-    console.log('router', router);
     // 确保用户信息已经加载完成
     if (!user.id) {
       // 等待用户信息加载完成
@@ -200,10 +214,6 @@
       `;
     document.head.appendChild(style);
   }
-
-  onMounted(() => {
-    console.log('onR', router);
-  });
 </script>
 <style>
   .disable-animations * {
