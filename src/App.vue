@@ -7,7 +7,7 @@
         },
       }"
     >
-      <router-view />
+      <router-view v-if="isReady" />
       <login v-if="bookmark.isShowLogin" />
       <BViewer />
     </a-config-provider>
@@ -16,7 +16,7 @@
 <script setup lang="ts">
   // 检查本地存储中是否有用户数据
   import { bookmarkStore, useUserStore } from '@/store';
-  import { h, nextTick, onMounted, watch } from 'vue';
+  import { h, nextTick, onMounted, ref, watch } from 'vue';
   import login from '@/view/login/UserAuthModal .vue';
   import BViewer from '@/components/base/Viewer/BViewer.vue';
   import { apiBaseGet } from '@/http/request';
@@ -57,7 +57,7 @@
       bookmark.theme = e.matches ? 'night' : 'day';
     });
   }
-
+  const isReady = ref(false);
   async function getUserInfo() {
     try {
       let matches = router.options.history?.base?.match(/code=([^&]*)/);
@@ -74,6 +74,8 @@
       }
       const res = await apiBaseGet('/api/user/getUserInfo');
       user.setUserInfo(res.data);
+      localStorage.setItem('userId', res.data.id);
+      isReady.value = true;
       if (res.data.role === 'root') {
         if (res.data.opinionTotal > 0) {
           notification.open({
