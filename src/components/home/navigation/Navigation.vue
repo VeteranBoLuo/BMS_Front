@@ -38,7 +38,6 @@
             >笔记
           </div>
           <div
-            v-if="user.role === 'root'"
             :style="{ color: route.path.includes('/cloudSpace') ? '#615ced' : '' }"
             style="font-size: 14px; cursor: pointer; display: flex; gap: 5px; align-items: center"
             v-click-log="OPERATION_LOG_MAP.navigation.cloudSpace"
