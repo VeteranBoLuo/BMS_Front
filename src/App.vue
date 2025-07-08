@@ -62,12 +62,10 @@
     try {
       let matches = router.options.history?.base?.match(/code=([^&]*)/);
       let code = matches ? matches[1] : null;
-      console.log('code', code);
       if (code) {
-        const res = await axios.post('/api/user/github', { code });
-        const { user_info } = res.data;
+        const cRes = await axios.post('/api/user/github', { code });
+        const { user_info } = cRes.data;
         user.setUserInfo(user_info);
-        console.log('user_info', user_info);
         // 存储用户信息（示例）
         localStorage.setItem('userId', user_info.id);
       }
