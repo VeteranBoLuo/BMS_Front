@@ -65,10 +65,10 @@
       const userId = localStorage?.getItem('userId');
       if (!userId && code) {
         const cRes = await axios.post('/api/user/github', { code });
-        const { user_info } = cRes.data;
-        user.setUserInfo(user_info);
+        const { userInfo } = cRes.data;
+        user.setUserInfo(userInfo);
         // 存储用户信息（示例）
-        localStorage.setItem('userId', user_info.id);
+        localStorage.setItem('userId', userInfo.id);
         await router.push('/');
         location.reload();
       }
