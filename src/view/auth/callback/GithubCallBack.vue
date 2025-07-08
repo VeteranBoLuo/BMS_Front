@@ -25,7 +25,7 @@
       const { user_info } = res.data;
       user.setUserInfo(user_info);
       // 存储用户信息（示例）
-      localStorage.setItem('user', JSON.stringify(user_info));
+      localStorage.setItem('userId',user_info.id);
       router.push('/home');
     } catch (error) {
       console.error('登录失败', error);
