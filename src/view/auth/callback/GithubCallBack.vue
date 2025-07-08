@@ -14,7 +14,6 @@
 
     // 验证 state 防止 CSRF
     if (!state || state !== localStorage.getItem('github_state')) {
-      alert('no current')
       router.push('/login');
       return;
     }
