@@ -7,7 +7,7 @@
         },
       }"
     >
-      <router-view  />
+      <router-view v-if="isReady" />
       <login v-if="bookmark.isShowLogin" />
       <BViewer />
     </a-config-provider>
@@ -57,23 +57,25 @@
       bookmark.theme = e.matches ? 'night' : 'day';
     });
   }
+  const isReady = ref(false);
   async function getUserInfo() {
     try {
-      // let matches = router.options.history?.base?.match(/code=([^&]*)/);
-      // let code = matches ? matches[1] : null;
-      // const userId = localStorage?.getItem('userId');
-      // if (!userId && code) {
-      //   const cRes = await apiBasePost('/api/user/github', { code });
-      //   const { userInfo } = cRes.data;
-      //   user.setUserInfo(userInfo);
-      //   localStorage.setItem('userId', userInfo.id);
-      //   const targetUrl = `${window.location.origin}/#/home`; // 目标地址
-      //   window.history.replaceState({}, document.title, targetUrl); // 替换当前历史记录
-      //   location.reload();
-      // }
+      let matches = router.options.history?.base?.match(/code=([^&]*)/);
+      let code = matches ? matches[1] : null;
+      const userId = localStorage?.getItem('userId');
+      if (!userId && code) {
+        const cRes = await apiBasePost('/api/user/github', { code });
+        const { userInfo } = cRes.data;
+        user.setUserInfo(userInfo);
+        localStorage.setItem('userId', userInfo.id);
+        const targetUrl = `${window.location.origin}/#/home`; // 目标地址
+        window.history.replaceState({}, document.title, targetUrl); // 替换当前历史记录
+        location.reload();
+      }
       const res = await apiBaseGet('/api/user/getUserInfo');
       user.setUserInfo(res.data);
       localStorage.setItem('userId', res.data.id);
+      isReady.value = true;
       if (res.data.role === 'root') {
         if (res.data.opinionTotal > 0) {
           notification.open({
