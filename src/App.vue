@@ -161,7 +161,7 @@
   }
 
   router.beforeEach(async (to, from, next) => {
-    console.log(router.currentRoute.value.params);
+    console.log('router', router);
     // 确保用户信息已经加载完成
     if (!user.id) {
       // 等待用户信息加载完成
@@ -200,6 +200,10 @@
       `;
     document.head.appendChild(style);
   }
+
+  onMounted(() => {
+    console.log('onR', router);
+  });
 </script>
 <style>
   .disable-animations * {
