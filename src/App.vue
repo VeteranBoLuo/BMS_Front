@@ -175,18 +175,30 @@
     });
   }
 
-  router.beforeEach(async (to, from, next) => {
-    // 确保用户信息已经加载完成
+  // router.beforeEach(async (to, from, next) => {
+  //   // 确保用户信息已经加载完成
+  //   if (!user.id) {
+  //     // 等待用户信息加载完成
+  //     await getUserInfo();
+  //   }
+  //   const roles = to.meta.roles || [];
+  //   if (roles.length > 0 && !roles.includes(user.role)) {
+  //     router.push('/403');
+  //   }
+  //   handleRouteChange(bookmark.isMobile, to.path);
+  //   next();
+  // });
+
+  onMounted(async () => {
     if (!user.id) {
       // 等待用户信息加载完成
       await getUserInfo();
     }
-    const roles = to.meta.roles || [];
+    const roles = router.currentRoute.value.meta.roles || [];
     if (roles.length > 0 && !roles.includes(user.role)) {
       router.push('/403');
     }
-    handleRouteChange(bookmark.isMobile, to.path);
-    next();
+    handleRouteChange(bookmark.isMobile, router.currentRoute.value.path);
   });
 
   // 监听设备类型变化
