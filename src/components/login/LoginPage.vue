@@ -59,7 +59,8 @@
         <a-form-item>
           <div class="login-tips-text">
             <span class="remember-text"><b-checkbox type="circle" v-model:isCheck="isCheck" />Remember Me</span>
-            <span class="dom-hover forget-text" @click="title = '重置'">Forget Password?</span>
+<!--            <span class="dom-hover forget-text" @click="title = '重置'">Forget Password?</span>-->
+            <a @click="loginWithGitHub">GitHub快捷登录</a>
           </div>
         </a-form-item>
         <a-form-item>
@@ -143,6 +144,17 @@
     });
   }
 
+  const loginWithGitHub = () => {
+    const clientId = import.meta.env.VITE_GITHUB_CLIENT_ID;
+    const redirectUri = encodeURIComponent(import.meta.env.VITE_GITHUB_REDIRECT_URI);
+    const scope = 'user:email';
+    const state = Math.random().toString(36).substring(7);
+
+    // 关键：URL 必须为单行无空格
+    const authUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&state=${state}`;
+    window.location.href = authUrl;
+  };
+
   watch(
     () => isCheck.value,
     () => {
@@ -154,14 +166,14 @@
   // 加密映射表
   const encryptionMap = {
     a: '!',
-    b: '@',
+    b: 'a',
     c: '#',
     d: '$',
     e: '%',
     f: '^',
     g: '&',
     h: '*',
-    i: 'x',
+    i: 'm',
     j: ')',
     k: '-',
     l: '_',
@@ -184,7 +196,7 @@
     '2': 'd',
     '3': ';',
     '4': 'u',
-    '5': 'a',
+    '5': 'l',
     '6': '[',
     '7': 'z',
     '8': 'm',

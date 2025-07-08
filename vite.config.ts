@@ -37,9 +37,9 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://boluo66.top',
+        target: 'http://127.0.0.1:9001',
         changeOrigin: true,
-        secure: false,
+        rewrite: (path: string) => path.replace(/^\/api/, ''),
       },
       '/ws': {
         target: 'http://127.0.0.1:3000',
