@@ -3,7 +3,7 @@
     <!-- 表头 -->
     <div class="table-header" :style="gridStyle">
       <div
-        v-for="(col, index) in props.columns"
+        v-for="col in columns"
         :key="col.key"
         class="header-cell"
         :style="{ width: col.width || 'auto' }"

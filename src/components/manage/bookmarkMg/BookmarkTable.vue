@@ -99,24 +99,20 @@
     {
       title: '书签',
       key: 'name',
-      ellipsis: true,
       width: '400px',
     },
     {
       title: '网址',
       key: 'url',
-      ellipsis: true,
     },
     {
       title: '关联标签',
       key: 'tagList',
-      ellipsis: true,
       width: '300px',
     },
     {
       title: '操作',
       key: 'operation',
-      ellipsis: true,
       width: '100px',
     },
   ]);

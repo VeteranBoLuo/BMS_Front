@@ -96,7 +96,7 @@
 
   // 在setup中添加
   const exportToPDF = async () => {
-    await generatePDF('pdf', '.w-e-text-container [data-slate-editor]');
+    await generatePDF(props.note.title, '.w-e-text-container [data-slate-editor]');
   };
 </script>
 

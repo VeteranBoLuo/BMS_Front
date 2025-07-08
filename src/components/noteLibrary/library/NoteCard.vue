@@ -21,7 +21,7 @@
       style="font-size: 12px; margin-top: 10px"
       >{{ note['updateTime'] ?? note['createTime'] }}</div
     >
-    <div class="checkBox" :style="{ visibility: note.isCheck === true ? 'visible' : '' }">
+    <div v-if="!bookmark.isMobile" class="checkBox" :style="{ visibility: note.isCheck === true ? 'visible' : '' }">
       <b-checkbox v-model:isCheck="note.isCheck" @click.stop />
     </div>
   </div>
@@ -49,7 +49,7 @@
     tempElement.innerHTML = htmlContent;
 
     // 获取所有的<h>和<p>标签
-    const allowedTags = ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'span', 'div','pre'];
+    const allowedTags = ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'li', 'span', 'div', 'pre'];
     const extractedContent = Array.from(tempElement.querySelectorAll('*'))
       .filter((el) => allowedTags.includes(el.tagName.toLowerCase()))
       .map((el) => {

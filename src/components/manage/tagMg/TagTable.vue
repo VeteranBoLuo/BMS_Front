@@ -45,9 +45,10 @@
             <div class="flex-align-center-gap">
               <span
                 :title="b.name"
-                class="common-tag"
+                class="common-tag dom-hover"
                 v-for="b in record.bookmarkList"
                 :key="b.id"
+                @click="openPage(b.url)"
               >
                 {{ b.name }}
               </span>
@@ -93,23 +94,23 @@
   import BLoading from '@/components/base/BasicComponents/BLoading.vue';
   import BInput from '@/components/base/BasicComponents/BInput.vue';
   import { OPERATION_LOG_MAP } from '@/config/logMap.ts';
+  import { openPage } from '@/utils/common.ts';
+  import { Column } from '@/components/base/BasicComponents/BTable/config.ts';
 
   const visible = defineModel<boolean>('visible');
 
   const bookmark = bookmarkStore();
   const loading = ref(false);
   const tagColumns = computed(() => {
-    let columns = [
+    let columns: Column[] = [
       {
         title: '标签',
         key: 'name',
-        ellipsis: true,
         width: '400px',
       },
       {
         title: '操作',
         key: 'operation',
-        ellipsis: true,
         width: '100px',
       },
     ];
@@ -121,13 +122,11 @@
           {
             title: '相关标签',
             key: 'relatedTagIds',
-            ellipsis: true,
             width: '300px',
           },
           {
             title: '关联书签',
             key: 'bookmarkList',
-            ellipsis: true,
           },
         );
       }
@@ -173,6 +172,7 @@
       return tableData.value;
     }
   });
+
   init();
   const tableData = ref([{}]);
   function init() {
