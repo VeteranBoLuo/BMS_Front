@@ -60,6 +60,7 @@ export const useUserStore = defineStore('user', {
       this.email = '';
       this.tagTotal = 0;
       this.bookmarkTotal = 0;
+      localStorage.setItem('userId', '');
     },
     getUserInfo() {
       return {
@@ -147,7 +148,7 @@ export const bookmarkStore = defineStore('bookmark', {
       this.refreshTagKey = !this.refreshTagKey;
     },
     refreshViewer(src: string, options?: Viewer.Options) {
-        console.log(src)
+      console.log(src);
       this.viewer.src = src;
       this.viewer.options = options;
       this.viewerKey = (Math.random() * 9000000).toString();

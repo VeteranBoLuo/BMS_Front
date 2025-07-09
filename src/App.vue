@@ -8,8 +8,7 @@
       }"
     >
       <router-view />
-      <login v-if="bookmark.isShowLogin" />
-      <BViewer />
+      <OutViewComponent />
     </a-config-provider>
   </div>
 </template>
@@ -17,12 +16,11 @@
   // 检查本地存储中是否有用户数据
   import { bookmarkStore, useUserStore } from '@/store';
   import { h, nextTick, onMounted, watch } from 'vue';
-  import login from '@/view/login/UserAuthModal .vue';
-  import BViewer from '@/components/base/Viewer/BViewer.vue';
   import { apiBaseGet } from '@/http/request';
   import { useRouter } from 'vue-router';
   import { fingerprint } from '@/utils/common';
   import { message, notification } from 'ant-design-vue';
+  import OutViewComponent from '@/components/OutViewComponent.vue';
 
   const router = useRouter();
   const user = useUserStore();
@@ -160,7 +158,7 @@
   router.beforeEach(async (to, from, next) => {
     router.isReady().then(async () => {
       if (from.name === 'githubCallBack') {
-        await init();
+        await getUserInfo();
       }
       if (skipRouter.includes(<string>to.name)) {
         bookmark.isShowLogin = false;
