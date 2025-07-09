@@ -8,7 +8,8 @@
       }"
     >
       <router-view />
-      <OutViewComponent />
+      <login v-if="bookmark.isShowLogin" />
+      <BViewer />
     </a-config-provider>
   </div>
 </template>
@@ -16,11 +17,12 @@
   // 检查本地存储中是否有用户数据
   import { bookmarkStore, useUserStore } from '@/store';
   import { h, nextTick, onMounted, watch } from 'vue';
+  import login from '@/view/login/UserAuthModal .vue';
+  import BViewer from '@/components/base/Viewer/BViewer.vue';
   import { apiBaseGet } from '@/http/request';
   import { useRouter } from 'vue-router';
   import { fingerprint } from '@/utils/common';
   import { message, notification } from 'ant-design-vue';
-  import OutViewComponent from '@/components/OutViewComponent.vue';
 
   const router = useRouter();
   const user = useUserStore();
