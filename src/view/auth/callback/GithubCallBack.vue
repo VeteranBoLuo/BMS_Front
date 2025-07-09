@@ -22,29 +22,40 @@
   import { useRouter } from 'vue-router';
   import { useUserStore } from '@/store';
   import { apiBasePost } from '@/http/request';
+  import { message } from 'ant-design-vue';
 
   const router = useRouter();
   const user = useUserStore();
   const status = ref(200);
   const time = ref(3);
+  function toHome() {
+    const targetUrl = `${window.location.origin}/#/home`; // 目标地址
+    window.history.replaceState({}, document.title, targetUrl); // 替换当前历史记录
+    location.reload();
+  }
   onMounted(async () => {
-    let code = router.currentRoute.value.query.code;
-    // 发送 code 给后端换取 Token
-    const cRes = await apiBasePost('/api/user/github', { code });
-    console.log('cRes', cRes);
-    status.value = cRes.status;
-    function toHome() {
-      const targetUrl = `${window.location.origin}/#/home`; // 目标地址
-      window.history.replaceState({}, document.title, targetUrl); // 替换当前历史记录
-      location.reload();
-    }
-    if (cRes.status === 200) {
-      const { userInfo } = cRes.data;
-      user.setUserInfo(userInfo);
-      console.log('userInfo', userInfo);
-      localStorage.setItem('userId', userInfo.id);
-      toHome();
-    } else {
+    try {
+      let code = router.currentRoute.value.query.code;
+      // 发送 code 给后端换取 Token
+      const cRes = await apiBasePost('/api/user/github', { code });
+      status.value = cRes.status;
+      if (cRes.status === 200) {
+        const { userInfo } = cRes.data;
+        user.setUserInfo(userInfo);
+        console.log('userInfo', userInfo);
+        localStorage.setItem('userId', userInfo.id);
+        toHome();
+      } else {
+        setInterval(() => {
+          time.value = time.value - 1;
+        }, 1000);
+        setTimeout(() => {
+          toHome();
+        }, 2500);
+      }
+    } catch (e) {
+      message.error('github搜权报错：' + e);
+      status.value = 500;
       setInterval(() => {
         time.value = time.value - 1;
       }, 1000);
