@@ -27,7 +27,6 @@ request.interceptors.request.use(
         config.headers['X-User-Id'] = userId;
         config.headers['role'] = user.role;
       } else {
-        console.log('uerIdIsNull');
         config.headers['role'] = 'visitor';
       }
       config.headers['fingerprint'] = window['fingerprint'];

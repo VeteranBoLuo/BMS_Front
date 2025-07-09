@@ -7,7 +7,7 @@
         },
       }"
     >
-      <router-view v-if="user.id" />
+      <router-view  />
       <login v-if="bookmark.isShowLogin" />
       <BViewer />
     </a-config-provider>
