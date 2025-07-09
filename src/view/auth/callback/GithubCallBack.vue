@@ -31,22 +31,25 @@
     let code = router.currentRoute.value.query.code;
     // 发送 code 给后端换取 Token
     const cRes = await apiBasePost('/api/user/github', { code });
+    console.log('cRes', cRes);
     status.value = cRes.status;
-    if (cRes.status === 200) {
-      const { userInfo } = cRes.data;
-      user.setUserInfo(userInfo);
-      localStorage.setItem('userId', userInfo.id);
+    function toHome() {
       const targetUrl = `${window.location.origin}/#/home`; // 目标地址
       window.history.replaceState({}, document.title, targetUrl); // 替换当前历史记录
       location.reload();
+    }
+    if (cRes.status === 200) {
+      const { userInfo } = cRes.data;
+      user.setUserInfo(userInfo);
+      console.log('userInfo', userInfo);
+      localStorage.setItem('userId', userInfo.id);
+      toHome();
     } else {
       setInterval(() => {
         time.value = time.value - 1;
       }, 1000);
       setTimeout(() => {
-        const targetUrl = `${window.location.origin}/#/home`; // 目标地址
-        window.history.replaceState({}, document.title, targetUrl); // 替换当前历史记录
-        location.reload();
+        toHome();
       }, 2500);
     }
   });

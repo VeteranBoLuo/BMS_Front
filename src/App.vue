@@ -82,7 +82,6 @@
       bookmark.theme = 'day';
       handleUserLogout();
     }
-    console.log(user);
   }
 
   // 应用主题样式
@@ -152,6 +151,7 @@
     }
   }
   function handleUserLogout() {
+    console.log('exit');
     localStorage.setItem('userId', '');
     bookmark.isShowLogin = true;
   }
@@ -183,6 +183,7 @@
     });
   }
   onMounted(async () => {
+    console.log('userId', localStorage.getItem('userId'));
     await init();
   });
 
