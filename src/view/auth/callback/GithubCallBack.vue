@@ -12,30 +12,39 @@
         <span style="--i: 3" class="cube-span"></span>
       </div>
     </div>
-    <b style="color: #ccc"> github登录校验中...</b>
-    <a @click="goBack" style="cursor: pointer"> 返回</a>
+    <b style="color: #ccc">{{ status === 200 ? 'github登录校验中...' : `登录失败，${time}秒后将会返回首页` }} </b>
+    <a @click="goBack" style="cursor: pointer">返回</a>
   </div>
 </template>
 
 <script setup>
-  import { onMounted } from 'vue';
+  import { onMounted, ref } from 'vue';
   import { useRouter } from 'vue-router';
   import { useUserStore } from '@/store';
   import { apiBasePost } from '@/http/request';
 
   const router = useRouter();
   const user = useUserStore();
-
+  const status = ref(200);
+  const time = ref(3);
   onMounted(async () => {
     let code = router.currentRoute.value.query.code;
     // 发送 code 给后端换取 Token
     const cRes = await apiBasePost('/api/user/github', { code });
-    const { userInfo } = cRes.data;
-    user.setUserInfo(userInfo);
-    localStorage.setItem('userId', userInfo.id);
-    const targetUrl = `${window.location.origin}/#/home`; // 目标地址
-    window.history.replaceState({}, document.title, targetUrl); // 替换当前历史记录
-    location.reload();
+    status.value = cRes.status;
+    if (cRes.status === 200) {
+      const { userInfo } = cRes.data;
+      user.setUserInfo(userInfo);
+      localStorage.setItem('userId', userInfo.id);
+    }
+    setInterval(() => {
+      time.value = time.value - 1;
+    }, 1000);
+    setTimeout(() => {
+      const targetUrl = `${window.location.origin}/#/home`; // 目标地址
+      window.history.replaceState({}, document.title, targetUrl); // 替换当前历史记录
+      location.reload();
+    }, 2500);
   });
   function goBack() {
     router.push('/');
