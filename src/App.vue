@@ -7,7 +7,7 @@
         },
       }"
     >
-      <router-view v-if="isReady" />
+      <router-view />
       <login v-if="bookmark.isShowLogin" />
       <BViewer />
     </a-config-provider>
@@ -16,14 +16,14 @@
 <script setup lang="ts">
   // 检查本地存储中是否有用户数据
   import { bookmarkStore, useUserStore } from '@/store';
-  import { h, nextTick, onMounted, ref, watch } from 'vue';
+  import { h, nextTick, onMounted, watch } from 'vue';
   import login from '@/view/login/UserAuthModal .vue';
   import BViewer from '@/components/base/Viewer/BViewer.vue';
-  import {apiBaseGet, apiBasePost} from '@/http/request';
+  import { apiBaseGet } from '@/http/request';
   import { useRouter } from 'vue-router';
   import { fingerprint } from '@/utils/common';
   import { notification } from 'ant-design-vue';
-  import axios from 'axios';
+  import GithubCallBack from '@/view/auth/callback/GithubCallBack.vue';
 
   const router = useRouter();
   const user = useUserStore();
@@ -57,25 +57,11 @@
       bookmark.theme = e.matches ? 'night' : 'day';
     });
   }
-  const isReady = ref(false);
   async function getUserInfo() {
     try {
-      let matches = router.options.history?.base?.match(/code=([^&]*)/);
-      let code = matches ? matches[1] : null;
-      const userId = localStorage?.getItem('userId');
-      if (!userId && code) {
-        const cRes = await apiBasePost('/api/user/github', { code });
-        const { userInfo } = cRes.data;
-        user.setUserInfo(userInfo);
-        localStorage.setItem('userId', userInfo.id);
-        const targetUrl = `${window.location.origin}/#/home`; // 目标地址
-        window.history.replaceState({}, document.title, targetUrl); // 替换当前历史记录
-        location.reload();
-      }
       const res = await apiBaseGet('/api/user/getUserInfo');
       user.setUserInfo(res.data);
       localStorage.setItem('userId', res.data.id);
-      isReady.value = true;
       if (res.data.role === 'root') {
         if (res.data.opinionTotal > 0) {
           notification.open({
@@ -168,7 +154,7 @@
   function handleUserLogout() {
     localStorage.setItem('userId', '');
     router.isReady().then(() => {
-      const skipRouter = ['help', 'noteDetail', 'updateLogs'];
+      const skipRouter = ['help', 'noteDetail', 'updateLogs', 'githubCallBack', 'not-found', 'not-role'];
       if (!skipRouter.includes(<string>router.currentRoute.value.name)) {
         bookmark.isShowLogin = true;
       }
@@ -188,15 +174,21 @@
   //   handleRouteChange(bookmark.isMobile, to.path);
   //   next();
   // });
-
+  async function init() {
+    router.isReady().then(async () => {
+      if (router.currentRoute.value.name !== 'githubCallBack') {
+        // 等待用户信息加载完成
+        await getUserInfo();
+        const roles = router.currentRoute.value.meta.roles || [];
+        if (roles.length > 0 && !roles.includes(user.role)) {
+          await router.push('/403');
+        }
+        handleRouteChange(bookmark.isMobile, router.currentRoute.value.path);
+      }
+    });
+  }
   onMounted(async () => {
-    // 等待用户信息加载完成
-    await getUserInfo();
-    // const roles = router.currentRoute.value.meta.roles || [];
-    // if (roles.length > 0 && !roles.includes(user.role)) {
-    //   router.push('/403');
-    // }
-    // handleRouteChange(bookmark.isMobile, router.currentRoute.value.path);
+    await init();
   });
 
   // 监听设备类型变化
