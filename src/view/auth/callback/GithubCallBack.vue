@@ -29,9 +29,7 @@
   const status = ref(200);
   const time = ref(3);
   function toHome() {
-    const targetUrl = `${window.location.origin}/#/home`; // 目标地址
-    window.history.replaceState({}, document.title, targetUrl); // 替换当前历史记录
-    location.reload();
+    router.push('/home');
   }
   onMounted(async () => {
     try {
@@ -41,8 +39,6 @@
       status.value = cRes.status;
       if (cRes.status === 200) {
         const { userInfo } = cRes.data;
-        user.setUserInfo(userInfo);
-        console.log('userInfo', userInfo);
         localStorage.setItem('userId', userInfo.id);
         toHome();
       } else {

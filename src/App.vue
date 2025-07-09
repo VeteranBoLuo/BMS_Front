@@ -74,6 +74,7 @@
       }
       bookmark.theme = res.data.theme || 'day';
       localStorage.setItem('theme', bookmark.theme);
+      console.log('userInfo', user);
       if (res.status !== 200) {
         handleUserLogout();
       }
@@ -159,6 +160,9 @@
 
   // 路由发生变化触发
   router.beforeEach(async (to, from, next) => {
+    if (from.name === 'githubCallBack') {
+      await init();
+    }
     router.isReady().then(async () => {
       if (skipRouter.includes(<string>to.name)) {
         bookmark.isShowLogin = false;
