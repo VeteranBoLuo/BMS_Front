@@ -24,7 +24,6 @@ request.interceptors.request.use(
         config.headers['X-User-Id'] = '';
         config.headers['role'] = '';
       } else if (userId) {
-        console.log('uerIdIsCurrent', 'user.role:' + user.role);
         config.headers['X-User-Id'] = userId;
         config.headers['role'] = user.role;
       } else {
@@ -34,7 +33,6 @@ request.interceptors.request.use(
       config.headers['fingerprint'] = window['fingerprint'];
       return config;
     }
-    console.log('config', config);
     return config;
   },
   (error) => {

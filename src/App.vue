@@ -7,7 +7,7 @@
         },
       }"
     >
-      <router-view />
+      <router-view v-if="user.id" />
       <login v-if="bookmark.isShowLogin" />
       <BViewer />
     </a-config-provider>
@@ -22,8 +22,7 @@
   import { apiBaseGet } from '@/http/request';
   import { useRouter } from 'vue-router';
   import { fingerprint } from '@/utils/common';
-  import { notification } from 'ant-design-vue';
-  import GithubCallBack from '@/view/auth/callback/GithubCallBack.vue';
+  import {message, notification} from 'ant-design-vue';
 
   const router = useRouter();
   const user = useUserStore();
@@ -74,12 +73,11 @@
       }
       bookmark.theme = res.data.theme || 'day';
       localStorage.setItem('theme', bookmark.theme);
-      console.log('userInfo', user);
       if (res.status !== 200) {
         handleUserLogout();
       }
     } catch (error) {
-      console.error('获取用户信息失败：', error);
+      message.error('获取用户信息失败：', error);
       bookmark.theme = 'day';
       handleUserLogout();
     }
