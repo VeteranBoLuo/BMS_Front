@@ -28,15 +28,10 @@
   const user = useUserStore();
   const bookmark = bookmarkStore();
 
-  // 初始化主题和登录状态
-  onMounted(() => {
-    initApp();
-  });
-
   // 监听主题变化
   watch(
     () => bookmark.theme,
-    (val) => {
+    () => {
       applyTheme();
     },
   );
@@ -164,12 +159,6 @@
       }
       if (skipRouter.includes(<string>to.name)) {
         bookmark.isShowLogin = false;
-      } else {
-        const roles = router.currentRoute.value.meta.roles || [];
-        if (roles.length > 0 && user.role && !roles.includes(user.role)) {
-          await router.push('/403');
-        }
-        handleRouteChange(bookmark.isMobile, router.currentRoute.value.path);
       }
     });
     next();
@@ -184,6 +173,7 @@
     });
   }
   onMounted(async () => {
+    initApp();
     await init();
   });
 
