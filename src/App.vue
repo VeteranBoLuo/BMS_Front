@@ -7,7 +7,7 @@
         },
       }"
     >
-      <router-view  />
+      <router-view />
       <login v-if="bookmark.isShowLogin" />
       <BViewer />
     </a-config-provider>
@@ -22,7 +22,7 @@
   import { apiBaseGet } from '@/http/request';
   import { useRouter } from 'vue-router';
   import { fingerprint } from '@/utils/common';
-  import {message, notification} from 'ant-design-vue';
+  import { message, notification } from 'ant-design-vue';
 
   const router = useRouter();
   const user = useUserStore();
@@ -158,10 +158,10 @@
 
   // 路由发生变化触发
   router.beforeEach(async (to, from, next) => {
-    if (from.name === 'githubCallBack') {
-      await init();
-    }
     router.isReady().then(async () => {
+      if (from.name === 'githubCallBack') {
+        await init();
+      }
       if (skipRouter.includes(<string>to.name)) {
         bookmark.isShowLogin = false;
       } else {
