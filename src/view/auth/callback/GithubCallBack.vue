@@ -36,15 +36,19 @@
       const { userInfo } = cRes.data;
       user.setUserInfo(userInfo);
       localStorage.setItem('userId', userInfo.id);
-    }
-    setInterval(() => {
-      time.value = time.value - 1;
-    }, 1000);
-    setTimeout(() => {
       const targetUrl = `${window.location.origin}/#/home`; // 目标地址
       window.history.replaceState({}, document.title, targetUrl); // 替换当前历史记录
       location.reload();
-    }, 2500);
+    } else {
+      setInterval(() => {
+        time.value = time.value - 1;
+      }, 1000);
+      setTimeout(() => {
+        const targetUrl = `${window.location.origin}/#/home`; // 目标地址
+        window.history.replaceState({}, document.title, targetUrl); // 替换当前历史记录
+        location.reload();
+      }, 2500);
+    }
   });
   function goBack() {
     router.push('/');
