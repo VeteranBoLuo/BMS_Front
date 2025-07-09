@@ -60,10 +60,7 @@
   async function getUserInfo() {
     try {
       const res = await apiBaseGet('/api/user/getUserInfo');
-      if (res.data.role !== 'visitor') {
-        user.setUserInfo(res.data);
-        localStorage.setItem('userId', res.data.id);
-      }
+      user.setUserInfo(res.data);
       if (res.data.role === 'root') {
         if (res.data.opinionTotal > 0) {
           notification.open({
