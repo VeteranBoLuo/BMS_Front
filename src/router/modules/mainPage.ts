@@ -12,14 +12,17 @@ const mainPageRouter: AppRouteRecordRaw = {
   children: [
     {
       path: '',
+      name: 'home',
       component: () => import('@/view/home/Home.vue'),
     },
     {
       path: ':id',
+      name: 'home:id',
       component: () => import('@/view/home/Home.vue'),
     },
     {
       path: 'search/:value(.*)',
+      name: 'home:search',
       component: () => import('@/view/home/Home.vue'),
     },
   ],

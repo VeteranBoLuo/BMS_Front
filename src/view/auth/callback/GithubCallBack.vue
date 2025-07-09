@@ -19,16 +19,14 @@
 
 <script setup>
   import { onMounted } from 'vue';
-  import { useRoute, useRouter } from 'vue-router';
-  import {bookmarkStore, useUserStore} from '@/store';
+  import { useRouter } from 'vue-router';
+  import { useUserStore } from '@/store';
   import { apiBasePost } from '@/http/request';
 
   const router = useRouter();
   const user = useUserStore();
-  const bookmark = bookmarkStore();
 
   onMounted(async () => {
-    bookmark.isShowLogin = false;
     let code = router.currentRoute.value.query.code;
     // 发送 code 给后端换取 Token
     const cRes = await apiBasePost('/api/user/github', { code });
@@ -40,9 +38,7 @@
     location.reload();
   });
   function goBack() {
-    const targetUrl = `${window.location.origin}/#/home`;
-    window.history.replaceState({}, document.title, targetUrl);
-    location.reload();
+    router.push('/');
   }
 </script>
 <style scoped>

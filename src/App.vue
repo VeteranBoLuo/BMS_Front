@@ -60,8 +60,10 @@
   async function getUserInfo() {
     try {
       const res = await apiBaseGet('/api/user/getUserInfo');
-      user.setUserInfo(res.data);
-      localStorage.setItem('userId', res.data.id);
+      if (res.data.role !== 'visitor') {
+        user.setUserInfo(res.data);
+        localStorage.setItem('userId', res.data.id);
+      }
       if (res.data.role === 'root') {
         if (res.data.opinionTotal > 0) {
           notification.open({
@@ -83,6 +85,7 @@
       bookmark.theme = 'day';
       handleUserLogout();
     }
+    console.log(user);
   }
 
   // 应用主题样式
@@ -153,39 +156,30 @@
   }
   function handleUserLogout() {
     localStorage.setItem('userId', '');
-    router.isReady().then(() => {
-      const skipRouter = ['help', 'noteDetail', 'updateLogs', 'githubCallBack', 'not-found', 'not-role'];
-      if (!skipRouter.includes(<string>router.currentRoute.value.name)) {
-        bookmark.isShowLogin = true;
-      }
-    });
+    bookmark.isShowLogin = true;
   }
 
-  // router.beforeEach(async (to, from, next) => {
-  //   // 确保用户信息已经加载完成
-  //   if (!user.id) {
-  //     // 等待用户信息加载完成
-  //     await getUserInfo();
-  //   }
-  //   const roles = to.meta.roles || [];
-  //   if (roles.length > 0 && !roles.includes(user.role)) {
-  //     router.push('/403');
-  //   }
-  //   handleRouteChange(bookmark.isMobile, to.path);
-  //   next();
-  // });
-  async function init() {
-    router.isReady().then(async () => {
-      if (router.currentRoute.value.name !== 'githubCallBack') {
-        // 等待用户信息加载完成
-        await getUserInfo();
-        const roles = router.currentRoute.value.meta.roles || [];
-        if (roles.length > 0 && !roles.includes(user.role)) {
-          await router.push('/403');
-        }
-        handleRouteChange(bookmark.isMobile, router.currentRoute.value.path);
+  const skipRouter = ['help', 'noteDetail', 'updateLogs', 'githubCallBack', 'not-found', 'not-role'];
+
+  // 路由发生变化触发
+  router.beforeEach(async (to, from, next) => {
+    if (skipRouter.includes(<string>to.name)) {
+      bookmark.isShowLogin = false;
+    } else {
+      const roles = router.currentRoute.value.meta.roles || [];
+      if (roles.length > 0 && user.role && !roles.includes(user.role)) {
+        await router.push('/403');
       }
-    });
+      handleRouteChange(bookmark.isMobile, router.currentRoute.value.path);
+    }
+    next();
+  });
+
+  // 只有第一次进入页面或者刷新页面才触发
+  async function init() {
+    if (!skipRouter.includes(<string>router.currentRoute.value.name)) {
+      await getUserInfo();
+    }
   }
   onMounted(async () => {
     await init();

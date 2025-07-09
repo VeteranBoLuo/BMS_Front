@@ -18,7 +18,7 @@ export const useUserStore = defineStore('user', {
     userName: '默认用户名',
     alias: '默认昵称',
     password: '',
-    role: '',
+    role: 'visitor',
     headPicture: icon.navigation.user,
     email: '',
     tagTotal: 0,

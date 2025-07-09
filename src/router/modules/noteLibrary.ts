@@ -18,7 +18,7 @@ const noteLibraryRouter: AppRouteRecordRaw[] = [
       roles: [RoleEnum.Root, RoleEnum.ADMIN, RoleEnum.VISITOR],
     },
     path: '/noteLibrary/:id(.*)',
-    name: 'NoteDetail',
+    name: 'noteDetail',
     component: () => import('@/view/noteLibrary/NoteDetail.vue'),
   },
 ];
