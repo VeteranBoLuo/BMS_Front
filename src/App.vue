@@ -163,23 +163,27 @@
 
   // 路由发生变化触发
   router.beforeEach(async (to, from, next) => {
-    if (skipRouter.includes(<string>to.name)) {
-      bookmark.isShowLogin = false;
-    } else {
-      const roles = router.currentRoute.value.meta.roles || [];
-      if (roles.length > 0 && user.role && !roles.includes(user.role)) {
-        await router.push('/403');
+    router.isReady().then(async () => {
+      if (skipRouter.includes(<string>to.name)) {
+        bookmark.isShowLogin = false;
+      } else {
+        const roles = router.currentRoute.value.meta.roles || [];
+        if (roles.length > 0 && user.role && !roles.includes(user.role)) {
+          await router.push('/403');
+        }
+        handleRouteChange(bookmark.isMobile, router.currentRoute.value.path);
       }
-      handleRouteChange(bookmark.isMobile, router.currentRoute.value.path);
-    }
+    });
     next();
   });
 
   // 只有第一次进入页面或者刷新页面才触发
   async function init() {
-    if (!skipRouter.includes(<string>router.currentRoute.value.name)) {
-      await getUserInfo();
-    }
+    router.isReady().then(async () => {
+      if (!skipRouter.includes(<string>router.currentRoute.value.name)) {
+        await getUserInfo();
+      }
+    });
   }
   onMounted(async () => {
     await init();
