@@ -51,6 +51,14 @@ const routes: Array<RouteRecordRaw | any> = [
   loginRouter,
   ...statusRouter,
   ...phoneRouter,
+  {
+    meta: {
+      roles: [RoleEnum.Root, RoleEnum.ADMIN, RoleEnum.VISITOR],
+    },
+    path: '/auth/callback',
+    name: 'githubCallBack',
+    component: () => import('@/view/auth/callback/GithubCallBack.vue'),
+  },
 ];
 
 const router = createRouter({
