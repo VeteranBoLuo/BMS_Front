@@ -151,7 +151,6 @@
     }
   }
   function handleUserLogout() {
-    console.log('exit');
     localStorage.setItem('userId', '');
     bookmark.isShowLogin = true;
   }
@@ -183,7 +182,6 @@
     });
   }
   onMounted(async () => {
-    console.log('userId', localStorage.getItem('userId'));
     await init();
   });
 

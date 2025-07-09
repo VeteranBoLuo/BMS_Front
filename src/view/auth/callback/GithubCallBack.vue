@@ -54,7 +54,7 @@
         }, 2500);
       }
     } catch (e) {
-      message.error('github搜权报错：' + e);
+      message.error(`github授权报错：${e}，请尝试重新授权或者通过账号密码手动登录`);
       status.value = 500;
       setInterval(() => {
         time.value = time.value - 1;
