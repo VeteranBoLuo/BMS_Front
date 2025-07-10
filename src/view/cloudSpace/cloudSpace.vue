@@ -120,10 +120,9 @@
   import FileTypeFilter from '@/components/cloudSpace/FileTypeFilter.vue';
   import { debounce } from '@/utils/common.ts';
   import MoveFile from '@/components/cloudSpace/MoveFile.vue';
-  import router from '@/router';
   import BMenu from '@/components/base/BasicComponents/BMenu.vue';
   import Alert from '@/components/base/BasicComponents/BModal/Alert.ts';
-  import { apiBaseGet, apiBasePost } from '@/http/request.ts';
+  import { apiBasePost } from '@/http/request.ts';
   import { message } from 'ant-design-vue';
   import { cloneDeep } from 'lodash-es';
 
@@ -133,6 +132,10 @@
 
   const inputQueryFieldList = debounce(cloud.queryFieldList, 500);
   function init() {
+    cloud.folder = {
+      name: '全部文件',
+      id: 'all',
+    };
     cloud.searchFileName = '';
     cloud.queryFieldList();
   }
