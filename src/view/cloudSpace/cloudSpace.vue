@@ -30,18 +30,19 @@
         <CloudFolder />
         <div class="field-list">
           <div class="field-header">
-            <div class="flex-align-center-gap" :style="{ width: bookmark.isMobile ? '80%' : '70%' }"> 文件名 </div>
-            <div class="default-area"
-              ><div> 文件大小 </div>
+            <div class="flex-align-center-gap" :style="{ width: bookmark.isMobile ? '80%' : '60%' }"> 文件名 </div>
+            <div class="default-area">
+              <div v-if="!bookmark.isMobile">文件夹</div>
+              <div>文件大小</div>
               <div v-if="!bookmark.isMobile"> 存储时间 </div>
             </div>
           </div>
           <div class="file-container">
             <div class="field-item" v-for="(item, index) in cloud.fileList" :key="index">
               <div
-                style="width: 70%; position: relative"
                 class="flex-align-center"
-                :style="{ width: bookmark.isMobile ? '80%' : '70%' }"
+                style="position: relative"
+                :style="{ width: bookmark.isMobile ? '80%' : '60%' }"
               >
                 <span
                   v-if="!item.isRename"
@@ -94,6 +95,7 @@
                 </div>
               </div>
               <div class="default-area">
+                <div v-if="!bookmark.isMobile">{{ item.folderName }}</div>
                 <div>{{ Number(item.fileSize / 1024).toFixed() }} KB</div>
                 <div v-if="!bookmark.isMobile">{{ item.uploadTime }} </div>
               </div>
@@ -259,7 +261,7 @@
       color: var(--desc-color);
       opacity: 0;
       position: absolute;
-      right: 20px;
+      right: 30px;
       gap: 10px;
       div {
         cursor: pointer;
@@ -273,6 +275,9 @@
     flex: 1;
     font-size: 14px;
     color: var(--desc-color);
+    div {
+      flex: 1;
+    }
   }
   .search-icon {
     height: 32px;

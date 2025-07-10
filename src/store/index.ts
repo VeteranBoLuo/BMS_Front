@@ -175,7 +175,7 @@ export const cloudSpaceStore = defineStore('dom', {
         usedSpace: number;
         maxSpace: number;
         folderList: { name: string; id?: string; isRename?: boolean }[];
-        fileList: { id: string; fileName: string; fileSize: number; uploadTime: string }[];
+        fileList: { id: string; fileName: string; fileSize: number; uploadTime: string; folderName: string }[];
         typeCheckValue: any[];
         folder?: { id: string; name: string };
         searchFileName: string;
