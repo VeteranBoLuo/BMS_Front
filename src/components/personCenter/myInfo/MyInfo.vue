@@ -16,10 +16,16 @@
             <span class="user-item-label">角色</span>
             <span style="color: #8f9096">{{ getRoleName() }}</span>
           </div>
+          <div class="flex-align-center-gap"
+            ><svg-icon :src="icon.login.password" /><a class="dom-hover" @click="handleConfigPassword">{{
+              user.password ? '修改密码' : '设置密码'
+            }}</a></div
+          >
+          <PassConfigDlg v-model:visible="configPassVisible" />
         </div>
         <div class="user-item">
           <span class="user-item-label">昵称</span>
-          <b-input  style="width: 100%" v-model:value="userData.alias" placeholder="请输入昵称" />
+          <b-input style="width: 100%" v-model:value="userData.alias" placeholder="请输入昵称" />
         </div>
 
         <div class="user-item">
@@ -51,6 +57,7 @@
   import { cloneDeep } from 'lodash-es';
   import icon from '@/config/icon.ts';
   import BModal from '@/components/base/BasicComponents/BModal/BModal.vue';
+  import PassConfigDlg from '@/components/personCenter/myInfo/PassConfigDlg.vue';
   const user = useUserStore();
   const headPicture = ref<string>('');
   const visible = <Ref<boolean>>defineModel('visible');
@@ -126,6 +133,11 @@
     };
     return roleNames[user.role] || '未知角色';
   }
+  const configPassVisible = ref(false);
+  function handleConfigPassword() {
+    configPassVisible.value = true;
+  }
+
   const userData = ref(cloneDeep(user));
   headPicture.value = cloneDeep(user.headPicture);
   watch(

@@ -24,7 +24,7 @@
           "
           :placeholder="field.placeholder"
         ></component>
-        <b-input v-else v-model:value="formData[field.name]" :placeholder="field.placeholder" />
+        <b-input  v-else v-model:value="formData[field.name]" :placeholder="field.placeholder" />
         <span class="require-tip" :class="{ showReqMsg: field.showRequire }"
           >{{ field.label }}必填！</span
         >

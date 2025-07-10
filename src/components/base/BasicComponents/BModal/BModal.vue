@@ -1,7 +1,7 @@
 <template>
   <Teleport to="body">
     <div v-if="visible" class="mask-container" @click.stop>
-      <div class="modal-view" id="modal-view" :class="{ out: isOut }">
+      <div class="modal-view"  :class="{ out: isOut }">
         <span
           style="position: absolute; right: 20px; top: 20px; z-index: 99999; font-size: 20px"
           @click="handleClose"
