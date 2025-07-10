@@ -180,6 +180,7 @@ export const cloudSpaceStore = defineStore('dom', {
         folder?: { id: string; name: string };
         searchFileName: string;
         loading: boolean;
+        cacheImgArr: any[];// 记录需要清空缓存的图片，因为图片直接覆盖后地址不变，需要手动记录一下方便浏览器清空老图片缓存
       }
     >{
       usedSpace: 0,
@@ -193,6 +194,7 @@ export const cloudSpaceStore = defineStore('dom', {
       },
       searchFileName: '',
       loading: false,
+      cacheImgArr: [],
     },
   getters: {},
   actions: {

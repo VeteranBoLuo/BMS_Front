@@ -81,6 +81,7 @@
 
             if (existedFiles.length > 0) {
               message.warning(`覆盖了 ${existedFiles.length} 个已有文件`);
+              existedFiles.forEach((item) => cloud.cacheImgArr.push(item.fileId));
             }
 
             if (failedFiles.length > 0) {
@@ -108,7 +109,6 @@
       cloud.loading = false;
     }
   }
-
 </script>
 
 <style lang="less" scoped></style>

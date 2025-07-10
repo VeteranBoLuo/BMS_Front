@@ -198,7 +198,11 @@
   }
   function previewFile(file: any) {
     if (!bookmark.isMobile && file.fileType.includes('image')) {
-      bookmark.refreshViewer(file.fileUrl, {});
+      // 如果图片是被覆盖的，需要手动加上时间戳更新图片缓存
+      bookmark.refreshViewer(
+        cloud.cacheImgArr.includes(file.id) ? `${file.fileUrl}?t=${Date.now()}` : file.fileUrl,
+        {},
+      );
     }
   }
 
