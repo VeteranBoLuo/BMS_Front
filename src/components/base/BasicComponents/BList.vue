@@ -40,9 +40,6 @@
   import { VueDraggable } from 'vue-draggable-plus';
   import { computed, ref, watch, useSlots } from 'vue';
   import { bookmarkStore } from '@/store';
-  import { TagInterface } from '@/config/bookmarkCfg.ts';
-  import { apiBasePost, apiQueryPost } from '@/http/request.ts';
-  import { message } from 'ant-design-vue';
 
   const dragList = defineModel('dragList');
 
@@ -69,33 +66,13 @@
     },
   );
   const bookmark = bookmarkStore();
-  const userId = localStorage?.getItem('userId');
 
   async function onEnd(e: any) {
-    try {
-      const sortedTags =
-        bookmark.tagList?.map((tag: TagInterface, index: number) => ({
-          name: tag.name,
-          sort: index,
-          id: tag.id,
-        })) || [];
-
-      const updateResponse = await apiBasePost('/api/bookmark/updateTagSort', { tags: sortedTags });
-      if (updateResponse.status === 200) {
-        const queryResponse = await apiQueryPost('/api/bookmark/queryTagList', {
-          filters: { userId },
-        });
-        if (queryResponse.status === 200) {
-          bookmark.tagList = queryResponse.data;
-        }
-      }
-    } catch (error) {
-      console.error('Error updating tag sort:', error);
-    }
+    emit('onEnd', e);
   }
   const searchValue = ref('');
   const listOptions = defineModel('listOptions');
-  const emit = defineEmits(['node-click']);
+  const emit = defineEmits(['node-click', 'onEnd']);
   const nodeCheckId = ref(props.checkId);
   function nodeClick(item) {
     nodeCheckId.value = item[props.nodeType.id];

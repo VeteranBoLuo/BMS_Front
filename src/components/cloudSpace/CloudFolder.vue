@@ -12,9 +12,12 @@
       <span class="text-hidden" style="width: calc(100% - 28px)">全部文件</span>
     </div>
     <b-list
+      draggable
       style="height: calc(100% - 80px)"
       v-model:listOptions="cloud.folderList"
+      v-model:dragList="cloud.folderList"
       :node-type="{ id: 'id', title: 'name' }"
+      @onEnd="onDragEnd"
       @nodeClick="folderClick"
     >
       <template #item="{ item }">
@@ -33,7 +36,7 @@
             <span class="text-hidden" style="width: calc(100% - 28px)">{{ item['name'] }}</span>
           </div>
         </RightMenu>
-        <b-input v-else class="edit-input" v-model:value="newName" @click.stop  @keydown.enter="handleRename(item)">
+        <b-input v-else class="edit-input" v-model:value="newName" @click.stop @keydown.enter="handleRename(item)">
           <template #suffix>
             <div class="flex-align-center-gap">
               <svg-icon :src="icon.filterPanel.check" size="18" class="dom-hover" @click="handleRename(item)" />
@@ -56,8 +59,9 @@
   import { nextTick, ref } from 'vue';
   import { recordOperation } from '@/api/commonApi.ts';
   import { message } from 'ant-design-vue';
-  import { apiBasePost } from '@/http/request.ts';
+  import { apiBasePost, apiQueryPost } from '@/http/request.ts';
   import Alert from '@/components/base/BasicComponents/BModal/Alert.ts';
+  import { TagInterface } from '@/config/bookmarkCfg.ts';
 
   const bookmark = bookmarkStore();
   const cloud = cloudSpaceStore();
@@ -141,6 +145,25 @@
           }
         });
       }
+    }
+  }
+
+  async function onDragEnd() {
+    try {
+      const userId = localStorage?.getItem('userId');
+      const sortedTags =
+        cloud.folderList?.map((folder: any, index: number) => ({
+          name: folder.name,
+          sort: index,
+          id: folder.id,
+        })) || [];
+
+      const updateResponse = await apiBasePost('/api/folder/updateFolderSort', { tags: sortedTags });
+      if (updateResponse.status === 200) {
+        cloud.queryFolder();
+      }
+    } catch (error) {
+      console.error('Error updating tag sort:', error);
     }
   }
 

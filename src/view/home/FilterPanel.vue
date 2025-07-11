@@ -6,11 +6,12 @@
       v-model:listOptions="filterTagList"
       v-model:dragList="bookmark.tagList"
       :node-type="{ id: 'id', title: 'name' }"
+      @onEnd="onDragEnd"
     >
       <template #input>
-        <b-input  placeholder="请输入标签名" v-model:value="tagName" id="ref1">
+        <b-input placeholder="请输入标签名" v-model:value="tagName" id="ref1">
           <template #prefix>
-            <svg-icon  :src="icon.navigation.search" size="16" />
+            <svg-icon :src="icon.navigation.search" size="16" />
           </template>
         </b-input>
       </template>
@@ -51,7 +52,7 @@
 
 <script lang="ts" setup>
   import { computed, ref } from 'vue';
-  import { apiBasePost } from '@/http/request.ts';
+  import { apiBasePost, apiQueryPost } from '@/http/request.ts';
   import { bookmarkStore, useUserStore } from '@/store';
   import { useRouter } from 'vue-router';
   import RightMenu from '@/components/base/RightMenu.vue';
@@ -123,7 +124,6 @@
     }
   }
 
-
   function handleClickTag(tag: TagInterface) {
     if (tag.id === router.currentRoute.value.params?.id) {
       bookmark.refreshData();
@@ -132,6 +132,30 @@
       router.push({ path: `/home/${tag.id}` }).then(() => {
         bookmark.refreshData();
       });
+    }
+  }
+
+  async function onDragEnd() {
+    try {
+      const userId = localStorage?.getItem('userId');
+      const sortedTags =
+          bookmark.tagList?.map((tag: TagInterface, index: number) => ({
+            name: tag.name,
+            sort: index,
+            id: tag.id,
+          })) || [];
+
+      const updateResponse = await apiBasePost('/api/bookmark/updateTagSort', {tags: sortedTags});
+      if (updateResponse.status === 200) {
+        const queryResponse = await apiQueryPost('/api/bookmark/queryTagList', {
+          filters: {userId},
+        });
+        if (queryResponse.status === 200) {
+          bookmark.tagList = queryResponse.data;
+        }
+      }
+    } catch (error) {
+      console.error('Error updating tag sort:', error);
     }
   }
 </script>
