@@ -158,7 +158,7 @@
           id: folder.id,
         })) || [];
 
-      const updateResponse = await apiBasePost('/api/folder/updateFolderSort', { tags: sortedTags });
+      const updateResponse = await apiBasePost('/api/file/updateFolderSort', { tags: sortedTags });
       if (updateResponse.status === 200) {
         cloud.queryFolder();
       }
