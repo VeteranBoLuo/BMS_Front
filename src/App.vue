@@ -167,8 +167,9 @@
   // 只有第一次进入页面或者刷新页面才触发
   async function init() {
     router.isReady().then(async () => {
-      if (!skipRouter.includes(<string>router.currentRoute.value.name)) {
-        await getUserInfo();
+      await getUserInfo();
+      if (skipRouter.includes(<string>router.currentRoute.value.name)) {
+        bookmark.isShowLogin = false;
       }
     });
   }

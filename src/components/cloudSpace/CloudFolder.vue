@@ -33,7 +33,7 @@
             <span class="text-hidden" style="width: calc(100% - 28px)">{{ item['name'] }}</span>
           </div>
         </RightMenu>
-        <b-input v-else class="edit-input" v-model:value="newName" @click.stop @enter="handleRename(item)">
+        <b-input v-else class="edit-input" v-model:value="newName" @click.stop  @keydown.enter="handleRename(item)">
           <template #suffix>
             <div class="flex-align-center-gap">
               <svg-icon :src="icon.filterPanel.check" size="18" class="dom-hover" @click="handleRename(item)" />
@@ -85,6 +85,9 @@
         }
         folder.isRename = true;
         newName.value = folder.name;
+        nextTick(() => {
+          document.querySelector('.edit-input .b-input').focus();
+        });
       },
       删除: () => handleDeleteFolder(folder),
       上传文件: () => {},
@@ -148,6 +151,7 @@
   .folder-list {
     height: 100%;
     width: 300px;
+    flex-shrink: 0;
     border-right: 1px solid var(--folder-list-border-color);
     padding-right: 10px;
   }

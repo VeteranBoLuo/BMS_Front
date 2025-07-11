@@ -1,13 +1,13 @@
 <template>
-  <div
-    class="loader-container"
-    :style="{ opacity: loading ? '0.6' : '1', zIndex: hasSlotContent  ? 'auto' : '-1' }"
-  >
+  <div class="loader-container" :style="{ opacity: loading ? '0.6' : '1', zIndex: hasSlotContent ? 'auto' : '-1' }">
     <div ref="slotContainerRef" style="height: 100%">
       <slot></slot>
     </div>
     <div v-if="loading">
       <div class="loading both-center">
+        <slot name="title">
+          <div class="title">{{ title }}</div>
+        </slot>
         <span></span>
         <span></span>
         <span></span>
@@ -19,12 +19,16 @@
 </template>
 
 <script lang="ts" setup>
-import {nextTick, onMounted, ref} from 'vue';
+  import { nextTick, onMounted, ref } from 'vue';
 
   const props = defineProps({
     loading: {
       type: Boolean,
       default: false,
+    },
+    title: {
+      type: String,
+      default: '',
     },
   });
 
@@ -40,7 +44,10 @@ import {nextTick, onMounted, ref} from 'vue';
   });
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
+  .title {
+    font-size: 12px;
+  }
   .loader-container {
     position: absolute;
     height: 100%;
@@ -58,7 +65,7 @@ import {nextTick, onMounted, ref} from 'vue';
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100px;
+    min-width: 100px;
     gap: 6px;
     height: 100px;
   }

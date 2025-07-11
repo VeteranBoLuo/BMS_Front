@@ -75,7 +75,9 @@
   function inputBlur() {
     nextTick(() => {
       if (note.title && note.title !== note.lastTitle) {
-        document.getElementById('note-header-title').innerText = note.title;
+        if (!bookmark.isMobile) {
+          document.getElementById('note-header-title').innerText = note.title;
+        }
         note.lastTitle = cloneDeep(note.title);
         saveFunc();
       }
@@ -85,7 +87,9 @@
   function focusout() {
     if (!note.title) {
       note.title = note.lastTitle;
-      document.getElementById('note-header-title').innerText = note.title;
+      if (!bookmark.isMobile) {
+        document.getElementById('note-header-title').innerText = note.title;
+      }
       return;
     }
   }

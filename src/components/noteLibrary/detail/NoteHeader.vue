@@ -51,6 +51,7 @@
       </a-tooltip>
     </div>
     <NoteTagConfig v-model:visible="tagConfDlgVisible" v-if="tagConfDlgVisible" @saveTag="$emit('saveTag')" />
+    <b-loading :loading="loading" class="both-center" title="生成PDF中" />
   </div>
 </template>
 
@@ -63,6 +64,7 @@
   import NoteTagConfig from '@/components/noteLibrary/detail/NoteTagConfig.vue';
   import { generatePDF } from '@/utils/htmlToPdf.ts';
   import { OPERATION_LOG_MAP } from '@/config/logMap.ts';
+  import Alert from '@/components/base/BasicComponents/BModal/Alert.ts';
 
   const props = defineProps<{
     updateTime: string;
@@ -94,9 +96,17 @@
     tagConfDlgVisible.value = true;
   }
 
-  // 在setup中添加
+  const loading = ref(false);
   const exportToPDF = async () => {
-    await generatePDF(props.note.title, '.w-e-text-container [data-slate-editor]');
+    Alert.alert({
+      title: '提示',
+      content: `请确认是否导出为PDF？`,
+      async onOk() {
+        loading.value = true;
+        await generatePDF(props.note.title, '.w-e-text-container [data-slate-editor]');
+        loading.value = false;
+      },
+    });
   };
 </script>
 

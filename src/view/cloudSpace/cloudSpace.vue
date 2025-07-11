@@ -47,7 +47,7 @@
                 <span
                   v-if="!item.isRename"
                   :style="{ cursor: !bookmark.isMobile && item.fileType.includes('image') ? 'pointer' : 'unset' }"
-                  class="file-label"
+                  class="file-label text-hidden"
                   @click="previewFile(item)"
                   >{{ item.fileName }}</span
                 >
@@ -66,7 +66,7 @@
                     /></div>
                   </template>
                 </b-input>
-                <div class="flex-align-center handle-btn">
+                <div class="flex-align-center handle-btn" v-if="!item.isRename">
                   <a-tooltip title="下载">
                     <svg-icon
                       class="download-icon"
@@ -75,7 +75,7 @@
                       @click="downloadField(item.id)"
                     />
                   </a-tooltip>
-                  <a-tooltip title="移动文件">
+                  <a-tooltip title="移动文件" v-if="!bookmark.isMobile">
                     <svg-icon
                       class="download-icon"
                       :src="icon.cloudSpace.moveFile"
@@ -197,7 +197,7 @@
     moveCfg.file = file;
   }
   function previewFile(file: any) {
-    if (!bookmark.isMobile && file.fileType.includes('image')) {
+    if (file.fileType.includes('image')) {
       // 如果图片是被覆盖的，需要手动加上时间戳更新图片缓存
       bookmark.refreshViewer(
         cloud.cacheImgArr.includes(file.id) ? `${file.fileUrl}?t=${Date.now()}` : file.fileUrl,
@@ -275,6 +275,9 @@
       }
     }
   }
+  .file-label {
+    width: calc(100% - 120px);
+  }
   .default-area {
     display: flex;
     align-items: center;
@@ -306,14 +309,8 @@
     .file-container {
       height: calc(100% - 20px);
     }
-    .handle-btn {
-      opacity: 1;
-    }
     .file-label {
       width: 150px;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
     }
   }
 </style>
